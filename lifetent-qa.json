@@ -1,0 +1,92 @@
+[
+  {
+    "language": "ar",
+    "width": 1440,
+    "overflow": false,
+    "tabs": 8,
+    "visiblePanels": 1
+  },
+  {
+    "language": "ar",
+    "width": 768,
+    "overflow": false,
+    "tabs": 8,
+    "visiblePanels": 1
+  },
+  {
+    "language": "ar",
+    "width": 375,
+    "overflow": false,
+    "tabs": 8,
+    "visiblePanels": 1
+  },
+  {
+    "language": "en",
+    "width": 1440,
+    "overflow": false,
+    "tabs": 8,
+    "visiblePanels": 1
+  },
+  {
+    "language": "en",
+    "width": 768,
+    "overflow": false,
+    "tabs": 8,
+    "visiblePanels": 1
+  },
+  {
+    "language": "en",
+    "width": 375,
+    "overflow": false,
+    "tabs": 8,
+    "visiblePanels": 1
+  },
+  {
+    "test": "module-switch",
+    "label": "Goals",
+    "panelCount": 1,
+    "selected": "Goals"
+  },
+  {
+    "test": "module-switch",
+    "label": "Tasks",
+    "panelCount": 1,
+    "selected": "Tasks"
+  },
+  {
+    "test": "module-switch",
+    "label": "Calendar",
+    "panelCount": 1,
+    "selected": "Calendar"
+  },
+  {
+    "test": "module-switch",
+    "label": "Finances",
+    "panelCount": 1,
+    "selected": "Finances"
+  },
+  {
+    "test": "module-switch",
+    "label": "Knowledge",
+    "panelCount": 1,
+    "selected": "Knowledge"
+  },
+  {
+    "test": "module-switch",
+    "label": "Projects",
+    "panelCount": 1,
+    "selected": "Projects"
+  },
+  {
+    "test": "module-switch",
+    "label": "Focus",
+    "panelCount": 1,
+    "selected": "Focus"
+  },
+  {
+    "test": "module-switch",
+    "label": "Habits & mood",
+    "panelCount": 1,
+    "selected": "Habits & mood"
+  }
+]

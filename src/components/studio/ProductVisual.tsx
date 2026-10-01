@@ -1,4 +1,10 @@
-import { ArrowUpRight, Bot, Check, Layers, Target } from "lucide-react";
+import {
+  ArrowUpRight,
+  Bot,
+  CalendarDays,
+  Sparkles,
+  Target,
+} from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 /** Editorial illustrations of each product's purpose; not screenshots or live data. */
@@ -24,9 +30,13 @@ export default function ProductVisual({ kind }: { kind: "life" | "agent" }) {
           </div>
           <div className="life-tiles">
             {[
-              { icon: Target, ar: "أهداف", en: "Goals" },
-              { icon: Layers, ar: "مهام", en: "Tasks" },
-              { icon: Check, ar: "عادات", en: "Habits" },
+              { icon: Target, ar: "8 أقسام", en: "8 modules" },
+              {
+                icon: CalendarDays,
+                ar: "هجري + ميلادي",
+                en: "Hijri + Gregorian",
+              },
+              { icon: Sparkles, ar: "مساعد ذكي", en: "AI assistant" },
             ].map((item) => (
               <div key={item.en}>
                 <item.icon size={18} strokeWidth={1.5} />

@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import LifeTentShowcase from "@/components/studio/LifeTentShowcase";
 import ProductVisual from "@/components/studio/ProductVisual";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -45,19 +46,20 @@ export default function ProductsPage() {
             </p>
           </div>
         </section>
+        <LifeTentShowcase />
         <section className="studio-section">
           <div className="studio-container product-detail-list">
-            {d.home.products.items.map((p, i) => (
+            {d.home.products.items.slice(1).map((p) => (
               <article className="product-detail" key={p.name} data-reveal>
-                <ProductVisual kind={i === 0 ? "life" : "agent"} />
+                <ProductVisual kind="agent" />
                 <div>
                   <p className="studio-eyebrow" dir="ltr">
-                    0{i + 1} / {i === 0 ? "DIGITAL PRODUCT" : "AI AUTOMATION"}
+                    02 / AI AUTOMATION
                   </p>
                   <h2 dir="ltr">{p.name}</h2>
                   <p>{p.body}</p>
                   <ul className="product-feature-list">
-                    {features[i].map((f) => (
+                    {features[1].map((f) => (
                       <li key={f}>{f}</li>
                     ))}
                   </ul>

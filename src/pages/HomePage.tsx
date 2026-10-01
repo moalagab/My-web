@@ -247,6 +247,17 @@ export default function HomePage() {
                     </a>
                   </div>
                   <p>{p.body}</p>
+                  {i === 0 && (
+                    <Link
+                      className="studio-text-link lt-home-link"
+                      to={`${prefix}/products#lifetent`}
+                    >
+                      {ar
+                        ? "استكشف نظام LifeTent"
+                        : "Explore the LifeTent system"}
+                      <ArrowUpRight size={17} className={arrow} />
+                    </Link>
+                  )}
                 </article>
               ))}
             </div>
