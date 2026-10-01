@@ -39,4 +39,10 @@
   <url><loc>https://moalagab.art/en/products</loc><priority>0.6</priority></url>
   <url><loc>https://moalagab.art/privacy</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/privacy"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/privacy"/><priority>0.3</priority></url>
   <url><loc>https://moalagab.art/en/privacy</loc><priority>0.2</priority></url>
+  <url><loc>https://moalagab.art/work/waselny</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/work/waselny"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/work/waselny"/><priority>0.6</priority></url>
+  <url><loc>https://moalagab.art/en/work/waselny</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/work/waselny"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/work/waselny"/><priority>0.6</priority></url>
+  <url><loc>https://moalagab.art/work/smat-brand</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/work/smat-brand"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/work/smat-brand"/><priority>0.6</priority></url>
+  <url><loc>https://moalagab.art/en/work/smat-brand</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/work/smat-brand"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/work/smat-brand"/><priority>0.6</priority></url>
+  <url><loc>https://moalagab.art/work/majlan-brand</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/work/majlan-brand"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/work/majlan-brand"/><priority>0.6</priority></url>
+  <url><loc>https://moalagab.art/en/work/majlan-brand</loc><xhtml:link rel="alternate" hreflang="ar" href="https://moalagab.art/work/majlan-brand"/><xhtml:link rel="alternate" hreflang="en" href="https://moalagab.art/en/work/majlan-brand"/><priority>0.6</priority></url>
 </urlset>

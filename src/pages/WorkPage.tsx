@@ -4,31 +4,36 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
-import { Eyebrow } from "@/components/system/Eyebrow";
-import { Pill } from "@/components/system/Pill";
-import { Section, SectionInner } from "@/components/system/Section";
-import { Button } from "@/components/ui/button";
+import WorkCollection from "@/components/studio/WorkCollection";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects, type ServiceLine } from "@/content/projects";
+import { orderedProjects, selectedIdentityProjects } from "@/content/projects";
 
-type Filter = "all" | ServiceLine;
-
-const WorkPage = () => {
-  const { lang, dictionary, isRtl } = useLanguage();
+type Filter = "selected" | "all" | "identities" | "profiles" | "marks";
+export default function WorkPage() {
+  const { lang, dictionary } = useLanguage();
+  const ar = lang === "ar";
   const copy = dictionary.workPage;
-  const prefix = lang === "en" ? "/en" : "";
-  const arrowClass = isRtl ? "-scale-x-100" : "";
-  const [filter, setFilter] = useState<Filter>("all");
-
-  const availableLines = (
-    ["brand", "digital", "ai", "experiential"] as ServiceLine[]
-  ).filter((line) => projects.some((project) => project.serviceLine === line));
-  const filters: Filter[] = ["all", ...availableLines];
+  const prefix = ar ? "" : "/en";
+  const [filter, setFilter] = useState<Filter>("selected");
+  const filters: { id: Filter; ar: string; en: string }[] = [
+    { id: "selected", ar: "مختارات الهويات", en: "Selected identities" },
+    { id: "all", ar: "كل الأعمال", en: "All work" },
+    { id: "identities", ar: "أنظمة الهوية", en: "Identity systems" },
+    { id: "profiles", ar: "البروفايلات", en: "Company profiles" },
+    { id: "marks", ar: "الشعارات", en: "Logofolio" },
+  ];
   const visible =
-    filter === "all"
-      ? projects
-      : projects.filter((project) => project.serviceLine === filter);
-
+    filter === "selected"
+      ? selectedIdentityProjects
+      : orderedProjects.filter(
+          (p) =>
+            filter === "all" ||
+            (filter === "profiles"
+              ? !!p.pdfUrl
+              : filter === "marks"
+                ? p.slug.startsWith("logofolio")
+                : !p.pdfUrl && !p.slug.startsWith("logofolio")),
+        );
   return (
     <>
       <Helmet>
@@ -43,116 +48,97 @@ const WorkPage = () => {
         />
       </Helmet>
       <Navigation />
-      <main className="pt-20 work-page">
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6">
-            <Eyebrow className="text-primary-foreground/70">
-              {copy.eyebrow}
-            </Eyebrow>
-            <h1 className="mt-6 max-w-4xl text-balance font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              {copy.title}
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/80">
-              {copy.body}
+      <main className="pt-20 work-page" id="main-content">
+        <section className="portfolio-intro">
+          <div className="studio-container">
+            <p className="studio-eyebrow">
+              SELECTED WORK / THE IDENTITY COLLECTION
             </p>
-          </div>
-        </section>
-
-        <section className="border-b border-border bg-background py-6">
-          <div className="container max-w-content px-6">
-            <h2 className="sr-only">{copy.filtersLabel}</h2>
-            <div className="flex flex-wrap items-center gap-2">
-              <span
-                role="status"
-                className="me-4 text-xs text-muted-foreground"
-              >
-                {visible.length} {lang === "ar" ? "مشاريع" : "projects"}
-              </span>
-              {filters.map((item) => {
-                const active = filter === item;
-                return (
-                  <button
-                    key={item}
-                    type="button"
-                    aria-pressed={active}
-                    onClick={() => setFilter(item)}
-                    className={`eyebrow min-h-11 rounded-full border px-4 text-xs transition-colors ${
-                      active
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-secondary text-secondary-foreground hover:border-accent"
-                    }`}
-                  >
-                    {copy.filters[item]}
-                  </button>
-                );
-              })}
+            <div className="portfolio-intro-grid">
+              <h1>
+                {ar ? (
+                  <>
+                    هويات تُرى.
+                    <br />
+                    <span>وتُتذكّر.</span>
+                  </>
+                ) : (
+                  <>
+                    Seen.
+                    <br />
+                    <span>Remembered.</span>
+                  </>
+                )}
+              </h1>
+              <div>
+                <p>
+                  {ar
+                    ? "من الفكرة إلى الشعار، ومن الشعار إلى كل نقطة تواصل. مجموعة منتقاة تُظهر كيف تتحول العلامة إلى نظام بصري متماسك."
+                    : "From idea to mark, from mark to every touchpoint. A curated collection showing how brands become coherent visual systems."}
+                </p>
+                <a
+                  href="https://www.behance.net/ma_alagab"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="studio-text-link"
+                >
+                  {ar ? "المعرض على Behance" : "Portfolio on Behance"}
+                  <ArrowUpRight size={18} />
+                </a>
+              </div>
             </div>
           </div>
         </section>
-
-        <Section className="bg-background">
-          <SectionInner>
-            {visible.length === 0 ? (
-              <p className="text-muted-foreground">{copy.empty}</p>
-            ) : (
-              <div data-reveal-stagger className="grid work-editorial-grid">
-                {visible.map((project) => (
-                  <Link
-                    key={project.slug}
-                    to={`${prefix}/work/${project.slug}`}
-                    className="group block"
-                  >
-                    <div className="work-image overflow-hidden border border-border bg-secondary">
-                      <img
-                        src={project.cover}
-                        alt={
-                          lang === "ar" ? project.title_ar : project.title_en
-                        }
-                        loading="lazy"
-                        width={800}
-                        height={1000}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                      />
-                    </div>
-                    <div className="mt-4 flex items-start justify-between gap-4">
-                      <div>
-                        <Pill>{copy.filters[project.serviceLine]}</Pill>
-                        <h3 className="mt-3 font-display text-xl font-bold">
-                          {lang === "ar" ? project.title_ar : project.title_en}
-                        </h3>
-                      </div>
-                      <ArrowUpRight
-                        className={`mt-1 h-5 w-5 shrink-0 text-accent ${arrowClass}`}
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </SectionInner>
-        </Section>
-
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6 text-center">
-            <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-bold md:text-5xl">
-              {copy.ctaTitle}
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/75">
-              {copy.ctaBody}
-            </p>
-            <Button asChild size="lg" variant="secondary" className="mt-8">
-              <Link to={`${prefix}/start`}>
+        <section className="portfolio-filter-section">
+          <div className="studio-container">
+            <div
+              className="portfolio-filters"
+              role="group"
+              aria-label={ar ? "تصفية الأعمال" : "Filter work"}
+            >
+              {filters.map((f) => (
+                <button
+                  type="button"
+                  key={f.id}
+                  aria-pressed={filter === f.id}
+                  onClick={() => setFilter(f.id)}
+                >
+                  {ar ? f.ar : f.en}
+                </button>
+              ))}
+              <span role="status" aria-live="polite">
+                {String(visible.length).padStart(2, "0")}{" "}
+                {ar ? "مشاريع" : "projects"}
+              </span>
+            </div>
+          </div>
+        </section>
+        <section
+          className="studio-section portfolio-gallery"
+          aria-label={ar ? "معرض الأعمال" : "Work gallery"}
+        >
+          <div className="studio-container">
+            <WorkCollection items={visible} />
+          </div>
+        </section>
+        <section className="studio-cta">
+          <div className="studio-container">
+            <p className="studio-eyebrow">YOUR BRAND / NEXT CHAPTER</p>
+            <h2>{copy.ctaTitle}</h2>
+            <div>
+              <p>{copy.ctaBody}</p>
+              <Link
+                className="studio-button studio-button-light"
+                to={`${prefix}/start?service=brand`}
+              >
                 {copy.ctaButton}
-                <ArrowUpRight className={arrowClass} />
+                <ArrowUpRight size={18} />
               </Link>
-            </Button>
+            </div>
           </div>
         </section>
       </main>
       <Footer />
     </>
   );
-};
-
-export default WorkPage;
+}

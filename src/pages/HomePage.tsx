@@ -19,7 +19,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects } from "@/content/projects";
+import { selectedIdentityProjects } from "@/content/projects";
+import WorkCollection from "@/components/studio/WorkCollection";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
 
@@ -31,7 +32,7 @@ export default function HomePage() {
   const title = ar
     ? ["فكرة واضحة.", "علامة مؤثرة.", "نظام يعمل."]
     : ["Clear thinking.", "Distinct brands.", "Working systems."];
-  const selected = projects.filter((p) => p.featured).slice(0, 4);
+  const selected = selectedIdentityProjects.slice(0, 6);
   const icons = [Palette, PanelsTopLeft, Bot, Boxes];
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
@@ -127,44 +128,7 @@ export default function HomePage() {
                 <ArrowUpRight className={arrow} size={20} />
               </Link>
             </div>
-            <div className="featured-grid">
-              {selected.map((p, i) => (
-                <Link
-                  to={`${prefix}/work/${p.slug}`}
-                  key={p.slug}
-                  className="featured-project"
-                  data-reveal
-                >
-                  <div className="featured-image">
-                    <img
-                      src={p.cover}
-                      alt={ar ? p.title_ar : p.title_en}
-                      loading="lazy"
-                      width={1000}
-                      height={800}
-                    />
-                    <span className="project-index" dir="ltr">
-                      0{i + 1} /
-                    </span>
-                    <span className="project-open">
-                      <ArrowUpRight className={arrow} size={24} />
-                    </span>
-                  </div>
-                  <div className="project-caption">
-                    <div>
-                      <span className="studio-eyebrow">
-                        {dictionary.workPage.filters[p.serviceLine]}
-                      </span>
-                      <h3>{ar ? p.title_ar : p.title_en}</h3>
-                    </div>
-                    <span>
-                      {ar ? "عرض المشروع" : "VIEW PROJECT"}
-                      <ArrowUpRight className={arrow} size={15} />
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <WorkCollection items={selected} />
           </div>
         </section>
         <section className="studio-section studio-services" id="services">
