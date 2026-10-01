@@ -1,0 +1,78 @@
+{
+  "responsive": [
+    {
+      "language": "ar",
+      "width": 1440,
+      "dir": "rtl",
+      "h1": 1,
+      "hasImpact": "1,100+",
+      "overflow": false,
+      "principles": 5,
+      "timeline": 7
+    },
+    {
+      "language": "ar",
+      "width": 768,
+      "dir": "rtl",
+      "h1": 1,
+      "hasImpact": "1,100+",
+      "overflow": false,
+      "principles": 5,
+      "timeline": 7
+    },
+    {
+      "language": "ar",
+      "width": 375,
+      "dir": "rtl",
+      "h1": 1,
+      "hasImpact": "1,100+",
+      "overflow": false,
+      "principles": 5,
+      "timeline": 7
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "dir": "ltr",
+      "h1": 1,
+      "hasImpact": "1,100+",
+      "overflow": false,
+      "principles": 5,
+      "timeline": 7
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "dir": "ltr",
+      "h1": 1,
+      "hasImpact": "1,100+",
+      "overflow": false,
+      "principles": 5,
+      "timeline": 7
+    },
+    {
+      "language": "en",
+      "width": 375,
+      "dir": "ltr",
+      "h1": 1,
+      "hasImpact": "1,100+",
+      "overflow": false,
+      "principles": 5,
+      "timeline": 7
+    }
+  ],
+  "anchors": [
+    {
+      "hash": "#principles",
+      "top": 109.8515625
+    },
+    {
+      "hash": "#timeline",
+      "top": 109.8203125
+    },
+    {
+      "hash": "#story",
+      "top": 109.7890625
+    }
+  ]
+}

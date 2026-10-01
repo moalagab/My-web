@@ -652,69 +652,99 @@
     "updated": "Last updated: September 2026"
   },
   "aboutPage": {
-    "metaTitle": "About Mohammed Alagab — Brand Designer & AI Product Builder",
-    "metaDescription": "Mohammed Alagab: Brand Designer & AI Product Builder in Riyadh. 12+ years in brand identity, art direction, brand activation, and exhibitions across Saudi Arabia, Oman and Sudan.",
+    "metaTitle": "About Mohammed Alagab — Design × Operations × Applied AI",
+    "metaDescription": "From building identities to building systems: Mohammed Alagab’s path through design, operations and applied AI. Over 12 years across Sudan, Oman and Saudi Arabia.",
     "eyebrow": "ABOUT / MO",
     "name": "Mohammed Alagab",
-    "descriptor": "Brand Designer & AI Product Builder",
+    "descriptor": "Design × Operations × Applied AI",
     "portraitAlt": "Mohammed Alagab",
     "storyEyebrow": "STORY",
     "story": [
-      "Over 12 years across Saudi Arabia, Oman and Sudan in brand identity, art direction, brand activation, and exhibitions. During that time I built more than 40 identity systems for organisations across sectors.",
-      "Then I shifted gradually toward building digital products: websites and web apps that actually work, then AI agents and automation systems tied to real business problems and real data.",
-      "The reason is simple: most projects do not stall at the idea — they stall in the distance between idea and execution. A good identity alone is not enough if no one builds and operates it.",
-      "So I work both sides: I design what customers see, and I build the system that makes the work happen behind it."
+      "I began where people see the work: the brand, the image and the experience.",
+      "Over more than 12 years across Sudan, Oman and Saudi Arabia, I worked in branding, art direction, exhibitions and brand activation, then gradually moved into operations and project delivery.",
+      "I built more than 40 identity systems for organisations across sectors, working with teams, suppliers and decision-makers on projects spanning identity and advertising through to exhibitions and on-site experiences."
     ],
     "principlesEyebrow": "PRINCIPLES",
     "principlesTitle": "Principles I work by",
     "principles": [
       {
-        "title": "Proof before claim",
-        "body": "Show what was built, and distinguish what we know from what still needs testing."
+        "title": "Evidence before claims",
+        "body": "I do not build my reputation on what I say I can do.\nI show what I have built, tested and achieved, and clearly distinguish what has worked in practice from what is still experimental."
       },
       {
-        "title": "A system, not a separate piece",
-        "body": "Identity, product, and automation are parts of one system, not separate files."
+        "title": "The system matters more than the piece",
+        "body": "Identity, product, workflow and AI are connected parts.\nTheir value emerges when they work together as one system."
       },
       {
-        "title": "Sensitive decisions stay human",
-        "body": "The system handles repetition; sensitive decisions stay with people."
+        "title": "Automation for repetition. People for judgment.",
+        "body": "I let machines handle what repeats and can be controlled.\nDecisions that need context and human judgment stay with people."
       },
       {
-        "title": "Scope written before we start",
-        "body": "A written scope and timeline before any payment, so both sides know what they get."
+        "title": "Clarity before execution",
+        "body": "Before any project begins, these questions must have clear answers:",
+        "questions": [
+          "What is the problem?",
+          "What is the scope?",
+          "What will we build?",
+          "How will we know we are done?"
+        ]
+      },
+      {
+        "title": "Build before theorising",
+        "body": "The best way to understand a system is to build and run it.\nI prefer a working prototype, a real workflow or a product you can try over ten pages of theory."
       }
     ],
     "timelineEyebrow": "TIMELINE",
     "timelineTitle": "The path",
     "timeline": [
       {
-        "year": "2014",
-        "role": "Founder",
+        "year": "2013",
+        "title": "The beginning — Sudan",
+        "role": "Graphic Designer",
         "place": "Sudan",
-        "title": "EVE Agency",
-        "body": "A design and brand agency founded in Sudan."
+        "body": "I started in advertising and design, learning to turn ideas into real outputs while working within time, budget and client requirements."
+      },
+      {
+        "year": "2013–2015",
+        "title": "Oman",
+        "role": "Senior Graphic Designer",
+        "place": "Oman",
+        "body": "Working in the Omani market, I began treating a brand as a system that extends beyond its logo into campaigns, marketing materials and different touchpoints."
+      },
+      {
+        "year": "2016–2021",
+        "title": "Saudi Arabia",
+        "role": "Art Director",
+        "place": "Saudi Arabia",
+        "body": "I moved from executing design to leading creative work.\nBrand strategy, visual identity, campaigns, production, and managing teams and suppliers from idea to delivery."
       },
       {
         "year": "2021–2024",
-        "role": "Creative Art Director",
+        "title": "Al Khafji Joint Operations — KJO / Aramco",
+        "role": "Senior Graphic Designer",
         "place": "Khafji",
-        "title": "Aramco Gulf Operations",
-        "body": "Art direction, brand activation, and exhibitions."
+        "body": "The work expanded into a wider operational environment.\nProjects, exhibitions, wayfinding, stakeholders, suppliers and deadlines: the quality of the outcome depended on how well the system worked, as well as the design itself."
       },
       {
-        "year": "—",
-        "role": "CEO & Creative Director",
-        "place": "—",
+        "year": "2024–2025",
         "title": "First Value",
-        "body": "Led brand strategy and creative direction."
+        "role": "CEO & Creative Director",
+        "place": "",
+        "body": "I brought together brand strategy, creative leadership and managing work from idea to execution.\nThe focus moved toward building a clear brand direction and connecting it to the business and its outputs."
       },
       {
-        "year": "2025–",
-        "role": "Independent practice",
-        "place": "Riyadh",
-        "title": "Independent practice + LifeTent",
-        "body": "Independent work in identity and digital products, and building LifeTent."
+        "year": "2025–2026",
+        "title": "Independent Practice",
+        "role": "Operations · Digital Products · AI Automation",
+        "place": "",
+        "body": "I shifted more clearly from producing outputs to building the systems that produce them.\nOperations, projects, workflows, digital products and automation tied to real business problems."
+      },
+      {
+        "year": "2026—",
+        "title": "Operational Clarity",
+        "role": "Operations × Applied AI × Product Building",
+        "place": "",
+        "body": "Today, I work at the intersection of operations, AI and product building.\nI build workflows, AI agents and digital products, turning real business problems into systems that can be operated and measured.\nCurrent projects include Smart Field and LifeTent: the first demonstrates automation within a real sales process; the second is my experience of building an Arabic product from scratch."
       }
     ],
     "toolsEyebrow": "TOOLS",
@@ -727,6 +757,61 @@
       "Supabase",
       "Lovable",
       "React"
+    ],
+    "heroStatement": "I design what people see, and build the system that makes the work happen behind it.",
+    "storyTitle": "From building identities to building systems",
+    "storyObservation": "Over time, I started to notice a recurring pattern:",
+    "storyQuote": [
+      "The problem is rarely the idea.",
+      "It is the system that turns the idea into a result."
+    ],
+    "storyShift": "So my question changed.",
+    "oldQuestionLabel": "I no longer asked only",
+    "oldQuestion": "What should this look like?",
+    "newQuestionLabel": "I started asking",
+    "newQuestions": [
+      "How will it work?",
+      "Who will run it?",
+      "What happens after it leaves my hands?"
+    ],
+    "storyBridge": [
+      "That shift led me further into operations, digital products, automation and AI.",
+      "I started building working websites and products, then workflows, CRM systems and AI agents connected to real data and business problems."
+    ],
+    "impactLabel": "Sales opportunities processed by the automation system",
+    "impactTitle": "When automation becomes part of the work.",
+    "impactBody": "In one project, I built a sales automation system that processed more than 1,100 opportunities using CRM, AI agents and n8n, turning automation from a technical idea into a working part of the sales process.",
+    "storyToday": [
+      "Today, I see design, operations and AI as connected disciplines.",
+      "I design what people see, and build the system that makes the work happen behind it."
+    ],
+    "storyFlowLabel": "This is where I work from today",
+    "storyFlow": [
+      "Vision",
+      "System",
+      "Execution"
+    ],
+    "methodLabel": "My approach is simple",
+    "methodSteps": [
+      "Understand the problem",
+      "Design the system",
+      "Build it",
+      "Test it"
+    ],
+    "productsLink": "Explore the products",
+    "closingEyebrow": "CLOSING",
+    "closingTitle": "Ideas alone\nare not enough.",
+    "closingBody": [
+      "An idea needs a system that makes it work.",
+      "That system needs someone who understands the bigger picture and the details beneath it.",
+      "This is where I work."
+    ],
+    "closingSignature": "Design × Operations × Applied AI",
+    "closingLine": "From vision to systems that work.",
+    "sectionLabels": [
+      "Story",
+      "Principles",
+      "Timeline"
     ]
   },
   "ui": {

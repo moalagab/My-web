@@ -1,167 +1,282 @@
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
-import Footer from '@/components/Footer';
-import Navigation from '@/components/Navigation';
-import { Eyebrow } from '@/components/system/Eyebrow';
-import { Pill } from '@/components/system/Pill';
-import { Section, SectionInner } from '@/components/system/Section';
-import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/contexts/LanguageContext';
-import portraitImage from '@/assets/portrait-mo.webp';
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
+import portraitImage from "@/assets/portrait-mo.webp";
 
-const AboutPage = () => {
+const paragraphs = (text: string) =>
+  text.split("\n").map((p, i) => <p key={i}>{p}</p>);
+
+export default function AboutPage() {
   const { lang, dictionary, isRtl } = useLanguage();
-  const copy = dictionary.aboutPage;
-  const prefix = lang === 'en' ? '/en' : '';
-  const arrowClass = isRtl ? '-scale-x-100' : '';
-
+  const c = dictionary.aboutPage;
+  const ar = lang === "ar";
+  const prefix = ar ? "" : "/en";
+  const arrow = isRtl ? "-scale-x-100" : "";
+  const anchors = ["story", "principles", "timeline"];
   return (
     <>
       <Helmet>
-        <title>{copy.metaTitle}</title>
-        <meta name="description" content={copy.metaDescription} />
+        <title>{c.metaTitle}</title>
+        <meta name="description" content={c.metaDescription} />
         <link rel="canonical" href={`https://moalagab.art${prefix}/about`} />
         <link rel="alternate" hrefLang="ar" href="https://moalagab.art/about" />
-        <link rel="alternate" hrefLang="en" href="https://moalagab.art/en/about" />
+        <link
+          rel="alternate"
+          hrefLang="en"
+          href="https://moalagab.art/en/about"
+        />
       </Helmet>
       <Navigation />
-      <main className="pt-20">
-        {/* Hero — portrait + H1 */}
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <SectionInner className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <div>
-              <Eyebrow className="text-primary-foreground/70">{copy.eyebrow}</Eyebrow>
-              <h1 className="mt-6 font-display text-4xl font-bold leading-[1.1] md:text-6xl">
-                {copy.name}
-                <span className="mt-3 block font-display text-xl font-normal text-primary-foreground/75 md:text-2xl">
-                  {copy.descriptor}
-                </span>
-              </h1>
+      <main className="pt-20 about-page" id="main-content">
+        <section className="about-hero">
+          <div className="studio-container about-hero-grid">
+            <div className="about-hero-copy">
+              <p className="studio-eyebrow">{c.eyebrow}</p>
+              <h1>{c.name}</h1>
+              <p className="about-descriptor" dir="ltr">
+                {c.descriptor}
+              </p>
+              <p className="about-hero-statement">{c.heroStatement}</p>
+              <nav
+                className="about-section-nav"
+                aria-label={ar ? "أقسام صفحة عن Mo" : "About page sections"}
+              >
+                {anchors.map((anchor, i) => (
+                  <Link key={anchor} to={`${prefix}/about#${anchor}`}>
+                    {c.sectionLabels[i]}
+                    <ArrowUpRight size={16} className={arrow} />
+                  </Link>
+                ))}
+              </nav>
             </div>
-            <div className="aspect-[4/5] w-full max-w-sm overflow-hidden border border-primary-foreground/20 bg-primary-foreground/5">
+            <figure className="about-portrait">
               <img
                 src={portraitImage}
-                alt={copy.portraitAlt}
+                alt={c.portraitAlt}
                 width={800}
                 height={1000}
-                className="h-full w-full object-cover"
                 loading="eager"
               />
-            </div>
-          </SectionInner>
+              <figcaption dir="ltr">
+                MO ALAGAB / FROM VISION TO SYSTEMS
+              </figcaption>
+            </figure>
+          </div>
         </section>
-
-        {/* Story — 4 short paragraphs */}
-        <Section className="bg-background">
-          <SectionInner className="max-w-2xl">
-            <Eyebrow>{copy.storyEyebrow}</Eyebrow>
-            <div className="mt-8 space-y-6">
-              {copy.story.map((para, i) => (
-                <p
-                  key={i}
-                  className={
-                    i === 2
-                      ? 'border-s-2 border-accent ps-5 text-lg font-medium leading-9 text-foreground'
-                      : 'text-lg leading-9 text-muted-foreground'
-                  }
-                >
-                  {para}
-                </p>
-              ))}
+        <section
+          className="studio-section about-story"
+          id="story"
+          aria-labelledby="story-title"
+        >
+          <div className="studio-container about-editorial-grid">
+            <div className="about-section-heading">
+              <p className="studio-eyebrow">01 / {c.storyEyebrow}</p>
+              <h2 id="story-title">{c.storyTitle}</h2>
+              <div className="about-experience">
+                <span>
+                  <b dir="ltr">12+</b>
+                  {ar ? "سنة عبر ثلاثة أسواق" : "Years across three markets"}
+                </span>
+                <span>
+                  <b dir="ltr">40+</b>
+                  {ar ? "نظام هوية" : "Identity systems"}
+                </span>
+              </div>
             </div>
-          </SectionInner>
-        </Section>
-
-        {/* Principles — 4 cards */}
-        <Section className="border-t border-border bg-card">
-          <SectionInner>
-            <Eyebrow>{copy.principlesEyebrow}</Eyebrow>
-            <h2 className="mt-5 font-display text-3xl font-bold md:text-4xl">{copy.principlesTitle}</h2>
-            <div data-reveal-stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {copy.principles.map((p, i) => (
-                <article key={i} className="flex flex-col border border-border bg-background p-6">
-                  <span className="font-mono text-xs text-accent">{`0${i + 1}`}</span>
-                  <h3 className="mt-3 font-display text-lg font-bold leading-snug">{p.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{p.body}</p>
-                </article>
-              ))}
-            </div>
-          </SectionInner>
-        </Section>
-
-        {/* Timeline — vertical, mono years */}
-        <Section className="border-t border-border bg-background">
-          <SectionInner>
-            <Eyebrow>{copy.timelineEyebrow}</Eyebrow>
-            <h2 className="mt-5 font-display text-3xl font-bold md:text-4xl">{copy.timelineTitle}</h2>
-            <ol className="mt-10 border-s border-border ps-8">
-              {copy.timeline.map((item, i) => (
-                <li key={i} className="relative pb-10 last:pb-0">
-                  <span
-                    className="absolute -start-[2.1rem] top-1 h-3 w-3 rounded-full border-2 border-accent bg-background"
-                    aria-hidden="true"
-                  />
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <span className="font-mono text-sm text-accent" dir="ltr">
-                      {item.year}
-                    </span>
-                    <h3 className="font-display text-lg font-bold" dir="ltr">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    <span dir="ltr">{item.role}</span>
-                    {item.place !== '—' && item.place !== '—' && (
-                      <>
-                        <span className="mx-2 text-border">·</span>
-                        {item.place}
-                      </>
+            <div className="about-story-copy">
+              <div className="about-paragraphs">
+                {c.story.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <p className="about-observation">{c.storyObservation}</p>
+              <blockquote className="about-turning-point">
+                {c.storyQuote.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </blockquote>
+              <p className="about-shift">{c.storyShift}</p>
+              <div className="about-questions">
+                <div>
+                  <span>{c.oldQuestionLabel}</span>
+                  <p>{c.oldQuestion}</p>
+                </div>
+                <div>
+                  <span>{c.newQuestionLabel}</span>
+                  <ul>
+                    {c.newQuestions.map((q) => (
+                      <li key={q}>{q}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="about-paragraphs">
+                {c.storyBridge.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <aside className="about-impact" aria-labelledby="impact-title">
+                <div className="about-impact-number">
+                  <strong dir="ltr">1,100+</strong>
+                  <span>{c.impactLabel}</span>
+                </div>
+                <div>
+                  <h3 id="impact-title">{c.impactTitle}</h3>
+                  <p>{c.impactBody}</p>
+                  <span className="about-impact-stack" dir="ltr">
+                    CRM / AI AGENTS / n8n
+                  </span>
+                </div>
+              </aside>
+              <div className="about-paragraphs about-today">
+                {c.storyToday.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <p className="about-flow-label">{c.storyFlowLabel}</p>
+              <ol className="about-flow">
+                {c.storyFlow.map((step, i) => (
+                  <li key={step}>
+                    <span>{step}</span>
+                    {i < c.storyFlow.length - 1 && (
+                      <ArrowRight
+                        size={19}
+                        className={arrow}
+                        aria-hidden="true"
+                      />
                     )}
-                  </p>
-                  <p className="mt-2 max-w-xl leading-7 text-muted-foreground">{item.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+        <section
+          className="studio-section about-principles"
+          id="principles"
+          aria-labelledby="principles-title"
+        >
+          <div className="studio-container about-editorial-grid">
+            <div className="about-section-heading">
+              <p className="studio-eyebrow">02 / {c.principlesEyebrow}</p>
+              <h2 id="principles-title">{c.principlesTitle}</h2>
+            </div>
+            <ol className="about-principles-list">
+              {c.principles.map((p, i) => (
+                <li key={p.title}>
+                  <span className="about-principle-number" dir="ltr">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3>{p.title}</h3>
+                    <div className="about-principle-body">
+                      {paragraphs(p.body)}
+                      {"questions" in p && p.questions && (
+                        <ul>
+                          {p.questions.map((q) => (
+                            <li key={q}>{q}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
                 </li>
               ))}
             </ol>
-          </SectionInner>
-        </Section>
-
-        {/* Tools strip — mono pills */}
-        <Section className="border-t border-border bg-card">
-          <SectionInner>
-            <Eyebrow>{copy.toolsEyebrow}</Eyebrow>
-            <h2 className="mt-5 font-display text-3xl font-bold md:text-4xl">{copy.toolsTitle}</h2>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {copy.tools.map((tool) => (
-                <Pill key={tool} className="font-mono">
-                  {tool}
-                </Pill>
-              ))}
+          </div>
+        </section>
+        <section
+          className="studio-section about-timeline"
+          id="timeline"
+          aria-labelledby="timeline-title"
+        >
+          <div className="studio-container about-editorial-grid">
+            <div className="about-section-heading">
+              <p className="studio-eyebrow">03 / {c.timelineEyebrow}</p>
+              <h2 id="timeline-title">{c.timelineTitle}</h2>
+              <p className="about-timeline-caption" dir="ltr">
+                DESIGN → OPERATIONS → APPLIED AI
+              </p>
             </div>
-          </SectionInner>
-        </Section>
-
-        {/* Final CTA */}
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <SectionInner className="text-center">
-            <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-bold md:text-5xl">
-              {dictionary.home.finalCta.title}
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/75">
-              {dictionary.home.finalCta.body}
-            </p>
-            <Button asChild size="lg" variant="secondary" className="mt-8">
-              <Link to={`${prefix}/start`}>
-                {dictionary.home.finalCta.button}
-                <ArrowUpRight className={arrowClass} />
-              </Link>
-            </Button>
-          </SectionInner>
+            <div>
+              <ol className="about-timeline-list">
+                {c.timeline.map((item, i) => (
+                  <li
+                    key={`${item.year}-${item.title}`}
+                    className={
+                      i === c.timeline.length - 1
+                        ? "about-timeline-current"
+                        : ""
+                    }
+                  >
+                    <div className="about-timeline-period">
+                      <span dir="ltr">{item.year}</span>
+                      <span className="about-timeline-dot" aria-hidden="true" />
+                    </div>
+                    <div className="about-timeline-entry">
+                      <h3 dir="auto">{item.title}</h3>
+                      <p className="about-timeline-role" dir="ltr">
+                        {item.role}
+                      </p>
+                      <div className="about-timeline-body">
+                        {paragraphs(item.body)}
+                      </div>
+                      {i === c.timeline.length - 1 && (
+                        <Link
+                          className="studio-text-link"
+                          to={`${prefix}/products`}
+                        >
+                          {c.productsLink}
+                          <ArrowUpRight size={17} className={arrow} />
+                        </Link>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div className="about-method">
+                <p className="studio-eyebrow">{c.methodLabel}</p>
+                <ol>
+                  {c.methodSteps.map((step, i) => (
+                    <li key={step}>
+                      <span dir="ltr">0{i + 1}</span>
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="about-closing">
+          <div className="studio-container">
+            <p className="studio-eyebrow">04 / {c.closingEyebrow}</p>
+            <div className="about-closing-grid">
+              <h2>{c.closingTitle}</h2>
+              <div className="about-closing-body">
+                {c.closingBody.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+                <Link
+                  to={`${prefix}/start`}
+                  className="studio-button studio-button-light"
+                >
+                  {dictionary.navigation.start}
+                  <ArrowUpRight size={19} className={arrow} />
+                </Link>
+              </div>
+            </div>
+            <div className="about-signature" dir="ltr">
+              <p>{c.closingSignature}</p>
+              <p>{c.closingLine}</p>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
     </>
   );
-};
-
-export default AboutPage;
+}
