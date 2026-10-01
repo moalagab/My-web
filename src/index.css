@@ -3382,3 +3382,21 @@ html[lang="en"] .cinematic-portrait img { right: auto; left: 0; transform: scale
   html[lang="en"] .cinematic-side-note { right: auto; left: 22px; }
   html[lang="ar"] .hero-profile-link { right: 22px; }
 }
+
+/* One photographic canvas across portrait and copy, without a side seam. */
+.cinematic-portrait { background: hsl(var(--primary)); }
+.cinematic-portrait img { width: 100%; object-position: center 20%; mask-image: none; }
+.cinematic-portrait::after,
+html[lang="ar"] .cinematic-portrait::after {
+  background: linear-gradient(0deg, hsl(var(--primary) / .8), transparent 35%);
+}
+@media (min-width: 901px) {
+  .cinematic-hero .hero-copy { width: 42%; }
+}
+@media (max-width: 640px) {
+  .cinematic-portrait img { object-position: 75% top; }
+  .cinematic-portrait::after,
+  html[lang="ar"] .cinematic-portrait::after {
+    background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%);
+  }
+}
