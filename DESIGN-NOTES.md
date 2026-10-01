@@ -78,3 +78,12 @@
 وُحدت زوايا الأسطح والبطاقات عند 24px، والصور عند 20px، والعناصر الداخلية وحقول النماذج عند 12px، مع الحفاظ على العناصر الدائرية. يشمل التعديل صور المشاريع وإطاراتها، تفاصيل الأعمال، المنتجات، صفحة عن Mo، ومعاينة PDF. تتمركز الصور داخل الإطارات مع الحفاظ على نسبها، ويظهر الانحناء على الصورة نفسها حتى عند اختلاف نسب الصورة والإطار.
 
 نجح بناء الإنتاج، واجتازت سبع صفحات فحص التجاوب عند 375 و1440 بكسل دون تمرير أفقي أو صور وبطاقات بحدود مربعة. حُفظت النتائج في `previews/curved-corners-qa.json`، والمعاينة في `previews/curved-corners.jpg`.
+
+
+## الهيرو السينمائي
+
+استُبدل مجسم الهيرو بصورة سينمائية معالجة من بورتريه Mo الحالي، مع استخدام المرجع المرفق للإضاءة والتكوين. الصورة على اليسار والنص الفعلي على اليمين، مع روابط بدء المشروع والأعمال وعن Mo، وزوايا منحنية. بقي خط Lama وألوان الهوية الأصلية. نسخة الجوال تعيد ترتيب الصورة والنص وتحافظ على ظهور الوجه. الصورة الأصلية محفوظة وتبقى مستخدمة في قسم التعريف.
+
+المعالجة باستخدام أداة imagegen المدمجة؛ الأصل المستهدف `portrait-mo.webp`، والنتيجة `src/assets/portrait-mo-cinematic.webp`. برومبت المعالجة: Preserve Mo’s recognizable facial identity, short curly hair, facial hair, dark skin and proportions. Left-facing profile, head and upper torso in a dark high-collar jacket, hand lowered, no glasses. Use the supplied reference only for cinematic lighting and composition. Wide editorial portrait, subject on left 55%, clean negative space on right 45%, deep navy shadows, slate blue rim light, subtle optical haze and grain; palette #27384f / #657f93 / #dae3e9. No typography, logos, watermarks or interface.
+
+نجح TypeScript وبناء الإنتاج. فُحصت العربية والإنجليزية عند 375 و768 و1440 بكسل: دون تمرير أفقي، عنوان رئيسي واحد، تحميل الصورة وروابط صحيحة. النتائج في `previews/cinematic-hero-qa.json`، والمعاينات في `previews/cinematic-hero.jpg` و`previews/cinematic-hero-mobile.jpg`.

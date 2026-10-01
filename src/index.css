@@ -3306,3 +3306,45 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   max-width: 100%;
   margin-inline: auto;
 }
+
+/* Cinematic profile hero — live typography over an identity-preserving portrait. */
+.cinematic-hero { position: relative; isolation: isolate; padding-top: 88px; background: hsl(var(--primary)); }
+.cinematic-portrait { position: absolute; inset: 100px 16px 16px; z-index: -1; overflow: hidden; border-radius: 28px; background: hsl(var(--primary)); }
+.cinematic-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; border-radius: 28px; }
+.cinematic-portrait::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 25%, hsl(var(--primary) / .18) 45%, hsl(var(--primary) / .9) 100%), linear-gradient(0deg, hsl(var(--primary) / .85), transparent 35%); }
+.cinematic-hero .hero-grid { position: relative; display: block; min-height: 660px; padding-top: 80px; padding-bottom: 120px; }
+.cinematic-hero .hero-copy { width: 45%; margin-left: auto; margin-right: 0; position: relative; }
+.hero-profile-index { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; margin-bottom: 30px; border-bottom: 1px solid hsl(var(--secondary) / .35); color: hsl(var(--secondary) / .8); font-size: 9px; letter-spacing: .14em; }
+.cinematic-hero .hero-title { font-size: clamp(46px, 5.2vw, 78px); line-height: 1.15; margin-top: 22px; }
+.cinematic-hero .hero-title-soft { color: hsl(var(--secondary) / .7); }
+.cinematic-hero .hero-description { max-width: 440px; font-size: 14px; line-height: 1.9; }
+.cinematic-side-note { position: absolute; left: 35px; top: 50%; writing-mode: vertical-rl; font-size: 8px; letter-spacing: .18em; color: hsl(var(--secondary) / .7); }
+.hero-profile-link { position: absolute; left: 28px; bottom: 44px; display: flex; align-items: end; gap: 35px; text-align: left; }
+.hero-profile-link > span:first-child { font-size: 29px; line-height: .95; letter-spacing: -.05em; font-weight: 700; }
+.hero-profile-link > span:last-child { display: flex; align-items: center; gap: 12px; font-size: 10px; padding-bottom: 3px; }
+.cinematic-hero .hero-baseline { position: relative; border-color: hsl(var(--secondary) / .25); margin-bottom: 16px; }
+@media (max-width: 900px) {
+  .cinematic-hero .hero-copy { width: 51%; }
+  .cinematic-hero .hero-title { font-size: 52px; }
+  .cinematic-hero .hero-actions { gap: 18px; flex-wrap: wrap; }
+}
+@media (max-width: 640px) {
+  .cinematic-hero { padding-top: 74px; }
+  .cinematic-portrait { inset: 84px 10px 10px; border-radius: 24px; }
+  .cinematic-portrait img { height: 520px; object-position: left top; object-fit: cover; border-radius: 24px; }
+  .cinematic-portrait::after { background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%); }
+  .cinematic-hero .hero-grid { padding-top: 340px; padding-bottom: 100px; min-height: 0; }
+  .cinematic-hero .hero-copy { width: 100%; max-width: none; }
+  .cinematic-hero .hero-title { font-size: clamp(41px, 10vw, 60px); }
+  .hero-profile-index { margin-bottom: 20px; padding-bottom: 12px; }
+  .cinematic-side-note { left: auto; right: 22px; top: 170px; }
+  .cinematic-hero .hero-description { font-size: 13px; margin-top: 20px; }
+  .hero-profile-link { bottom: 25px; left: 22px; gap: 22px; }
+  .hero-profile-link > span:first-child { font-size: 22px; }
+  .cinematic-hero .hero-baseline { margin-bottom: 10px; }
+}
+
+html[lang="en"] .cinematic-hero .hero-title { font-size: clamp(41px, 4.5vw, 65px); }
+@media (min-width: 641px) and (max-width: 900px) {
+  html[lang="en"] .cinematic-hero .hero-title { font-size: 40px; }
+}

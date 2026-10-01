@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import BrandSculpture from "@/components/studio/BrandSculpture";
+import heroPortrait from "@/assets/portrait-mo-cinematic.webp";
 import ProductVisual from "@/components/studio/ProductVisual";
 import {
   Accordion,
@@ -50,9 +50,14 @@ export default function HomePage() {
       </Helmet>
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="studio-hero" data-no-reveal>
+        <section className="studio-hero cinematic-hero" data-no-reveal>
+          <div className="cinematic-portrait" aria-hidden="true">
+            <img src={heroPortrait} alt="" fetchPriority="high" decoding="async" />
+          </div>
+          <div className="cinematic-side-note" dir="ltr" aria-hidden="true">MO ALAGAB / INDEPENDENT PRACTICE</div>
           <div className="studio-container hero-grid">
             <div className="hero-copy">
+              <p className="hero-profile-index" dir="ltr"><span>01 / PROFILE</span><span>DESIGN × SYSTEMS</span></p>
               <p className="studio-eyebrow">
                 <span className="identity-dot" />
                 {h.hero.eyebrow}
@@ -80,7 +85,10 @@ export default function HomePage() {
                 </a>
               </div>
             </div>
-            <BrandSculpture />
+            <Link to={`${prefix}/about`} className="hero-profile-link">
+              <span dir="ltr">MO<br />ALAGAB</span>
+              <span>{ar ? "تعرّف على Mo" : "ABOUT MO"}<ArrowUpRight size={18} className={arrow} /></span>
+            </Link>
           </div>
           <div className="studio-container hero-baseline">
             <span>

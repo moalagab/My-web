@@ -1,0 +1,56 @@
+[
+  {
+    "cta": "/start",
+    "h1": 1,
+    "overflow": false,
+    "path": "/",
+    "portraitLoaded": true,
+    "profile": "/about",
+    "width": 375
+  },
+  {
+    "cta": "/start",
+    "h1": 1,
+    "overflow": false,
+    "path": "/",
+    "portraitLoaded": true,
+    "profile": "/about",
+    "width": 768
+  },
+  {
+    "cta": "/start",
+    "h1": 1,
+    "overflow": false,
+    "path": "/",
+    "portraitLoaded": true,
+    "profile": "/about",
+    "width": 1440
+  },
+  {
+    "cta": "/en/start",
+    "h1": 1,
+    "overflow": false,
+    "path": "/en",
+    "portraitLoaded": true,
+    "profile": "/en/about",
+    "width": 375
+  },
+  {
+    "cta": "/en/start",
+    "h1": 1,
+    "overflow": false,
+    "path": "/en",
+    "portraitLoaded": true,
+    "profile": "/en/about",
+    "width": 768
+  },
+  {
+    "cta": "/en/start",
+    "h1": 1,
+    "overflow": false,
+    "path": "/en",
+    "portraitLoaded": true,
+    "profile": "/en/about",
+    "width": 1440
+  }
+]
