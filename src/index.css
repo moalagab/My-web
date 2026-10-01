@@ -3348,3 +3348,37 @@ html[lang="en"] .cinematic-hero .hero-title { font-size: clamp(41px, 4.5vw, 65px
 @media (min-width: 641px) and (max-width: 900px) {
   html[lang="en"] .cinematic-hero .hero-title { font-size: 40px; }
 }
+
+/* Face the copy in both languages; keep text direction native. */
+.cinematic-portrait {
+  background: radial-gradient(ellipse at 55% 42%, hsl(var(--accent)), hsl(var(--primary)) 76%);
+}
+.cinematic-portrait img {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 62%;
+  object-position: left 20%;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+html[lang="ar"] .cinematic-hero .hero-copy { margin-left: 0; margin-right: auto; }
+html[lang="ar"] .cinematic-portrait::after {
+  background: linear-gradient(90deg, hsl(var(--primary) / .85), hsl(var(--primary) / .18) 42%, transparent 65%), linear-gradient(0deg, hsl(var(--primary) / .85), transparent 35%);
+}
+html[lang="ar"] .cinematic-side-note { left: auto; right: 35px; }
+html[lang="ar"] .hero-profile-link { left: auto; right: 28px; }
+html[lang="en"] .cinematic-portrait img { right: auto; left: 0; transform: scaleX(-1); }
+@media (min-width: 641px) and (max-width: 900px) {
+  .cinematic-hero .hero-copy { width: 47%; }
+  .cinematic-hero .hero-title { font-size: 46px; }
+  html[lang="en"] .cinematic-hero .hero-title { font-size: 36px; }
+}
+@media (max-width: 640px) {
+  .cinematic-portrait img { width: 100%; mask-image: none; }
+  html[lang="ar"] .cinematic-portrait::after {
+    background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%);
+  }
+  html[lang="ar"] .cinematic-side-note { right: 22px; }
+  html[lang="en"] .cinematic-side-note { right: auto; left: 22px; }
+  html[lang="ar"] .hero-profile-link { right: 22px; }
+}
