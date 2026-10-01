@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import heroPortrait from "@/assets/portrait-mo-likeness.webp";
+import heroPortrait from "@/assets/portrait-mo-real-profile.webp";
 import ProductVisual from "@/components/studio/ProductVisual";
 import {
   Accordion,
