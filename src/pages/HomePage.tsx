@@ -50,7 +50,7 @@ export default function HomePage() {
       </Helmet>
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="studio-hero cinematic-hero" data-no-reveal>
+        <section className="studio-hero cinematic-hero hero-brand" data-no-reveal>
           <div className="cinematic-portrait" aria-hidden="true">
             <img src={heroPortrait} alt="" fetchPriority="high" decoding="async" />
           </div>

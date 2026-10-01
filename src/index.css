@@ -3400,3 +3400,31 @@ html[lang="ar"] .cinematic-portrait::after {
     background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%);
   }
 }
+
+/* Approved full-width hero in the brand palette. */
+.hero-brand .cinematic-portrait { inset: 88px 0 0; border-radius: 0; isolation: isolate; }
+.hero-brand .cinematic-portrait img { border-radius: 0; filter: grayscale(1); object-position: center 10%; }
+.hero-brand .cinematic-portrait::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(115deg, hsl(var(--primary)), hsl(var(--accent)) 58%, hsl(var(--muted)));
+  mix-blend-mode: color;
+}
+.hero-brand .cinematic-portrait::after,
+html[lang="ar"] .hero-brand .cinematic-portrait::after {
+  z-index: 2; background: linear-gradient(0deg, hsl(var(--primary) / .65), transparent 40%);
+}
+.hero-brand .hero-baseline { margin-bottom: 0; }
+@media (max-width: 640px) {
+  .hero-brand .cinematic-portrait { inset: 74px 0 0; }
+  .hero-brand .cinematic-portrait img { height: 530px; object-position: 75% top; }
+  .hero-brand .cinematic-portrait::after,
+  html[lang="ar"] .hero-brand .cinematic-portrait::after {
+    background: linear-gradient(0deg, hsl(var(--primary)) 30%, hsl(var(--primary) / .95) 44%, transparent 72%);
+  }
+}
+
+/* Work gallery images sit directly on the page, without backing panels. */
+.work-page .portfolio-stage,
+.work-page .portfolio-main-image,
+.work-page .portfolio-detail-image { background: transparent; box-shadow: none; }
+.work-page .portfolio-stage { padding: 0; }
