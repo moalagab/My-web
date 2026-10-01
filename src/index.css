@@ -3333,7 +3333,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .cinematic-portrait { inset: 84px 10px 10px; border-radius: 24px; }
   .cinematic-portrait img { height: 520px; object-position: left top; object-fit: cover; border-radius: 24px; }
   .cinematic-portrait::after { background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%); }
-  .cinematic-hero .hero-grid { padding-top: 340px; padding-bottom: 100px; min-height: 0; }
+  .cinematic-hero .hero-grid { padding-top: 380px; padding-bottom: 100px; min-height: 0; }
   .cinematic-hero .hero-copy { width: 100%; max-width: none; }
   .cinematic-hero .hero-title { font-size: clamp(41px, 10vw, 60px); }
   .hero-profile-index { margin-bottom: 20px; padding-bottom: 12px; }
@@ -3357,7 +3357,7 @@ html[lang="en"] .cinematic-hero .hero-title { font-size: clamp(41px, 4.5vw, 65px
   position: absolute;
   inset-block: 0;
   right: 0;
-  width: 62%;
+  width: 54%;
   object-position: left 20%;
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
