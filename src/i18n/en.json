@@ -1,0 +1,765 @@
+{
+  "brand": {
+    "name": "Mo Alagab",
+    "descriptor": "Brand Designer & AI Product Builder"
+  },
+  "navigation": {
+    "label": "Primary navigation",
+    "home": "Home",
+    "work": "Work",
+    "services": "Services",
+    "products": "Products",
+    "about": "About Mo",
+    "start": "Start a project",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skip": "Skip to content",
+    "language": "Language",
+    "arabic": "AR",
+    "english": "EN",
+    "scrollHint": "Scroll",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "statement": "From idea to a working system.",
+    "contact": "Contact",
+    "location": "Riyadh, Saudi Arabia",
+    "rights": "© 2026 Mohammed Alagab"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "BRAND DESIGNER & AI PRODUCT BUILDER",
+      "title": "From idea to a working system.",
+      "body": "I design the brands and experiences customers see, and build the products and AI systems that make the work happen behind them.",
+      "primary": "Start a project",
+      "secondary": "See the work",
+      "pills": [
+        "Brand Identity",
+        "Digital Products",
+        "AI Automation",
+        "Experiential Design"
+      ]
+    },
+    "proof": {
+      "label": "Experience across different markets",
+      "facts": [
+        {
+          "number": "12+",
+          "label": "years"
+        },
+        {
+          "number": "3",
+          "label": "countries",
+          "detail": "Saudi Arabia, Oman, Sudan"
+        },
+        {
+          "number": "40+",
+          "label": "identity systems"
+        }
+      ],
+      "logosLabel": "Selected clients"
+    },
+    "services": {
+      "eyebrow": "01 / SERVICES",
+      "title": "Four paths. One working system.",
+      "details": "Details",
+      "deliverablesLabel": "Deliverables",
+      "packagesLabel": "Packages",
+      "items": [
+        {
+          "slug": "brand",
+          "role": "CORE",
+          "title": "Brand & Visual",
+          "value": "An identity built as an applicable visual system, not an isolated logo.",
+          "deliverables": [
+            "Strategy and positioning",
+            "Visual identity system",
+            "Practical application guide"
+          ],
+          "packages": "Essential Identity · Core Identity · Strategy + Identity · Social Visual · Monthly Design Retainer"
+        },
+        {
+          "slug": "digital",
+          "role": "GROWTH",
+          "title": "Digital Products",
+          "value": "From idea and interface to a Web Product that actually works.",
+          "deliverables": [
+            "Product definition and scope",
+            "UX/UI and prototype",
+            "Product build and launch"
+          ],
+          "packages": "Landing Page · Business Website · MVP / Web App"
+        },
+        {
+          "slug": "ai",
+          "role": "GROWTH",
+          "title": "AI Automation",
+          "value": "AI agents and workflows tied to a real business problem and real data, with sensitive decisions kept human.",
+          "deliverables": [
+            "Workflow analysis",
+            "Workflow design and integration",
+            "Testing and operational handover"
+          ],
+          "packages": "Automation Audit · Workflow Build · AI Agent Pilot"
+        },
+        {
+          "slug": "experiential",
+          "role": "SELECTIVE",
+          "title": "Experiential Design",
+          "value": "Turning identity into an executable booth or event experience.",
+          "deliverables": [
+            "Experience concept",
+            "Booth graphic system",
+            "Vendor-ready production files"
+          ],
+          "packages": "Booth Concept · Booth Design · Event Branding"
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "02 / SELECTED WORK",
+      "title": "Selected work",
+      "all": "All work",
+      "items": [
+        {
+          "id": 1,
+          "title": "EKKA RE-BRANDING",
+          "service": "Brand & Visual",
+          "outcome": "[PLACEHOLDER — Mo to supply]"
+        },
+        {
+          "id": 9,
+          "title": "SABAA CONSTRUCTION",
+          "service": "Brand & Visual",
+          "outcome": "[PLACEHOLDER — Mo to supply]"
+        },
+        {
+          "id": 10,
+          "title": "AL MAHRIZI GROUP",
+          "service": "Brand & Visual",
+          "outcome": "[PLACEHOLDER — Mo to supply]"
+        },
+        {
+          "id": 11,
+          "title": "ASDAM AL JABAL LAUNDRY",
+          "service": "Brand & Visual",
+          "outcome": "[PLACEHOLDER — Mo to supply]"
+        },
+        {
+          "id": 12,
+          "title": "FEAAL INDUSTRY PROFILE",
+          "service": "Brand & Visual",
+          "outcome": "[PLACEHOLDER — Mo to supply]"
+        },
+        {
+          "id": 13,
+          "title": "TAMALUK PLATFORM PROFILE",
+          "service": "Brand & Visual",
+          "outcome": "[PLACEHOLDER — Mo to supply]"
+        }
+      ]
+    },
+    "products": {
+      "eyebrow": "03 / PRODUCTS I BUILT",
+      "title": "Products I built",
+      "caption": "Products working now, not display concepts.",
+      "visit": "Open product",
+      "screenshot": "Product screenshot",
+      "items": [
+        {
+          "name": "LifeTent",
+          "body": "A personal operating system for Arabic users: goals, finances, tasks, and habits in one platform.",
+          "url": "https://lifetent.online"
+        },
+        {
+          "name": "Smart Field AI Agent",
+          "body": "An AI sales and service agent for a refrigerated transport company.",
+          "url": "https://agent.smartfield.sa"
+        }
+      ]
+    },
+    "process": {
+      "eyebrow": "04 / HOW WE WORK",
+      "title": "How we work",
+      "steps": [
+        {
+          "title": "Understand",
+          "english": "Discovery",
+          "body": "A 20-minute call plus written questions to identify the real problem."
+        },
+        {
+          "title": "Define",
+          "english": "Scope",
+          "body": "A written scope, three options, and a clear timeline before any payment."
+        },
+        {
+          "title": "Build",
+          "english": "Build",
+          "body": "Staged delivery with two review rounds in each stage."
+        },
+        {
+          "title": "Launch",
+          "english": "Launch & support",
+          "body": "File handover, training, and support after launch."
+        }
+      ]
+    },
+    "about": {
+      "eyebrow": "05 / ABOUT MO",
+      "title": "Mohammed Alagab",
+      "paragraphs": [
+        "A Brand Designer & AI Product Builder based in Riyadh.",
+        "I work between brand, product, and system to turn an idea into something clear that people can use.",
+        "I start with context, connecting what customers see with what teams need to operate and improve the work."
+      ],
+      "link": "Full story",
+      "portraitAlt": "Mohammed Alagab"
+    },
+    "faq": {
+      "eyebrow": "06 / FAQ",
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "How long does a project take?",
+          "answer": "A core identity takes 2–3 weeks, a website 3–6 weeks, and an Agent Pilot 3–5 weeks."
+        },
+        {
+          "question": "How does payment work?",
+          "answer": "50% to begin and 50% before final delivery; larger projects are split into stages."
+        },
+        {
+          "question": "How many revisions are included?",
+          "answer": "Two review rounds are included within scope. Any further changes are priced before work begins."
+        },
+        {
+          "question": "Do you work remotely?",
+          "answer": "Yes, with in-person meetings available in Riyadh when needed."
+        },
+        {
+          "question": "Who owns the files?",
+          "answer": "You do, after payment is complete."
+        },
+        {
+          "question": "Do prices include tax?",
+          "answer": "15% VAT is itemized in the proposal when applicable."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Have an idea that needs a brand, product, or system?",
+      "body": "Send a short brief and I’ll reply within two business days with a clear next step.",
+      "button": "Start a project"
+    },
+    "flowLabel": "system"
+  },
+  "workPage": {
+    "metaTitle": "Work — Mo Alagab",
+    "eyebrow": "WORK / PROOF",
+    "title": "Work you can see and use.",
+    "body": "Selected projects showing the context, the decision, and the system as they actually happened.",
+    "filtersLabel": "Filter by service line",
+    "filters": {
+      "all": "All",
+      "brand": "Brand & Visual",
+      "digital": "Digital Products",
+      "ai": "AI Automation",
+      "experiential": "Experiential"
+    },
+    "empty": "No published projects in this service line yet.",
+    "ctaTitle": "Seen something close to your case?",
+    "ctaBody": "Send a short brief and I’ll reply within two business days with a clear next step.",
+    "ctaButton": "Start a project"
+  },
+  "caseStudy": {
+    "back": "Back to work",
+    "summary": {
+      "client": "Client",
+      "year": "Year",
+      "role": "Role",
+      "deliverables": "Deliverables",
+      "hiddenClient": "Not disclosed"
+    },
+    "sections": {
+      "context": "Context",
+      "problem": "Problem",
+      "role": "My role",
+      "decision": "The decision",
+      "system": "System and deliverables",
+      "result": "Result",
+      "proof": "Proof"
+    },
+    "gallery": "Project gallery",
+    "openImage": "View",
+    "closeImage": "Close viewer",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "pdfLabel": "Profile document",
+    "pdfButton": "View profile",
+    "similar": {
+      "eyebrow": "NEXT STEP",
+      "title": "A similar project?",
+      "body": "If your case is close to this one, this package is the clearest place to start.",
+      "packageLabel": "Matching package",
+      "details": "Service details",
+      "cta": "Start a project"
+    },
+    "nav": {
+      "prev": "Previous project",
+      "next": "Next project"
+    }
+  },
+  "servicesPage": {
+    "metaTitle": "Services — Mo Alagab",
+    "metaDescription": "Four service lines: Brand & Visual, Digital Products, AI Automation, and Experiential Design — clear scope and timeline for every package.",
+    "eyebrow": "SERVICES / SCOPE",
+    "title": "Four service lines, scope written before we start.",
+    "body": "Each line has defined packages with scope and timeline. Pricing follows the brief, in the proposal.",
+    "whatLabel": "What it is",
+    "whoLabel": "Who it is for",
+    "deliverablesLabel": "What you get",
+    "packagesLabel": "Packages",
+    "timelineLabel": "Typical timeline",
+    "fitLabel": "Good fit for",
+    "packageCta": "Request a proposal",
+    "notIncludedLabel": "Not included",
+    "caseEyebrow": "CASE STUDY",
+    "caseLabel": "A project from this line",
+    "caseCta": "See the project",
+    "lines": [
+      {
+        "slug": "brand",
+        "role": "CORE",
+        "title": "Brand & Visual",
+        "what": "Build the brand as a full visual system: positioning, logo, color, type, and ready applications. The result is a system your team can apply consistently, not a standalone logo file.",
+        "who": "Organizations starting fresh, or whose current identity no longer represents them.",
+        "deliverables": [
+          "Positioning and core messaging",
+          "Visual identity system (logo, color, type, grid)",
+          "Corporate applications and core print items",
+          "A practical usage guide for team and vendors",
+          "Source files and export-ready versions"
+        ],
+        "notIncluded": "Hosting, paid assets (licensed fonts or images), printing and production, copywriting, translation, and photography — quoted separately.",
+        "packages": [
+          {
+            "name": "Essential Identity",
+            "scope": "Logo, color, type, and core applications ready to use.",
+            "timeline": "2–3 weeks",
+            "fit": "A new venture that needs a fast, correct visual base."
+          },
+          {
+            "name": "Core Identity",
+            "scope": "Full identity system with corporate applications and a usage guide.",
+            "timeline": "3–4 weeks",
+            "fit": "An established company where more than one person applies the brand."
+          },
+          {
+            "name": "Strategy + Identity",
+            "scope": "Positioning and messaging first, then an identity system built on it.",
+            "timeline": "4–6 weeks",
+            "fit": "An organization that needs to clarify its position before the visuals."
+          },
+          {
+            "name": "Social Visual Starter",
+            "scope": "A social template system with applied examples.",
+            "timeline": "1–2 weeks",
+            "fit": "An existing identity that needs organized application on platforms."
+          },
+          {
+            "name": "Monthly Design Retainer",
+            "scope": "An agreed monthly volume of visual output with rolling priorities.",
+            "timeline": "Monthly",
+            "fit": "A team that needs ongoing design without an in-house hire."
+          }
+        ]
+      },
+      {
+        "slug": "digital",
+        "role": "GROWTH",
+        "title": "Digital Products",
+        "what": "Design and build web products and interfaces that actually work and get the user to the goal. From scope definition and design through launch and handover.",
+        "who": "Teams that need a site or digital product serving a clear business process.",
+        "deliverables": [
+          "Problem, scope, and first-release priorities",
+          "UX/UI and a reviewable prototype",
+          "Frontend build and required integrations",
+          "Tracking setup and core forms",
+          "File handover and training on updates"
+        ],
+        "notIncluded": "Hosting and domain, paid assets, printing and production, copywriting, translation, and photography — quoted separately.",
+        "packages": [
+          {
+            "name": "Landing Page",
+            "scope": "A single page with one clear conversion goal and contact forms.",
+            "timeline": "2–3 weeks",
+            "fit": "A service or campaign launch that needs one strong page."
+          },
+          {
+            "name": "Business Website",
+            "scope": "A multi-page site with structured content and an SEO foundation.",
+            "timeline": "3–6 weeks",
+            "fit": "A company that needs a site that represents it and takes enquiries."
+          },
+          {
+            "name": "MVP / Web App",
+            "scope": "A first product with core features, accounts, and an admin view.",
+            "timeline": "6–12 weeks",
+            "fit": "A product idea that needs a usable version to test."
+          }
+        ]
+      },
+      {
+        "slug": "ai",
+        "role": "GROWTH",
+        "title": "AI Automation",
+        "what": "Build workflows and AI agents tied to a real business problem and real data. Sensitive decisions stay with people; the system handles the repetition.",
+        "who": "Teams spending long hours on repetitive tasks or near-identical replies.",
+        "deliverables": [
+          "A map of the current workflow and automation opportunities",
+          "Workflow design and data sources",
+          "Tool build, integration, and testing on real cases",
+          "Clear limits on what the system handles and what stays human",
+          "Operational handover and team training"
+        ],
+        "notIncluded": "Model and tool subscriptions, hosting, paid assets, copywriting, translation, and photography — quoted separately.",
+        "packages": [
+          {
+            "name": "Automation Audit + Blueprint",
+            "scope": "Workflow analysis and a written blueprint of automation priorities.",
+            "timeline": "1–2 weeks",
+            "fit": "A team that senses the waste but not where to start."
+          },
+          {
+            "name": "Workflow Build",
+            "scope": "Build, integrate, and operationally test one or more workflows.",
+            "timeline": "2–4 weeks",
+            "fit": "A specific repetitive process ready to automate."
+          },
+          {
+            "name": "AI Agent Pilot",
+            "scope": "A scoped AI agent on real data, with measurement and follow-up.",
+            "timeline": "3–5 weeks",
+            "fit": "An organization that wants to test an agent before scaling."
+          }
+        ]
+      },
+      {
+        "slug": "experiential",
+        "role": "SELECTIVE",
+        "title": "Experiential Design",
+        "what": "Extend the identity into a physical experience at exhibitions and events: booth concept, graphics, and production files. Designed around the vendor, budget, and schedule.",
+        "who": "Organizations exhibiting at an event that needs a coherent on-brand presence.",
+        "deliverables": [
+          "Experience concept and space layout",
+          "Graphic system for booth and screens",
+          "Print and digital event assets",
+          "Vendor-ready production files",
+          "Support on production questions before the event"
+        ],
+        "notIncluded": "Production, installation and printing, space rental, paid assets, copywriting, translation, and photography — quoted separately.",
+        "packages": [
+          {
+            "name": "Booth Concept",
+            "scope": "Visual concept and space layout with illustrative visuals.",
+            "timeline": "1–2 weeks",
+            "fit": "A near-term appearance that needs a clear direction fast."
+          },
+          {
+            "name": "Booth Concept + 3D + Graphics",
+            "scope": "Concept plus a 3D model and a full graphic system.",
+            "timeline": "2–4 weeks",
+            "fit": "A flagship booth that needs an accurate view before production."
+          },
+          {
+            "name": "Event Branding",
+            "scope": "Event identity with its print and digital deliverables.",
+            "timeline": "2–3 weeks",
+            "fit": "An event or conference that needs its own identity."
+          }
+        ]
+      }
+    ]
+  },
+  "styleguide": {
+    "eyebrow": "SYSTEM GUIDE / 01",
+    "title": "The Mo Alagab identity system",
+    "intro": "A living reference for color, typography, components, and the core visual motion.",
+    "colors": "Color tokens",
+    "typography": "Type scale",
+    "components": "Components",
+    "motif": "Flow motif",
+    "light": "Light",
+    "dark": "Dark",
+    "display": "Display heading",
+    "heading": "Section heading",
+    "body": "Body copy demonstrates the reading rhythm and line spacing.",
+    "label": "LABEL / 01",
+    "primary": "Primary button",
+    "secondary": "Secondary button",
+    "textLink": "Text link",
+    "cardTitle": "System card",
+    "cardBody": "A simple surface with a clear border, without gradients or decorative shadows.",
+    "pill": "Pill tag",
+    "system": "system",
+    "tokenHex": "Value",
+    "tokenRole": "Role"
+  },
+  "productsPage": {
+    "eyebrow": "PRODUCTS / SOON",
+    "title": "Digital products are being prepared.",
+    "body": "This is a temporary page within the new system. Content will be added in the next phase.",
+    "action": "Start a project"
+  },
+  "startPage": {
+    "metaTitle": "Start a project — Mo Alagab",
+    "metaDescription": "Send a short brief and I will reply within two business days with a clear next step.",
+    "eyebrow": "START / BRIEF",
+    "title": "Let's start",
+    "sub": "Send a short brief and I will reply within two business days with a clear next step.",
+    "next": {
+      "eyebrow": "WHAT HAPPENS NEXT",
+      "title": "What happens after you send",
+      "steps": [
+        {
+          "title": "I review the brief",
+          "body": "I read the details and make sure the problem is clear before any call."
+        },
+        {
+          "title": "A 20-minute call",
+          "body": "We talk through the context, the audience, and the outcome you need."
+        },
+        {
+          "title": "A written proposal with three options",
+          "body": "Written scope and a clear timeline before any payment."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Or reach me directly",
+      "emailLabel": "Email",
+      "whatsappLabel": "WhatsApp",
+      "linkedinLabel": "LinkedIn"
+    },
+    "form": {
+      "progress": "Step {current} of {total}",
+      "steps": [
+        "Your details",
+        "The project",
+        "The brief"
+      ],
+      "fields": {
+        "name": "Name",
+        "company": "Company (optional)",
+        "email": "Email",
+        "whatsapp": "WhatsApp (optional)",
+        "service": "What do you need?",
+        "servicePlaceholder": "Select a service line",
+        "package": "Package (optional)",
+        "packagePlaceholder": "Select a package",
+        "budget": "Budget range",
+        "budgetPlaceholder": "Select a range",
+        "timeline": "Timeline",
+        "timelinePlaceholder": "Select a timeline",
+        "description": "Describe the project",
+        "descriptionHelper": "What is the problem? Who is the audience? What outcome do you need?",
+        "links": "Links (optional)",
+        "linksPlaceholder": "Your current site, an Instagram account, or a profile"
+      },
+      "options": {
+        "service": {
+          "brand": "Brand & Visual",
+          "digital": "Digital Product",
+          "ai": "AI Automation",
+          "experiential": "Experiential",
+          "unsure": "Not sure yet"
+        },
+        "budget": {
+          "lt5k": "Under 5,000 SAR",
+          "5to10k": "5,000 – 10,000 SAR",
+          "10to25k": "10,000 – 25,000 SAR",
+          "gt25k": "25,000 SAR or more",
+          "undecided": "Not decided"
+        },
+        "timeline": {
+          "month": "Within a month",
+          "1to3": "1–3 months",
+          "flexible": "Flexible"
+        }
+      },
+      "consent": {
+        "text": "I agree that my data may be used only to respond to this request, in line with the Personal Data Protection Law. It will not be shared with anyone else.",
+        "linkLabel": "Privacy policy"
+      },
+      "buttons": {
+        "next": "Next",
+        "back": "Back",
+        "submit": "Send the brief",
+        "submitting": "Sending…"
+      },
+      "errors": {
+        "name": "Add your name so I know how to address you.",
+        "email": "Enter a valid email address, like mo@example.com.",
+        "whatsapp": "Enter a WhatsApp number in international format, like +966500000000.",
+        "service": "Pick the service line closest to your need.",
+        "budget": "Pick a budget range, or choose \"Not decided\".",
+        "timeline": "Pick the timeline that fits.",
+        "descriptionShort": "Write at least 30 characters about the project.",
+        "descriptionLong": "This is longer than 1500 characters. Please shorten it.",
+        "consent": "I need your consent before I can reply.",
+        "rateLimit": "Too many briefs from this email. Wait ten minutes or email me directly.",
+        "generic": "Could not send right now. Try again or email me directly."
+      },
+      "counter": "{count} / 1500 characters"
+    },
+    "success": {
+      "title": "Received ✓",
+      "body": "I will reply within two business days."
+    }
+  },
+  "privacyPage": {
+    "metaTitle": "Privacy policy — Mo Alagab",
+    "metaDescription": "What the project form collects, why, how long it is kept, and how to request deletion.",
+    "eyebrow": "PRIVACY",
+    "title": "Privacy policy",
+    "intro": "A short, plain page: exactly what I collect, why, and how long I keep it.",
+    "sections": [
+      {
+        "title": "What I collect",
+        "body": "Only what you type into the \"Start a project\" form: your name, company if you add it, email, WhatsApp number if you add it, the service line and package, budget range, timeline, project description, and any links you send. I also record the page language and the source of your visit (for example a campaign or an external link) so I know where the brief came from."
+      },
+      {
+        "title": "Why I collect it",
+        "body": "Only to respond to your request: reviewing the brief, contacting you, and preparing a written proposal. No newsletters, no marketing messages."
+      },
+      {
+        "title": "How long I keep it",
+        "body": "Briefs are kept for 12 months from the date they are sent, then deleted. If we work together, contract records are kept for as long as the law requires."
+      },
+      {
+        "title": "Your rights",
+        "body": "You can request a copy of your data, a correction, or deletion at any time by emailing the address below. I act on the request within a reasonable time."
+      },
+      {
+        "title": "No selling, no sharing",
+        "body": "Your data is never sold or shared with anyone else. Only the technical services needed to run the site and send me the notification are involved."
+      },
+      {
+        "title": "Security",
+        "body": "Briefs are stored in a protected database that no visitor can read. Access is mine only."
+      }
+    ],
+    "contactLabel": "To contact me about your data",
+    "updated": "Last updated: September 2026"
+  },
+  "aboutPage": {
+    "metaTitle": "About Mohammed Alagab — Brand Designer & AI Product Builder",
+    "metaDescription": "Mohammed Alagab: Brand Designer & AI Product Builder in Riyadh. 12+ years in brand identity, art direction, brand activation, and exhibitions across Saudi Arabia, Oman and Sudan.",
+    "eyebrow": "ABOUT / MO",
+    "name": "Mohammed Alagab",
+    "descriptor": "Brand Designer & AI Product Builder",
+    "portraitAlt": "Mohammed Alagab",
+    "storyEyebrow": "STORY",
+    "story": [
+      "Over 12 years across Saudi Arabia, Oman and Sudan in brand identity, art direction, brand activation, and exhibitions. During that time I built more than 40 identity systems for organisations across sectors.",
+      "Then I shifted gradually toward building digital products: websites and web apps that actually work, then AI agents and automation systems tied to real business problems and real data.",
+      "The reason is simple: most projects do not stall at the idea — they stall in the distance between idea and execution. A good identity alone is not enough if no one builds and operates it.",
+      "So I work both sides: I design what customers see, and I build the system that makes the work happen behind it."
+    ],
+    "principlesEyebrow": "PRINCIPLES",
+    "principlesTitle": "Principles I work by",
+    "principles": [
+      {
+        "title": "Proof before claim",
+        "body": "Show what was built, and distinguish what we know from what still needs testing."
+      },
+      {
+        "title": "A system, not a separate piece",
+        "body": "Identity, product, and automation are parts of one system, not separate files."
+      },
+      {
+        "title": "Sensitive decisions stay human",
+        "body": "The system handles repetition; sensitive decisions stay with people."
+      },
+      {
+        "title": "Scope written before we start",
+        "body": "A written scope and timeline before any payment, so both sides know what they get."
+      }
+    ],
+    "timelineEyebrow": "TIMELINE",
+    "timelineTitle": "The path",
+    "timeline": [
+      {
+        "year": "2014",
+        "role": "Founder",
+        "place": "Sudan",
+        "title": "EVE Agency",
+        "body": "A design and brand agency founded in Sudan."
+      },
+      {
+        "year": "2021–2024",
+        "role": "Creative Art Director",
+        "place": "Khafji",
+        "title": "Aramco Gulf Operations",
+        "body": "Art direction, brand activation, and exhibitions."
+      },
+      {
+        "year": "—",
+        "role": "CEO & Creative Director",
+        "place": "—",
+        "title": "First Value",
+        "body": "Led brand strategy and creative direction."
+      },
+      {
+        "year": "2025–",
+        "role": "Independent practice",
+        "place": "Riyadh",
+        "title": "Independent practice + LifeTent",
+        "body": "Independent work in identity and digital products, and building LifeTent."
+      }
+    ],
+    "toolsEyebrow": "TOOLS",
+    "toolsTitle": "Tools I work with",
+    "tools": [
+      "Figma",
+      "Adobe CC",
+      "Claude",
+      "n8n",
+      "Supabase",
+      "Lovable",
+      "React"
+    ]
+  },
+  "ui": {
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "home": "Home",
+      "about": "About Mo",
+      "services": "Services",
+      "work": "Work",
+      "start": "Start a project",
+      "products": "Products",
+      "privacy": "Privacy"
+    },
+    "consent": {
+      "text": "We use anonymous analytics to see which pages help visitors. It only runs with your consent.",
+      "accept": "Accept",
+      "reject": "No analytics",
+      "privacy": "Privacy policy"
+    },
+    "notFound": {
+      "eyebrow": "404 / NOT FOUND",
+      "title": "This path stops here.",
+      "body": "Go back home, browse the work, or start with a clear brief.",
+      "home": "Home",
+      "work": "View work",
+      "start": "Start a project",
+      "metaTitle": "404 — Page not found | Mo Alagab"
+    },
+    "viewer": {
+      "title": "Document viewer",
+      "download": "Download",
+      "loading": "Loading document...",
+      "page": "Page"
+    }
+  }
+}

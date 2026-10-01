@@ -1,0 +1,402 @@
+[
+  {
+    "path": "/",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "فكرة واضحة.علامة مؤثرة.نظام يعمل.",
+    "viewport": 1440
+  },
+  {
+    "path": "/en",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "Clear thinking.Distinct brands.Working systems.",
+    "viewport": 1440
+  },
+  {
+    "path": "/work",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "عمل يمكن رؤيته واستخدامه.",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/work",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "Work you can see and use.",
+    "viewport": 1440
+  },
+  {
+    "path": "/services",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "أربعة مسارات، نطاق مكتوب قبل البدء.",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/services",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "Four service lines, scope written before we start.",
+    "viewport": 1440
+  },
+  {
+    "path": "/products",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "من التصميم، إلى منتج يعمل.",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/products",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "From design to a working product.",
+    "viewport": 1440
+  },
+  {
+    "path": "/about",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "محمد العجبBrand Designer & AI Product Builder",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/about",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "Mohammed AlagabBrand Designer & AI Product Builder",
+    "viewport": 1440
+  },
+  {
+    "path": "/start",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "خلّنا نبدأ",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/start",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "Let's start",
+    "viewport": 1440
+  },
+  {
+    "path": "/work/ekka-rebranding",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "إعادة بناء هوية إيكا",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/work/ekka-rebranding",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "EKKA Re-Branding",
+    "viewport": 1440
+  },
+  {
+    "path": "/privacy",
+    "dir": "rtl",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "ar",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "سياسة الخصوصية",
+    "viewport": 1440
+  },
+  {
+    "path": "/en/privacy",
+    "dir": "ltr",
+    "font": "Lama, system-ui, sans-serif",
+    "h1": 1,
+    "lang": "en",
+    "missingAlt": 0,
+    "overflow": false,
+    "title": "Privacy policy",
+    "viewport": 1440
+  },
+  {
+    "path": "/",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/work",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/work",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/services",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/services",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/products",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/products",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/about",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/about",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/start",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/start",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/work/ekka-rebranding",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/work/ekka-rebranding",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/privacy",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/en/privacy",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 371,
+    "viewport": 375
+  },
+  {
+    "path": "/",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/work",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/work",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/services",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/services",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/products",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/products",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/about",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/about",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/start",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/start",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/work/ekka-rebranding",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/work/ekka-rebranding",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/privacy",
+    "dir": "rtl",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  },
+  {
+    "path": "/en/privacy",
+    "dir": "ltr",
+    "overflow": false,
+    "scrollWidth": 764,
+    "viewport": 768
+  }
+]

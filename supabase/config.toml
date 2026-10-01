@@ -1,0 +1,4 @@
+project_id = "sgregfxztnalerugkrba"
+
+[functions.notify-service-request]
+verify_jwt = false
