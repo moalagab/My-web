@@ -2,8 +2,8 @@ import { Bot, Boxes, Palette, PanelsTopLeft } from 'lucide-react';
 
 export const siteSettings = {
   email: 'mo@moalagab.art',
-  whatsapp: '+96891956705',
-  whatsappLink: 'https://wa.me/96891956705',
+  whatsapp: '+966561167169',
+  whatsappLink: 'https://wa.me/966561167169',
   linkedin: 'https://www.linkedin.com/in/moalagab',
   location: { ar: 'الرياض، المملكة العربية السعودية', en: 'Riyadh, Saudi Arabia' },
 };
