@@ -3424,7 +3424,7 @@ html[lang="ar"] .hero-brand .cinematic-portrait::after {
 }
 
 /* Work gallery images sit directly on the page, without backing panels. */
-.work-page .portfolio-stage,
-.work-page .portfolio-main-image,
-.work-page .portfolio-detail-image { background: transparent; box-shadow: none; }
-.work-page .portfolio-stage { padding: 0; }
+.portfolio-collection .portfolio-stage,
+.portfolio-collection .portfolio-main-image,
+.portfolio-collection .portfolio-detail-image { background: transparent; box-shadow: none; }
+.portfolio-collection .portfolio-stage { padding: 0; }
