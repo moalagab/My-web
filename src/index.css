@@ -90,7 +90,10 @@
     --input: 205 25% 83%;
     --ring: 206 22% 42%;
 
-    --radius: 0.375rem;
+    --radius: 1rem;
+    --radius-surface: 24px;
+    --radius-image: 20px;
+    --radius-control: 12px;
     --space-unit: 0.25rem;
     --space-section: 7rem;
     --space-section-sm: 4.5rem;
@@ -495,7 +498,7 @@ html[lang="ar"] .studio-eyebrow {
   background: hsl(var(--secondary));
   color: hsl(var(--primary));
   padding: 14px 22px;
-  border-radius: 8px;
+  border-radius: var(--radius-surface);
 }
 .skip-link:focus {
   transform: none;
@@ -735,7 +738,7 @@ html[lang="ar"] .hero-title {
   overflow: hidden;
   aspect-ratio: 1.25;
   background: hsl(var(--secondary));
-  border-radius: 3px;
+  border-radius: var(--radius-surface);
 }
 .featured-project:nth-child(even) .featured-image {
   aspect-ratio: 1;
@@ -946,7 +949,7 @@ html[lang="ar"] .hero-title {
   background: hsl(var(--secondary));
   padding: 16px;
   border: 1px solid hsl(var(--border));
-  border-radius: 6px;
+  border-radius: var(--radius-surface);
   font-size: 11px;
   display: grid;
   gap: 8px;
@@ -996,7 +999,7 @@ html[lang="ar"] .hero-title {
   background: hsl(var(--accent));
   padding: 17px 28px;
   border: 1px solid hsl(var(--secondary) / 0.3);
-  border-radius: 8px;
+  border-radius: var(--radius-surface);
   font-size: 11px;
   letter-spacing: 0.1em;
 }
@@ -1008,7 +1011,7 @@ html[lang="ar"] .hero-title {
 .workflow-end span {
   padding: 9px 14px;
   border: 1px solid hsl(var(--secondary) / 0.25);
-  border-radius: 5px;
+  border-radius: var(--radius-surface);
 }
 .products-all {
   margin-top: 35px;
@@ -1140,14 +1143,14 @@ main:not(.studio-home) .container {
   padding-inline: var(--studio-gutter);
 }
 main:not(.studio-home) article {
-  border-radius: 8px;
+  border-radius: var(--radius-surface);
 }
 main:not(.studio-home) article.border {
   padding: 28px;
 }
 main:not(.studio-home) input,
 main:not(.studio-home) textarea {
-  border-radius: 8px;
+  border-radius: var(--radius-surface);
   background: hsl(var(--card));
 }
 main:not(.studio-home) input:not([type="radio"]):not([type="checkbox"]) {
@@ -1165,7 +1168,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   width: 480px;
   padding: 36px 28px;
   gap: 24px;
-  border-radius: 16px;
+  border-radius: var(--radius-surface);
 }
 .studio-mobile-menu > button:last-child {
   display: none;
@@ -1621,7 +1624,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .work-editorial-grid .work-image {
   aspect-ratio: 1.25;
-  border-radius: 4px;
+  border-radius: var(--radius-surface);
 }
 .work-editorial-grid h3 {
   font-size: 24px;
@@ -1635,7 +1638,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .services-page .package-card {
   border: 1px solid hsl(var(--border));
   background: hsl(var(--card));
-  border-radius: 9px;
+  border-radius: var(--radius-surface);
   padding: 26px;
   display: flex;
   flex-direction: column;
@@ -1682,7 +1685,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .case-page .case-gallery button {
   aspect-ratio: 1.3;
-  border-radius: 4px;
+  border-radius: var(--radius-surface);
 }
 .case-page .case-gallery button:first-child {
   grid-column: 1/-1;
@@ -1695,7 +1698,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   max-width: calc(100vw - 32px);
   width: 1100px;
   padding: 50px 60px;
-  border-radius: 10px;
+  border-radius: var(--radius-surface);
 }
 .case-lightbox > button:last-child {
   padding: 10px;
@@ -1724,7 +1727,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .start-page form {
   border: 1px solid hsl(var(--border));
-  border-radius: 12px;
+  border-radius: var(--radius-surface);
   padding: 32px;
   background: hsl(var(--card));
 }
@@ -1884,7 +1887,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   flex-direction: column;
   padding: 24px;
   gap: 14px;
-  border-radius: 12px;
+  border-radius: var(--radius-surface);
 }
 .pdf-title {
   padding-inline-end: 50px;
@@ -1920,7 +1923,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   min-height: 0;
   overflow: auto;
   background: hsl(var(--secondary));
-  border-radius: 6px;
+  border-radius: var(--radius-surface);
 }
 .pdf-area .react-pdf__Document {
   width: max-content;
@@ -1959,7 +1962,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   width: min(400px, calc(100vw - 40px));
   border: 1px solid hsl(var(--border));
   background: hsl(var(--card));
-  border-radius: 12px;
+  border-radius: var(--radius-surface);
   padding: 22px;
   box-shadow: 0 12px 45px hsl(var(--primary) / 0.13);
 }
@@ -2044,7 +2047,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .lt-explorer {
   background: hsl(var(--background));
   border: 1px solid hsl(var(--primary) / 0.15);
-  border-radius: 16px;
+  border-radius: var(--radius-surface);
   overflow: hidden;
 }
 .lt-explorer-heading {
@@ -2077,7 +2080,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  border-radius: 7px;
+  border-radius: var(--radius-surface);
   font-size: 11px;
   transition:
     background 0.2s,
@@ -2140,7 +2143,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   background: hsl(var(--primary));
   color: hsl(var(--secondary));
   padding: 24px;
-  border-radius: 10px;
+  border-radius: var(--radius-surface);
   overflow: hidden;
 }
 .lt-concept-top {
@@ -2208,7 +2211,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   padding: 14px;
   background: hsl(var(--secondary) / 0.07);
   border: 1px solid hsl(var(--secondary) / 0.12);
-  border-radius: 6px;
+  border-radius: var(--radius-surface);
 }
 .lt-concept-items > div > span {
   font-size: 9px;
@@ -2461,7 +2464,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   gap: 10px;
   padding: 10px;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: var(--radius-surface);
 }
 .portfolio-main-image {
   position: relative;
@@ -2824,7 +2827,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   display: grid;
   grid-template-columns: 0.8fr 1.3fr;
   gap: 30px;
-  border-radius: 4px;
+  border-radius: var(--radius-surface);
 }
 .about-impact-number {
   display: flex;
@@ -2990,7 +2993,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   background: hsl(var(--secondary));
   border: 1px solid hsl(var(--border));
   padding: 25px;
-  border-radius: 4px;
+  border-radius: var(--radius-surface);
   margin-bottom: 35px;
 }
 .about-timeline-entry .studio-text-link {
@@ -3212,4 +3215,94 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     flex-direction: column;
     font-size: 10px;
   }
+}
+
+
+/* Shared curved corners across images, framed content and UI surfaces. */
+@layer base {
+  img, video, iframe {
+    border-radius: var(--radius-image);
+  }
+}
+:where(main, [role="dialog"]) .border:not(.rounded-full) {
+  border-radius: var(--radius-surface);
+}
+:where(main, [role="dialog"]) .border.rounded-full {
+  border-radius: 9999px;
+}
+.featured-image,
+.product-visual,
+.portfolio-stage,
+.work-image,
+.case-cover,
+.case-gallery button,
+.about-impact,
+.about-timeline-current .about-timeline-entry,
+.about-portrait,
+.lt-explorer {
+  border-radius: var(--radius-surface);
+}
+.product-visual,
+.case-cover,
+.case-gallery button,
+.portfolio-stage,
+.portfolio-main-image,
+.portfolio-detail-image {
+  overflow: hidden;
+}
+.portfolio-main-image,
+.portfolio-detail-image,
+.portfolio-main-image > img,
+.portfolio-detail-image > img {
+  border-radius: var(--radius-control);
+}
+.life-tiles > div,
+.agent-core,
+.workflow-end span,
+.lt-tab,
+.lt-concept,
+.lt-concept-items > div,
+.pdf-toolbar {
+  border-radius: var(--radius-control);
+}
+.about-page .about-portrait {
+  aspect-ratio: auto;
+  overflow: visible;
+}
+.about-portrait img,
+.case-lightbox img {
+  border-radius: var(--radius-surface);
+}
+:where(main) input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+:where(main) textarea,
+:where(main) select {
+  border-radius: var(--radius-control);
+}
+.pdf-area canvas {
+  border-radius: var(--radius-control);
+}
+/* Round the actual artwork even when its proportions leave space in the frame. */
+.portfolio-main-image,
+.portfolio-detail-image,
+.case-gallery button,
+.case-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.portfolio-main-image > img,
+.portfolio-detail-image > img,
+.case-gallery img,
+.case-cover img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.case-lightbox img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  margin-inline: auto;
 }

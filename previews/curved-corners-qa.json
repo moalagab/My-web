@@ -1,0 +1,152 @@
+[
+  {
+    "path": "/",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/work",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/work/smat-brand",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": []
+  },
+  {
+    "path": "/services",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/products",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/about",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px"
+    ]
+  },
+  {
+    "path": "/start",
+    "width": 1440,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px"
+    ]
+  },
+  {
+    "path": "/",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/work",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/work/smat-brand",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": []
+  },
+  {
+    "path": "/services",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/products",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px",
+      "24px"
+    ]
+  },
+  {
+    "path": "/about",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px"
+    ]
+  },
+  {
+    "path": "/start",
+    "width": 375,
+    "overflow": false,
+    "squareBorderedBoxes": 0,
+    "squareImages": 0,
+    "stages": [
+      "24px"
+    ]
+  }
+]
