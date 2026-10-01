@@ -87,3 +87,8 @@
 المعالجة باستخدام أداة imagegen المدمجة؛ الأصل المستهدف `portrait-mo.webp`، والنتيجة `src/assets/portrait-mo-cinematic.webp`. برومبت المعالجة: Preserve Mo’s recognizable facial identity, short curly hair, facial hair, dark skin and proportions. Left-facing profile, head and upper torso in a dark high-collar jacket, hand lowered, no glasses. Use the supplied reference only for cinematic lighting and composition. Wide editorial portrait, subject on left 55%, clean negative space on right 45%, deep navy shadows, slate blue rim light, subtle optical haze and grain; palette #27384f / #657f93 / #dae3e9. No typography, logos, watermarks or interface.
 
 نجح TypeScript وبناء الإنتاج. فُحصت العربية والإنجليزية عند 375 و768 و1440 بكسل: دون تمرير أفقي، عنوان رئيسي واحد، تحميل الصورة وروابط صحيحة. النتائج في `previews/cinematic-hero-qa.json`، والمعاينات في `previews/cinematic-hero.jpg` و`previews/cinematic-hero-mobile.jpg`.
+
+
+## تحديث البورتريه بالصور الحديثة
+
+استُخدمت الصورتان الحديثتان اللتان قدّمهما صاحب الموقع لتحديث بورتريه الهيرو باستخدام imagegen المدمجة. الصورة القريبة مرجع أساسي للوجه، والصورة بالبدلة مرجع مساعد للملامح والتناسب، والمرجع السابق للإضاءة والتكوين. النتيجة في `src/assets/portrait-mo-cinematic-v2.webp`؛ برومبت المعالجة الكامل محفوظ في `previews/updated-hero-prompt.md`. احتُفظ بالنسخة السابقة، وحُدث قصّ الكمبيوتر لمنح الرأس مساحة أعلى الإطار.
