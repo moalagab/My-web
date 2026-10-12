@@ -23,7 +23,6 @@ const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const WorkPage = lazy(() => import("./pages/WorkPage"));
 const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const AuthPage = lazy(() => import("./pages/AuthPage"));
 import NotFound from "./pages/NotFound";
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const StyleGuidePage = lazy(() => import("./pages/StyleGuidePage"));
@@ -157,7 +156,7 @@ const App = () => (
           >
             <Routes>
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/auth" element={<Navigate to="/admin" replace />} />
               <Route path="/en/*" element={<AnimatedRoutes lang="en" />} />
               <Route path="/ar/*" element={<Navigate to="/" replace />} />
               <Route path="/*" element={<AnimatedRoutes lang="ar" />} />

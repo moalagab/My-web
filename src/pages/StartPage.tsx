@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
+import Turnstile from "@/components/Turnstile";
 import { Eyebrow } from "@/components/system/Eyebrow";
 import { Section, SectionInner } from "@/components/system/Section";
 import { Button } from "@/components/ui/button";
@@ -63,6 +64,9 @@ const StartPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  // Tokens are single-use, so remount the widget after every failed attempt.
+  const [turnstileKey, setTurnstileKey] = useState(0);
   const [values, setValues] = useState({
     name: "",
     company: "",
@@ -170,6 +174,10 @@ const StartPage = () => {
       setDone(true);
       return;
     }
+    if (!turnstileToken) {
+      setErrors({ submit: form.errors.captcha });
+      return;
+    }
 
     setSubmitting(true);
     const payload = {
@@ -190,22 +198,38 @@ const StartPage = () => {
       utm_campaign: params.get("utm_campaign"),
       page_referrer:
         typeof document !== "undefined" ? document.referrer || null : null,
+      website: values.website,
+      turnstileToken,
     };
 
     try {
-      const { error } = await supabase.from("leads").insert(payload);
+      const { error } = await supabase.functions.invoke("submit-lead", {
+        body: payload,
+      });
       if (error) throw error;
-      void supabase.functions.invoke("notify-lead", { body: payload });
       track("form_step_complete", { step: TOTAL_STEPS });
       track("form_submit", { service: values.service });
       setDone(true);
     } catch (error) {
-      const message = String((error as { message?: string })?.message ?? "");
+      // HTTP errors carry the Response as `context`; network errors do not.
+      const context = (error as { context?: unknown })?.context;
+      const code =
+        context instanceof Response
+          ? await context
+              .json()
+              .then((body: { error?: string }) => body?.error)
+              .catch(() => undefined)
+          : undefined;
       setErrors({
-        submit: message.includes("rate_limit_exceeded")
-          ? form.errors.rateLimit
-          : form.errors.generic,
+        submit:
+          code === "rate_limited"
+            ? form.errors.rateLimit
+            : code === "captcha_failed"
+              ? form.errors.captcha
+              : form.errors.generic,
       });
+      setTurnstileToken(null);
+      setTurnstileKey((key) => key + 1);
     } finally {
       setSubmitting(false);
     }
@@ -615,6 +639,11 @@ const StartPage = () => {
                         </label>
                         {fieldError("consent")}
                       </div>
+                      <Turnstile
+                        key={turnstileKey}
+                        lang={lang}
+                        onToken={setTurnstileToken}
+                      />
                       {errors.submit && (
                         <p
                           role="alert"

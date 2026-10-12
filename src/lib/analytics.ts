@@ -31,6 +31,8 @@ const initialize = () => {
   initialized = true;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () {
+    // gtag.js only recognises the Arguments object, not a rest-params array.
+    // eslint-disable-next-line prefer-rest-params
     window.dataLayer?.push(arguments);
   };
   window.gtag("consent", "default", {

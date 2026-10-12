@@ -1,4 +1,4 @@
 project_id = "sgregfxztnalerugkrba"
 
-[functions.notify-service-request]
+[functions.submit-lead]
 verify_jwt = false

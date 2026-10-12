@@ -30,9 +30,35 @@ npm run build
 
 ## الخدمات الخارجية
 
-الإعدادات الأصلية موجودة محليًا في `.env` فقط ولا تُرفع إلى GitHub. عند استنساخ الريبو، انسخ `.env.example` إلى `.env` وأدخل `VITE_SUPABASE_URL` و`VITE_SUPABASE_PUBLISHABLE_KEY` من إعدادات مشروع Supabase. لا تستخدم مفتاح service-role في الواجهة. تستخدم النسخة المحلية إعدادات Supabase الأصلية، ولم تُنقل قاعدة البيانات أو حسابات المستخدمين أو الأسرار المخزنة لدى Lovable. إرسال النموذج يتصل بقاعدة البيانات الأصلية، وإشعار البريد يعتمد على دالة `notify-lead` وإعداداتها الحالية. لم يُرسل طلب تجريبي ولم يُختبر تسجيل الدخول إلى لوحة الإدارة.
+ملفات البيئة لا تُرفع إلى GitHub. انسخ `.env.example` إلى `.env` وأدخل `VITE_SUPABASE_URL` و`VITE_SUPABASE_PUBLISHABLE_KEY` و`VITE_TURNSTILE_SITE_KEY`. لا تضع مفتاح service-role في الواجهة.
 
-أفادت محادثة المشروع الأصلية بوجود مشكلة في مفتاح خدمة Resend؛ لم يتم التحقق من إصلاحها. تُستثنى ملفات البيئة من Git.
+### مسار الطلبات
+
+النموذج في `/start` يرسل إلى دالة `submit-lead` فقط، ولا يكتب المتصفح في قاعدة البيانات مباشرة. الدالة تتحقق من البيانات ومن Cloudflare Turnstile، وتحفظ الطلب في جدول `leads`، ثم ترسل إيميلًا عبر Resend. إذا فشل الإيميل يبقى الطلب محفوظًا ويظهر في `/admin`.
+
+أسرار الدالة (تُضبط في Supabase):
+
+| السر | القيمة |
+|---|---|
+| `TURNSTILE_SECRET_KEY` | المفتاح السري من Cloudflare Turnstile |
+| `RESEND_API_KEY` | مفتاح Resend |
+| `RESEND_FROM` | مثل `Mo Alagab <hello@moalagab.art>` بعد توثيق الدومين في Resend |
+| `LEAD_NOTIFY_EMAIL` | البريد الذي تصله التنبيهات |
+| `ALLOWED_ORIGINS` | مثل `https://moalagab.art,https://www.moalagab.art,http://localhost:5173` |
+
+ترتيب النشر مهم: الأسرار والدالة أولًا، ثم الـ migration (لأنها تمنع الإدخال المباشر من المتصفح)، ثم الواجهة.
+
+```sh
+supabase secrets set TURNSTILE_SECRET_KEY=... RESEND_API_KEY=... RESEND_FROM="..." LEAD_NOTIFY_EMAIL=... ALLOWED_ORIGINS=...
+supabase functions deploy submit-lead
+supabase db push
+supabase functions delete notify-lead
+supabase functions delete notify-service-request
+```
+
+اختبارات الدالة: `deno test supabase/functions/submit-lead/`.
+
+لوحة الإدارة في `/admin` تعرض الطلبات مع حالة لكل طلب (جديد، تم التواصل، عرض سعر، مغلق). التسجيل العام أُزيل من الواجهة؛ أوقفه أيضًا من إعدادات Supabase Auth. صلاحية المدير تُمنح بإضافة صف في جدول `user_roles`.
 
 ## تغييرات النقل
 
