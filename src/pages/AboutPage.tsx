@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { Link } from "react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
@@ -18,17 +18,7 @@ export default function AboutPage() {
   const anchors = ["story", "principles", "timeline"];
   return (
     <>
-      <Helmet>
-        <title>{c.metaTitle}</title>
-        <meta name="description" content={c.metaDescription} />
-        <link rel="canonical" href={`https://moalagab.art${prefix}/about`} />
-        <link rel="alternate" hrefLang="ar" href="https://moalagab.art/about" />
-        <link
-          rel="alternate"
-          hrefLang="en"
-          href="https://moalagab.art/en/about"
-        />
-      </Helmet>
+      <PageMeta title={c.metaTitle} description={c.metaDescription} />
       <Navigation />
       <main className="pt-20 about-page" id="main-content">
         <section className="about-hero">

@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { Link } from "react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
@@ -18,21 +18,7 @@ const ServicesPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{copy.metaTitle}</title>
-        <meta name="description" content={copy.metaDescription} />
-        <link rel="canonical" href={`https://moalagab.art${prefix}/services`} />
-        <link
-          rel="alternate"
-          hrefLang="ar"
-          href="https://moalagab.art/services"
-        />
-        <link
-          rel="alternate"
-          hrefLang="en"
-          href="https://moalagab.art/en/services"
-        />
-      </Helmet>
+      <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
       <main className="pt-20 services-page">
         <section className="bg-primary py-16 text-primary-foreground md:py-24">

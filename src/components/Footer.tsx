@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { siteSettings } from "@/lib/site-content";
 export default function Footer() {
@@ -71,14 +71,6 @@ export default function Footer() {
           <span>{d.footer.location}</span>
           <div className="footer-legal">
             <Link to={to("/privacy")}>{d.privacyPage.title}</Link>
-            <button
-              type="button"
-              onClick={() =>
-                window.dispatchEvent(new Event("ma-consent-settings"))
-              }
-            >
-              {lang === "ar" ? "تفضيلات القياس" : "Analytics preferences"}
-            </button>
           </div>
         </div>
       </div>

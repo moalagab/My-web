@@ -645,12 +645,16 @@
         "body": "Your data is never sold or shared with anyone else. Only the technical services needed to run the site and send me the notification are involved."
       },
       {
+        "title": "Analytics and spam protection",
+        "body": "Visits are counted with Umami, a privacy-focused tool that sets no cookies and stores no personal data, so there is nothing to accept. The form is protected by Cloudflare Turnstile, which checks that a person, not a bot, is sending it."
+      },
+      {
         "title": "Security",
         "body": "Briefs are stored in a protected database that no visitor can read. Access is mine only."
       }
     ],
     "contactLabel": "To contact me about your data",
-    "updated": "Last updated: September 2026"
+    "updated": "Last updated: October 2026"
   },
   "aboutPage": {
     "metaTitle": "About Mohammed Alagab — Design × Operations × Applied AI",
@@ -825,12 +829,6 @@
       "start": "Start a project",
       "products": "Products",
       "privacy": "Privacy"
-    },
-    "consent": {
-      "text": "We use anonymous analytics to see which pages help visitors. It only runs with your consent.",
-      "accept": "Accept",
-      "reject": "No analytics",
-      "privacy": "Privacy policy"
     },
     "notFound": {
       "eyebrow": "404 / NOT FOUND",

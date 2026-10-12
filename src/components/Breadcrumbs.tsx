@@ -1,7 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { ChevronRight, Home } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Helmet } from 'react-helmet-async';
 
 interface BreadcrumbsProps {
   /** Optional trail overriding the path-derived one. `key` maps to dictionary.ui.breadcrumb. */
@@ -57,9 +56,7 @@ const Breadcrumbs = ({ customItems }: BreadcrumbsProps) => {
 
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 
       <nav aria-label={labels.label} className="py-4">
         <ol className="flex flex-wrap items-center gap-2 text-sm">

@@ -6,8 +6,8 @@ import {
   Palette,
   PanelsTopLeft,
 } from "lucide-react";
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { Link } from "react-router";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import heroPortrait from "@/assets/portrait-mo-unified.webp";
@@ -37,17 +37,14 @@ export default function HomePage() {
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
     <>
-      <Helmet>
-        <title>
-          {ar
+      <PageMeta
+        title={
+          ar
             ? "محمد العجب — تصميم العلامات وبناء المنتجات"
-            : "Mo Alagab — Brand Design & Digital Products"}
-        </title>
-        <meta name="description" content={h.hero.body} />
-        <link rel="canonical" href={`https://moalagab.art${prefix || "/"}`} />
-        <link rel="alternate" hrefLang="ar" href="https://moalagab.art/" />
-        <link rel="alternate" hrefLang="en" href="https://moalagab.art/en" />
-      </Helmet>
+            : "Mo Alagab — Brand Design & Digital Products"
+        }
+        description={h.hero.body}
+      />
       <Navigation />
       <main id="main-content" className="studio-home">
         <section className="studio-hero cinematic-hero hero-brand" data-no-reveal>

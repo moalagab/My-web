@@ -1,12 +1,10 @@
 import { useEffect, type ReactNode } from "react";
-import { useLocation } from "react-router-dom";
-import { trackPageView } from "@/lib/analytics";
+import { useLocation } from "react-router";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 export default function PageTransition({ children }: { children: ReactNode }) {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     document.body.removeAttribute("data-surface");
-    trackPageView();
     const frame = requestAnimationFrame(() => {
       const main = document.querySelector("main");
       if (main) {

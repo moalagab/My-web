@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import PageMeta from "@/components/PageMeta";
 import { ArrowUpRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -24,7 +24,7 @@ const StyleGuidePage = () => {
   const copy = dictionary.styleguide;
   return (
     <>
-      <Helmet><title>{`${copy.title} — ${dictionary.brand.name}`}</title></Helmet>
+      <PageMeta title={`${copy.title} — ${dictionary.brand.name}`} noindex />
       <Navigation />
       <main id="main-content" className="pt-20">
         <Section className="border-b border-border">

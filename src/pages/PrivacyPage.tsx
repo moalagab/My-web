@@ -1,5 +1,5 @@
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import PageMeta from "@/components/PageMeta";
+import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { track } from '@/lib/analytics';
 import Footer from '@/components/Footer';
@@ -16,13 +16,7 @@ const PrivacyPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{copy.metaTitle}</title>
-        <meta name="description" content={copy.metaDescription} />
-        <link rel="canonical" href={`https://moalagab.art${prefix}/privacy`} />
-        <link rel="alternate" hrefLang="ar" href="https://moalagab.art/privacy" />
-        <link rel="alternate" hrefLang="en" href="https://moalagab.art/en/privacy" />
-      </Helmet>
+      <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
       <main className="pt-20">
         <section className="bg-primary py-14 text-primary-foreground md:py-20">

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { Link, useSearchParams } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { Link, useSearchParams } from "react-router";
 import {
   ArrowLeft,
   ArrowRight,
@@ -255,17 +255,7 @@ const StartPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{copy.metaTitle}</title>
-        <meta name="description" content={copy.metaDescription} />
-        <link rel="canonical" href={`https://moalagab.art${prefix}/start`} />
-        <link rel="alternate" hrefLang="ar" href="https://moalagab.art/start" />
-        <link
-          rel="alternate"
-          hrefLang="en"
-          href="https://moalagab.art/en/start"
-        />
-      </Helmet>
+      <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
       <main className="pt-20 start-page">
         <section className="bg-primary py-14 text-primary-foreground md:py-20">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -70,6 +70,11 @@ const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
 
 const statusMeta = (status: string) =>
   STATUSES.find((item) => item.value === status) ?? STATUSES[0];
+
+export const meta = () => [
+  { title: "لوحة التحكم — Mo Alagab" },
+  { name: "robots", content: "noindex, nofollow" },
+];
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
