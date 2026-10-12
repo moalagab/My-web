@@ -46,6 +46,8 @@ npm run build
 | `LEAD_NOTIFY_EMAIL` | البريد الذي تصله التنبيهات |
 | `ALLOWED_ORIGINS` | مثل `https://moalagab.art,https://www.moalagab.art,http://localhost:5173` |
 
+المشروع الحالي: `moalagab-site` (ref `ogrsjrixowkogasgjajb`، فرانكفورت) في منظمة "MO Alagab Personal". مشروع Lovable القديم (`sgregfxztnalerugkrba`) لم يعد مستخدمًا. عند النشر من الدالة في لوحة Supabase، أبقِ "Verify JWT with legacy secret" مغلقًا.
+
 ترتيب النشر مهم: الأسرار والدالة أولًا، ثم الـ migration (لأنها تمنع الإدخال المباشر من المتصفح)، ثم الواجهة.
 
 ```sh

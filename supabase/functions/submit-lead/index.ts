@@ -3,7 +3,19 @@ import { allowedOrigin, escapeHtml, parseLead } from "./lead.ts";
 
 const env = (key: string) => Deno.env.get(key) ?? "";
 
-const supabase = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), {
+// Newer projects expose secret keys as JSON in SUPABASE_SECRET_KEYS; older ones
+// expose the legacy service-role JWT.
+const serviceKey = () => {
+  if (env("SUPABASE_SERVICE_ROLE_KEY")) return env("SUPABASE_SERVICE_ROLE_KEY");
+  try {
+    const keys = JSON.parse(env("SUPABASE_SECRET_KEYS") || "{}");
+    return String(keys.default ?? Object.values(keys)[0] ?? "");
+  } catch {
+    return "";
+  }
+};
+
+const supabase = createClient(env("SUPABASE_URL"), serviceKey(), {
   auth: { persistSession: false },
 });
 
