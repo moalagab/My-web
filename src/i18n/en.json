@@ -606,6 +606,7 @@
         "descriptionShort": "Write at least 30 characters about the project.",
         "descriptionLong": "This is longer than 1500 characters. Please shorten it.",
         "consent": "I need your consent before I can reply.",
+        "captcha": "Confirm the security check above, then send again.",
         "rateLimit": "Too many briefs from this email. Wait ten minutes or email me directly.",
         "generic": "Could not send right now. Try again or email me directly."
       },

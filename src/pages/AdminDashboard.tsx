@@ -26,7 +26,9 @@ import {
   Phone, 
   Building2, 
   Calendar, 
-  DollarSign,
+  Wallet,
+  Layers,
+  Link as LinkIcon,
   MessageSquare,
   RefreshCw,
   LogOut,
@@ -36,19 +38,38 @@ import {
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 
-interface ServiceRequest {
+type LeadStatus = "new" | "contacted" | "proposal" | "closed";
+
+interface Lead {
   id: string;
   created_at: string;
   name: string;
-  email: string;
-  phone: string | null;
   company: string | null;
-  service_category: string;
-  services: string[];
-  budget: string | null;
-  timeline: string | null;
-  message: string;
+  email: string;
+  whatsapp: string | null;
+  service_line: string;
+  package: string | null;
+  budget: string;
+  timeline: string;
+  description: string;
+  links: string | null;
+  locale: string;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  page_referrer: string | null;
+  status: string;
 }
+
+const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
+  { value: "new", label: "جديد", className: "bg-primary text-primary-foreground" },
+  { value: "contacted", label: "تم التواصل", className: "bg-accent text-accent-foreground" },
+  { value: "proposal", label: "عرض سعر", className: "bg-secondary text-secondary-foreground" },
+  { value: "closed", label: "مغلق", className: "bg-muted text-foreground" },
+];
+
+const statusMeta = (status: string) =>
+  STATUSES.find((item) => item.value === status) ?? STATUSES[0];
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,9 +78,11 @@ export default function AdminDashboard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [requests, setRequests] = useState<ServiceRequest[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedRequest, setSelectedRequest] = useState<ServiceRequest | null>(null);
+  const [loadError, setLoadError] = useState("");
+  const [filter, setFilter] = useState<LeadStatus | "all">("all");
+  const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -102,7 +125,7 @@ export default function AdminDashboard() {
 
       if (data && !error) {
         setIsAdmin(true);
-        fetchRequests();
+        fetchLeads();
       } else {
         setIsAdmin(false);
       }
@@ -129,9 +152,9 @@ export default function AdminDashboard() {
         setIsAuthenticated(true);
         await checkAdminRole(data.user.id);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login error:", err);
-      setError(err.message === "Invalid login credentials" 
+      setError((err as Error)?.message === "Invalid login credentials" 
         ? "بيانات الدخول غير صحيحة" 
         : "حدث خطأ أثناء تسجيل الدخول");
     } finally {
@@ -147,42 +170,44 @@ export default function AdminDashboard() {
     setPassword("");
   };
 
-  const fetchRequests = async () => {
+  const fetchLeads = async () => {
     setLoading(true);
+    setLoadError("");
     try {
       const { data, error } = await supabase
-        .from("service_requests")
+        .from("leads")
         .select("*")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setRequests(data || []);
+      setLeads(data || []);
     } catch (err) {
-      console.error("Error fetching requests:", err);
+      console.error("Error fetching leads:", err);
+      setLoadError("تعذّر تحميل الطلبات. حدّث الصفحة أو أعد تسجيل الدخول.");
     } finally {
       setLoading(false);
     }
   };
 
-  const getCategoryColor = (category: string) => {
-    const colors: Record<string, string> = {
-      branding: "bg-primary text-primary-foreground",
-      digital: "bg-accent text-accent-foreground",
-      print: "bg-secondary text-secondary-foreground",
-      motion: "bg-muted text-foreground",
+  const updateStatus = async (lead: Lead, status: LeadStatus) => {
+    const previous = lead.status;
+    const apply = (value: string) => {
+      setLeads((items) =>
+        items.map((item) => (item.id === lead.id ? { ...item, status: value } : item)),
+      );
+      setSelectedLead((item) => (item?.id === lead.id ? { ...item, status: value } : item));
     };
-    return colors[category] || "bg-muted text-foreground";
+    apply(status);
+    const { error } = await supabase.from("leads").update({ status }).eq("id", lead.id);
+    if (error) {
+      console.error("Error updating status:", error);
+      apply(previous);
+      setLoadError("تعذّر تحديث الحالة. حاول مرة أخرى.");
+    }
   };
 
-  const getCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      branding: "الهوية البصرية",
-      digital: "التصميم الرقمي",
-      print: "المطبوعات",
-      motion: "الموشن",
-    };
-    return labels[category] || category;
-  };
+  const visibleLeads = filter === "all" ? leads : leads.filter((lead) => lead.status === filter);
+  const whatsappHref = (number: string) => `https://wa.me/${number.replace(/\D/g, "")}`;
 
   // Loading state
   if (isLoading) {
@@ -303,7 +328,7 @@ export default function AdminDashboard() {
             <Button
               variant="outline"
               size="sm"
-              onClick={fetchRequests}
+              onClick={fetchLeads}
               disabled={loading}
             >
               <RefreshCw className={`w-4 h-4 ml-2 ${loading ? "animate-spin" : ""}`} />
@@ -317,51 +342,44 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Stats */}
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary">{requests.length}</div>
-              <p className="text-muted-foreground">إجمالي الطلبات</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-purple-500">
-                {requests.filter(r => r.service_category === "branding").length}
-              </div>
-              <p className="text-muted-foreground">هوية بصرية</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-blue-500">
-                {requests.filter(r => r.service_category === "digital").length}
-              </div>
-              <p className="text-muted-foreground">تصميم رقمي</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-green-500">
-                {requests.filter(r => r.service_category === "print").length + 
-                 requests.filter(r => r.service_category === "motion").length}
-              </div>
-              <p className="text-muted-foreground">مطبوعات وموشن</p>
-            </CardContent>
-          </Card>
+        {/* Stats double as status filters */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+          {[{ value: "all" as const, label: "كل الطلبات", count: leads.length }, ...STATUSES.map((item) => ({
+            value: item.value,
+            label: item.label,
+            count: leads.filter((lead) => lead.status === item.value).length,
+          }))].map((item) => (
+            <button
+              key={item.value}
+              type="button"
+              onClick={() => setFilter(item.value)}
+              aria-pressed={filter === item.value}
+              className={`rounded-lg border bg-card p-6 text-start transition-colors ${
+                filter === item.value ? "border-primary" : "border-border hover:border-accent"
+              }`}
+            >
+              <div className="text-3xl font-bold text-primary">{item.count}</div>
+              <p className="text-muted-foreground">{item.label}</p>
+            </button>
+          ))}
         </div>
 
-        {/* Requests Table */}
+        {loadError && (
+          <p role="alert" className="mb-6 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
+            {loadError}
+          </p>
+        )}
+
+        {/* Leads Table */}
         <Card>
           <CardHeader>
-            <CardTitle>طلبات الخدمة</CardTitle>
+            <CardTitle>الطلبات</CardTitle>
           </CardHeader>
           <CardContent>
-            {requests.length === 0 ? (
+            {visibleLeads.length === 0 ? (
               <div className="text-center py-12 text-muted-foreground">
-                لا توجد طلبات حتى الآن
+                {loading ? "جارٍ التحميل..." : "لا توجد طلبات هنا حتى الآن"}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -370,48 +388,51 @@ export default function AdminDashboard() {
                     <TableRow>
                       <TableHead>التاريخ</TableHead>
                       <TableHead>الاسم</TableHead>
-                      <TableHead>البريد</TableHead>
-                      <TableHead>الفئة</TableHead>
-                      <TableHead>الخدمات</TableHead>
+                      <TableHead>الخدمة</TableHead>
                       <TableHead>الميزانية</TableHead>
+                      <TableHead>الحالة</TableHead>
                       <TableHead>التفاصيل</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {requests.map((request) => (
-                      <TableRow key={request.id}>
+                    {visibleLeads.map((lead) => (
+                      <TableRow key={lead.id}>
                         <TableCell className="whitespace-nowrap">
-                          {format(new Date(request.created_at), "dd MMM yyyy", { locale: ar })}
-                        </TableCell>
-                        <TableCell className="font-medium">{request.name}</TableCell>
-                        <TableCell dir="ltr" className="text-left">
-                          {request.email}
+                          {format(new Date(lead.created_at), "dd MMM yyyy", { locale: ar })}
                         </TableCell>
                         <TableCell>
-                          <Badge className={`${getCategoryColor(request.service_category)}`}>
-                            {getCategoryLabel(request.service_category)}
-                          </Badge>
+                          <p className="font-medium">{lead.name}</p>
+                          {lead.company && (
+                            <p className="text-xs text-muted-foreground">{lead.company}</p>
+                          )}
                         </TableCell>
                         <TableCell>
-                          <div className="flex flex-wrap gap-1">
-                            {request.services.slice(0, 2).map((service, i) => (
-                              <Badge key={i} variant="outline" className="text-xs">
-                                {service}
-                              </Badge>
+                          <p>{lead.service_line}</p>
+                          {lead.package && (
+                            <p className="text-xs text-muted-foreground">{lead.package}</p>
+                          )}
+                        </TableCell>
+                        <TableCell>{lead.budget}</TableCell>
+                        <TableCell>
+                          <select
+                            aria-label={`حالة طلب ${lead.name}`}
+                            value={statusMeta(lead.status).value}
+                            onChange={(event) => updateStatus(lead, event.target.value as LeadStatus)}
+                            className="rounded-md border border-border bg-background px-2 py-1 text-sm"
+                          >
+                            {STATUSES.map((item) => (
+                              <option key={item.value} value={item.value}>
+                                {item.label}
+                              </option>
                             ))}
-                            {request.services.length > 2 && (
-                              <Badge variant="outline" className="text-xs">
-                                +{request.services.length - 2}
-                              </Badge>
-                            )}
-                          </div>
+                          </select>
                         </TableCell>
-                        <TableCell>{request.budget || "-"}</TableCell>
                         <TableCell>
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => setSelectedRequest(request)}
+                            aria-label={`تفاصيل طلب ${lead.name}`}
+                            onClick={() => setSelectedLead(lead)}
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
@@ -426,96 +447,112 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      {/* Request Detail Dialog */}
-      <Dialog open={!!selectedRequest} onOpenChange={() => setSelectedRequest(null)}>
+      {/* Lead Detail Dialog */}
+      <Dialog open={!!selectedLead} onOpenChange={() => setSelectedLead(null)}>
         <DialogContent className="max-w-2xl" dir="rtl">
           <DialogHeader>
             <DialogTitle>تفاصيل الطلب</DialogTitle>
           </DialogHeader>
-          {selectedRequest && (
+          {selectedLead && (
             <div className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                     <span className="text-lg font-bold text-primary">
-                      {selectedRequest.name.charAt(0)}
+                      {selectedLead.name.charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium">{selectedRequest.name}</p>
+                    <p className="font-medium">{selectedLead.name}</p>
                     <p className="text-sm text-muted-foreground">
-                      {format(new Date(selectedRequest.created_at), "dd MMM yyyy - HH:mm", { locale: ar })}
+                      {format(new Date(selectedLead.created_at), "dd MMM yyyy - HH:mm", { locale: ar })}
                     </p>
                   </div>
                 </div>
-                <Badge className={`${getCategoryColor(selectedRequest.service_category)} w-fit h-fit`}>
-                  {getCategoryLabel(selectedRequest.service_category)}
+                <Badge className={`${statusMeta(selectedLead.status).className} w-fit h-fit`}>
+                  {statusMeta(selectedLead.status).label}
                 </Badge>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center gap-2 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-muted-foreground" />
-                  <span dir="ltr">{selectedRequest.email}</span>
+                  <span dir="ltr">{selectedLead.email}</span>
                 </div>
-                {selectedRequest.phone && (
-                  <div className="flex items-center gap-2 text-sm">
+                {selectedLead.whatsapp && (
+                  <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-muted-foreground" />
-                    <span dir="ltr">{selectedRequest.phone}</span>
+                    <span dir="ltr">{selectedLead.whatsapp}</span>
                   </div>
                 )}
-                {selectedRequest.company && (
-                  <div className="flex items-center gap-2 text-sm">
+                {selectedLead.company && (
+                  <div className="flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-muted-foreground" />
-                    <span>{selectedRequest.company}</span>
+                    <span>{selectedLead.company}</span>
                   </div>
                 )}
-                {selectedRequest.timeline && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <Calendar className="w-4 h-4 text-muted-foreground" />
-                    <span>{selectedRequest.timeline}</span>
-                  </div>
-                )}
-                {selectedRequest.budget && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <DollarSign className="w-4 h-4 text-muted-foreground" />
-                    <span>{selectedRequest.budget}</span>
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <h4 className="font-medium mb-2">الخدمات المطلوبة</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedRequest.services.map((service, i) => (
-                    <Badge key={i} variant="secondary">
-                      {service}
-                    </Badge>
-                  ))}
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  <span>{selectedLead.timeline}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Wallet className="w-4 h-4 text-muted-foreground" />
+                  <span>{selectedLead.budget}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-muted-foreground" />
+                  <span>
+                    {selectedLead.service_line}
+                    {selectedLead.package ? ` — ${selectedLead.package}` : ""}
+                  </span>
                 </div>
               </div>
 
               <div>
                 <h4 className="font-medium mb-2 flex items-center gap-2">
                   <MessageSquare className="w-4 h-4" />
-                  الرسالة
+                  وصف المشروع
                 </h4>
                 <div className="bg-muted p-4 rounded-lg whitespace-pre-wrap">
-                  {selectedRequest.message}
+                  {selectedLead.description}
                 </div>
               </div>
 
-              <div className="flex gap-2 pt-4">
+              {selectedLead.links && (
+                <div>
+                  <h4 className="font-medium mb-2 flex items-center gap-2">
+                    <LinkIcon className="w-4 h-4" />
+                    روابط
+                  </h4>
+                  <p dir="ltr" className="whitespace-pre-wrap break-words text-sm text-muted-foreground">
+                    {selectedLead.links}
+                  </p>
+                </div>
+              )}
+
+              <p className="text-xs text-muted-foreground" dir="ltr">
+                {[
+                  `locale: ${selectedLead.locale}`,
+                  selectedLead.utm_source && `utm_source: ${selectedLead.utm_source}`,
+                  selectedLead.utm_medium && `utm_medium: ${selectedLead.utm_medium}`,
+                  selectedLead.utm_campaign && `utm_campaign: ${selectedLead.utm_campaign}`,
+                  selectedLead.page_referrer && `referrer: ${selectedLead.page_referrer}`,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </p>
+
+              <div className="flex flex-col gap-2 pt-4 sm:flex-row">
                 <Button asChild className="flex-1">
-                  <a href={`mailto:${selectedRequest.email}`}>
+                  <a href={`mailto:${selectedLead.email}`}>
                     <Mail className="w-4 h-4 ml-2" />
                     إرسال بريد
                   </a>
                 </Button>
-                {selectedRequest.phone && (
+                {selectedLead.whatsapp && (
                   <Button variant="outline" asChild className="flex-1">
-                    <a 
-                      href={`https://wa.me/${selectedRequest.phone.replace(/\D/g, "")}`}
+                    <a
+                      href={whatsappHref(selectedLead.whatsapp)}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -524,6 +561,18 @@ export default function AdminDashboard() {
                     </a>
                   </Button>
                 )}
+                <select
+                  aria-label="تغيير الحالة"
+                  value={statusMeta(selectedLead.status).value}
+                  onChange={(event) => updateStatus(selectedLead, event.target.value as LeadStatus)}
+                  className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm"
+                >
+                  {STATUSES.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           )}

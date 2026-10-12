@@ -29,6 +29,7 @@ export type Database = {
           package: string | null
           page_referrer: string | null
           service_line: string
+          status: string
           timeline: string
           updated_at: string
           utm_campaign: string | null
@@ -50,6 +51,7 @@ export type Database = {
           package?: string | null
           page_referrer?: string | null
           service_line: string
+          status?: string
           timeline: string
           updated_at?: string
           utm_campaign?: string | null
@@ -71,6 +73,7 @@ export type Database = {
           package?: string | null
           page_referrer?: string | null
           service_line?: string
+          status?: string
           timeline?: string
           updated_at?: string
           utm_campaign?: string | null
