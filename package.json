@@ -8,7 +8,7 @@
     "build": "react-router build",
     "typecheck": "react-router typegen && tsc -p tsconfig.app.json --noEmit",
     "lint": "eslint .",
-    "preview": "sirv build/client --port 4173 --single __spa-fallback.html",
+    "preview": "sirv build/client --host 127.0.0.1 --port 4173 --single __spa-fallback.html",
     "test:e2e": "playwright test"
   },
   "dependencies": {
