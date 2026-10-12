@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { Link } from "react-router";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import LifeTentShowcase from "@/components/studio/LifeTentShowcase";
@@ -25,14 +25,10 @@ export default function ProductsPage() {
       ];
   return (
     <>
-      <Helmet>
-        <title>{`${d.navigation.products} — ${d.brand.name}`}</title>
-        <meta
-          name="description"
-          content={d.home.products.items.map((p) => p.body).join(" ")}
-        />
-        <link rel="canonical" href={`https://moalagab.art${prefix}/products`} />
-      </Helmet>
+      <PageMeta
+        title={`${d.navigation.products} — ${d.brand.name}`}
+        description={d.home.products.items.map((p) => p.body).join(" ")}
+      />
       <Navigation />
       <main className="pt-20 products-page" id="main-content">
         <section className="bg-primary text-primary-foreground">

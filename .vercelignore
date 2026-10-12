@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+node_modules
+build
+.react-router
+playwright-report
+test-results
+lighthouse-report
+.lighthouseci
+previews
+*-qa.json
+qa-results.json

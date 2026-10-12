@@ -6,8 +6,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { Helmet } from "react-helmet-async";
-import { Link, Navigate, useParams } from "react-router-dom";
+import PageMeta from "@/components/PageMeta";
+import { Link, Navigate, useParams } from "react-router";
 import {
   ArrowLeft,
   ArrowRight,
@@ -121,17 +121,28 @@ const ProjectDetailPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${title} — ${lineLabel} | Mo Alagab`}</title>
-        <meta name="description" content={description} />
-        <link
-          rel="canonical"
-          href={`https://moalagab.art${prefix}/work/${project.slug}`}
-        />
-        <meta property="og:title" content={`${title} | Mo Alagab`} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <PageMeta
+        title={`${title} — ${lineLabel} | Mo Alagab`}
+        description={description}
+        type="article"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: title,
+            description,
+            url: `https://moalagab.art${prefix}/work/${project.slug}`,
+            image: new URL(project.cover, "https://moalagab.art").href,
+            inLanguage: lang,
+            genre: lineLabel,
+            ...(project.year ? { dateCreated: project.year } : {}),
+            creator: { "@id": "https://moalagab.art/#person" },
+          }),
+        }}
+      />
       <Navigation />
 
       <main className="pt-20 case-page">

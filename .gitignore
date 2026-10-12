@@ -28,3 +28,10 @@ dist-ssr
 
 # Lovable workspace metadata
 .lovable/
+build
+.react-router
+playwright-report
+test-results
+lighthouse-report
+.lighthouseci
+.vercel

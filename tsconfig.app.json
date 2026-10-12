@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": [
-      "ES2020",
+      "ES2022",
       "DOM",
       "DOM.Iterable"
     ],
@@ -24,9 +24,19 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "rootDirs": [
+      ".",
+      "./.react-router/types"
+    ],
+    "types": [
+      "@react-router/node",
+      "vite/client"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    ".react-router/types/**/*",
+    "react-router.config.ts"
   ]
 }
