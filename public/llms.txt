@@ -4,15 +4,18 @@
 
 ## Service lines
 
-- [Brand & Visual](https://moalagab.art/en/services#brand): the brand as a full visual system — positioning, logo, color, type and ready applications.
-- [Digital Products](https://moalagab.art/en/services#digital): web products and interfaces designed and built from scope definition through launch and handover.
-- [AI Automation](https://moalagab.art/en/services#ai): workflows and AI agents tied to a real business problem and real data; sensitive decisions stay with people.
-- [Experiential Design](https://moalagab.art/en/services#experiential): booth concepts, graphics and production files for exhibitions and events.
+Each service page answers the buyer's first questions: what it is, who it is for, what you receive, what is not included, how long it takes, cost and the steps.
+
+- [Brand & Visual](https://moalagab.art/en/services/brand): the brand as a full visual system — positioning, logo, color, type and ready applications.
+- [Digital Products](https://moalagab.art/en/services/digital): web products and interfaces designed and built from scope definition through launch and handover.
+- [AI Automation](https://moalagab.art/en/services/ai): workflows and AI agents tied to a real business problem and real data; sensitive decisions stay with people.
+- [Experiential Design](https://moalagab.art/en/services/experiential): booth concepts, graphics and production files for exhibitions and events.
 
 ## Key pages
 
 - [Work (case studies)](https://moalagab.art/en/work): selected projects with context, decision and delivered system.
 - [About](https://moalagab.art/en/about): background, principles and career timeline.
+- [FAQ](https://moalagab.art/en/faq): timelines, payment, revisions, file ownership, VAT and what happens after a brief.
 - [Start a project](https://moalagab.art/en/start): three-step brief form; replies within two business days.
 - [Arabic home](https://moalagab.art/) · [English home](https://moalagab.art/en)
 

@@ -1,9 +1,11 @@
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useWhatsapp } from "@/lib/whatsapp";
 import { siteSettings } from "@/lib/site-content";
 export default function Footer() {
   const { lang, dictionary: d, isRtl } = useLanguage();
+  const whatsapp = useWhatsapp();
   const prefix = lang === "en" ? "/en" : "";
   const to = (p = "") => `${prefix}${p}` || "/";
   const links = [
@@ -53,9 +55,10 @@ export default function Footer() {
               <ArrowUpRight size={13} />
             </a>
             <a
-              href={siteSettings.whatsappLink}
+              href={whatsapp.href}
               target="_blank"
               rel="noreferrer"
+              onClick={() => whatsapp.onClick("footer")}
             >
               WhatsApp
               <ArrowUpRight size={13} />
@@ -70,6 +73,7 @@ export default function Footer() {
           <span>{d.footer.rights}</span>
           <span>{d.footer.location}</span>
           <div className="footer-legal">
+            <Link to={to("/faq")}>{d.faqPage.link}</Link>
             <Link to={to("/privacy")}>{d.privacyPage.title}</Link>
           </div>
         </div>

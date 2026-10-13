@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_clicks: {
+        Row: {
+          channel: string
+          created_at: string
+          id: string
+          locale: string
+          location: string | null
+          page: string
+          referrer: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          channel: string
+          created_at?: string
+          id?: string
+          locale: string
+          location?: string | null
+          page: string
+          referrer?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          channel?: string
+          created_at?: string
+          id?: string
+          locale?: string
+          location?: string | null
+          page?: string
+          referrer?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
       agent_snapshots: {
         Row: {
           generated_at: string
@@ -46,6 +85,7 @@ export type Database = {
           created_at: string
           description: string
           email: string
+          heard_from: string | null
           id: string
           links: string | null
           locale: string
@@ -68,6 +108,7 @@ export type Database = {
           created_at?: string
           description: string
           email: string
+          heard_from?: string | null
           id?: string
           links?: string | null
           locale?: string
@@ -90,6 +131,7 @@ export type Database = {
           created_at?: string
           description?: string
           email?: string
+          heard_from?: string | null
           id?: string
           links?: string | null
           locale?: string

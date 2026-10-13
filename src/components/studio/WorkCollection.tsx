@@ -25,7 +25,6 @@ export default function WorkCollection({ items }: { items: Project[] }) {
             <Link
               className="portfolio-card"
               to={`${prefix}/work/${p.slug}`}
-              aria-label={`${ar ? "استكشف مشروع" : "Explore project"}: ${title}`}
             >
               <div className="portfolio-card-header">
                 <span className="portfolio-number" dir="ltr">

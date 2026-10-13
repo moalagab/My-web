@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { track } from "@/lib/analytics";
+import { useWhatsapp } from "@/lib/whatsapp";
 import { siteSettings } from "@/lib/site-content";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -42,6 +43,23 @@ const BUDGET_KEYS: BudgetKey[] = [
   "undecided",
 ];
 const TIMELINE_KEYS: TimelineKey[] = ["month", "1to3", "flexible"];
+type HeardFromKey =
+  | "google"
+  | "linkedin"
+  | "instagram"
+  | "behance"
+  | "referral"
+  | "returning"
+  | "other";
+const HEARD_FROM_KEYS: HeardFromKey[] = [
+  "google",
+  "linkedin",
+  "instagram",
+  "behance",
+  "referral",
+  "returning",
+  "other",
+];
 const TOTAL_STEPS = 3;
 const MIN_DESCRIPTION = 30;
 const MAX_DESCRIPTION = 1500;
@@ -51,6 +69,7 @@ const phonePattern = /^\+?[\d\s-]{8,18}$/;
 
 const StartPage = () => {
   const { lang, dictionary, isRtl } = useLanguage();
+  const whatsapp = useWhatsapp();
   const copy = dictionary.startPage;
   const form = copy.form;
   const serviceLines = dictionary.servicesPage.lines;
@@ -76,6 +95,7 @@ const StartPage = () => {
     package: params.get("package") ?? "",
     budget: "" as BudgetKey | "",
     timeline: "" as TimelineKey | "",
+    heardFrom: "" as HeardFromKey | "",
     description: "",
     links: "",
     consent: false,
@@ -113,6 +133,7 @@ const StartPage = () => {
       if (!values.service) next.service = form.errors.service;
       if (!values.budget) next.budget = form.errors.budget;
       if (!values.timeline) next.timeline = form.errors.timeline;
+      if (!values.heardFrom) next.heardFrom = form.errors.heardFrom;
     }
     if (target >= 3) {
       const length = values.description.trim().length;
@@ -162,7 +183,10 @@ const StartPage = () => {
       const firstBadStep =
         allErrors.name || allErrors.email || allErrors.whatsapp
           ? 1
-          : allErrors.service || allErrors.budget || allErrors.timeline
+          : allErrors.service ||
+              allErrors.budget ||
+              allErrors.timeline ||
+              allErrors.heardFrom
             ? 2
             : 3;
       setStep(firstBadStep);
@@ -189,6 +213,7 @@ const StartPage = () => {
       package: values.package.trim() || null,
       budget: form.options.budget[values.budget as BudgetKey],
       timeline: form.options.timeline[values.timeline as TimelineKey],
+      heard_from: values.heardFrom || null,
       description: values.description.trim(),
       links: values.links.trim() || null,
       consent: true,
@@ -554,6 +579,37 @@ const StartPage = () => {
                         </div>
                         {fieldError("timeline")}
                       </fieldset>
+                      <fieldset
+                        id="heardFrom"
+                        tabIndex={-1}
+                        aria-describedby={
+                          errors.heardFrom ? "heardFrom-error" : undefined
+                        }
+                        className="space-y-3"
+                      >
+                        <legend className={labelClass}>
+                          {form.heardFrom.label} *
+                        </legend>
+                        <div className="grid gap-3 sm:grid-cols-3">
+                          {HEARD_FROM_KEYS.map((key) => (
+                            <label
+                              key={key}
+                              className={optionClass(values.heardFrom === key)}
+                            >
+                              <input
+                                type="radio"
+                                name="heardFrom"
+                                value={key}
+                                className="sr-only"
+                                checked={values.heardFrom === key}
+                                onChange={() => set("heardFrom", key)}
+                              />
+                              <span>{form.heardFrom.options[key]}</span>
+                            </label>
+                          ))}
+                        </div>
+                        {fieldError("heardFrom")}
+                      </fieldset>
                     </div>
                   )}
 
@@ -729,12 +785,10 @@ const StartPage = () => {
                   </a>
                   <Button asChild variant="outline" className="w-full">
                     <a
-                      href={siteSettings.whatsappLink}
+                      href={whatsapp.href}
                       target="_blank"
                       rel="noreferrer"
-                      onClick={() =>
-                        track("whatsapp_click", { location: "start_page" })
-                      }
+                      onClick={() => whatsapp.onClick("start_page")}
                     >
                       <MessageCircle className="h-4 w-4" />
                       {copy.contact.whatsappLabel}

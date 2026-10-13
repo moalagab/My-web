@@ -62,6 +62,7 @@ const sendEmail = async (lead: Record<string, unknown>) => {
     ["Budget", lead.budget],
     ["Timeline", lead.timeline],
     ["Links", lead.links],
+    ["Heard from", lead.heard_from],
     ["Locale", lead.locale],
     ["Referrer", lead.page_referrer],
     ["UTM source", lead.utm_source],

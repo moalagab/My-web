@@ -31,7 +31,7 @@ test("legacy paths redirect to the brief form", async ({ page }) => {
   await expect(page).toHaveURL(/\/start$/);
 });
 
-for (const path of ["/", "/en", "/work", "/en/start"]) {
+for (const path of ["/", "/en", "/work", "/en/start", "/services/brand", "/en/faq"]) {
   test(`no horizontal scroll at 375px on ${path}`, async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto(path);
@@ -49,4 +49,24 @@ test("reduced motion disables animations", async ({ page }) => {
     els.slice(0, 50).map((el) => parseFloat(getComputedStyle(el).animationDuration) || 0),
   );
   expect(Math.max(...durations)).toBeLessThan(0.01);
+});
+
+test("brief form requires how the visitor heard about me", async ({ page }) => {
+  await page.goto("/en/start?service=brand");
+  await page.fill("#name", "Test Visitor");
+  await page.fill("#email", "test@example.com");
+  await page.locator("form button[type=button]").last().click();
+  await page.locator('input[name="budget"]').first().check({ force: true });
+  await page.locator('input[name="timeline"]').first().check({ force: true });
+  await page.locator("form button[type=button]").last().click();
+  await expect(page.locator("#heardFrom-error")).toBeVisible();
+  await page.locator('input[name="heardFrom"][value="linkedin"]').check({ force: true });
+  await page.locator("form button[type=button]").last().click();
+  await expect(page.locator("#description")).toBeVisible();
+});
+
+test("WhatsApp message names the project the visitor is reading", async ({ page }) => {
+  await page.goto("/en/work/waselny");
+  const href = await page.locator('footer a[href^="https://wa.me/"]').getAttribute("href");
+  expect(decodeURIComponent(href ?? "")).toContain("Waselny");
 });

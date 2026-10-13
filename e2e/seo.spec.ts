@@ -76,3 +76,24 @@ test("llms.txt and robots.txt are served", async ({ request }) => {
   expect(await (await request.get("/llms.txt")).text()).toContain("Mohammed Alagab");
   expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap: https://moalagab.art/sitemap.xml");
 });
+
+test("service pages answer buyer questions with Service and FAQPage data", async ({ request }) => {
+  for (const path of ["/services/brand", "/en/services/ai"]) {
+    const html = await (await request.get(path)).text();
+    const h = head(html);
+    const types = h.jsonLd.flatMap((d) => (Array.isArray(d) ? d : [d])).map((d) => d["@type"]);
+    expect(types, path).toEqual(expect.arrayContaining(["Service", "FAQPage", "BreadcrumbList"]));
+    const faq = h.jsonLd.flat().find((d) => d["@type"] === "FAQPage");
+    expect(faq.mainEntity.length, path).toBeGreaterThanOrEqual(7);
+    // Answers must be visible text in the HTML, not only in JSON-LD.
+    expect(html).toContain(faq.mainEntity[0].acceptedAnswer.text.slice(0, 40));
+  }
+});
+
+test("FAQ page ships FAQPage data in both languages", async ({ request }) => {
+  for (const path of ["/faq", "/en/faq"]) {
+    const h = head(await (await request.get(path)).text());
+    const faq = h.jsonLd.flat().find((d) => d["@type"] === "FAQPage");
+    expect(faq?.mainEntity.length, path).toBeGreaterThanOrEqual(10);
+  }
+});
