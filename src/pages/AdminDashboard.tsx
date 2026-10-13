@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { supabase } from "@/integrations/supabase/client";
 import AgentsPanel from "@/components/admin/AgentsPanel";
 import ContactClicksPanel from "@/components/admin/ContactClicksPanel";
+import CostsPanel from "@/components/admin/CostsPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,7 +43,7 @@ import {
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 
-type LeadStatus = "new" | "contacted" | "proposal" | "closed";
+type LeadStatus = "new" | "contacted" | "proposal" | "won" | "lost";
 
 interface Lead {
   id: string;
@@ -65,13 +66,15 @@ interface Lead {
   status: string;
   heard_from: string | null;
   agent_lead_id: string | null;
+  deal_value_sar: number | null;
 }
 
 const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
   { value: "new", label: "جديد", className: "bg-primary text-primary-foreground" },
   { value: "contacted", label: "تم التواصل", className: "bg-accent text-accent-foreground" },
   { value: "proposal", label: "عرض سعر", className: "bg-secondary text-secondary-foreground" },
-  { value: "closed", label: "مغلق", className: "bg-muted text-foreground" },
+  { value: "won", label: "تم الفوز", className: "bg-accent text-accent-foreground" },
+  { value: "lost", label: "خسارة", className: "bg-muted text-foreground" },
 ];
 
 const HEARD_FROM: Record<string, string> = {
@@ -105,7 +108,8 @@ export default function AdminDashboard() {
   const [loadError, setLoadError] = useState("");
   const [filter, setFilter] = useState<LeadStatus | "all">("all");
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-  const [view, setView] = useState<"leads" | "contacts" | "agents">("leads");
+  const [view, setView] = useState<"leads" | "contacts" | "agents" | "costs">("leads");
+  const [dealValue, setDealValue] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -228,6 +232,26 @@ export default function AdminDashboard() {
       setLoadError("تعذّر تحديث الحالة. حاول مرة أخرى.");
     }
   };
+
+  const saveDealValue = async (lead: Lead) => {
+    const value = dealValue.trim() === "" ? null : Number(dealValue);
+    if (value !== null && !(value >= 0)) {
+      setLoadError("أدخل قيمة صحيحة للصفقة.");
+      return;
+    }
+    const { error } = await supabase.from("leads").update({ deal_value_sar: value }).eq("id", lead.id);
+    if (error) {
+      console.error("Error saving deal value:", error);
+      setLoadError("تعذّر حفظ قيمة الصفقة. حاول مرة أخرى.");
+      return;
+    }
+    setLeads((items) => items.map((item) => (item.id === lead.id ? { ...item, deal_value_sar: value } : item)));
+    setSelectedLead((item) => (item?.id === lead.id ? { ...item, deal_value_sar: value } : item));
+  };
+
+  useEffect(() => {
+    setDealValue(selectedLead?.deal_value_sar != null ? String(selectedLead.deal_value_sar) : "");
+  }, [selectedLead?.id, selectedLead?.deal_value_sar]);
 
   const visibleLeads = filter === "all" ? leads : leads.filter((lead) => lead.status === filter);
   const whatsappHref = (number: string) => `https://wa.me/${number.replace(/\D/g, "")}`;
@@ -373,6 +397,7 @@ export default function AdminDashboard() {
             { value: "leads", label: "طلبات الموقع" },
             { value: "contacts", label: "نقرات واتساب" },
             { value: "agents", label: "الوكلاء ونتائجهم" },
+            { value: "costs", label: "التكاليف والعوائد" },
           ] as const).map((tab) => (
             <button
               key={tab.value}
@@ -389,14 +414,16 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {view === "agents" ? (
+        {view === "costs" ? (
+          <CostsPanel />
+        ) : view === "agents" ? (
           <AgentsPanel />
         ) : view === "contacts" ? (
           <ContactClicksPanel />
         ) : (
         <>
         {/* Stats double as status filters */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
           {[{ value: "all" as const, label: "كل الطلبات", count: leads.length }, ...STATUSES.map((item) => ({
             value: item.value,
             label: item.label,
@@ -642,6 +669,31 @@ export default function AdminDashboard() {
                   ))}
                 </select>
               </div>
+
+              {selectedLead.status === "won" && (
+                <form
+                  className="flex flex-col gap-2 rounded-md border border-border p-4 sm:flex-row sm:items-end"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    saveDealValue(selectedLead);
+                  }}
+                >
+                  <label className="flex-1 text-sm">
+                    <span className="mb-1 block text-muted-foreground">
+                      قيمة الصفقة (ر.س) — تُستخدم في تبويب «التكاليف والعوائد»
+                    </span>
+                    <Input
+                      type="number"
+                      min="0"
+                      step="1"
+                      dir="ltr"
+                      value={dealValue}
+                      onChange={(event) => setDealValue(event.target.value)}
+                    />
+                  </label>
+                  <Button type="submit">حفظ القيمة</Button>
+                </form>
+              )}
             </div>
           )}
         </DialogContent>

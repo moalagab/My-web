@@ -31,7 +31,7 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
-      - run: deno test supabase/functions/submit-lead/
+      - run: deno test supabase/functions/submit-lead/ src/lib/
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      acquisition_costs: {
+        Row: {
+          amount_sar: number
+          category: string
+          channel: string
+          created_at: string
+          id: string
+          month: string
+          note: string | null
+        }
+        Insert: {
+          amount_sar: number
+          category: string
+          channel?: string
+          created_at?: string
+          id?: string
+          month: string
+          note?: string | null
+        }
+        Update: {
+          amount_sar?: number
+          category?: string
+          channel?: string
+          created_at?: string
+          id?: string
+          month?: string
+          note?: string | null
+        }
+        Relationships: []
+      }
       contact_clicks: {
         Row: {
           channel: string
@@ -83,6 +113,7 @@ export type Database = {
           company: string | null
           consent: boolean
           created_at: string
+          deal_value_sar: number | null
           description: string
           email: string
           agent_lead_id: string | null
@@ -101,12 +132,14 @@ export type Database = {
           utm_medium: string | null
           utm_source: string | null
           whatsapp: string | null
+          won_at: string | null
         }
         Insert: {
           budget: string
           company?: string | null
           consent?: boolean
           created_at?: string
+          deal_value_sar?: number | null
           description: string
           email: string
           agent_lead_id?: string | null
@@ -125,12 +158,14 @@ export type Database = {
           utm_medium?: string | null
           utm_source?: string | null
           whatsapp?: string | null
+          won_at?: string | null
         }
         Update: {
           budget?: string
           company?: string | null
           consent?: boolean
           created_at?: string
+          deal_value_sar?: number | null
           description?: string
           email?: string
           agent_lead_id?: string | null
@@ -149,6 +184,7 @@ export type Database = {
           utm_medium?: string | null
           utm_source?: string | null
           whatsapp?: string | null
+          won_at?: string | null
         }
         Relationships: []
       }
