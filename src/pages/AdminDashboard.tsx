@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import { supabase } from "@/integrations/supabase/client";
+import AgentsPanel from "@/components/admin/AgentsPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -88,6 +89,7 @@ export default function AdminDashboard() {
   const [loadError, setLoadError] = useState("");
   const [filter, setFilter] = useState<LeadStatus | "all">("all");
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [view, setView] = useState<"leads" | "agents">("leads");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -330,15 +332,17 @@ export default function AdminDashboard() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-primary">لوحة التحكم</h1>
           <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={fetchLeads}
-              disabled={loading}
-            >
-              <RefreshCw className={`w-4 h-4 ml-2 ${loading ? "animate-spin" : ""}`} />
-              تحديث
-            </Button>
+            {view === "leads" && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={fetchLeads}
+                disabled={loading}
+              >
+                <RefreshCw className={`w-4 h-4 ml-2 ${loading ? "animate-spin" : ""}`} />
+                تحديث
+              </Button>
+            )}
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 ml-2" />
               خروج
@@ -348,6 +352,30 @@ export default function AdminDashboard() {
       </header>
 
       <div className="container mx-auto px-4 py-8">
+        <div role="tablist" aria-label="أقسام لوحة التحكم" className="mb-8 inline-flex rounded-md border bg-card p-1">
+          {([
+            { value: "leads", label: "طلبات الموقع" },
+            { value: "agents", label: "الوكلاء ونتائجهم" },
+          ] as const).map((tab) => (
+            <button
+              key={tab.value}
+              type="button"
+              role="tab"
+              aria-selected={view === tab.value}
+              onClick={() => setView(tab.value)}
+              className={`rounded px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                view === tab.value ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {view === "agents" ? (
+          <AgentsPanel />
+        ) : (
+        <>
         {/* Stats double as status filters */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           {[{ value: "all" as const, label: "كل الطلبات", count: leads.length }, ...STATUSES.map((item) => ({
@@ -450,6 +478,8 @@ export default function AdminDashboard() {
             )}
           </CardContent>
         </Card>
+        </>
+        )}
       </div>
 
       {/* Lead Detail Dialog */}
