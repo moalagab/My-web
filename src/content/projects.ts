@@ -329,13 +329,13 @@ export const projects: Project[] = [
     title_en: "Logofolio #2",
     serviceLine: "brand",
     cover:
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400/90186d177552385.64d8893542e7e.jpg",
+      "/work/logofolio-2/90186d.webp",
     gallery: gallery(
       [
-        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/90186d177552385.64d8893542e7e.jpg",
-        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/484cc4177552385.64d889354a4a0.jpg",
-        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/1d2a09177552385.64d8893546a49.jpg",
-        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/f731bf177552385.64d8893545c19.jpg",
+        "/work/logofolio-2/90186d.webp",
+        "/work/logofolio-2/484cc4.webp",
+        "/work/logofolio-2/1d2a09.webp",
+        "/work/logofolio-2/f731bf.webp",
       ],
       "مجموعة شعارات #2",
       "Logofolio #2",
@@ -498,13 +498,13 @@ export const projects: Project[] = [
     title_en: "Nasaq Branding",
     serviceLine: "brand",
     cover:
-      "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2bae2f132925191.61b2671429233.png",
+      "/work/nasaq-branding/2bae2f.webp",
     gallery: gallery(
       [
-        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2bae2f132925191.61b2671429233.png",
-        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/3168e7132925191.61b2671429f98.png",
-        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/fd9875132925191.61b267142c057.png",
-        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d8e4e5132925191.61b26714297f8.png",
+        "/work/nasaq-branding/2bae2f.webp",
+        "/work/nasaq-branding/3168e7.webp",
+        "/work/nasaq-branding/fd9875.webp",
+        "/work/nasaq-branding/d8e4e5.webp",
       ],
       "علامة نساق",
       "Nasaq Branding",
