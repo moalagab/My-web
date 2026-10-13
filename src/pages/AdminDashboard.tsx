@@ -36,7 +36,8 @@ import {
   RefreshCw,
   LogOut,
   Eye,
-  AlertCircle
+  AlertCircle,
+  Bot
 } from "lucide-react";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
@@ -63,6 +64,7 @@ interface Lead {
   page_referrer: string | null;
   status: string;
   heard_from: string | null;
+  agent_lead_id: string | null;
 }
 
 const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
@@ -562,6 +564,14 @@ export default function AdminDashboard() {
                   <span>
                     {selectedLead.service_line}
                     {selectedLead.package ? ` — ${selectedLead.package}` : ""}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Bot className="w-4 h-4 text-muted-foreground" />
+                  <span>
+                    {selectedLead.agent_lead_id
+                      ? "مسجّل في نظام الوكلاء (ENGAGED)"
+                      : "غير مسجّل في نظام الوكلاء"}
                   </span>
                 </div>
               </div>
