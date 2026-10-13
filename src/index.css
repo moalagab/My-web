@@ -354,7 +354,7 @@ body {
   padding-inline: var(--studio-gutter);
 }
 .studio-eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.12em;
   font-weight: 500;
   display: flex;
@@ -450,13 +450,13 @@ html[lang="ar"] .studio-eyebrow {
 .language-switch {
   display: flex;
   gap: 10px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .language-switch a {
   opacity: 0.8;
-  padding-block: 16px;
-  /* 24px minimum target (WCAG 2.2 target size) */
-  min-width: 24px;
+  padding-block: 14px;
+  /* 44px touch target (WCAG 2.5.5, Apple HIG) */
+  min-width: 44px;
   text-align: center;
 }
 .language-switch a[aria-current],
@@ -604,12 +604,12 @@ html[lang="ar"] .hero-title {
   align-items: center;
   padding-block: 23px;
   border-top: 1px solid hsl(var(--secondary) / 0.18);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   color: hsl(var(--secondary) / 0.65);
 }
 .hero-baseline a {
-  padding: 8px;
+  padding: 13px;
 }
 .brand-sculpture {
   position: relative;
@@ -694,7 +694,7 @@ html[lang="ar"] .hero-title {
 }
 .proof-grid small {
   grid-column: 1/-1;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.7;
   opacity: 0.75;
 }
@@ -759,7 +759,7 @@ html[lang="ar"] .hero-title {
   position: absolute;
   inset-inline-start: 18px;
   top: 18px;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   background: hsl(var(--background) / 0.92);
   color: hsl(var(--primary));
@@ -794,7 +794,7 @@ html[lang="ar"] .hero-title {
   margin-top: 22px;
 }
 .project-caption .studio-eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   opacity: 0.7;
 }
 .project-caption h3 {
@@ -803,7 +803,7 @@ html[lang="ar"] .hero-title {
   margin-top: 9px;
 }
 .project-caption > span {
-  font-size: 9px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1043,7 +1043,7 @@ html[lang="ar"] .hero-title {
 }
 .process-grid .studio-eyebrow {
   opacity: 0.65;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 8px;
 }
 .process-grid p {
@@ -1079,7 +1079,7 @@ html[lang="ar"] .hero-title {
   left: 20px;
   background: hsl(var(--secondary));
   padding: 10px 18px;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
 .about-copy > p:not(.studio-eyebrow) {
@@ -1196,7 +1196,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   font-size: 25px;
 }
 .mobile-menu-links small {
-  font-size: 10px;
+  font-size: 12px;
   opacity: 0.5;
 }
 .mobile-menu-email {
@@ -1243,7 +1243,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     display: none;
   }
   .header-cta {
-    font-size: 11px;
+    font-size: 13px;
     padding: 10px 15px;
     gap: 12px;
   }
@@ -1254,7 +1254,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     gap: 12px;
   }
   .language-switch {
-    font-size: 10px;
+    font-size: 13px;
     gap: 8px;
   }
   .studio-hero {
@@ -1285,7 +1285,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     margin-top: 10px;
   }
   .hero-baseline {
-    font-size: 8px;
+    font-size: 11px;
     padding-block: 16px;
     gap: 16px;
   }
@@ -1313,10 +1313,10 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
   .proof-grid small {
     width: 100%;
-    font-size: 9px;
+    font-size: 12px;
   }
   .proof-grid span {
-    font-size: 11px;
+    font-size: 13px;
   }
   .studio-section {
     padding-block: 70px;
@@ -1434,7 +1434,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     padding-top: 42px;
   }
   .hero-copy .studio-eyebrow {
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 0.07em;
   }
   .hero-actions {
@@ -1525,6 +1525,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .footer-email {
   display: flex;
   align-items: center;
+  min-height: 44px;
   gap: 25px;
   font-size: clamp(21px, 3vw, 42px);
   letter-spacing: -0.04em;
@@ -1550,20 +1551,27 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .footer-middle nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  font-size: 12px;
+  gap: 0 14px;
+  font-size: 13px;
+}
+.footer-middle nav a,
+.footer-legal a,
+.footer-legal button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .footer-social {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .footer-social a {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 30px;
+  min-height: 44px;
 }
 .footer-middle a:hover,
 .footer-bottom a:hover {
@@ -1576,7 +1584,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 10px;
+  font-size: 12px;
   opacity: 0.75;
 }
 .product-detail {
@@ -1611,7 +1619,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   flex-wrap: wrap;
   gap: 8px;
   margin: 25px 0 30px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .product-feature-list li {
   padding: 9px 15px;
@@ -1755,7 +1763,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   place-items: center;
   border-radius: 50%;
   border: 1px solid hsl(var(--border));
-  font-size: 11px;
+  font-size: 13px;
 }
 .start-page .form-progress span[data-active="true"] {
   background: hsl(var(--primary));
@@ -2404,7 +2412,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .portfolio-filters > span {
   margin-inline-start: auto;
-  font-size: 11px;
+  font-size: 12px;
   color: hsl(var(--accent));
 }
 .portfolio-collection {
@@ -2431,7 +2439,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   min-height: 48px;
 }
 .portfolio-number {
-  font-size: 10px;
+  font-size: 12px;
   color: hsl(var(--accent));
   flex-shrink: 0;
 }
@@ -2442,7 +2450,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .portfolio-discipline {
   margin-inline-start: auto;
-  font-size: 10px;
+  font-size: 13px;
   color: hsl(var(--accent));
   max-width: 170px;
   line-height: 1.7;
@@ -2507,7 +2515,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   position: absolute;
   inset-inline: 16px;
   bottom: 15px;
-  font-size: 10px;
+  font-size: 12px;
   padding: 9px 12px;
   width: fit-content;
   background: hsl(var(--background) / 0.94);
@@ -2522,7 +2530,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   align-items: center;
   gap: 12px;
   padding: 11px 16px;
-  font-size: 10px;
+  font-size: 12px;
   background: hsl(var(--primary));
   color: hsl(var(--secondary));
   border-radius: 999px;
@@ -2559,7 +2567,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   max-width: 700px;
 }
 .portfolio-card-foot > span {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.11em;
   flex-shrink: 0;
   color: hsl(var(--accent));
@@ -2610,7 +2618,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     font-size: 14px;
   }
   .portfolio-filters > button {
-    font-size: 10px;
+    font-size: 13px;
     padding: 10px 13px;
   }
   .portfolio-filters > span {
@@ -2647,7 +2655,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     margin-bottom: 16px;
   }
   .portfolio-card-foot > p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .portfolio-view {
     display: none;
@@ -2704,7 +2712,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   border: 1px solid hsl(var(--secondary) / 0.3);
   padding: 10px 17px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 13px;
   transition: background 0.2s;
 }
 .about-section-nav a:hover {
@@ -2720,7 +2728,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   border: 1px solid hsl(var(--secondary) / 0.2);
 }
 .about-portrait figcaption {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: hsl(var(--muted));
   margin-top: 15px;
@@ -2753,7 +2761,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .about-experience > span {
   display: grid;
   gap: 10px;
-  font-size: 11px;
+  font-size: 12px;
   color: hsl(var(--accent));
 }
 .about-experience b {
@@ -2809,7 +2817,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .about-questions > div > span {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: hsl(var(--accent));
   margin-bottom: 12px;
 }
@@ -2844,7 +2852,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   line-height: 1.3;
 }
 .about-impact-number > span {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.9;
   max-width: 190px;
   color: hsl(var(--accent));
@@ -2863,7 +2871,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .about-impact-stack {
   display: block;
   margin-top: 20px;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: hsl(var(--accent));
 }
@@ -2872,7 +2880,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   color: hsl(var(--primary));
 }
 .about-flow-label {
-  font-size: 11px;
+  font-size: 12px;
   margin: 30px 0 18px;
   color: hsl(var(--accent));
 }
@@ -2905,7 +2913,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   padding-top: 20px;
 }
 .about-principle-number {
-  font-size: 11px;
+  font-size: 12px;
   color: hsl(var(--accent));
   padding-top: 6px;
 }
@@ -2936,7 +2944,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .about-timeline-caption {
   margin-top: 35px;
   color: hsl(var(--accent));
-  font-size: 10px;
+  font-size: 12px;
   line-height: 2;
   letter-spacing: 0.06em;
 }
@@ -2974,7 +2982,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   overflow-wrap: anywhere;
 }
 .about-timeline-role {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.9;
   color: hsl(var(--accent));
   margin-top: 8px;
@@ -3022,7 +3030,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   line-height: 1.9;
 }
 .about-method li span {
-  font-size: 9px;
+  font-size: 11px;
   color: hsl(var(--accent));
   padding-top: 3px;
 }
@@ -3064,7 +3072,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
-  font-size: 11px;
+  font-size: 12px;
   color: hsl(var(--muted));
   line-height: 2;
 }
@@ -3107,7 +3115,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     font-size: 52px;
   }
   .about-descriptor {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.8;
   }
   .about-hero-statement {
@@ -3185,14 +3193,14 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     gap: 17px;
   }
   .about-timeline-period {
-    font-size: 10px;
+    font-size: 12px;
     padding-inline-end: 12px;
   }
   .about-timeline-entry h3 {
     font-size: 21px;
   }
   .about-timeline-role {
-    font-size: 10px;
+    font-size: 12px;
   }
   .about-timeline-body {
     font-size: 13px;
@@ -3216,7 +3224,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     margin-top: 40px;
     gap: 8px;
     flex-direction: column;
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -3322,9 +3330,9 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .cinematic-hero .hero-title-soft { color: hsl(var(--secondary) / .7); }
 .cinematic-hero .hero-description { max-width: 440px; font-size: 14px; line-height: 1.9; }
 .cinematic-side-note { position: absolute; left: 35px; top: 50%; writing-mode: vertical-rl; font-size: 8px; letter-spacing: .18em; color: hsl(var(--secondary) / .7); }
-.hero-profile-link { position: absolute; left: 28px; bottom: 44px; display: flex; align-items: end; gap: 35px; text-align: left; }
+.hero-profile-link { position: absolute; left: 28px; bottom: 44px; display: flex; align-items: end; min-height: 44px; gap: 35px; text-align: left; }
 .hero-profile-link > span:first-child { font-size: 29px; line-height: .95; letter-spacing: -.05em; font-weight: 700; }
-.hero-profile-link > span:last-child { display: flex; align-items: center; gap: 12px; font-size: 10px; padding-bottom: 3px; }
+.hero-profile-link > span:last-child { display: flex; align-items: center; gap: 12px; font-size: 12px; padding-bottom: 3px; }
 .cinematic-hero .hero-baseline { position: relative; border-color: hsl(var(--secondary) / .25); margin-bottom: 16px; }
 @media (max-width: 900px) {
   .cinematic-hero .hero-copy { width: 51%; }

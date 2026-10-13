@@ -766,10 +766,10 @@ const StartPage = () => {
 
               <div className="rounded-md border border-border bg-card p-6">
                 <h2 className="font-display text-xl">{copy.contact.title}</h2>
-                <div className="mt-5 space-y-4">
+                <div className="mt-4 space-y-1">
                   <a
                     href={`mailto:${siteSettings.email}`}
-                    className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="flex min-h-11 items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     <Mail className="h-4 w-4 text-accent" />
                     <span dir="ltr">{siteSettings.email}</span>
@@ -778,7 +778,7 @@ const StartPage = () => {
                     href={siteSettings.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="flex min-h-11 items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     <Linkedin className="h-4 w-4 text-accent" />
                     <span>{copy.contact.linkedinLabel}</span>
