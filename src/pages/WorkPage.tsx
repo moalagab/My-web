@@ -111,7 +111,7 @@ export default function WorkPage() {
             <h2 id="work-gallery-heading" className="sr-only">
               {ar ? "معرض الأعمال" : "Work gallery"}
             </h2>
-            <WorkCollection items={visible} />
+            <WorkCollection items={visible} eagerFirst />
           </div>
         </section>
         <section className="studio-cta">

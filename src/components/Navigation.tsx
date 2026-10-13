@@ -55,7 +55,6 @@ export default function Navigation() {
           <Link
             to={to()}
             className="studio-wordmark"
-            aria-label={`${d.brand.name} — ${d.navigation.home}`}
           >
             <span dir="ltr">
               mo<span className="wordmark-dot">.</span>
@@ -65,6 +64,7 @@ export default function Navigation() {
               <br />
               <small>DESIGN & BUILD</small>
             </span>
+            <span className="sr-only">{` — ${d.navigation.home}`}</span>
           </Link>
           <div className="desktop-navigation">
             {items.map((i) => (
