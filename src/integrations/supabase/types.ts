@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_snapshots: {
+        Row: {
+          generated_at: string
+          id: number
+          payload: Json
+          received_at: string
+          tenant: string
+        }
+        Insert: {
+          generated_at: string
+          id?: never
+          payload: Json
+          received_at?: string
+          tenant: string
+        }
+        Update: {
+          generated_at?: string
+          id?: never
+          payload?: Json
+          received_at?: string
+          tenant?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           budget: string
