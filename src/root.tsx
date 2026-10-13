@@ -7,6 +7,7 @@ import {
   Scripts,
   useLocation,
 } from "react-router";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import type { Route } from "./+types/root";
 import "./index.css";
 
@@ -120,6 +121,7 @@ export function Layout({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        {__ON_VERCEL__ && <SpeedInsights />}
         <Scripts />
       </body>
     </html>

@@ -8,6 +8,10 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
   },
+  // Vercel sets VERCEL=1 at build time; Speed Insights only exists there.
+  define: {
+    __ON_VERCEL__: JSON.stringify(Boolean(process.env.VERCEL)),
+  },
   plugins: [reactRouter()],
   resolve: {
     alias: {
