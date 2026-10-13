@@ -21,7 +21,6 @@ import rivers30 from "@/assets/rivers/Artboard_30.webp";
 import rivers31 from "@/assets/rivers/Artboard_31.webp";
 
 import gyptech2 from "@/assets/gyptech/Artboard_2.webp";
-import gyptech3 from "@/assets/gyptech/Artboard_3.webp";
 import gyptech4 from "@/assets/gyptech/Artboard_4.webp";
 import gyptech5 from "@/assets/gyptech/Artboard_5.webp";
 import gyptech7 from "@/assets/gyptech/Artboard_7.webp";
@@ -392,11 +391,11 @@ export const projects: Project[] = [
     serviceLine: "brand",
     featured: true,
     selectionRank: 6,
-    cover: gyptech3,
-    preview: gyptech7,
+    cover: gyptech7,
+    preview: gyptech5,
     discipline: { ar: "هوية صناعية", en: "Industrial identity" },
     gallery: gallery(
-      [gyptech2, gyptech3, gyptech4, gyptech5, gyptech7, gyptech8, gyptech9],
+      [gyptech7, gyptech2, gyptech4, gyptech5, gyptech8, gyptech9],
       "علامة جيبتك",
       "Gyptech Brand",
     ),
