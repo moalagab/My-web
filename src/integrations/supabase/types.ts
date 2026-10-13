@@ -85,6 +85,7 @@ export type Database = {
           created_at: string
           description: string
           email: string
+          agent_lead_id: string | null
           heard_from: string | null
           id: string
           links: string | null
@@ -108,6 +109,7 @@ export type Database = {
           created_at?: string
           description: string
           email: string
+          agent_lead_id?: string | null
           heard_from?: string | null
           id?: string
           links?: string | null
@@ -131,6 +133,7 @@ export type Database = {
           created_at?: string
           description?: string
           email?: string
+          agent_lead_id?: string | null
           heard_from?: string | null
           id?: string
           links?: string | null
