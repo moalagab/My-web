@@ -21,4 +21,6 @@ FOR SELECT
 TO authenticated
 USING (public.has_role(auth.uid(), 'admin'));
 
-REVOKE INSERT, UPDATE, DELETE ON public.agent_snapshots FROM anon, authenticated;
+-- Supabase auto-grants new tables to the API roles; keep only what the admin tab needs (SELECT, under RLS).
+REVOKE ALL ON public.agent_snapshots FROM anon;
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, TRIGGER, REFERENCES ON public.agent_snapshots FROM authenticated;
