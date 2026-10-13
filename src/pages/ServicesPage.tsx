@@ -9,6 +9,7 @@ import { Section, SectionInner } from "@/components/system/Section";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { projects, type ServiceLine } from "@/content/projects";
+import Picture from "@/components/Picture";
 
 const ServicesPage = () => {
   const { lang, dictionary, isRtl } = useLanguage();
@@ -169,8 +170,9 @@ const ServicesPage = () => {
                           className="group mt-4 flex flex-col gap-5 border border-border bg-background p-5 sm:flex-row sm:items-center"
                         >
                           <div className="aspect-[4/3] w-full shrink-0 overflow-hidden border border-border bg-secondary sm:w-40">
-                            <img
+                            <Picture
                               src={caseStudy.cover}
+                              sizes="(min-width: 640px) 160px, 100vw"
                               alt={
                                 lang === "ar"
                                   ? caseStudy.title_ar

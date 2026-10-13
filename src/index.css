@@ -8,56 +8,56 @@
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url("/fonts/LamaSans-Thin.woff") format("woff");
+  src: url("/fonts/LamaSans-Thin.woff2") format("woff2"), url("/fonts/LamaSans-Thin.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("/fonts/LamaSans-Light.woff") format("woff");
+  src: url("/fonts/LamaSans-Light.woff2") format("woff2"), url("/fonts/LamaSans-Light.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/LamaSans-Regular.woff") format("woff");
+  src: url("/fonts/LamaSans-Regular.woff2") format("woff2"), url("/fonts/LamaSans-Regular.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/LamaSans-RegularItalic.woff") format("woff");
+  src: url("/fonts/LamaSans-RegularItalic.woff2") format("woff2"), url("/fonts/LamaSans-RegularItalic.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("/fonts/LamaSans-Medium.woff") format("woff");
+  src: url("/fonts/LamaSans-Medium.woff2") format("woff2"), url("/fonts/LamaSans-Medium.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/LamaSans-SemiBold.woff") format("woff");
+  src: url("/fonts/LamaSans-SemiBold.woff2") format("woff2"), url("/fonts/LamaSans-SemiBold.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/LamaSans-Bold.woff") format("woff");
+  src: url("/fonts/LamaSans-Bold.woff2") format("woff2"), url("/fonts/LamaSans-Bold.woff") format("woff");
 }
 @font-face {
   font-family: "Lama";
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url("/fonts/LamaSans-Black.woff") format("woff");
+  src: url("/fonts/LamaSans-Black.woff2") format("woff2"), url("/fonts/LamaSans-Black.woff") format("woff");
 }
 
 @layer base {

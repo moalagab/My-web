@@ -41,3 +41,12 @@ for (const path of ["/", "/en", "/work", "/en/start"]) {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 }
+
+test("reduced motion disables animations", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const durations = await page.$$eval(".page-enter, .page-enter *", (els) =>
+    els.slice(0, 50).map((el) => parseFloat(getComputedStyle(el).animationDuration) || 0),
+  );
+  expect(Math.max(...durations)).toBeLessThan(0.01);
+});

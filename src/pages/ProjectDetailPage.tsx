@@ -34,6 +34,7 @@ import {
   projects,
   type Project,
 } from "@/content/projects";
+import Picture from "@/components/Picture";
 
 const ProjectDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -177,8 +178,10 @@ const ProjectDetailPage = () => {
             </h1>
           </div>
           <div className="case-cover w-full overflow-hidden bg-secondary">
-            <img
+            <Picture
               src={project.cover}
+              sizes="100vw"
+              fetchPriority="high"
               alt={title}
               className="h-full w-full object-cover"
               width={1200}
@@ -298,8 +301,9 @@ const ProjectDetailPage = () => {
                     className="group relative aspect-square overflow-hidden border border-border bg-background"
                     aria-label={`${copy.openImage}: ${image.alt[lang]}`}
                   >
-                    <img
+                    <Picture
                       src={image.src}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       alt={image.alt[lang]}
                       loading="lazy"
                       width={1200}
@@ -441,8 +445,9 @@ const ProjectDetailPage = () => {
           <DialogTitle className="sr-only">{copy.gallery}</DialogTitle>
           {lightboxIndex !== null && (
             <>
-              <img
+              <Picture
                 src={project.gallery[lightboxIndex].src}
+                sizes="100vw"
                 alt={project.gallery[lightboxIndex].alt[lang]}
               />
               <div className="case-lightbox-controls">

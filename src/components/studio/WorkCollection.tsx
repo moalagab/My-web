@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Project } from "@/content/projects";
+import Picture from "@/components/Picture";
 
 /** Shared editorial rhythm for the home selection and full portfolio. */
 export default function WorkCollection({ items }: { items: Project[] }) {
@@ -44,8 +45,9 @@ export default function WorkCollection({ items }: { items: Project[] }) {
               </div>
               <div className="portfolio-stage">
                 <div className="portfolio-main-image">
-                  <img
+                  <Picture
                     src={p.cover}
+                    sizes="(min-width: 1024px) 66vw, 100vw"
                     alt={title}
                     loading="lazy"
                     width={1400}
@@ -55,8 +57,9 @@ export default function WorkCollection({ items }: { items: Project[] }) {
                 </div>
                 {wide && preview && (
                   <div className="portfolio-detail-image">
-                    <img
+                    <Picture
                       src={preview}
+                      sizes="(min-width: 1024px) 33vw, 100vw"
                       alt={
                         ar
                           ? `تطبيقات هوية ${title}`

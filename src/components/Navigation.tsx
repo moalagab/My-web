@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { track } from "@/lib/analytics";
-import { siteSettings } from "@/lib/site-content";
+
+const loadMobileMenu = () => import("@/components/MobileMenu");
+const MobileMenu = lazy(loadMobileMenu);
 
 export default function Navigation() {
   const { lang, dictionary: d, isRtl } = useLanguage();
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const menuTrigger = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const prefix = lang === "en" ? "/en" : "";
   const to = (p = "") => `${prefix}${p}` || "/";
@@ -108,62 +104,33 @@ export default function Navigation() {
               {d.navigation.start}
               <ArrowUpRight size={16} className={isRtl ? "-scale-x-100" : ""} />
             </Link>
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger asChild>
-                <button
-                  className="mobile-menu-trigger"
-                  aria-label={d.navigation.openMenu}
-                >
-                  <Menu size={24} />
-                </button>
-              </DialogTrigger>
-              <DialogContent
-                className="studio-mobile-menu"
-                onKeyDown={(event) => {
-                  if (event.key === "Escape") setOpen(false);
-                }}
-                aria-describedby={undefined}
-              >
-                <DialogTitle className="studio-eyebrow">
-                  {d.navigation.label}
-                </DialogTitle>
-                <DialogClose asChild>
-                  <button
-                    className="mobile-close"
-                    aria-label={d.navigation.closeMenu}
-                  >
-                    <X size={24} />
-                  </button>
-                </DialogClose>
-                <div className="mobile-menu-links">
-                  {items.map((i, n) => (
-                    <Link
-                      key={i.path}
-                      to={to(i.path)}
-                      onClick={() => setOpen(false)}
-                    >
-                      <small dir="ltr">0{n + 1}</small>
-                      {i.label}
-                      <ArrowUpRight className={isRtl ? "-scale-x-100" : ""} />
-                    </Link>
-                  ))}
-                </div>
-                <Link
-                  to={to("/start")}
-                  onClick={() => setOpen(false)}
-                  className="studio-button"
-                >
-                  {d.navigation.start}
-                  <ArrowUpRight size={19} />
-                </Link>
-                <a
-                  href={`mailto:${siteSettings.email}`}
-                  className="mobile-menu-email"
-                >
-                  {siteSettings.email}
-                </a>
-              </DialogContent>
-            </Dialog>
+            <button
+              ref={menuTrigger}
+              type="button"
+              className="mobile-menu-trigger"
+              aria-label={d.navigation.openMenu}
+              aria-haspopup="dialog"
+              aria-expanded={open}
+              onPointerEnter={loadMobileMenu}
+              onTouchStart={loadMobileMenu}
+              onFocus={loadMobileMenu}
+              onClick={() => setOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
+            {open && (
+              <Suspense fallback={null}>
+                <MobileMenu
+                  open={open}
+                  onOpenChange={setOpen}
+                  items={items}
+                  to={to}
+                  d={d}
+                  isRtl={isRtl}
+                  triggerRef={menuTrigger}
+                />
+              </Suspense>
+            )}
           </div>
         </nav>
       </header>

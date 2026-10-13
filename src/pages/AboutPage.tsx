@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portraitImage from "@/assets/portrait-mo.webp";
+import Picture from "@/components/Picture";
 
 const paragraphs = (text: string) =>
   text.split("\n").map((p, i) => <p key={i}>{p}</p>);
@@ -43,8 +44,9 @@ export default function AboutPage() {
               </nav>
             </div>
             <figure className="about-portrait">
-              <img
+              <Picture
                 src={portraitImage}
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 alt={c.portraitAlt}
                 width={800}
                 height={1000}

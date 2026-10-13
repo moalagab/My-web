@@ -23,6 +23,7 @@ import { selectedIdentityProjects } from "@/content/projects";
 import WorkCollection from "@/components/studio/WorkCollection";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
+import Picture from "@/components/Picture";
 
 export default function HomePage() {
   const { lang, dictionary, isRtl } = useLanguage();
@@ -49,7 +50,7 @@ export default function HomePage() {
       <main id="main-content" className="studio-home">
         <section className="studio-hero cinematic-hero hero-brand" data-no-reveal>
           <div className="cinematic-portrait" aria-hidden="true">
-            <img src={heroPortrait} alt="" fetchPriority="high" decoding="async" />
+            <Picture src={heroPortrait} sizes="(min-width: 1024px) 60vw, 100vw" alt="" fetchPriority="high" decoding="async" />
           </div>
           <div className="cinematic-side-note" dir="ltr" aria-hidden="true">MO ALAGAB / INDEPENDENT PRACTICE</div>
           <div className="studio-container hero-grid">
@@ -271,8 +272,9 @@ export default function HomePage() {
         <section className="studio-section studio-about">
           <div className="studio-container about-grid">
             <div className="about-portrait" data-reveal>
-              <img
+              <Picture
                 src={portrait}
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 alt={h.about.portraitAlt}
                 width={800}
                 height={1000}
