@@ -20,9 +20,20 @@ export interface CostRow {
   amount_sar: number;
 }
 
+export interface OutcomeDeal {
+  source: string;
+  stage: "WON" | "LOST";
+  date: string; // YYYY-MM-DD
+  value: number | null;
+}
+
 export interface SnapshotRow {
   generated_at: string;
-  payload: { daily_cost?: { date: string; cost_usd: number }[] };
+  payload: {
+    daily_cost?: { date: string; cost_usd: number }[];
+    /** Agents CRM deals of the last `days` days (moagent site_mirror). */
+    outcomes?: { days?: number; deals?: OutcomeDeal[] };
+  };
 }
 
 /** Inclusive start (null = all time) to exclusive end. */
@@ -63,6 +74,22 @@ export const agentDailyCostUsd = (snapshots: SnapshotRow[]) => {
 
 const ratio = (a: number, b: number) => (b > 0 ? a / b : null);
 
+/**
+ * Outbound wins from the newest snapshot that carries outcomes. Website deals
+ * are skipped: they are counted from public.leads already.
+ */
+export const outboundWins = (snapshots: SnapshotRow[], period: Period) => {
+  const newest = [...snapshots]
+    .filter((s) => s.payload?.outcomes?.deals)
+    .sort((a, b) => new Date(b.generated_at).getTime() - new Date(a.generated_at).getTime())[0];
+  const deals = newest?.payload.outcomes?.deals ?? [];
+  return {
+    available: Boolean(newest),
+    days: newest?.payload.outcomes?.days ?? null,
+    wins: deals.filter((d) => d.stage === "WON" && d.source !== "website" && inPeriod(`${d.date}T12:00:00Z`, period)),
+  };
+};
+
 export interface SourceStats {
   source: string;
   briefs: number;
@@ -87,7 +114,26 @@ export interface Summary {
     dealToCac: number | null;
     conversion: number | null;
   };
-  outbound: { cost: number };
+  outbound: {
+    cost: number;
+    /** False until the agents snapshot carries outcomes. */
+    available: boolean;
+    /** How far back the snapshot reaches (90 days); older outbound wins are not counted. */
+    days: number | null;
+    wins: number;
+    revenue: number;
+    unvaluedWins: number;
+    cac: number | null;
+  };
+  /** Both channels together: all costs over all wins. */
+  overall: {
+    wins: number;
+    revenue: number;
+    cac: number | null;
+    avgDeal: number | null;
+    returnPerRiyal: number | null;
+    dealToCac: number | null;
+  };
   bySource: SourceStats[];
 }
 
@@ -115,6 +161,16 @@ export const summarize = (input: {
   const revenue = wins.reduce((sum, l) => sum + (Number(l.deal_value_sar) || 0), 0);
   const valued = wins.filter((l) => l.deal_value_sar !== null);
 
+  const outbound = outboundWins(snapshots, period);
+  const outboundRevenue = outbound.wins.reduce((sum, d) => sum + (Number(d.value) || 0), 0);
+  const outboundValued = outbound.wins.filter((d) => d.value !== null).length;
+  const outboundCost = manual.outbound + agents;
+  const totalCost = manual.shared + manual.website + outboundCost;
+  const allWins = wins.length + outbound.wins.length;
+  const allRevenue = revenue + outboundRevenue;
+  const allAvgDeal = ratio(allRevenue, valued.length + outboundValued);
+  const allCac = ratio(totalCost, allWins);
+
   const websiteCost = manual.website + manual.shared;
   const cac = ratio(websiteCost, wins.length);
   const avgDeal = ratio(revenue, valued.length);
@@ -136,9 +192,9 @@ export const summarize = (input: {
     cost: {
       shared: manual.shared,
       website: manual.website,
-      outbound: manual.outbound + agents,
+      outbound: outboundCost,
       agents,
-      total: manual.shared + manual.website + manual.outbound + agents,
+      total: totalCost,
     },
     website: {
       briefs: briefs.length,
@@ -152,7 +208,23 @@ export const summarize = (input: {
       dealToCac: avgDeal !== null && cac ? avgDeal / cac : null,
       conversion: ratio(wins.length, briefs.length),
     },
-    outbound: { cost: manual.outbound + agents },
+    outbound: {
+      cost: outboundCost,
+      available: outbound.available,
+      days: outbound.days,
+      wins: outbound.wins.length,
+      revenue: outboundRevenue,
+      unvaluedWins: outbound.wins.length - outboundValued,
+      cac: ratio(outboundCost, outbound.wins.length),
+    },
+    overall: {
+      wins: allWins,
+      revenue: allRevenue,
+      cac: allCac,
+      avgDeal: allAvgDeal,
+      returnPerRiyal: ratio(allRevenue, totalCost),
+      dealToCac: allAvgDeal !== null && allCac ? allAvgDeal / allCac : null,
+    },
     bySource: [...sources.values()].sort((a, b) => b.wins - a.wins || b.briefs - a.briefs),
   };
 };

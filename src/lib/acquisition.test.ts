@@ -98,3 +98,46 @@ Deno.test("all-time period includes every month and groups unknown sources", () 
   assertEquals(s.website.cost, 50);
   assertEquals(s.bySource, [{ source: "unknown", briefs: 1, wins: 0, revenue: 0 }]);
 });
+
+Deno.test("outbound wins come from the newest snapshot and skip website deals", () => {
+  const snaps: SnapshotRow[] = [
+    { generated_at: "2026-10-20T10:00:00Z", payload: { outcomes: { days: 90, deals: [{ source: "manual", stage: "WON", date: "2026-10-01", value: 1 }] } } },
+    {
+      generated_at: "2026-10-25T10:00:00Z",
+      payload: {
+        daily_cost: [{ date: "2026-10-25", cost_usd: 40 }], // 150 SAR
+        outcomes: {
+          days: 90,
+          deals: [
+            { source: "serpapi_prospecting", stage: "WON", date: "2026-10-22", value: 12000 },
+            { source: "manual", stage: "WON", date: "2026-10-23", value: null },
+            { source: "website", stage: "WON", date: "2026-10-23", value: 7000 }, // counted from public.leads
+            { source: "manual", stage: "LOST", date: "2026-10-24", value: 3000 },
+            { source: "manual", stage: "WON", date: "2026-09-30", value: 5000 }, // before the period
+          ],
+        },
+      },
+    },
+  ];
+  const leads = [lead({ status: "won", won_at: "2026-10-23T00:00:00Z", deal_value_sar: 7000 })];
+  const costs: CostRow[] = [{ month: "2026-10-01", channel: "shared", amount_sar: 150 }];
+  const s = summarize({ leads, costs, snapshots: snaps, period: october });
+  assertEquals(s.outbound.available, true);
+  assertEquals(s.outbound.days, 90);
+  assertEquals(s.outbound.wins, 2);
+  assertEquals(s.outbound.revenue, 12000);
+  assertEquals(s.outbound.unvaluedWins, 1);
+  assertEquals(s.outbound.cac, 75);
+  assertEquals(s.overall.wins, 3);
+  assertEquals(s.overall.revenue, 19000);
+  assertEquals(s.overall.cac, 100);
+  assertEquals(s.overall.avgDeal, 9500);
+  assertEquals(s.overall.dealToCac, 95);
+});
+
+Deno.test("outbound is marked unavailable until a snapshot carries outcomes", () => {
+  const s = summarize({ leads: [], costs: [], snapshots: [{ generated_at: "2026-10-10T00:00:00Z", payload: {} }], period: october });
+  assertEquals(s.outbound.available, false);
+  assertEquals(s.outbound.wins, 0);
+  assertEquals(s.overall.cac, null);
+});
