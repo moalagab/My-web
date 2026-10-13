@@ -5,6 +5,8 @@ const pages = (lang: "ar" | "en") => [
   index("pages/HomePage.tsx", { id: `${lang}-home` }),
   route("about", "pages/AboutPage.tsx", { id: `${lang}-about` }),
   route("services", "pages/ServicesPage.tsx", { id: `${lang}-services` }),
+  route("services/:slug", "pages/ServiceLinePage.tsx", { id: `${lang}-service-line` }),
+  route("faq", "pages/FaqPage.tsx", { id: `${lang}-faq` }),
   route("start", "pages/StartPage.tsx", { id: `${lang}-start` }),
   route("privacy", "pages/PrivacyPage.tsx", { id: `${lang}-privacy` }),
   route("work", "pages/WorkPage.tsx", { id: `${lang}-work` }),

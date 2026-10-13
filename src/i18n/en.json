@@ -478,7 +478,39 @@
           }
         ]
       }
-    ]
+    ],
+    "detailCta": "Service details",
+    "relatedWork": "Work in this line",
+    "allServices": "All services",
+    "askEyebrow": "Buyer questions",
+    "qa": {
+      "what": "What is {title}?",
+      "who": "Who is this service for?",
+      "deliverables": "What exactly do I receive?",
+      "notIncluded": "What isn't included?",
+      "timeline": "How long does it take?",
+      "cost": "How much does it cost?",
+      "process": "How do we start, and what are the steps?"
+    },
+    "costAnswer": "I don't publish fixed prices because the price depends on scope. After the brief and a 20-minute call, you get a written proposal with three options and a clear timeline before any payment. Payment is 50% to begin and 50% before final delivery, and 15% VAT is itemized in the proposal when applicable.",
+    "lineSeo": {
+      "brand": {
+        "heading": "Brand identity design",
+        "seoTitle": "Brand identity design in Riyadh — Brand & Visual | Mo Alagab"
+      },
+      "digital": {
+        "heading": "Digital product and website design",
+        "seoTitle": "Website and digital product design — Digital Products | Mo Alagab"
+      },
+      "ai": {
+        "heading": "AI automation and agents",
+        "seoTitle": "AI business automation — AI Automation | Mo Alagab"
+      },
+      "experiential": {
+        "heading": "Exhibition and event experience design",
+        "seoTitle": "Exhibition booth and event design — Experiential Design | Mo Alagab"
+      }
+    }
   },
   "styleguide": {
     "eyebrow": "SYSTEM GUIDE / 01",
@@ -608,9 +640,22 @@
         "consent": "I need your consent before I can reply.",
         "captcha": "Confirm the security check above, then send again.",
         "rateLimit": "Too many briefs from this email. Wait ten minutes or email me directly.",
-        "generic": "Could not send right now. Try again or email me directly."
+        "generic": "Could not send right now. Try again or email me directly.",
+        "heardFrom": "Pick how you found me, even \"Other\"."
       },
-      "counter": "{count} / 1500 characters"
+      "counter": "{count} / 1500 characters",
+      "heardFrom": {
+        "label": "How did you hear about me?",
+        "options": {
+          "google": "Google search",
+          "linkedin": "LinkedIn",
+          "instagram": "Instagram",
+          "behance": "Behance",
+          "referral": "Someone recommended me",
+          "returning": "Past client",
+          "other": "Other"
+        }
+      }
     },
     "success": {
       "title": "Received ✓",
@@ -626,7 +671,7 @@
     "sections": [
       {
         "title": "What I collect",
-        "body": "Only what you type into the \"Start a project\" form: your name, company if you add it, email, WhatsApp number if you add it, the service line and package, budget range, timeline, project description, and any links you send. I also record the page language and the source of your visit (for example a campaign or an external link) so I know where the brief came from."
+        "body": "Only what you type into the \"Start a project\" form: your name, company if you add it, email, WhatsApp number if you add it, the service line and package, budget range, timeline, project description, and any links you send. I also record the page language and the source of your visit (for example a campaign or an external link) so I know where the brief came from. I also ask how you heard about me. When you tap the WhatsApp button, I record only the page you tapped it on and where the visit came from, with no name or number."
       },
       {
         "title": "Why I collect it",
@@ -647,6 +692,10 @@
       {
         "title": "Analytics and spam protection",
         "body": "Visits are counted with Umami, a privacy-focused tool that sets no cookies and stores no personal data, so there is nothing to accept. The form is protected by Cloudflare Turnstile, which checks that a person, not a bot, is sending it."
+      },
+      {
+        "title": "Where your data is stored and who processes it",
+        "body": "Your data controller is Mohammed Alagab, who runs moalagab.art. Briefs are stored in a Supabase database in Germany (Frankfurt). The site is hosted on Vercel and brief notifications reach me through Resend, both in the United States, and Cloudflare checks the form to block automated submissions. This means your data is transferred outside Saudi Arabia, for these purposes only. For any question or request about your data, email me at the address below."
       },
       {
         "title": "Security",
@@ -828,7 +877,8 @@
       "work": "Work",
       "start": "Start a project",
       "products": "Products",
-      "privacy": "Privacy"
+      "privacy": "Privacy",
+      "faq": "FAQ"
     },
     "notFound": {
       "eyebrow": "404 / NOT FOUND",
@@ -844,6 +894,30 @@
       "download": "Download",
       "loading": "Loading document...",
       "page": "Page"
+    },
+    "whatsapp": {
+      "generic": "Hi Mohammed, I found you through your website and would like to talk about a project.",
+      "project": "Hi Mohammed, I saw the {title} project on your website and would like to talk about something similar.",
+      "service": "Hi Mohammed, I'm interested in {title} and would like to know more.",
+      "button": "Message me on WhatsApp"
     }
+  },
+  "faqPage": {
+    "metaTitle": "Frequently asked questions — Mo Alagab",
+    "metaDescription": "Straight answers on timelines, payment, revisions, file ownership and what happens after you send a brief.",
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "intro": "Short, direct answers before you start.",
+    "generalLabel": "Working together and payment",
+    "processLabel": "Services and steps",
+    "servicesQ": "What services do you offer?",
+    "nextQ": "What happens after I send a brief?",
+    "replyQ": "How quickly do you reply?",
+    "replyA": "Within two business days of receiving the brief, with a clear next step.",
+    "regionQ": "Which countries do you work in?",
+    "regionA": "With clients in Saudi Arabia, the GCC, Oman and Sudan. Work is remote, with in-person meetings in Riyadh when needed.",
+    "ctaTitle": "Question not here?",
+    "ctaBody": "Send a short brief or message me on WhatsApp.",
+    "link": "FAQ"
   }
 }

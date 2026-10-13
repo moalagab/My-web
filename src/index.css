@@ -80,7 +80,7 @@
     --muted: 205 25% 68%;
     --muted-foreground: 214 34% 23%;
 
-    --accent: 206 22% 42%;
+    --accent: 206 22% 39%; /* 4.75:1 on --secondary (WCAG AA) */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 4 70% 41%;
@@ -416,7 +416,7 @@ html[lang="ar"] .studio-eyebrow {
 .wordmark-name small {
   font-size: 8px;
   letter-spacing: 0.05em;
-  opacity: 0.65;
+  opacity: 0.8;
 }
 .desktop-navigation {
   display: flex;
@@ -453,8 +453,11 @@ html[lang="ar"] .studio-eyebrow {
   font-size: 11px;
 }
 .language-switch a {
-  opacity: 0.55;
+  opacity: 0.8;
   padding-block: 16px;
+  /* 24px minimum target (WCAG 2.2 target size) */
+  min-width: 24px;
+  text-align: center;
 }
 .language-switch a[aria-current],
 .language-switch a:hover {
@@ -828,7 +831,7 @@ html[lang="ar"] .hero-title {
 }
 .service-number {
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 .service-editorial-row > div {
   display: flex;
@@ -842,7 +845,7 @@ html[lang="ar"] .hero-title {
 .service-editorial-row > p {
   font-size: 13px;
   line-height: 2;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .service-link {
   justify-self: end;
@@ -915,7 +918,7 @@ html[lang="ar"] .hero-title {
 }
 .product-visual-top > span:last-child {
   font-size: 9px;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 .life-visual {
   padding-top: 20px;
@@ -1030,7 +1033,7 @@ html[lang="ar"] .hero-title {
 }
 .process-number {
   font-size: 48px;
-  color: hsl(var(--muted));
+  color: hsl(var(--accent));
   font-weight: 300;
 }
 .process-grid h3 {
@@ -2215,7 +2218,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .lt-concept-items > div > span {
   font-size: 9px;
-  color: hsl(var(--muted));
+  color: hsl(var(--secondary));
 }
 .lt-concept-items p {
   font-size: 12px;

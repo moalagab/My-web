@@ -105,10 +105,13 @@ export default function WorkPage() {
         </section>
         <section
           className="studio-section portfolio-gallery"
-          aria-label={ar ? "معرض الأعمال" : "Work gallery"}
+          aria-labelledby="work-gallery-heading"
         >
           <div className="studio-container">
-            <WorkCollection items={visible} />
+            <h2 id="work-gallery-heading" className="sr-only">
+              {ar ? "معرض الأعمال" : "Work gallery"}
+            </h2>
+            <WorkCollection items={visible} eagerFirst />
           </div>
         </section>
         <section className="studio-cta">

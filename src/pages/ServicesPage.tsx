@@ -74,6 +74,13 @@ const ServicesPage = () => {
                     <p className="mt-6 text-lg leading-8 text-muted-foreground">
                       {line.what}
                     </p>
+                    <Link
+                      to={`${prefix}/services/${line.slug}`}
+                      className="eyebrow mt-5 inline-flex min-h-11 items-center gap-2 text-xs text-accent underline-offset-4 hover:underline"
+                    >
+                      {copy.detailCta}
+                      <ArrowUpRight className={`h-4 w-4 ${arrowClass}`} aria-hidden="true" />
+                    </Link>
                     <div className="mt-8">
                       <Eyebrow className="text-muted-foreground">
                         {copy.whoLabel}

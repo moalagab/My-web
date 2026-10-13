@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import { supabase } from "@/integrations/supabase/client";
 import AgentsPanel from "@/components/admin/AgentsPanel";
+import ContactClicksPanel from "@/components/admin/ContactClicksPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +29,7 @@ import {
   Building2, 
   Calendar, 
   Wallet,
+  Megaphone,
   Layers,
   Link as LinkIcon,
   MessageSquare,
@@ -60,6 +62,7 @@ interface Lead {
   utm_campaign: string | null;
   page_referrer: string | null;
   status: string;
+  heard_from: string | null;
 }
 
 const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
@@ -68,6 +71,17 @@ const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
   { value: "proposal", label: "عرض سعر", className: "bg-secondary text-secondary-foreground" },
   { value: "closed", label: "مغلق", className: "bg-muted text-foreground" },
 ];
+
+const HEARD_FROM: Record<string, string> = {
+  google: "بحث Google",
+  linkedin: "LinkedIn",
+  instagram: "Instagram",
+  behance: "Behance",
+  referral: "توصية",
+  returning: "عميل سابق",
+  other: "أخرى",
+};
+const heardFromLabel = (value: string | null) => (value && HEARD_FROM[value]) || "—";
 
 const statusMeta = (status: string) =>
   STATUSES.find((item) => item.value === status) ?? STATUSES[0];
@@ -89,7 +103,7 @@ export default function AdminDashboard() {
   const [loadError, setLoadError] = useState("");
   const [filter, setFilter] = useState<LeadStatus | "all">("all");
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-  const [view, setView] = useState<"leads" | "agents">("leads");
+  const [view, setView] = useState<"leads" | "contacts" | "agents">("leads");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -355,6 +369,7 @@ export default function AdminDashboard() {
         <div role="tablist" aria-label="أقسام لوحة التحكم" className="mb-8 inline-flex rounded-md border bg-card p-1">
           {([
             { value: "leads", label: "طلبات الموقع" },
+            { value: "contacts", label: "نقرات واتساب" },
             { value: "agents", label: "الوكلاء ونتائجهم" },
           ] as const).map((tab) => (
             <button
@@ -374,6 +389,8 @@ export default function AdminDashboard() {
 
         {view === "agents" ? (
           <AgentsPanel />
+        ) : view === "contacts" ? (
+          <ContactClicksPanel />
         ) : (
         <>
         {/* Stats double as status filters */}
@@ -423,6 +440,7 @@ export default function AdminDashboard() {
                       <TableHead>الاسم</TableHead>
                       <TableHead>الخدمة</TableHead>
                       <TableHead>الميزانية</TableHead>
+                      <TableHead>كيف عرفك</TableHead>
                       <TableHead>الحالة</TableHead>
                       <TableHead>التفاصيل</TableHead>
                     </TableRow>
@@ -446,6 +464,7 @@ export default function AdminDashboard() {
                           )}
                         </TableCell>
                         <TableCell>{lead.budget}</TableCell>
+                        <TableCell>{heardFromLabel(lead.heard_from)}</TableCell>
                         <TableCell>
                           <select
                             aria-label={`حالة طلب ${lead.name}`}
@@ -533,6 +552,10 @@ export default function AdminDashboard() {
                 <div className="flex items-center gap-2">
                   <Wallet className="w-4 h-4 text-muted-foreground" />
                   <span>{selectedLead.budget}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Megaphone className="w-4 h-4 text-muted-foreground" />
+                  <span>{heardFromLabel(selectedLead.heard_from)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Layers className="w-4 h-4 text-muted-foreground" />

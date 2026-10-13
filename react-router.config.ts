@@ -12,8 +12,19 @@ const projectSlugs = [
   ),
 ].map((match) => match[1]);
 
-const pages = ["", "/about", "/services", "/start", "/privacy", "/work", "/products"];
-const localized = [...pages, ...projectSlugs.map((slug) => `/work/${slug}`)];
+// Service line slugs come from the dictionary, which both languages share.
+const serviceSlugs = (
+  JSON.parse(readFileSync(path.resolve("src/i18n/en.json"), "utf8")) as {
+    servicesPage: { lines: { slug: string }[] };
+  }
+).servicesPage.lines.map((line) => line.slug);
+
+const pages = ["", "/about", "/services", "/start", "/privacy", "/work", "/products", "/faq"];
+const localized = [
+  ...pages,
+  ...serviceSlugs.map((slug) => `/services/${slug}`),
+  ...projectSlugs.map((slug) => `/work/${slug}`),
+];
 
 /** Arabic lives at the root, English under /en. */
 export const prerenderPaths = localized.flatMap((page) => [

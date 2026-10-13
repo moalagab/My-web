@@ -27,6 +27,11 @@ export const leadSchema = z.object({
   links: optionalText(1000),
   consent: z.literal(true),
   locale: z.enum(["ar", "en"]),
+  // Optional so older clients keep working; the form makes it required.
+  heard_from: z
+    .enum(["google", "linkedin", "instagram", "behance", "referral", "returning", "other"])
+    .nullish()
+    .transform((value) => value ?? null),
   utm_source: optionalText(300),
   utm_medium: optionalText(300),
   utm_campaign: optionalText(300),

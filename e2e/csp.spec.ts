@@ -9,7 +9,7 @@ const csp: string = vercel.headers
   .find((h: { key: string }) => h.key === "Content-Security-Policy").value
   .replace("upgrade-insecure-requests", "");
 
-for (const path of ["/", "/en/work", "/work/logofolio-2", "/en/start?service=brand", "/admin"]) {
+for (const path of ["/", "/en/work", "/work/logofolio-2", "/services/brand", "/en/start?service=brand", "/admin"]) {
   test(`no CSP violations on ${path}`, async ({ page }) => {
     const violations: string[] = [];
     page.on("console", (m) => /Content Security Policy/.test(m.text()) && violations.push(m.text()));

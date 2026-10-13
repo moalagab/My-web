@@ -5,7 +5,14 @@ import type { Project } from "@/content/projects";
 import Picture from "@/components/Picture";
 
 /** Shared editorial rhythm for the home selection and full portfolio. */
-export default function WorkCollection({ items }: { items: Project[] }) {
+export default function WorkCollection({
+  items,
+  eagerFirst = false,
+}: {
+  items: Project[];
+  /** Load the first cover eagerly when it is the page's LCP image. */
+  eagerFirst?: boolean;
+}) {
   const { lang, isRtl, dictionary } = useLanguage();
   const ar = lang === "ar";
   const prefix = ar ? "" : "/en";
@@ -25,7 +32,6 @@ export default function WorkCollection({ items }: { items: Project[] }) {
             <Link
               className="portfolio-card"
               to={`${prefix}/work/${p.slug}`}
-              aria-label={`${ar ? "استكشف مشروع" : "Explore project"}: ${title}`}
             >
               <div className="portfolio-card-header">
                 <span className="portfolio-number" dir="ltr">
@@ -49,7 +55,8 @@ export default function WorkCollection({ items }: { items: Project[] }) {
                     src={p.cover}
                     sizes="(min-width: 1024px) 66vw, 100vw"
                     alt={title}
-                    loading="lazy"
+                    loading={eagerFirst && i === 0 ? "eager" : "lazy"}
+                    fetchPriority={eagerFirst && i === 0 ? "high" : undefined}
                     width={1400}
                     height={900}
                     decoding="async"

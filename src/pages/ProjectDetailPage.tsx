@@ -16,8 +16,7 @@ import {
   ChevronRight,
   ExternalLink,
   FileText,
-  X,
-} from "lucide-react";
+  X, MessageCircle } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
@@ -35,10 +34,12 @@ import {
   type Project,
 } from "@/content/projects";
 import Picture from "@/components/Picture";
+import { useWhatsapp } from "@/lib/whatsapp";
 
 const ProjectDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { lang, dictionary, isRtl } = useLanguage();
+  const whatsapp = useWhatsapp();
   const copy = dictionary.caseStudy;
   const workCopy = dictionary.workPage;
   const prefix = lang === "en" ? "/en" : "";
@@ -358,9 +359,20 @@ const ProjectDetailPage = () => {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link to={`${prefix}/services#${project.serviceLine}`}>
+                  <Link to={`${prefix}/services/${project.serviceLine}`}>
                     {copy.similar.details}
                   </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <a
+                    href={whatsapp.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => whatsapp.onClick("case_study")}
+                  >
+                    <MessageCircle aria-hidden="true" />
+                    {dictionary.ui.whatsapp.button}
+                  </a>
                 </Button>
               </div>
             </div>

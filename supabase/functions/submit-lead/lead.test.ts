@@ -33,6 +33,15 @@ Deno.test("accepts a valid lead and normalises optional fields", () => {
   assertEquals("website" in result.lead, false);
 });
 
+Deno.test("keeps a valid heard_from and defaults a missing one to null", () => {
+  const withSource = parseLead({ ...valid, heard_from: "linkedin" });
+  if (withSource.kind !== "ok") throw new Error("expected ok");
+  assertEquals(withSource.lead.heard_from, "linkedin");
+  const without = parseLead(valid);
+  if (without.kind !== "ok") throw new Error("expected ok");
+  assertEquals(without.lead.heard_from, null);
+});
+
 Deno.test("treats a filled honeypot as spam", () => {
   assertEquals(parseLead({ ...valid, website: "http://spam" }).kind, "spam");
 });
@@ -47,6 +56,7 @@ const invalidCases: Array<[string, Record<string, unknown>]> = [
   ["no consent", { consent: false }],
   ["unknown locale", { locale: "fr" }],
   ["missing token", { turnstileToken: "" }],
+  ["unknown heard_from", { heard_from: "tiktok" }],
 ];
 
 for (const [label, patch] of invalidCases) {

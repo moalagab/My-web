@@ -196,11 +196,13 @@ export default function HomePage() {
             <div className="product-grid">
               {h.products.items.map((p, i) => (
                 <article key={p.name} data-reveal>
+                  {/* Same destination as the labelled arrow link below, so hidden from assistive tech. */}
                   <a
                     href={p.url}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={`${h.products.visit}: ${p.name}`}
+                    aria-hidden="true"
+                    tabIndex={-1}
                   >
                     <ProductVisual kind={i === 0 ? "life" : "agent"} />
                   </a>
