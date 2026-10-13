@@ -215,6 +215,25 @@
       "link": "Full story",
       "portraitAlt": "Mohammed Alagab"
     },
+    "testimonials": {
+      "eyebrow": "06 / IN THEIR WORDS",
+      "title": "In their words.",
+      "intro": "Recommendations published on LinkedIn.",
+      "link": "All recommendations on LinkedIn",
+      "url": "https://www.linkedin.com/in/moalagab/details/recommendations/",
+      "items": [
+        {
+          "quote": "His work has consistently received high praise for its originality and effectiveness… He is a pleasure to work with, a great communicator, a good listener, and a team player who is always willing to go the extra mile to ensure his client's satisfaction.",
+          "name": "Ali Mahgoub",
+          "relation": "Client · 2024"
+        },
+        {
+          "quote": "He is an ambitious, flexible person, and he encourages everyone who works with him to contribute to the development as well. Moreover, he openly appreciates new ideas.",
+          "name": "Amani Hashem",
+          "relation": "Reported to Mo at Eve Advertising · 2020"
+        }
+      ]
+    },
     "faq": {
       "eyebrow": "06 / FAQ",
       "title": "Frequently asked questions",

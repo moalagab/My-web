@@ -5,6 +5,7 @@ import {
   Bot,
   Palette,
   PanelsTopLeft,
+  Quote,
 } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import { Link } from "react-router";
@@ -301,10 +302,44 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        <section className="studio-section studio-testimonials">
+          <div className="studio-container">
+            <div className="section-heading">
+              <div>
+                <p className="studio-eyebrow">{h.testimonials.eyebrow}</p>
+                <h2>{h.testimonials.title}</h2>
+              </div>
+              <p className="section-intro">{h.testimonials.intro}</p>
+            </div>
+            <div className="testimonial-grid">
+              {h.testimonials.items.map((t) => (
+                <figure key={t.name} data-reveal>
+                  <Quote aria-hidden="true" size={28} className={isRtl ? "-scale-x-100" : ""} />
+                  <blockquote>
+                    <p>{t.quote}</p>
+                  </blockquote>
+                  <figcaption>
+                    <strong>{t.name}</strong>
+                    <span>{t.relation}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <a
+              href={h.testimonials.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="studio-text-link testimonial-link"
+            >
+              {h.testimonials.link}
+              <ArrowUpRight className={arrow} size={18} />
+            </a>
+          </div>
+        </section>
         <section className="studio-section studio-faq">
           <div className="studio-container faq-grid">
             <div>
-              <p className="studio-eyebrow">06 / BEFORE WE START</p>
+              <p className="studio-eyebrow">07 / BEFORE WE START</p>
               <h2>{h.faq.title}</h2>
               <p className="faq-intro">
                 {ar

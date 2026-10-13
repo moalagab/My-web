@@ -1052,6 +1052,61 @@ html[lang="ar"] .hero-title {
   margin-top: 25px;
   opacity: 0.8;
 }
+.studio-testimonials {
+  background: hsl(var(--background));
+}
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+.testimonial-grid figure {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 36px;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-surface);
+  background: hsl(var(--card));
+}
+.testimonial-grid svg {
+  color: hsl(var(--accent));
+}
+.testimonial-grid blockquote {
+  flex: 1;
+  font-size: 18px;
+  line-height: 1.9;
+}
+.testimonial-grid figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 20px;
+  border-top: 1px solid hsl(var(--border));
+}
+.testimonial-grid figcaption strong {
+  font-size: 15px;
+  font-weight: 500;
+}
+.testimonial-grid figcaption span {
+  font-size: 13px;
+  opacity: 0.75;
+}
+.testimonial-link {
+  margin-top: 35px;
+}
+@media (max-width: 800px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .testimonial-grid figure {
+    padding: 26px;
+  }
+  .testimonial-grid blockquote {
+    font-size: 16px;
+  }
+}
 .studio-about {
   background: hsl(var(--muted));
   color: hsl(var(--primary));
