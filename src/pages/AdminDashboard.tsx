@@ -117,9 +117,12 @@ export default function AdminDashboard() {
   useEffect(() => {
     checkAuth();
     
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session) {
-        await checkAdminRole(session.user.id);
+        // This callback runs under the auth lock; a Supabase query awaited here
+        // deadlocks the client (the page hangs on the spinner). Run it after.
+        const userId = session.user.id;
+        setTimeout(() => checkAdminRole(userId), 0);
       } else if (event === 'SIGNED_OUT') {
         setIsAuthenticated(false);
         setIsAdmin(false);
