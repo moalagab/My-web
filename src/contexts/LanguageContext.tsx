@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 import { Language, isRTL } from '@/lib/i18n';
-import { dictionaries, SystemDictionary } from '@/lib/dictionary';
+import type { SystemDictionary } from '@/lib/dictionary';
 
 interface LanguageContextType {
   lang: Language;
@@ -10,10 +10,11 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageProvider: React.FC<{ children: ReactNode; initialLang?: Language }> = ({
-  children,
-  initialLang = 'en',
-}) => {
+export const LanguageProvider: React.FC<{
+  children: ReactNode;
+  initialLang?: Language;
+  dictionary: SystemDictionary;
+}> = ({ children, initialLang = 'en', dictionary }) => {
   const lang = initialLang;
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode; initialLang?: Lan
 
   const value = {
     lang,
-    dictionary: dictionaries[lang],
+    dictionary,
     isRtl: isRTL(lang),
   };
 

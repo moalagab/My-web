@@ -1,5 +1,2 @@
-import ar from '@/i18n/ar.json';
-import en from '@/i18n/en.json';
-
-export const dictionaries = { ar, en } as const;
-export type SystemDictionary = typeof ar;
+// Type only: each language layout imports its own JSON so pages ship one language.
+export type SystemDictionary = typeof import("@/i18n/ar.json");

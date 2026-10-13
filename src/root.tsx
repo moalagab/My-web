@@ -7,10 +7,6 @@ import {
   Scripts,
   useLocation,
 } from "react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import type { Route } from "./+types/root";
 import "./index.css";
 
@@ -105,8 +101,8 @@ export function Layout({ children }: { children: ReactNode }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="preload" href="/fonts/LamaSans-Regular.woff" as="font" type="font/woff" crossOrigin="" />
-        <link rel="preload" href="/fonts/LamaSans-Bold.woff" as="font" type="font/woff" crossOrigin="" />
+        <link rel="preload" href="/fonts/LamaSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/LamaSans-Bold.woff2" as="font" type="font/woff2" crossOrigin="" />
         <Meta />
         <Links />
         <script
@@ -130,18 +126,8 @@ export function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-const queryClient = new QueryClient();
-
 export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Outlet />
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+  return <Outlet />;
 }
 
 export function HydrateFallback() {

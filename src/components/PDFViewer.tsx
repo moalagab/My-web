@@ -7,6 +7,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+// Fetch only the byte ranges the visible page needs instead of the whole file.
+const PDF_OPTIONS = { disableAutoFetch: true, disableStream: true };
 interface Props {
   pdfUrl: string;
   isOpen: boolean;
@@ -92,6 +94,7 @@ export default function PDFViewer({
         <div className="pdf-area" ref={area}>
           <Document
             file={pdfUrl}
+            options={PDF_OPTIONS}
             onLoadSuccess={({ numPages }) => setTotal(numPages)}
             onLoadError={() => setError(true)}
             loading={<p role="status">{d.ui.viewer.loading}</p>}

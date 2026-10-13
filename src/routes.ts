@@ -21,6 +21,6 @@ export default [
   route("admin", "pages/AdminDashboard.tsx", { id: "admin" }),
   route("auth", "routes/auth-redirect.tsx", { id: "auth" }),
   route("ar/*", "routes/ar-redirect.tsx", { id: "ar-redirect" }),
-  route("en", "routes/language-layout.tsx", { id: "lang-en" }, pages("en")),
-  layout("routes/language-layout.tsx", { id: "lang-ar" }, pages("ar")),
+  route("en", "routes/layout-en.tsx", { id: "lang-en" }, pages("en")),
+  layout("routes/layout-ar.tsx", { id: "lang-ar" }, pages("ar")),
 ] satisfies RouteConfig;

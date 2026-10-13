@@ -1,12 +1,19 @@
 import { Outlet, useLocation } from "react-router";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import PageTransition from "@/components/PageTransition";
+import type { Language } from "@/lib/i18n";
+import type { SystemDictionary } from "@/lib/dictionary";
 
-export default function LanguageLayout() {
+export default function LanguageShell({
+  lang,
+  dictionary,
+}: {
+  lang: Language;
+  dictionary: SystemDictionary;
+}) {
   const { pathname } = useLocation();
-  const lang = pathname === "/en" || pathname.startsWith("/en/") ? "en" : "ar";
   return (
-    <LanguageProvider initialLang={lang}>
+    <LanguageProvider initialLang={lang} dictionary={dictionary}>
       {/* Keyed so each page remounts, replaying the enter animation and scroll reveal. */}
       <PageTransition key={pathname}>
         <Outlet />
