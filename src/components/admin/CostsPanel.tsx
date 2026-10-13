@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
+  outboundWins,
   summarize,
   USD_TO_SAR,
   type CostChannel,
@@ -14,6 +15,7 @@ import {
   type Period,
   type SnapshotRow,
 } from "@/lib/acquisition";
+import { BENCHMARKS, rate, unitEconomics, vatStatus, type Rating, type UnitLead } from "@/lib/unitEconomics";
 
 interface CostEntry extends CostRow {
   id: string;
@@ -76,9 +78,23 @@ const OUTCOME_COLUMNS: string = "generated_at, outcomes:payload->outcomes";
 
 const thisMonth = () => new Date().toISOString().slice(0, 7);
 
+const RATINGS: Record<Rating, { label: string; className: string }> = {
+  good: { label: "ضمن المعيار", className: "bg-primary/10 text-primary" },
+  ok: { label: "مقبول", className: "bg-muted text-foreground" },
+  low: { label: "دون المعيار", className: "bg-destructive/10 text-destructive" },
+};
+
+const VAT_STATUS = {
+  below: "دون حد التسجيل الاختياري.",
+  voluntary: "تجاوزت حد التسجيل الاختياري (187,500 ر.س): التسجيل متاح لك.",
+  mandatory: "تجاوزت حد التسجيل الإلزامي (375,000 ر.س): يلزمك التسجيل في ضريبة القيمة المضافة.",
+};
+
 export default function CostsPanel() {
   const [periodKey, setPeriodKey] = useState<PeriodKey>("this_month");
-  const [leads, setLeads] = useState<LeadRow[]>([]);
+  const [leads, setLeads] = useState<(LeadRow & UnitLead)[]>([]);
+  const [hourCost, setHourCost] = useState<number | null>(null);
+  const [hourCostInput, setHourCostInput] = useState("");
   const [costs, setCosts] = useState<CostEntry[]>([]);
   const [snapshots, setSnapshots] = useState<SnapshotRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -89,8 +105,10 @@ export default function CostsPanel() {
   const load = useCallback(async () => {
     setLoading(true);
     setError("");
-    const [leadsRes, costsRes, snapsRes, outcomesRes] = await Promise.all([
-      supabase.from("leads").select("created_at, status, won_at, deal_value_sar, heard_from"),
+    const [leadsRes, costsRes, snapsRes, outcomesRes, settingsRes] = await Promise.all([
+      supabase
+        .from("leads")
+        .select("email, created_at, status, won_at, deal_value_sar, delivery_cost_sar, delivery_hours, heard_from"),
       supabase.from("acquisition_costs").select("id, month, category, channel, amount_sar, note").order("month", { ascending: false }),
       // Only the small daily_cost array, not the whole snapshot payload.
       supabase
@@ -106,13 +124,17 @@ export default function CostsPanel() {
         .order("generated_at", { ascending: false })
         .limit(1)
         .returns<{ generated_at: string; outcomes: SnapshotRow["payload"]["outcomes"] | null }[]>(),
+      supabase.from("unit_economics_settings").select("owner_hour_cost_sar").maybeSingle(),
     ]);
-    const failed = leadsRes.error || costsRes.error || snapsRes.error || outcomesRes.error;
+    const failed = leadsRes.error || costsRes.error || snapsRes.error || outcomesRes.error || settingsRes.error;
     if (failed) {
       console.error("costs panel load failed", failed);
       setError("تعذّر تحميل البيانات. حدّث الصفحة أو أعد تسجيل الدخول.");
     } else {
-      setLeads((leadsRes.data ?? []) as LeadRow[]);
+      setLeads((leadsRes.data ?? []) as (LeadRow & UnitLead)[]);
+      const cost = settingsRes.data?.owner_hour_cost_sar ?? null;
+      setHourCost(cost);
+      setHourCostInput(cost !== null ? String(cost) : "");
       setCosts((costsRes.data ?? []) as CostEntry[]);
       setSnapshots([
         ...(snapsRes.data ?? []).map((row) => ({
@@ -135,6 +157,40 @@ export default function CostsPanel() {
     () => summarize({ leads, costs, snapshots, period: periodFor(periodKey) }),
     [leads, costs, snapshots, periodKey],
   );
+
+  const u = useMemo(() => {
+    const now = new Date();
+    const year = { from: new Date(now.getTime() - 365 * 86_400_000), to: now };
+    const outboundTrailingRevenue = outboundWins(snapshots, year).wins.reduce((sum, d) => sum + (Number(d.value) || 0), 0);
+    return unitEconomics({
+      leads,
+      period: periodFor(periodKey, now),
+      cac: s.website.cac,
+      ownerHourCost: hourCost,
+      outboundTrailingRevenue,
+      now,
+    });
+  }, [leads, snapshots, periodKey, s.website.cac, hourCost]);
+
+  const saveHourCost = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const value = Number(hourCostInput);
+    if (!(value > 0)) {
+      setError("أدخل تكلفة ساعة أكبر من صفر.");
+      return;
+    }
+    const { error: err } = await supabase
+      .from("unit_economics_settings")
+      .update({ owner_hour_cost_sar: value, updated_at: new Date().toISOString() })
+      .eq("id", true);
+    if (err) {
+      console.error("save hour cost failed", err);
+      setError("تعذّر حفظ تكلفة الساعة.");
+      return;
+    }
+    setError("");
+    setHourCost(value);
+  };
 
   const addCost = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -182,7 +238,59 @@ export default function CostsPanel() {
     { label: "تكلفة اكتساب العميل (CAC)", value: sar(s.overall.cac), hint: "كل التكاليف ÷ كل العملاء" },
     { label: "الإيرادات", value: sar(s.overall.revenue), hint: "قيم الصفقات الرابحة من القناتين" },
     { label: "العائد لكل ريال", value: times(s.overall.returnPerRiyal), hint: "الإيرادات ÷ كل التكاليف" },
-    { label: "متوسط الصفقة ÷ CAC", value: times(s.overall.dealToCac), hint: "الصحي 3× أو أكثر" },
+    { label: "متوسط الصفقة ÷ CAC", value: times(s.overall.dealToCac), hint: "إيراد لا ربح؛ انظر LTV:CAC أدناه" },
+  ];
+
+  const units: { label: string; value: string; hint: string; rating: Rating | null; bench: string }[] = [
+    {
+      label: "LTV:CAC",
+      value: times(u.ltvToCac),
+      hint: `قيمة العميل ${sar(u.ltv)} (ربح إجمالي) ÷ CAC الموقع ${sar(s.website.cac)}`,
+      rating: rate(u.ltvToCac, BENCHMARKS.ltvToCac),
+      bench: BENCHMARKS.ltvToCac.label,
+    },
+    {
+      label: "استرداد CAC (بالمشاريع)",
+      value: u.paybackProjects === null ? "—" : u.paybackProjects.toFixed(2),
+      hint: `CAC ÷ متوسط ربح المشروع ${sar(u.avgGrossProfit)}`,
+      rating: rate(u.paybackProjects, BENCHMARKS.paybackProjects, true),
+      bench: BENCHMARKS.paybackProjects.label,
+    },
+    {
+      label: "هامش التسليم",
+      value: pct(u.deliveryMargin),
+      hint: `الربح الإجمالي ${sar(u.grossProfit)} بعد تكاليف التنفيذ ووقتك`,
+      rating: rate(u.deliveryMargin, BENCHMARKS.deliveryMargin),
+      bench: BENCHMARKS.deliveryMargin.label,
+    },
+    {
+      label: "دخل ساعتك الفعلي",
+      value: sar(u.effectiveHourlyRate),
+      hint: `(القيمة − تكاليف التنفيذ) ÷ ${u.hours} ساعة`,
+      rating: hourCost === null ? null : rate(u.effectiveHourlyRate, { good: hourCost, ok: hourCost }),
+      bench: hourCost === null ? "حدّد تكلفة ساعتك" : `أعلى من تكلفة ساعتك (${sar(hourCost)})`,
+    },
+    {
+      label: "نسبة الفوز",
+      value: pct(u.winRate),
+      hint: "فوز ÷ (فوز + خسارة) من طلبات الفترة",
+      rating: rate(u.winRate, BENCHMARKS.winRate),
+      bench: BENCHMARKS.winRate.label,
+    },
+    {
+      label: "مدة البيع (الوسيط)",
+      value: u.salesCycleDays === null ? "—" : `${Math.round(u.salesCycleDays)} يومًا`,
+      hint: "من وصول الطلب إلى الفوز",
+      rating: null,
+      bench: BENCHMARKS.salesCycleDays.label,
+    },
+    {
+      label: "العملاء المتكررون",
+      value: pct(u.repeatRate),
+      hint: `${u.clients} عميل · ${u.projectsPerClient === null ? "—" : u.projectsPerClient.toFixed(2)} مشروع لكل عميل (منذ البداية)`,
+      rating: null,
+      bench: "يرفع LTV مباشرة",
+    },
   ];
 
   return (
@@ -238,6 +346,91 @@ export default function CostsPanel() {
           {s.outbound.unvaluedWins} صفقة رابحة من التواصل الصادر بلا قيمة. أضف القيمة المتوقعة للصفقة في نظام الوكلاء.
         </p>
       )}
+
+      <Card>
+        <CardHeader>
+          <CardTitle>اقتصاديات الوحدة: عميل الموقع</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            محسوبة على الربح الإجمالي لا الإيراد: قيمة الصفقة قبل الضريبة − تكاليف التنفيذ − ساعاتك × تكلفة ساعتك.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <form onSubmit={saveHourCost} className="flex flex-wrap items-end gap-3">
+            <label className="text-sm">
+              <span className="mb-1 block text-muted-foreground">تكلفة ساعتك (ر.س)</span>
+              <Input
+                type="number"
+                min="1"
+                step="1"
+                dir="ltr"
+                className="w-40"
+                value={hourCostInput}
+                onChange={(e) => setHourCostInput(e.target.value)}
+              />
+            </label>
+            <Button type="submit" variant="outline">حفظ</Button>
+            <p className="basis-full text-xs text-muted-foreground">
+              ما يكلّفه أن توظّف من ينفّذ عملك، أو الدخل الذي تريده لكل ساعة. لا يوجد مرجع سعودي حديث وموثوق لها، فحدّدها أنت.
+            </p>
+          </form>
+
+          {u.wins > u.costed && (
+            <p className="rounded-md border border-border bg-muted p-4 text-sm">
+              {u.wins - u.costed} من {u.wins} صفقة رابحة في الفترة تنقصها القيمة أو تكاليف التنفيذ أو الساعات، فلا تدخل في الهامش وLTV.
+              أكملها من تفاصيل الطلب في تبويب «طلبات الموقع».
+            </p>
+          )}
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {units.map((k) => (
+              <div key={k.label} className="rounded-lg border p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="text-2xl font-bold tabular-nums text-primary">{k.value}</div>
+                  {k.rating && (
+                    <span className={`rounded px-2 py-0.5 text-xs font-medium ${RATINGS[k.rating].className}`}>
+                      {RATINGS[k.rating].label}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 font-medium">{k.label}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{k.hint}</p>
+                <p className="mt-2 text-xs">المعيار: {k.bench}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-lg border p-4">
+            <p className="font-medium">ضريبة القيمة المضافة: إيراد آخر 12 شهرًا {sar(u.trailingRevenue)}</p>
+            <div className="mt-3 h-2 overflow-hidden rounded bg-muted" aria-hidden="true">
+              <div
+                className="h-full bg-primary"
+                style={{ width: `${Math.min(100, (u.trailingRevenue / BENCHMARKS.vat.mandatory) * 100)}%` }}
+              />
+            </div>
+            <p className="mt-2 text-sm">{VAT_STATUS[vatStatus(u.trailingRevenue)]}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              يشمل الصفقات المسجّلة هنا فقط، وصفقات الصادر لآخر 90 يومًا. ليس استشارة ضريبية؛ تحقّق من الهيئة.
+            </p>
+          </div>
+
+          <details className="text-sm">
+            <summary className="cursor-pointer font-medium">المنهجية والمصادر</summary>
+            <ul className="mt-3 space-y-2 text-muted-foreground">
+              {Object.values(BENCHMARKS).map((b) => (
+                <li key={b.source + b.label}>
+                  {b.label}: {b.note}{" "}
+                  <a href={b.source} target="_blank" rel="noreferrer" className="underline" dir="ltr">
+                    المصدر
+                  </a>
+                </li>
+              ))}
+              <li>
+                LTV فعلي لا متوقع: متوسط ربح المشروع × مشاريع كل عميل منذ البداية. صفقات التواصل الصادر لا تدخل هنا حتى تحمل تكاليفها وساعاتها.
+              </li>
+            </ul>
+          </details>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
