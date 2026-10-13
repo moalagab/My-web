@@ -38,5 +38,8 @@
     "src",
     ".react-router/types/**/*",
     "react-router.config.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
   ]
 }
