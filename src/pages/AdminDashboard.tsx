@@ -67,6 +67,8 @@ interface Lead {
   heard_from: string | null;
   agent_lead_id: string | null;
   deal_value_sar: number | null;
+  delivery_cost_sar: number | null;
+  delivery_hours: number | null;
 }
 
 const STATUSES: { value: LeadStatus; label: string; className: string }[] = [
@@ -109,7 +111,7 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState<LeadStatus | "all">("all");
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [view, setView] = useState<"leads" | "contacts" | "agents" | "costs">("leads");
-  const [dealValue, setDealValue] = useState("");
+  const [deal, setDeal] = useState({ value: "", cost: "", hours: "" });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -233,25 +235,35 @@ export default function AdminDashboard() {
     }
   };
 
-  const saveDealValue = async (lead: Lead) => {
-    const value = dealValue.trim() === "" ? null : Number(dealValue);
-    if (value !== null && !(value >= 0)) {
-      setLoadError("أدخل قيمة صحيحة للصفقة.");
+  const saveDeal = async (lead: Lead) => {
+    const parse = (text: string) => (text.trim() === "" ? null : Number(text));
+    const update = {
+      deal_value_sar: parse(deal.value),
+      delivery_cost_sar: parse(deal.cost),
+      delivery_hours: parse(deal.hours),
+    };
+    if (Object.values(update).some((value) => value !== null && !(value >= 0))) {
+      setLoadError("أدخل أرقامًا صحيحة للصفقة.");
       return;
     }
-    const { error } = await supabase.from("leads").update({ deal_value_sar: value }).eq("id", lead.id);
+    const { error } = await supabase.from("leads").update(update).eq("id", lead.id);
     if (error) {
-      console.error("Error saving deal value:", error);
-      setLoadError("تعذّر حفظ قيمة الصفقة. حاول مرة أخرى.");
+      console.error("Error saving deal:", error);
+      setLoadError("تعذّر حفظ بيانات الصفقة. حاول مرة أخرى.");
       return;
     }
-    setLeads((items) => items.map((item) => (item.id === lead.id ? { ...item, deal_value_sar: value } : item)));
-    setSelectedLead((item) => (item?.id === lead.id ? { ...item, deal_value_sar: value } : item));
+    setLeads((items) => items.map((item) => (item.id === lead.id ? { ...item, ...update } : item)));
+    setSelectedLead((item) => (item?.id === lead.id ? { ...item, ...update } : item));
   };
 
   useEffect(() => {
-    setDealValue(selectedLead?.deal_value_sar != null ? String(selectedLead.deal_value_sar) : "");
-  }, [selectedLead?.id, selectedLead?.deal_value_sar]);
+    const text = (value: number | null | undefined) => (value != null ? String(value) : "");
+    setDeal({
+      value: text(selectedLead?.deal_value_sar),
+      cost: text(selectedLead?.delivery_cost_sar),
+      hours: text(selectedLead?.delivery_hours),
+    });
+  }, [selectedLead?.id, selectedLead?.deal_value_sar, selectedLead?.delivery_cost_sar, selectedLead?.delivery_hours]);
 
   const visibleLeads = filter === "all" ? leads : leads.filter((lead) => lead.status === filter);
   const whatsappHref = (number: string) => `https://wa.me/${number.replace(/\D/g, "")}`;
@@ -672,26 +684,40 @@ export default function AdminDashboard() {
 
               {selectedLead.status === "won" && (
                 <form
-                  className="flex flex-col gap-2 rounded-md border border-border p-4 sm:flex-row sm:items-end"
+                  className="space-y-3 rounded-md border border-border p-4"
                   onSubmit={(event) => {
                     event.preventDefault();
-                    saveDealValue(selectedLead);
+                    saveDeal(selectedLead);
                   }}
                 >
-                  <label className="flex-1 text-sm">
-                    <span className="mb-1 block text-muted-foreground">
-                      قيمة الصفقة (ر.س) — تُستخدم في تبويب «التكاليف والعوائد»
-                    </span>
-                    <Input
-                      type="number"
-                      min="0"
-                      step="1"
-                      dir="ltr"
-                      value={dealValue}
-                      onChange={(event) => setDealValue(event.target.value)}
-                    />
-                  </label>
-                  <Button type="submit">حفظ القيمة</Button>
+                  <p className="text-sm text-muted-foreground">
+                    تُستخدم في تبويب «التكاليف والعوائد». المبالغ قبل ضريبة القيمة المضافة.
+                  </p>
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {(
+                      [
+                        ["value", "قيمة الصفقة (ر.س)", "1"],
+                        ["cost", "تكاليف التنفيذ (ر.س)", "1"],
+                        ["hours", "ساعات عملك", "0.5"],
+                      ] as const
+                    ).map(([key, label, step]) => (
+                      <label key={key} className="text-sm">
+                        <span className="mb-1 block text-muted-foreground">{label}</span>
+                        <Input
+                          type="number"
+                          min="0"
+                          step={step}
+                          dir="ltr"
+                          value={deal[key]}
+                          onChange={(event) => setDeal((d) => ({ ...d, [key]: event.target.value }))}
+                        />
+                      </label>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    تكاليف التنفيذ: متعاونون، صور ومواد، طباعة، أدوات خاصة بالمشروع. لا تُدخل وقتك هنا؛ يُحسب من الساعات.
+                  </p>
+                  <Button type="submit">حفظ بيانات الصفقة</Button>
                 </form>
               )}
             </div>

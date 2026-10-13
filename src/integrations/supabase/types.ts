@@ -114,6 +114,8 @@ export type Database = {
           consent: boolean
           created_at: string
           deal_value_sar: number | null
+          delivery_cost_sar: number | null
+          delivery_hours: number | null
           description: string
           email: string
           agent_lead_id: string | null
@@ -140,6 +142,8 @@ export type Database = {
           consent?: boolean
           created_at?: string
           deal_value_sar?: number | null
+          delivery_cost_sar?: number | null
+          delivery_hours?: number | null
           description: string
           email: string
           agent_lead_id?: string | null
@@ -166,6 +170,8 @@ export type Database = {
           consent?: boolean
           created_at?: string
           deal_value_sar?: number | null
+          delivery_cost_sar?: number | null
+          delivery_hours?: number | null
           description?: string
           email?: string
           agent_lead_id?: string | null
@@ -227,6 +233,24 @@ export type Database = {
           service_category?: string
           services?: string[]
           timeline?: string | null
+        }
+        Relationships: []
+      }
+      unit_economics_settings: {
+        Row: {
+          id: boolean
+          owner_hour_cost_sar: number | null
+          updated_at: string
+        }
+        Insert: {
+          id?: boolean
+          owner_hour_cost_sar?: number | null
+          updated_at?: string
+        }
+        Update: {
+          id?: boolean
+          owner_hour_cost_sar?: number | null
+          updated_at?: string
         }
         Relationships: []
       }
