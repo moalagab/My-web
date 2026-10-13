@@ -72,6 +72,7 @@ const times = (value: number | null) => (value === null ? "—" : `${value.toFix
 
 // Typed as string so the client skips parsing the JSON path in the select.
 const SNAPSHOT_COLUMNS: string = "generated_at, daily_cost:payload->daily_cost";
+const OUTCOME_COLUMNS: string = "generated_at, outcomes:payload->outcomes";
 
 const thisMonth = () => new Date().toISOString().slice(0, 7);
 
@@ -88,7 +89,7 @@ export default function CostsPanel() {
   const load = useCallback(async () => {
     setLoading(true);
     setError("");
-    const [leadsRes, costsRes, snapsRes] = await Promise.all([
+    const [leadsRes, costsRes, snapsRes, outcomesRes] = await Promise.all([
       supabase.from("leads").select("created_at, status, won_at, deal_value_sar, heard_from"),
       supabase.from("acquisition_costs").select("id, month, category, channel, amount_sar, note").order("month", { ascending: false }),
       // Only the small daily_cost array, not the whole snapshot payload.
@@ -98,20 +99,30 @@ export default function CostsPanel() {
         .order("generated_at", { ascending: false })
         .limit(3000)
         .returns<{ generated_at: string; daily_cost: SnapshotRow["payload"]["daily_cost"] | null }[]>(),
+      // Outbound wins: the newest snapshot already lists 90 days of deals.
+      supabase
+        .from("agent_snapshots")
+        .select(OUTCOME_COLUMNS)
+        .order("generated_at", { ascending: false })
+        .limit(1)
+        .returns<{ generated_at: string; outcomes: SnapshotRow["payload"]["outcomes"] | null }[]>(),
     ]);
-    const failed = leadsRes.error || costsRes.error || snapsRes.error;
+    const failed = leadsRes.error || costsRes.error || snapsRes.error || outcomesRes.error;
     if (failed) {
       console.error("costs panel load failed", failed);
       setError("تعذّر تحميل البيانات. حدّث الصفحة أو أعد تسجيل الدخول.");
     } else {
       setLeads((leadsRes.data ?? []) as LeadRow[]);
       setCosts((costsRes.data ?? []) as CostEntry[]);
-      setSnapshots(
-        (snapsRes.data ?? []).map((row) => ({
+      setSnapshots([
+        ...(snapsRes.data ?? []).map((row) => ({
           generated_at: row.generated_at,
           payload: { daily_cost: row.daily_cost ?? [] },
         })),
-      );
+        ...(outcomesRes.data ?? [])
+          .filter((row) => row.outcomes)
+          .map((row) => ({ generated_at: row.generated_at, payload: { outcomes: row.outcomes ?? undefined } })),
+      ]);
     }
     setLoading(false);
   }, []);
@@ -163,11 +174,15 @@ export default function CostsPanel() {
 
   const kpis = [
     { label: "إجمالي التكاليف", value: sar(s.cost.total), hint: "كل القنوات، ومنها الوكلاء" },
-    { label: "عملاء جدد من الموقع", value: String(s.website.wins), hint: `من ${s.website.briefs} طلب في الفترة` },
-    { label: "تكلفة اكتساب العميل (CAC)", value: sar(s.website.cac), hint: "تكاليف الموقع + المشتركة ÷ عملاء الموقع" },
-    { label: "الإيرادات", value: sar(s.website.revenue), hint: "قيم الصفقات الرابحة" },
-    { label: "العائد لكل ريال", value: times(s.website.returnPerRiyal), hint: "الإيرادات ÷ تكلفة الموقع" },
-    { label: "متوسط الصفقة ÷ CAC", value: times(s.website.dealToCac), hint: "الصحي 3× أو أكثر" },
+    {
+      label: "عملاء جدد",
+      value: String(s.overall.wins),
+      hint: `الموقع ${s.website.wins} · الصادر ${s.outbound.available ? s.outbound.wins : "—"}`,
+    },
+    { label: "تكلفة اكتساب العميل (CAC)", value: sar(s.overall.cac), hint: "كل التكاليف ÷ كل العملاء" },
+    { label: "الإيرادات", value: sar(s.overall.revenue), hint: "قيم الصفقات الرابحة من القناتين" },
+    { label: "العائد لكل ريال", value: times(s.overall.returnPerRiyal), hint: "الإيرادات ÷ كل التكاليف" },
+    { label: "متوسط الصفقة ÷ CAC", value: times(s.overall.dealToCac), hint: "الصحي 3× أو أكثر" },
   ];
 
   return (
@@ -215,7 +230,12 @@ export default function CostsPanel() {
 
       {s.website.unvaluedWins > 0 && (
         <p className="rounded-md border border-border bg-muted p-4 text-sm">
-          {s.website.unvaluedWins} صفقة رابحة بلا قيمة، فلا تدخل في الإيرادات ومتوسط الصفقة. أضف قيمتها من تفاصيل الطلب في تبويب «طلبات الموقع».
+          {s.website.unvaluedWins} صفقة رابحة من الموقع بلا قيمة، فلا تدخل في الإيرادات ومتوسط الصفقة. أضف قيمتها من تفاصيل الطلب في تبويب «طلبات الموقع».
+        </p>
+      )}
+      {s.outbound.unvaluedWins > 0 && (
+        <p className="rounded-md border border-border bg-muted p-4 text-sm">
+          {s.outbound.unvaluedWins} صفقة رابحة من التواصل الصادر بلا قيمة. أضف القيمة المتوقعة للصفقة في نظام الوكلاء.
         </p>
       )}
 
@@ -248,17 +268,28 @@ export default function CostsPanel() {
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">التواصل الصادر (الوكلاء)</TableCell>
-                <TableCell colSpan={4} className="text-sm text-muted-foreground">
-                  نتائج الصفقات الصادرة تُسجَّل في نظام الوكلاء، ولقطته لا ترسلها للموقع بعد.
-                </TableCell>
+                {s.outbound.available ? (
+                  <>
+                    <TableCell>—</TableCell>
+                    <TableCell className="tabular-nums">{s.outbound.wins}</TableCell>
+                    <TableCell>—</TableCell>
+                    <TableCell className="tabular-nums">{sar(s.outbound.revenue)}</TableCell>
+                  </>
+                ) : (
+                  <TableCell colSpan={4} className="text-sm text-muted-foreground">
+                    بانتظار أول لقطة من نظام الوكلاء تحمل نتائج الصفقات.
+                  </TableCell>
+                )}
                 <TableCell className="tabular-nums">{sar(s.outbound.cost)}</TableCell>
-                <TableCell>—</TableCell>
+                <TableCell className="tabular-nums">{sar(s.outbound.cac)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
           <p className="mt-4 text-xs text-muted-foreground">
             التكلفة: مشتركة {sar(s.cost.shared)} · الموقع {sar(s.cost.website)} · الصادر يدويًا {sar(s.cost.outbound - s.cost.agents)} ·
             الوكلاء تلقائيًا {sar(s.cost.agents)} (بسعر {USD_TO_SAR} ر.س للدولار). التكاليف الشهرية تُحسب كاملة إذا تقاطع شهرها مع الفترة.
+            CAC الموقع يحمّل التكاليف المشتركة، وCAC الصادر تكاليفه المباشرة فقط.
+            {s.outbound.days ? ` صفقات الصادر متاحة لآخر ${s.outbound.days} يومًا فقط.` : ""}
           </p>
         </CardContent>
       </Card>
