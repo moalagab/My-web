@@ -7,7 +7,7 @@ import { track } from "@/lib/analytics";
 /**
  * Navy bar that opens the page, as on Folioblox: wordmark, links grouped at
  * the end with a services dropdown, a language pill and the start pill with
- * its sliding arrow, laid out mirrored (wordmark at the end). It stays fixed
+ * its sliding arrow, laid out with the wordmark at the end. It stays fixed
  * and transparent; its text turns navy over light sections and light over
  * navy ones. On phones it expands downward into large links.
  */
@@ -33,10 +33,10 @@ export default function Navigation() {
   const languageHref = `${switchPath}${location.search}${location.hash}`;
   const services = d.home.services.items;
   const items = [
-    { label: d.navigation.work, path: "/work" },
-    { label: d.navigation.services, path: "/services" },
-    { label: d.navigation.products, path: "/products" },
     { label: d.navigation.about, path: "/about" },
+    { label: d.navigation.services, path: "/services" },
+    { label: d.navigation.work, path: "/work" },
+    { label: d.navigation.products, path: "/products" },
   ];
   const current = (path: string) => location.pathname.startsWith(to(path));
   const arrow = isRtl ? "-scale-x-100" : "";
@@ -141,17 +141,18 @@ export default function Navigation() {
         className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""} ${onLight && !menuOpen ? "is-light" : ""}`}
       >
         <nav className="header-inner" aria-label={d.navigation.label}>
-          <Link to={to()} className="studio-wordmark">
-            <span dir="ltr">
-              mo<span className="wordmark-dot">.</span>
-            </span>
-            <span className="wordmark-name" dir="ltr">
-              ALAGAB
-              <br />
-              <small>DESIGN & BUILD</small>
-            </span>
-            <span className="sr-only">{` — ${d.navigation.home}`}</span>
-          </Link>
+          <button
+            type="button"
+            className="nav-burger"
+            aria-label={menuOpen ? d.navigation.closeMenu : d.navigation.openMenu}
+            aria-expanded={menuOpen}
+            aria-controls={menuId}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span />
+            <span />
+          </button>
+
 
           <ul className="nav-links">
             {items.map((i) =>
@@ -200,21 +201,21 @@ export default function Navigation() {
           </ul>
 
           <div className="nav-actions">
-            {languagePill}
             {startPill}
+            {languagePill}
           </div>
 
-          <button
-            type="button"
-            className="nav-burger"
-            aria-label={menuOpen ? d.navigation.closeMenu : d.navigation.openMenu}
-            aria-expanded={menuOpen}
-            aria-controls={menuId}
-            onClick={() => setMenuOpen((o) => !o)}
-          >
-            <span />
-            <span />
-          </button>
+          <Link to={to()} className="studio-wordmark">
+            <span dir="ltr">
+              mo<span className="wordmark-dot">.</span>
+            </span>
+            <span className="wordmark-name" dir="ltr">
+              ALAGAB
+              <br />
+              <small>DESIGN & BUILD</small>
+            </span>
+            <span className="sr-only">{` — ${d.navigation.home}`}</span>
+          </Link>
         </nav>
 
         <div id={menuId} className="nav-mobile" hidden={!menuOpen}>
