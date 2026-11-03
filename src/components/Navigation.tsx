@@ -133,10 +133,7 @@ export default function Navigation() {
                       {services.map((s) => (
                         <li key={s.slug}>
                           <Link to={to(`/services/${s.slug}`)} tabIndex={servicesOpen ? undefined : -1}>
-                            <strong>
-                              <span dir="ltr">{s.title}</span>
-                            </strong>
-                            <span>{s.value}</span>
+                            <span dir="ltr">{s.title}</span>
                           </Link>
                         </li>
                       ))}
