@@ -242,9 +242,6 @@
 
 @layer utilities {
   /* Text utilities */
-  .text-balance {
-    text-wrap: balance;
-  }
 
   /* Kinetic text reveal */
 
@@ -316,17 +313,32 @@ html[lang="ar"] .studio-eyebrow {
   letter-spacing: 0.04em;
 }
 .studio-header {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto;
   z-index: 50;
   background: hsl(var(--primary));
   color: hsl(var(--secondary));
+  transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
 }
 /* Over a page hero the bar has no background; it turns navy only while the phone menu is open. */
-body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
+body:has(.folio-hero) .studio-header:not(.is-open):not(.is-scrolled) { background: transparent; }
+/* Once the page moves the bar frosts over whatever is under it: navy on dark sections, light on light ones. */
+.studio-header.is-scrolled { background: hsl(var(--primary) / 0.86); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); }
+.studio-header.is-scrolled .header-inner { height: 72px; }
+.studio-header.is-light { background: hsl(var(--background) / 0.86); color: hsl(var(--primary)); box-shadow: 0 1px 0 hsl(var(--primary) / 0.08); }
+.studio-header.is-light .nav-link { color: hsl(var(--primary)); }
+.studio-header.is-light .nav-pill--outline { color: hsl(var(--primary)); border-color: hsl(var(--primary) / 0.25); }
+.studio-header.is-light .nav-pill--outline:hover { border-color: hsl(var(--primary)); }
+.studio-header.is-light .nav-pill--solid:not(:hover) { background: hsl(var(--primary)); color: hsl(var(--secondary)); }
+.studio-header.is-light .nav-pill--solid:not(:hover) .nav-pill-dot { background: hsl(var(--secondary)); color: hsl(var(--primary)); }
+.studio-header.is-light .nav-burger span { background: hsl(var(--primary)); }
+.studio-header.is-light .wordmark-dot { color: hsl(var(--accent)); }
+/* Over the hero image a soft navy veil sits behind the bar so the links never rest on the photo. */
+.folio-hero::after { content: ""; position: absolute; inset: 0 0 auto; height: 180px; z-index: -1; pointer-events: none; background: linear-gradient(hsl(var(--primary) / 0.7), hsl(var(--primary) / 0)); }
 .header-inner {
   position: relative;
   height: 88px;
+  transition: height 0.35s ease;
   padding-inline: 40px;
   display: flex;
   align-items: center;
@@ -476,15 +488,6 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
   margin-bottom: 50px;
 }
 .section-heading h2,
-.about-copy h2,
-.faq-grid h2 {
-  font-size: clamp(30px, 4vw, 56px);
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -0.03em;
-  margin-top: 20px;
-  white-space: pre-line;
-}
 .section-intro {
   max-width: 350px;
   font-size: 15px;
@@ -500,39 +503,6 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
 .studio-products {
   background: hsl(var(--secondary));
   color: hsl(var(--primary));
-}
-.product-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-.product-grid article > p {
-  font-size: 14px;
-  line-height: 2;
-  max-width: 440px;
-  opacity: 0.8;
-}
-.product-caption {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 24px 0 12px;
-}
-.product-caption h3 {
-  font-size: 25px;
-  font-weight: 500;
-}
-.round-link {
-  width: 44px;
-  height: 44px;
-  border: 1px solid hsl(var(--primary) / 0.3);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transition: background 0.3s;
-}
-.round-link:hover {
-  background: hsl(var(--muted));
 }
 .product-visual {
   aspect-ratio: 1.45;
@@ -653,9 +623,6 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
   border: 1px solid hsl(var(--secondary) / 0.25);
   border-radius: var(--radius-surface);
 }
-.products-all {
-  margin-top: 35px;
-}
 .studio-process {
   background: hsl(var(--background));
 }
@@ -699,9 +666,6 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
   font-size: 13px;
   opacity: 0.75;
 }
-.testimonial-link {
-  margin-top: 35px;
-}
 @media (max-width: 800px) {
   .testimonial-grid {
     grid-template-columns: 1fr;
@@ -717,54 +681,6 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
 .studio-about {
   background: hsl(var(--muted));
   color: hsl(var(--primary));
-}
-.about-grid {
-  display: grid;
-  grid-template-columns: 0.8fr 1.1fr;
-  gap: 90px;
-  align-items: center;
-}
-.about-portrait {
-  position: relative;
-  aspect-ratio: 0.9;
-  overflow: hidden;
-  max-width: 470px;
-}
-.about-portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.about-portrait > span {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: hsl(var(--secondary));
-  padding: 10px 18px;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-}
-.about-copy > p:not(.studio-eyebrow) {
-  font-size: 15px;
-  line-height: 2;
-  margin-top: 20px;
-  max-width: 500px;
-}
-.about-copy .studio-text-link {
-  margin-top: 28px;
-  border-bottom: 1px solid currentColor;
-}
-.faq-grid {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 90px;
-}
-.faq-intro {
-  font-size: 14px;
-  line-height: 2;
-  margin-top: 24px;
-  max-width: 300px;
-  opacity: 0.7;
 }
 .studio-cta {
   background: hsl(var(--primary));
@@ -832,10 +748,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .wordmark-name {
     display: none;
   }
-  .about-grid,
-  .faq-grid {
-    gap: 50px;
-  }
 }
 @media (max-width: 800px) {
   .header-inner {
@@ -861,35 +773,15 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     flex-direction: column;
   }
   .section-heading h2,
-  .about-copy h2,
-  .faq-grid h2 {
-    font-size: 34px;
-  }
   .section-intro {
     max-width: 500px;
     font-size: 14px;
   }
-  .product-grid {
-    gap: 32px;
-    grid-template-columns: 1fr;
-  }
   .product-visual {
     aspect-ratio: 1.5;
   }
-  .product-caption h3 {
-    font-size: 24px;
-  }
   .life-orbit {
     height: 135px;
-  }
-  .about-grid,
-  .faq-grid {
-    grid-template-columns: 1fr;
-    gap: 38px;
-  }
-  .about-portrait {
-    width: 80%;
-    max-width: 370px;
   }
   .studio-cta {
     padding-block: 65px;
@@ -941,10 +833,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     font-size: 9px;
   }
   .section-heading h2,
-  .about-copy h2,
-  .faq-grid h2 {
-    font-size: 31px;
-  }
   .studio-cta h2 {
     font-size: 40px;
   }
@@ -1032,33 +920,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   font-size: 12px;
   opacity: 0.75;
 }
-.product-detail {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 70px;
-  align-items: center;
-  padding-block: 20px 70px;
-  margin-bottom: 60px;
-  border-bottom: 1px solid hsl(var(--border));
-}
-.product-detail:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border: 0;
-}
-.product-detail h2 {
-  font-size: 36px;
-  font-weight: 500;
-  margin-block: 20px;
-}
-.product-detail p:not(.studio-eyebrow) {
-  font-size: 16px;
-  line-height: 2;
-  max-width: 450px;
-}
-.product-detail .product-visual {
-  min-height: 340px;
-}
 .product-feature-list {
   display: flex;
   flex-wrap: wrap;
@@ -1070,50 +931,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   padding: 9px 15px;
   border: 1px solid hsl(var(--border));
   border-radius: 999px;
-}
-.services-page .service-info {
-  position: sticky;
-  top: 120px;
-  align-self: start;
-}
-.services-page .package-card {
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--card));
-  border-radius: var(--radius-surface);
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  transition:
-    border-color 0.25s,
-    transform 0.25s;
-}
-.services-page .package-card:hover {
-  border-color: hsl(var(--accent));
-  transform: translateY(-3px);
-}
-.services-page .package-card h3 {
-  font-weight: 500;
-  font-size: 19px;
-}
-.services-page .package-card a {
-  margin-top: auto;
-  min-height: 44px;
-}
-.services-page .package-card > dl {
-  margin-bottom: 24px;
-}
-.services-page .package-card details {
-  font-size: 12px;
-  margin-block: 12px;
-}
-.services-page .package-card summary {
-  cursor: pointer;
-  color: hsl(var(--accent));
-  padding-block: 8px;
-}
-.services-page .package-card details p {
-  margin-top: 8px;
-  line-height: 1.9;
 }
 .case-page .case-gallery {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1215,18 +1032,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .footer-bottom {
     flex-wrap: wrap;
     line-height: 1.8;
-  }
-  .product-detail {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
-  }
-  .product-detail h2 {
-    font-size: 30px;
-  }
-  .services-page .service-info {
-    position: static;
   }
   .case-lightbox {
     padding: 45px 20px 20px;
@@ -1641,10 +1446,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   font-size: 13px;
   flex-shrink: 0;
 }
-.lt-home-link {
-  font-size: 12px;
-  margin-top: 18px;
-}
 @media (max-width: 900px) {
   .lt-intro {
     gap: 32px;
@@ -1784,21 +1585,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 
 /* About Mo: a readable narrative with distinct editorial chapters. */
-.about-portrait {
-  min-width: 0;
-}
-.about-portrait img {
-  width: 100%;
-  aspect-ratio: 0.8;
-  object-fit: cover;
-  border: 1px solid hsl(var(--secondary) / 0.2);
-}
-.about-portrait figcaption {
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: hsl(var(--muted));
-  margin-top: 15px;
-}
 .about-page section[id] {
   scroll-margin-top: 0;
 }
@@ -2174,9 +1960,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     grid-template-columns: 1fr;
     gap: 35px;
   }
-  .about-portrait {
-    max-width: 340px;
-  }
   .about-section-heading {
     position: static;
   }
@@ -2316,10 +2099,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .pdf-toolbar {
   border-radius: var(--radius-control);
 }
-.about-page .about-portrait {
-  aspect-ratio: auto;
-  overflow: visible;
-}
 .about-portrait img,
 .case-lightbox img {
   border-radius: var(--radius-surface);
@@ -2348,14 +2127,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 
 /* Word-by-word reveal (src/components/studio/WordReveal.tsx); without --p every word is fully visible. */
 /* --dim keeps unread words at 3:1 contrast, the WCAG minimum for large text. */
-.word-reveal { --dim: 0.48; }
-.word-reveal > span {
-  opacity: clamp(var(--dim), calc(var(--dim) + (var(--p, 1) * (var(--n) + 6) - var(--i)) / 6 * (1 - var(--dim))), 1);
-}
-.about-copy > p.about-reveal:not(.studio-eyebrow) {
-  font-size: clamp(24px, 2vw, 30px); line-height: 1.55; color: hsl(var(--foreground));
-  --dim: 0.62; /* the about section sits on a mid-blue background */
-}
 
 @keyframes svc-flip {
   0% { transform: scaleX(0); }
@@ -2363,59 +2134,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   100% { transform: scaleX(1); }
 }
 
-/* Process as a pinned story (src/components/studio/ProcessScroll.tsx). */
-.proc-track { height: calc(100svh + var(--count) * 55svh); }
-.proc-sticky {
-  position: sticky; top: 88px; height: calc(100svh - 88px);
-  display: flex; flex-direction: column; justify-content: center;
-}
-.proc-body { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 64px; align-items: center; }
-.proc-steps { list-style: none; margin: 0; padding: 0; }
-.proc-steps li {
-  display: flex; align-items: baseline; gap: 16px; padding-block: 16px;
-  border-top: 1px solid hsl(var(--border)); font-size: 20px; font-weight: 500;
-  color: hsl(var(--accent)); transition: color 0.4s ease;
-}
-.proc-steps li span { font-size: 12px; font-weight: 400; letter-spacing: 0.12em; }
-.proc-steps li.is-active { color: hsl(var(--foreground)); }
-.proc-stage { position: relative; min-height: 360px; }
-.proc-card {
-  position: absolute; inset: 0; opacity: 0; transform: translateY(-16px);
-  transition: opacity 0.2s ease, transform 0.3s ease;
-}
 /* The outgoing card leaves first, then the next one rises in. */
-.proc-card.is-active {
-  opacity: 1; transform: none;
-  transition: opacity 0.5s ease 0.2s, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
-}
-.proc-number { display: block; font-size: clamp(96px, 11vw, 168px); font-weight: 300; line-height: 1; color: hsl(var(--accent)); }
-.proc-card h3 { margin-top: 12px; font-size: clamp(30px, 3vw, 44px); font-weight: 500; }
-.proc-card .studio-eyebrow { margin-top: 10px; }
-.proc-card p { margin-top: 20px; max-width: 32rem; font-size: 18px; line-height: 1.8; }
-.proc-bar { margin-top: 48px; height: 2px; background: hsl(var(--border)); }
-.proc-bar span {
-  display: block; height: 100%; background: hsl(var(--accent));
-  transform: scaleX(var(--p, 0)); transform-origin: left;
-}
-html[dir="rtl"] .proc-bar span { transform-origin: right; }
-@media (max-width: 900px) {
-  .proc-track { height: auto; }
-  .proc-sticky { position: static; height: auto; }
-  .proc-steps, .proc-bar { display: none; }
-  .proc-body { display: block; }
-  .proc-stage { min-height: 0; display: grid; gap: 32px; }
-  .proc-card { position: static; opacity: 1; transform: none; border-top: 1px solid hsl(var(--border)); padding-top: 24px; }
-  .proc-number { font-size: 56px; }
-  .proc-card p { font-size: 15px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .proc-track { height: auto; }
-  .proc-sticky { position: static; height: auto; }
-  .proc-steps, .proc-bar { display: none; }
-  .proc-body { display: block; }
-  .proc-stage { min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
-  .proc-card { position: static; opacity: 1; transform: none; transition: none; }
-}
 
 /* Header (src/components/Navigation.tsx): centred links, services dropdown, two pills. */
 .nav-links {
@@ -2596,8 +2315,8 @@ html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1
 }
 .marquee-track { display: flex; width: max-content; animation: marquee 70s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
-.marquee-row { display: flex; align-items: center; gap: 64px; padding-inline-end: 64px; list-style: none; margin: 0; padding-inline-start: 0; }
-.marquee-row img { display: block; height: var(--h, 40px); width: auto; border-radius: 0; opacity: 0.85; }
+.marquee-row { display: flex; align-items: center; gap: 88px; padding-inline-end: 88px; list-style: none; margin: 0; padding-inline-start: 0; }
+.marquee-row img { display: block; height: var(--h, 40px); width: auto; border-radius: 0; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @media (max-width: 800px) {
   .client-band { margin-top: -28px; padding-block: 60px 36px; border-radius: 0 0 28px 28px; }
@@ -2651,13 +2370,8 @@ html[dir="rtl"] .folio-hero-media--work::after {
 /* Labels keep at least 4.5:1: light blue on navy sections, navy on the mid-blue about band. */
 .studio-cta .studio-eyebrow,
 .about-closing .studio-eyebrow { color: hsl(var(--muted)); }
-.studio-about .studio-eyebrow { color: hsl(var(--primary)); }
 .section-heading h2,
-.about-copy h2,
-.faq-grid h2 { font-weight: 700; line-height: 1.18; letter-spacing: -0.035em; }
 html[lang="ar"] .section-heading h2,
-html[lang="ar"] .about-copy h2,
-html[lang="ar"] .faq-grid h2 { line-height: 1.4; letter-spacing: 0; }
 .section-intro { max-width: 30rem; font-size: 19px; line-height: 1.65; font-weight: 500; opacity: 1; }
 .studio-text-link {
   gap: 12px; min-height: 48px; padding-inline: 22px 6px; border-radius: 30px;
@@ -2778,3 +2492,167 @@ html[lang="ar"] .faq-grid h2 { line-height: 1.4; letter-spacing: 0; }
 }
 /* The count-up reserves its final width; keep the digits flush with the label on Arabic pages. */
 html[dir="rtl"] .stat-card strong { text-align: right; }
+
+/* Products as a Folioblox bento: an image card with the title over it, and a solid accent card. */
+.bento { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; }
+.bento-card { position: relative; overflow: hidden; display: flex; align-items: flex-end; min-height: 520px; border-radius: 30px; }
+.bento-media { position: absolute; inset: 0; }
+.bento-media .product-visual { width: 100%; height: 100%; border-radius: 0; color: hsl(var(--primary)); }
+.bento-card--image { background: hsl(var(--primary)); color: hsl(var(--secondary)); }
+/* The product visual is a light interface mock: frame it at the top and keep the text on navy below. */
+.bento-card--image .bento-media { inset: 24px 24px auto; height: 58%; overflow: hidden; border-radius: 20px; }
+.bento-card--accent { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+.bento-body { position: relative; z-index: 1; width: 100%; padding: 40px; }
+.bento-body h3 { padding-top: 22px; border-top: 3px solid currentColor; font-size: clamp(26px, 2.6vw, 38px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+.bento-card--image .bento-body h3 { border-color: hsl(var(--muted)); }
+.bento-body p { margin-top: 12px; max-width: 34rem; font-size: 16px; line-height: 1.7; opacity: 0.9; }
+.bento-link {
+  margin-top: 20px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+  font-size: 14px; font-weight: 700; border-bottom: 1px solid currentColor;
+}
+
+/* Process as Folioblox step rows in a grey block; alternate rows sit on a white card. */
+.studio-process { background: hsl(var(--secondary) / 0.55); border-radius: 0 0 100px 100px; }
+.step-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.step-row {
+  display: grid; grid-template-columns: 140px minmax(0, 1fr) minmax(0, 1.2fr); gap: 32px; align-items: center;
+  padding: 36px 40px; border-radius: 24px;
+}
+.step-row:nth-child(even) { background: hsl(var(--background)); }
+.step-number {
+  display: flex; align-items: center; gap: 22px; font-size: clamp(40px, 4vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1;
+  color: hsl(var(--primary));
+}
+.step-number::before { content: ""; width: 3px; height: 1.1em; border-radius: 2px; background: hsl(var(--accent)); }
+.step-row h3 { display: flex; flex-direction: column; gap: 4px; font-size: 22px; font-weight: 700; }
+.step-row h3 span { font-size: 13px; font-weight: 500; color: hsl(var(--accent)); }
+.step-row p { font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
+.section-intro { font-weight: 600; }
+@media (max-width: 900px) {
+  .bento { grid-template-columns: 1fr; }
+  .bento-card { min-height: 420px; }
+  .step-row { grid-template-columns: 1fr; gap: 12px; padding: 28px; }
+}
+@media (max-width: 800px) {
+  .studio-process { border-radius: 0 0 36px 36px; }
+  .bento-card { border-radius: 24px; }
+  .bento-body { padding: 28px; }
+}
+
+/* Services page lines (src/pages/ServicesPage.tsx) in the Folioblox section rhythm. */
+.service-line--tint { background: hsl(var(--secondary) / 0.45); }
+.service-line-what { font-size: 16px; line-height: 1.8; color: hsl(var(--muted-foreground)); }
+.service-line-facts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
+  padding: 40px; border-radius: 30px; background: hsl(var(--background)); border: 1px solid hsl(var(--border));
+}
+.service-line-facts h3, .service-line-subhead { font-size: 15px; font-weight: 700; color: hsl(var(--accent)); }
+.service-line-facts p, .service-line-facts li { margin-top: 10px; font-size: 15px; line-height: 1.75; }
+.service-line-facts ul { list-style: none; margin: 0; padding: 0; }
+.service-line-facts li { display: flex; gap: 10px; align-items: flex-start; }
+.service-line-facts li svg { margin-top: 6px; color: hsl(var(--accent)); }
+.service-line-subhead { margin: 56px 0 20px; font-size: clamp(18px, 1.9vw, 26px); }
+.pkg-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.pkg-card {
+  position: relative; display: flex; flex-direction: column; gap: 14px;
+  padding: 72px 36px 36px; border-radius: 30px; background: hsl(var(--secondary) / 0.55);
+}
+.service-line--tint .pkg-card { background: hsl(var(--background)); }
+.pkg-card::before { content: ""; position: absolute; inset: 36px 36px auto; height: 3px; border-radius: 2px; background: hsl(var(--accent)); }
+.pkg-card h4 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.pkg-card > p { font-size: 15px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
+.pkg-card dl { display: grid; gap: 10px; margin: 6px 0 0; font-size: 14px; }
+.pkg-card dt { font-weight: 700; color: hsl(var(--accent)); }
+.pkg-card dd { margin: 2px 0 0; line-height: 1.6; }
+.pkg-card .studio-text-link { margin-top: auto; align-self: flex-start; }
+.service-line-case { margin-top: 72px; }
+.service-line-case .studio-eyebrow { margin-bottom: 24px; }
+
+/* Closing call to action as a rounded navy block. */
+.folio-cta {
+  display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;
+  padding: clamp(56px, 8vw, 110px) 32px; border-radius: 40px; background: hsl(var(--primary)); color: hsl(var(--secondary));
+}
+.folio-cta h2 { max-width: 46rem; font-size: clamp(32px, 4.4vw, 60px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.15; }
+html[lang="ar"] .folio-cta h2 { letter-spacing: 0; line-height: 1.4; }
+.folio-cta p { max-width: 36rem; font-size: 18px; line-height: 1.7; color: hsl(var(--secondary) / 0.85); }
+.folio-cta .nav-pill { margin-top: 12px; }
+@media (max-width: 1100px) { .pkg-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 800px) {
+  .service-line-facts, .pkg-cards { grid-template-columns: 1fr; }
+  .service-line-facts { padding: 28px; border-radius: 24px; }
+  .pkg-card { border-radius: 24px; padding: 64px 28px 28px; }
+  .pkg-card::before { inset: 28px 28px auto; }
+  .folio-cta { border-radius: 28px; }
+}
+.case-row-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.case-row-list li { padding-inline-start: 16px; border-inline-start: 2px solid hsl(var(--border)); font-size: 17px; line-height: 1.75; color: hsl(var(--muted-foreground)); }
+.folio-cta .folio-actions { justify-content: center; margin-top: 12px; }
+.folio-cta .folio-actions .nav-pill { margin-top: 0; }
+
+/* Closing calls to action (.studio-cta on Home, Work, Products) as a rounded navy block. */
+.studio-cta { background: transparent; color: inherit; padding-block: 110px; }
+.studio-cta > .studio-container {
+  background: hsl(var(--primary)); color: hsl(var(--secondary)); border-radius: 40px;
+  padding: clamp(56px, 7vw, 100px) clamp(28px, 5vw, 80px);
+}
+.studio-cta h2 { font-weight: 800; letter-spacing: -0.035em; line-height: 1.15; }
+html[lang="ar"] .studio-cta h2 { letter-spacing: 0; line-height: 1.4; }
+.studio-cta p:not(.studio-eyebrow) { font-size: 17px; line-height: 1.75; opacity: 0.85; }
+@media (max-width: 800px) { .studio-cta { padding-block: 64px; } .studio-cta > .studio-container { border-radius: 28px; } }
+
+/* Product rows reuse the Folioblox project row; the visual fills the image slot. */
+.featured-row-media .product-visual { width: 100%; height: 100%; min-height: 0; border-radius: 0; }
+.featured-row-body h2 { font-size: clamp(28px, 2.8vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+.featured-row-body .studio-eyebrow { margin-bottom: 14px; }
+.featured-row-body .product-feature-list { margin-top: 20px; }
+
+/* Home about after Folioblox "Behind the designs": head, then three rounded images. */
+.studio-about { background: hsl(var(--background)); color: inherit; }
+.studio-about .studio-eyebrow { color: hsl(var(--accent)); }
+.about-gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.about-gallery li { overflow: hidden; border-radius: 30px; aspect-ratio: 4 / 5; background: hsl(var(--secondary)); }
+.about-gallery picture, .about-gallery img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Testimonials as Folioblox cards. */
+.testimonial-grid figure {
+  position: relative; border: 0; border-radius: 30px; padding: 72px 40px 40px; background: hsl(var(--secondary) / 0.55);
+}
+.testimonial-grid figure::before { content: ""; position: absolute; inset: 40px 40px auto; height: 3px; border-radius: 2px; background: hsl(var(--accent)); }
+.testimonial-grid blockquote { font-size: 19px; font-weight: 500; line-height: 1.8; }
+.testimonial-grid figcaption { border-top: 0; padding-top: 0; }
+.testimonial-grid figcaption strong { font-size: 17px; font-weight: 700; }
+
+/* FAQ as Folioblox rows in a grey rounded block. */
+.studio-faq { background: hsl(var(--secondary) / 0.55); border-radius: 100px 100px 0 0; }
+.faq-rows { display: grid; gap: 10px; }
+.faq-rows > div { border: 0; border-radius: 24px; background: hsl(var(--background)); padding-inline: 32px; }
+.faq-rows button { font-size: 18px; font-weight: 700; }
+@media (max-width: 900px) {
+  .about-gallery { grid-template-columns: 1fr 1fr; }
+  .about-gallery li:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+}
+@media (max-width: 800px) {
+  .about-gallery li, .testimonial-grid figure { border-radius: 24px; }
+  .testimonial-grid figure { padding: 64px 28px 28px; }
+  .testimonial-grid figure::before { inset: 28px 28px auto; }
+  .studio-faq { border-radius: 36px 36px 0 0; }
+  .faq-rows > div { padding-inline: 20px; }
+}
+.folio-cta-mail { font-size: clamp(20px, 2.4vw, 30px); font-weight: 700; text-decoration: underline; text-underline-offset: 6px; }
+
+/* Start page in the Folioblox system: grey rounded form card, numbered steps with an accent bar. */
+.start-page form { border: 0; border-radius: 30px; padding: 40px; background: hsl(var(--secondary) / 0.55); }
+.start-steps { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 8px; }
+.start-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border-radius: 20px; }
+.start-step:nth-child(even) { background: hsl(var(--secondary) / 0.55); }
+.start-step > span {
+  display: flex; align-items: center; gap: 14px; width: auto; height: auto; border: 0; border-radius: 0;
+  font-size: 28px; font-weight: 800; letter-spacing: -0.03em; color: hsl(var(--primary));
+}
+.start-step > span::before { content: ""; width: 3px; height: 1.1em; border-radius: 2px; background: hsl(var(--accent)); }
+.start-contact { padding: 32px; border-radius: 30px; background: hsl(var(--secondary) / 0.55); }
+@media (max-width: 800px) {
+  .start-page form { padding: 28px 22px; border-radius: 24px; }
+  .start-contact { border-radius: 24px; padding: 24px; }
+}

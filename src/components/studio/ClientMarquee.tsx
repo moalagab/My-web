@@ -31,8 +31,8 @@ const clients = [
   ["paper-product-sheet", "Paper Product Sheet", 3.407],
 ] as const;
 
-/** Visual area each logo gets, in px²: a square mark lands near 52px tall. */
-const LOGO_AREA = 2700;
+/** Visual area each logo gets, in px²: a square mark lands near 72px tall. */
+const LOGO_AREA = 5200;
 
 /** Client logos drifting in one direction; hover pauses, reduced motion shows a still row. */
 export default function ClientMarquee() {
@@ -41,7 +41,7 @@ export default function ClientMarquee() {
     <ul className="marquee-row" aria-hidden={copy || undefined}>
       {clients.map(([file, name, ratio]) => {
         // Equal visual area for every mark: square logos stand taller, wide ones run longer.
-        const height = Math.round(Math.min(56, Math.max(24, Math.sqrt(LOGO_AREA / ratio))));
+        const height = Math.round(Math.min(76, Math.max(34, Math.sqrt(LOGO_AREA / ratio))));
         return (
           <li key={file}>
             <img

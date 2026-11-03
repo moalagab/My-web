@@ -104,12 +104,11 @@ export default function WorkPage() {
             <h2>{copy.ctaTitle}</h2>
             <div>
               <p>{copy.ctaBody}</p>
-              <Link
-                className="studio-button studio-button-light"
-                to={`${prefix}/start?service=brand`}
-              >
-                {copy.ctaButton}
-                <ArrowUpRight size={18} />
+              <Link to={`${prefix}/start?service=brand`} className="nav-pill nav-pill--solid">
+                <span>{copy.ctaButton}</span>
+                <span className="nav-pill-dot" aria-hidden="true">
+                  <ArrowUpRight size={18} />
+                </span>
               </Link>
             </div>
           </div>

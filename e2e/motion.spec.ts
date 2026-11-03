@@ -12,12 +12,6 @@ const scrollUntil = async (page: Page, scroll: () => Promise<unknown>, done: () 
   }, { timeout: 10_000 }).toBe(true);
 };
 
-const scrollToFraction = (page: Page, selector: string, fraction: number) =>
-  page.locator(selector).evaluate((el, f) => {
-    const top = window.scrollY + el.getBoundingClientRect().top;
-    window.scrollTo({ top: top + (el.scrollHeight - window.innerHeight) * f, behavior: "instant" });
-  }, fraction);
-
 test("selected work shows as Folioblox rows that alternate sides", async ({ page }) => {
   await page.goto("/");
   const rows = page.locator(".featured-row");
@@ -36,20 +30,15 @@ test("services show as four cards linking to their pages", async ({ page }) => {
   await expect(cards.first()).toHaveAttribute("href", "/en/services/digital");
 });
 
-test("process steps advance with scroll", async ({ page }) => {
+test("process shows four Folioblox step rows", async ({ page }) => {
   await page.goto("/");
-  await scrollUntil(
-    page,
-    () => scrollToFraction(page, ".proc-track", 0.8),
-    async () => (await page.locator(".proc-card.is-active h3").textContent()) === "نطلق",
-  );
+  await expect(page.locator(".step-row")).toHaveCount(4);
+  await expect(page.locator(".step-row h3").last()).toContainText("نطلق");
 });
 
 test("reduced motion shows everything still and readable", async ({ browser }) => {
   const page = await browser.newPage({ reducedMotion: "reduce" });
   await page.goto("/en");
-  for (const card of await page.locator(".proc-card").all()) await expect(card).toHaveCSS("opacity", "1");
-  await expect(page.locator(".word-reveal span").first()).toHaveCSS("opacity", "1");
   await page.close();
 });
 

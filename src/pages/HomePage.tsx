@@ -15,10 +15,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { selectedIdentityProjects } from "@/content/projects";
+import { orderedProjects, selectedIdentityProjects } from "@/content/projects";
 import FeaturedProjects from "@/components/studio/FeaturedProjects";
-import WordReveal from "@/components/studio/WordReveal";
-import ProcessScroll from "@/components/studio/ProcessScroll";
 import ProofStrip from "@/components/studio/ProofStrip";
 import ClientMarquee from "@/components/studio/ClientMarquee";
 import { track } from "@/lib/analytics";
@@ -34,6 +32,9 @@ export default function HomePage() {
     ? ["أصمّم ما يُرى.", "وأبني ما يعمل."]
     : ["I design what’s seen.", "I build what works."];
   const selected = selectedIdentityProjects.slice(0, 6);
+  const aboutWork = ["ekka-rebranding", "sabaa-construction"]
+    .map((slug) => orderedProjects.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
     <>
@@ -158,102 +159,95 @@ export default function HomePage() {
                 <p className="studio-eyebrow">03 / DESIGN MEETS TECHNOLOGY</p>
                 <h2>{h.products.title}</h2>
               </div>
-              <p className="section-intro">{h.products.caption}</p>
+              <div className="section-side">
+                <p className="section-intro">{h.products.caption}</p>
+                <Link to={`${prefix}/products`} className="studio-text-link">
+                  {ar ? "استكشف المنتجات" : "Explore the products"}
+                  <ArrowUpRight className={arrow} size={18} />
+                </Link>
+              </div>
             </div>
-            <div className="product-grid">
+            <ul className="bento">
               {h.products.items.map((p, i) => (
-                <article key={p.name} data-reveal>
-                  {/* Same destination as the labelled arrow link below, so hidden from assistive tech. */}
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-hidden="true"
-                    tabIndex={-1}
-                  >
-                    <ProductVisual kind={i === 0 ? "life" : "agent"} />
-                  </a>
-                  <div className="product-caption">
+                <li key={p.name} className={i === 0 ? "bento-card bento-card--image" : "bento-card bento-card--accent"} data-reveal>
+                  {i === 0 && (
+                    <div className="bento-media" aria-hidden="true">
+                      <ProductVisual kind="life" />
+                    </div>
+                  )}
+                  <div className="bento-body">
                     <h3 dir="ltr">{p.name}</h3>
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="round-link"
-                      aria-label={`${h.products.visit}: ${p.name}`}
-                    >
-                      <ArrowUpRight className={arrow} size={22} />
+                    <p>{p.body}</p>
+                    <a href={p.url} target="_blank" rel="noreferrer" className="bento-link">
+                      {h.products.visit}
+                      <span className="sr-only">: {p.name}</span>
+                      <ArrowUpRight className={arrow} size={16} />
                     </a>
                   </div>
-                  <p>{p.body}</p>
-                  {i === 0 && (
-                    <Link
-                      className="studio-text-link lt-home-link"
-                      to={`${prefix}/products#lifetent`}
-                    >
-                      {ar
-                        ? "استكشف نظام LifeTent"
-                        : "Explore the LifeTent system"}
-                      <ArrowUpRight size={17} className={arrow} />
-                    </Link>
-                  )}
-                </article>
+                </li>
               ))}
-            </div>
-            <Link
-              to={`${prefix}/products`}
-              className="studio-text-link products-all"
-            >
-              {ar ? "استكشف المنتجات" : "Explore the products"}
-              <ArrowUpRight className={arrow} size={18} />
-            </Link>
+            </ul>
           </div>
         </section>
         <section className="studio-section studio-process">
           <div className="studio-container">
-            <ProcessScroll steps={h.process.steps}>
-              <div className="section-heading">
-                <div>
-                  <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
-                  <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
-                </div>
-                <p className="section-intro">
-                  {ar
-                    ? "أنت تعرف أين نحن، وماذا يأتي بعد. نطاق محدد، تسليم على مراحل، وقرارات نفهم أسبابها."
-                    : "Know where we are and what comes next. A defined scope, staged delivery, and decisions with a clear rationale."}
-                </p>
+            <div className="section-heading">
+              <div>
+                <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
+                <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
               </div>
-            </ProcessScroll>
+              <p className="section-intro">
+                {ar
+                  ? "أنت تعرف أين نحن، وماذا يأتي بعد. نطاق محدد، تسليم على مراحل، وقرارات نفهم أسبابها."
+                  : "Know where we are and what comes next. A defined scope, staged delivery, and decisions with a clear rationale."}
+              </p>
+            </div>
+            <ol className="step-rows">
+              {h.process.steps.map((step, i) => (
+                <li key={step.title} className="step-row" data-reveal>
+                  <span className="step-number" dir="ltr">0{i + 1}</span>
+                  <h3>
+                    {step.title}
+                    <span dir="ltr">{step.english}</span>
+                  </h3>
+                  <p>{step.body}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
         <section className="studio-section studio-about">
-          <div className="studio-container about-grid">
-            <div className="about-portrait" data-reveal>
-              <Picture
-                src={portrait}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                alt={h.about.portraitAlt}
-                width={800}
-                height={1000}
-                loading="lazy"
-              />
-              <span dir="ltr">MO ALAGAB / RIYADH</span>
+          <div className="studio-container">
+            <div className="section-heading">
+              <div>
+                <p className="studio-eyebrow">05 / THE PERSON BEHIND THE WORK</p>
+                <h2>
+                  {ar
+                    ? "شريك في الفكرة.\nودقيق في التنفيذ."
+                    : "A partner in thinking.\nA craftsman in execution."}
+                </h2>
+              </div>
+              <div className="section-side">
+                <p className="section-intro">{h.about.paragraphs[0]}</p>
+                {h.about.paragraphs.slice(1).map((p) => (
+                  <p key={p} className="service-line-what">{p}</p>
+                ))}
+                <Link to={`${prefix}/about`} className="studio-text-link">
+                  {h.about.link}
+                  <ArrowUpRight className={arrow} size={19} />
+                </Link>
+              </div>
             </div>
-            <div className="about-copy">
-              <p className="studio-eyebrow">05 / THE PERSON BEHIND THE WORK</p>
-              <h2>
-                {ar
-                  ? "شريك في الفكرة.\nودقيق في التنفيذ."
-                  : "A partner in thinking.\nA craftsman in execution."}
-              </h2>
-              {h.about.paragraphs.map((p) => (
-                <WordReveal key={p} text={p} className="about-reveal" />
+            <ul className="about-gallery">
+              <li data-reveal>
+                <Picture src={portrait} sizes="(min-width: 900px) 33vw, 100vw" alt={h.about.portraitAlt} width={800} height={1000} loading="lazy" />
+              </li>
+              {aboutWork.map((p) => (
+                <li key={p.slug} data-reveal>
+                  <Picture src={p.cover} sizes="(min-width: 900px) 33vw, 100vw" alt={ar ? p.title_ar : p.title_en} width={800} height={1000} loading="lazy" />
+                </li>
               ))}
-              <Link to={`${prefix}/about`} className="studio-text-link">
-                {h.about.link}
-                <ArrowUpRight className={arrow} size={19} />
-              </Link>
-            </div>
+            </ul>
           </div>
         </section>
         <section className="studio-section studio-testimonials">
@@ -263,7 +257,13 @@ export default function HomePage() {
                 <p className="studio-eyebrow">{h.testimonials.eyebrow}</p>
                 <h2>{h.testimonials.title}</h2>
               </div>
-              <p className="section-intro">{h.testimonials.intro}</p>
+              <div className="section-side">
+                <p className="section-intro">{h.testimonials.intro}</p>
+                <a href={h.testimonials.url} target="_blank" rel="noopener noreferrer" className="studio-text-link">
+                  {h.testimonials.link}
+                  <ArrowUpRight className={arrow} size={18} />
+                </a>
+              </div>
             </div>
             <div className="testimonial-grid">
               {h.testimonials.items.map((t) => (
@@ -279,29 +279,22 @@ export default function HomePage() {
                 </figure>
               ))}
             </div>
-            <a
-              href={h.testimonials.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="studio-text-link testimonial-link"
-            >
-              {h.testimonials.link}
-              <ArrowUpRight className={arrow} size={18} />
-            </a>
           </div>
         </section>
         <section className="studio-section studio-faq">
-          <div className="studio-container faq-grid">
-            <div>
-              <p className="studio-eyebrow">07 / BEFORE WE START</p>
-              <h2>{h.faq.title}</h2>
-              <p className="faq-intro">
+          <div className="studio-container">
+            <div className="section-heading">
+              <div>
+                <p className="studio-eyebrow">07 / BEFORE WE START</p>
+                <h2>{h.faq.title}</h2>
+              </div>
+              <p className="section-intro">
                 {ar
                   ? "التفاصيل التي تساعدك على اتخاذ الخطوة التالية بثقة."
                   : "The details that help you take the next step with confidence."}
               </p>
             </div>
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible className="faq-rows">
               {h.faq.items.map((f, i) => (
                 <AccordionItem key={f.question} value={`faq-${i}`}>
                   <AccordionTrigger className="py-6 text-start text-base hover:no-underline">
@@ -327,13 +320,15 @@ export default function HomePage() {
               <p>{h.finalCta.body}</p>
               <Link
                 to={`${prefix}/start`}
-                className="studio-button studio-button-light"
+                className="nav-pill nav-pill--solid"
                 onClick={() =>
                   track("cta_start_click", { location: "final_cta" })
                 }
               >
-                {h.finalCta.button}
-                <ArrowUpRight className={arrow} size={20} />
+                <span>{h.finalCta.button}</span>
+                <span className="nav-pill-dot" aria-hidden="true">
+                  <ArrowUpRight className={arrow} size={18} />
+                </span>
               </Link>
             </div>
           </div>

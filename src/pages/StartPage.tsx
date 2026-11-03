@@ -731,9 +731,9 @@ const StartPage = () => {
                 <h2 className="mt-3 font-display text-2xl">
                   {copy.next.title}
                 </h2>
-                <ol className="mt-6 space-y-6">
+                <ol className="start-steps">
                   {copy.next.steps.map((item, index) => (
-                    <li key={item.title} className="flex gap-4">
+                    <li key={item.title} className="start-step">
                       <span
                         className="eyebrow mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-xs text-accent"
                         dir="ltr"
@@ -753,7 +753,7 @@ const StartPage = () => {
                 </ol>
               </div>
 
-              <div className="rounded-md border border-border bg-card p-6">
+              <div className="start-contact">
                 <h2 className="font-display text-xl">{copy.contact.title}</h2>
                 <div className="mt-4 space-y-1">
                   <a

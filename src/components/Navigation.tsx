@@ -7,14 +7,18 @@ import { track } from "@/lib/analytics";
 /**
  * Navy bar that opens the page, as on Folioblox: wordmark, links grouped at
  * the end with a services dropdown, a language pill and the start pill with
- * its sliding arrow. It scrolls away with the page. On phones it expands
- * downward into large links.
+ * its sliding arrow. It stays fixed: clear over the hero, then a frosted bar
+ * whose text turns navy over light sections and light over navy ones. On
+ * phones it expands downward into large links.
  */
 export default function Navigation() {
   const { lang, dictionary: d, isRtl } = useLanguage();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [onLight, setOnLight] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLLIElement>(null);
   const closeTimer = useRef(0);
   const panelId = useId();
@@ -60,6 +64,41 @@ export default function Navigation() {
     };
   }, []);
 
+  // Reads the background just under the bar so its text stays legible on any section.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 8);
+      const bar = headerRef.current;
+      if (!bar) return;
+      const y = bar.offsetHeight + 1;
+      let el = document
+        .elementsFromPoint(window.innerWidth / 2, y)
+        .find((node) => !bar.contains(node)) as HTMLElement | undefined;
+      while (el) {
+        const [r, g, b, a = 1] = (getComputedStyle(el).backgroundColor.match(/[\d.]+/g) ?? []).map(Number);
+        if (a > 0.5) {
+          setOnLight(0.2126 * r + 0.7152 * g + 0.0722 * b > 140);
+          return;
+        }
+        el = el.parentElement ?? undefined;
+      }
+      setOnLight(true);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [location.pathname]);
+
   const openServices = () => {
     window.clearTimeout(closeTimer.current);
     setServicesOpen(true);
@@ -97,7 +136,10 @@ export default function Navigation() {
       <a href="#main-content" className="skip-link">
         {d.navigation.skip}
       </a>
-      <header className={`studio-header ${menuOpen ? "is-open" : ""}`}>
+      <header
+        ref={headerRef}
+        className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""} ${onLight && !menuOpen ? "is-light" : ""}`}
+      >
         <nav className="header-inner" aria-label={d.navigation.label}>
           <Link to={to()} className="studio-wordmark">
             <span dir="ltr">

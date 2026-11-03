@@ -4,8 +4,6 @@ import PageMeta from "@/components/PageMeta";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import PageHero from "@/components/studio/PageHero";
-import { Section, SectionInner } from "@/components/system/Section";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { faqGroups, faqJsonLd } from "@/lib/answers";
 import { useWhatsapp } from "@/lib/whatsapp";
@@ -31,63 +29,64 @@ export default function FaqPage() {
       <main>
         <PageHero compact eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.intro}</p>} />
 
-        <Section className="bg-background">
-          <SectionInner className="max-w-3xl space-y-16">
-            {groups.map((group, g) => (
-              <section key={group.label} aria-labelledby={`group-${g}`}>
-                <h2 id={`group-${g}`} className="eyebrow text-sm text-accent">
-                  {group.label}
-                </h2>
-                <div className="mt-6 space-y-10">
-                  {group.items.map((qa) => {
-                    n += 1;
-                    return (
-                      <section key={qa.q} aria-labelledby={`faq-${n}`}>
-                        <h3 id={`faq-${n}`} className="font-display text-2xl font-bold">
-                          {qa.q}
-                        </h3>
-                        {qa.a && <p className="mt-3 leading-8 text-muted-foreground">{qa.a}</p>}
+        {groups.map((group, g) => (
+          <section key={group.label} className={`studio-section ${g % 2 === 1 ? "service-line--tint" : ""}`} aria-labelledby={`group-${g}`}>
+            <div className="studio-container">
+              <div className="section-heading">
+                <div>
+                  <h2 id={`group-${g}`}>{group.label}</h2>
+                </div>
+              </div>
+              <div className="case-rows">
+                {group.items.map((qa) => {
+                  n += 1;
+                  return (
+                    <section key={qa.q} className="case-row" aria-labelledby={`faq-${n}`} data-reveal>
+                      <h3 id={`faq-${n}`}>{qa.q}</h3>
+                      <div>
+                        {qa.a && <p>{qa.a}</p>}
                         {qa.list && (
-                          <ul className="mt-3 space-y-2 leading-8 text-muted-foreground">
+                          <ul className="case-row-list">
                             {qa.list.map((item) => (
-                              <li key={item} className="border-s-2 border-border ps-4">
-                                {item}
-                              </li>
+                              <li key={item}>{item}</li>
                             ))}
                           </ul>
                         )}
-                      </section>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
-
-            <div className="border-t border-border pt-10">
-              <h2 className="font-display text-2xl font-bold">{copy.ctaTitle}</h2>
-              <p className="mt-3 leading-8 text-muted-foreground">{copy.ctaBody}</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button asChild>
-                  <Link to={`${prefix}/start`}>
-                    {d.home.finalCta.button}
-                    <ArrowUpRight className={isRtl ? "-scale-x-100" : ""} />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <a
-                    href={whatsapp.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => whatsapp.onClick("faq")}
-                  >
-                    <MessageCircle aria-hidden="true" />
-                    {d.ui.whatsapp.button}
-                  </a>
-                </Button>
+                      </div>
+                    </section>
+                  );
+                })}
               </div>
             </div>
-          </SectionInner>
-        </Section>
+          </section>
+        ))}
+
+        <section className="studio-section">
+          <div className="studio-container">
+            <div className="folio-cta" data-reveal>
+              <h2>{copy.ctaTitle}</h2>
+              <p>{copy.ctaBody}</p>
+              <div className="folio-actions">
+                <Link to={`${prefix}/start`} className="nav-pill nav-pill--solid">
+                  <span>{d.home.finalCta.button}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight size={18} className={isRtl ? "-scale-x-100" : ""} />
+                  </span>
+                </Link>
+                <a
+                  href={whatsapp.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => whatsapp.onClick("faq")}
+                  className="nav-pill nav-pill--outline"
+                >
+                  <MessageCircle size={16} aria-hidden="true" />
+                  {d.ui.whatsapp.button}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
