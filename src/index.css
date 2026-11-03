@@ -422,12 +422,6 @@ html[lang="ar"] .studio-eyebrow {
 .skip-link:focus {
   transform: none;
 }
-.studio-hero {
-  background: hsl(var(--primary));
-  color: hsl(var(--secondary));
-  padding-top: 88px;
-  overflow: hidden;
-}
 .hero-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -436,42 +430,6 @@ html[lang="ar"] .studio-eyebrow {
   padding-top: 84px;
   padding-bottom: 68px;
   min-height: 660px;
-}
-.hero-title {
-  font-size: clamp(44px, 6.7vw, 100px);
-  line-height: 1.19;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  margin-top: 28px;
-}
-html[lang="ar"] .hero-title {
-  letter-spacing: -0.025em;
-}
-.hero-title > span {
-  display: block;
-}
-.hero-title-soft {
-  color: hsl(var(--muted));
-}
-.identity-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: hsl(var(--muted));
-  flex-shrink: 0;
-}
-.hero-description {
-  margin-top: 28px;
-  max-width: 470px;
-  font-size: 15px;
-  line-height: 2;
-  color: hsl(var(--secondary) / 0.8);
-}
-.hero-actions {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-  margin-top: 30px;
 }
 .studio-button {
   display: inline-flex;
@@ -513,19 +471,6 @@ html[lang="ar"] .hero-title {
 }
 .studio-text-link:hover svg {
   translate: 0 -3px;
-}
-.hero-baseline {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 23px;
-  border-top: 1px solid hsl(var(--secondary) / 0.18);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: hsl(var(--secondary) / 0.65);
-}
-.hero-baseline a {
-  padding: 13px;
 }
 .brand-sculpture {
   position: relative;
@@ -1069,9 +1014,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .hero-grid {
     padding-top: 65px;
   }
-  .hero-title {
-    font-size: clamp(44px, 7.5vw, 82px);
-  }
   .about-grid,
   .faq-grid {
     gap: 50px;
@@ -1085,9 +1027,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .studio-wordmark > span:first-child {
     font-size: 40px;
   }
-  .studio-hero {
-    padding-top: 74px;
-  }
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -1095,30 +1034,14 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     padding-bottom: 25px;
     min-height: 0;
   }
-  .hero-title {
-    font-size: clamp(46px, 8.8vw, 75px);
-  }
   .hero-copy {
     max-width: 600px;
-  }
-  .hero-description {
-    font-size: 14px;
-    max-width: 530px;
-    margin-top: 24px;
   }
   .brand-sculpture {
     width: 72%;
     max-width: 400px;
     justify-self: center;
     margin-top: 10px;
-  }
-  .hero-baseline {
-    font-size: 11px;
-    padding-block: 16px;
-    gap: 16px;
-  }
-  .hero-baseline > span:nth-child(2) {
-    display: none;
   }
   .proof-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1223,19 +1146,12 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
 }
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: clamp(41px, 10.7vw, 51px);
-  }
   .hero-grid {
     padding-top: 42px;
   }
   .hero-copy .studio-eyebrow {
     font-size: 11px;
     letter-spacing: 0.07em;
-  }
-  .hero-actions {
-    gap: 20px;
-    flex-wrap: wrap;
   }
   .studio-button {
     font-size: 12px;
@@ -3105,121 +3021,10 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   margin-inline: auto;
 }
 
-/* Cinematic profile hero — live typography over an identity-preserving portrait. */
-.cinematic-hero { position: relative; isolation: isolate; padding-top: 88px; background: hsl(var(--primary)); }
-.cinematic-portrait { position: absolute; inset: 100px 16px 16px; z-index: -1; overflow: hidden; border-radius: 28px; background: hsl(var(--primary)); }
-.cinematic-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; border-radius: 28px; }
-.cinematic-portrait::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 25%, hsl(var(--primary) / .18) 45%, hsl(var(--primary) / .9) 100%), linear-gradient(0deg, hsl(var(--primary) / .85), transparent 35%); }
-.cinematic-hero .hero-grid { position: relative; display: block; min-height: 660px; padding-top: 80px; padding-bottom: 120px; }
-.cinematic-hero .hero-copy { width: 45%; margin-left: auto; margin-right: 0; position: relative; }
-.hero-profile-index { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; margin-bottom: 30px; border-bottom: 1px solid hsl(var(--secondary) / .35); color: hsl(var(--secondary) / .8); font-size: 9px; letter-spacing: .14em; }
-.cinematic-hero .hero-title { font-size: clamp(46px, 5.2vw, 78px); line-height: 1.15; margin-top: 22px; }
-.cinematic-hero .hero-title-soft { color: hsl(var(--secondary) / .7); }
-.cinematic-hero .hero-description { max-width: 440px; font-size: 14px; line-height: 1.9; }
-.cinematic-side-note { position: absolute; left: 35px; top: 50%; writing-mode: vertical-rl; font-size: 8px; letter-spacing: .18em; color: hsl(var(--secondary) / .7); }
-.hero-profile-link { position: absolute; left: 28px; bottom: 44px; display: flex; align-items: end; min-height: 44px; gap: 35px; text-align: left; }
-.hero-profile-link > span:first-child { font-size: 29px; line-height: .95; letter-spacing: -.05em; font-weight: 700; }
-.hero-profile-link > span:last-child { display: flex; align-items: center; gap: 12px; font-size: 12px; padding-bottom: 3px; }
-.cinematic-hero .hero-baseline { position: relative; border-color: hsl(var(--secondary) / .25); margin-bottom: 16px; }
-@media (max-width: 900px) {
-  .cinematic-hero .hero-copy { width: 51%; }
-  .cinematic-hero .hero-title { font-size: 52px; }
-  .cinematic-hero .hero-actions { gap: 18px; flex-wrap: wrap; }
-}
-@media (max-width: 640px) {
-  .cinematic-hero { padding-top: 74px; }
-  .cinematic-portrait { inset: 84px 10px 10px; border-radius: 24px; }
-  .cinematic-portrait img { height: 520px; object-position: left top; object-fit: cover; border-radius: 24px; }
-  .cinematic-portrait::after { background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%); }
-  .cinematic-hero .hero-grid { padding-top: 380px; padding-bottom: 100px; min-height: 0; }
-  .cinematic-hero .hero-copy { width: 100%; max-width: none; }
-  .cinematic-hero .hero-title { font-size: clamp(41px, 10vw, 60px); }
-  .hero-profile-index { margin-bottom: 20px; padding-bottom: 12px; }
-  .cinematic-side-note { left: auto; right: 22px; top: 170px; }
-  .cinematic-hero .hero-description { font-size: 13px; margin-top: 20px; }
-  .hero-profile-link { bottom: 25px; left: 22px; gap: 22px; }
-  .hero-profile-link > span:first-child { font-size: 22px; }
-  .cinematic-hero .hero-baseline { margin-bottom: 10px; }
-}
 
-html[lang="en"] .cinematic-hero .hero-title { font-size: clamp(41px, 4.5vw, 65px); }
-@media (min-width: 641px) and (max-width: 900px) {
-  html[lang="en"] .cinematic-hero .hero-title { font-size: 40px; }
-}
 
-/* Face the copy in both languages; keep text direction native. */
-.cinematic-portrait {
-  background: radial-gradient(ellipse at 55% 42%, hsl(var(--accent)), hsl(var(--primary)) 76%);
-}
-.cinematic-portrait img {
-  position: absolute;
-  inset-block: 0;
-  right: 0;
-  width: 54%;
-  object-position: left 20%;
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-html[lang="ar"] .cinematic-hero .hero-copy { margin-left: 0; margin-right: auto; }
-html[lang="ar"] .cinematic-portrait::after {
-  background: linear-gradient(90deg, hsl(var(--primary) / .85), hsl(var(--primary) / .18) 42%, transparent 65%), linear-gradient(0deg, hsl(var(--primary) / .85), transparent 35%);
-}
-html[lang="ar"] .cinematic-side-note { left: auto; right: 35px; }
-html[lang="ar"] .hero-profile-link { left: auto; right: 28px; }
-html[lang="en"] .cinematic-portrait img { right: auto; left: 0; transform: scaleX(-1); }
-@media (min-width: 641px) and (max-width: 900px) {
-  .cinematic-hero .hero-copy { width: 47%; }
-  .cinematic-hero .hero-title { font-size: 46px; }
-  html[lang="en"] .cinematic-hero .hero-title { font-size: 36px; }
-}
-@media (max-width: 640px) {
-  .cinematic-portrait img { width: 100%; mask-image: none; }
-  html[lang="ar"] .cinematic-portrait::after {
-    background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%);
-  }
-  html[lang="ar"] .cinematic-side-note { right: 22px; }
-  html[lang="en"] .cinematic-side-note { right: auto; left: 22px; }
-  html[lang="ar"] .hero-profile-link { right: 22px; }
-}
 
-/* One photographic canvas across portrait and copy, without a side seam. */
-.cinematic-portrait { background: hsl(var(--primary)); }
-.cinematic-portrait img { width: 100%; object-position: center 20%; mask-image: none; }
-.cinematic-portrait::after,
-html[lang="ar"] .cinematic-portrait::after {
-  background: linear-gradient(0deg, hsl(var(--primary) / .8), transparent 35%);
-}
-@media (min-width: 901px) {
-  .cinematic-hero .hero-copy { width: 42%; }
-}
-@media (max-width: 640px) {
-  .cinematic-portrait img { object-position: 75% top; }
-  .cinematic-portrait::after,
-  html[lang="ar"] .cinematic-portrait::after {
-    background: linear-gradient(0deg, hsl(var(--primary)) 20%, hsl(var(--primary) / .95) 43%, transparent 72%);
-  }
-}
 
-/* Approved full-width hero in the brand palette. */
-.hero-brand .cinematic-portrait { inset: 88px 0 0; border-radius: 0; isolation: isolate; }
-.hero-brand .cinematic-portrait img { border-radius: 0; filter: grayscale(1); object-position: center 10%; }
-.hero-brand .cinematic-portrait::before {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(115deg, hsl(var(--primary)), hsl(var(--accent)) 58%, hsl(var(--muted)));
-  mix-blend-mode: color;
-}
-.hero-brand .cinematic-portrait::after,
-html[lang="ar"] .hero-brand .cinematic-portrait::after {
-  z-index: 2; background: linear-gradient(0deg, hsl(var(--primary) / .65), transparent 40%);
-}
-.hero-brand .hero-baseline { margin-bottom: 0; }
-@media (max-width: 640px) {
-  .hero-brand .cinematic-portrait { inset: 74px 0 0; }
-  .hero-brand .cinematic-portrait img { height: 530px; object-position: 75% top; }
-  .hero-brand .cinematic-portrait::after,
-  html[lang="ar"] .hero-brand .cinematic-portrait::after {
-    background: linear-gradient(0deg, hsl(var(--primary)) 30%, hsl(var(--primary) / .95) 44%, transparent 72%);
-  }
-}
 
 /* Work gallery images sit directly on the page, without backing panels. */
 .portfolio-collection .portfolio-stage,
@@ -3500,4 +3305,112 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
 .proof-grid strong span { font-size: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .proof-grid > p, .proof-grid > div, .proof-grid > div::before { transition: none; }
+}
+
+/* Hero after Folioblox: full-bleed portrait, huge two-line title, numbered disciplines. */
+.folio-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: 88px; min-height: calc(100svh - 88px);
+  display: flex; align-items: flex-end;
+  background: hsl(var(--primary)); color: hsl(var(--secondary));
+  border-radius: 0 0 40px 40px;
+}
+.folio-hero-media { position: absolute; inset: 0; z-index: -1; }
+.folio-hero-media picture, .folio-hero-media img {
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 70% 30%;
+  animation: folio-settle 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+/* The figure faces the copy: Arabic copy sits on the right, so the photo mirrors. */
+html[dir="rtl"] .folio-hero-media img { transform: scaleX(-1); animation-name: folio-settle-rtl; }
+/* Legibility on the copy side and along the bottom row. */
+.folio-hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, hsl(var(--primary) / 0.92) 0%, hsl(var(--primary) / 0.55) 42%, transparent 72%),
+    linear-gradient(0deg, hsl(var(--primary) / 0.85) 0%, transparent 38%);
+}
+html[dir="rtl"] .folio-hero-media::after {
+  background:
+    linear-gradient(270deg, hsl(var(--primary) / 0.92) 0%, hsl(var(--primary) / 0.55) 42%, transparent 72%),
+    linear-gradient(0deg, hsl(var(--primary) / 0.85) 0%, transparent 38%);
+}
+/* Opening: navy first with the words, then the portrait comes through. The image paints at once underneath, so LCP is not delayed. */
+.folio-hero-media::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; background: hsl(var(--primary));
+  animation: folio-unveil 1.4s ease 0.55s both;
+}
+.folio-hero-inner { width: 100%; padding-block: 72px 40px; }
+/* One column on the copy side, so the figure stays clear. */
+.folio-hero-head { max-width: 52%; }
+.folio-hero-side { margin-top: 28px; }
+.folio-eyebrow { font-size: 22px; font-weight: 600; color: hsl(var(--muted)); }
+.folio-title { margin-top: 14px; font-size: clamp(48px, 7.4vw, 116px); font-weight: 700; line-height: 1.02; letter-spacing: -0.045em; }
+html[lang="ar"] .folio-title { line-height: 1.22; letter-spacing: -0.01em; }
+.folio-title span { display: block; }
+@media (min-width: 801px) { .folio-title span { white-space: nowrap; } }
+.folio-hero-side p { font-size: 18px; line-height: 1.75; color: hsl(var(--secondary) / 0.88); max-width: 30rem; }
+.folio-pill { margin-top: 24px; background: hsl(var(--secondary)); color: hsl(var(--primary)); }
+.folio-pill:hover { background: hsl(var(--background)); }
+.folio-disciplines {
+  list-style: none; margin: 56px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;
+}
+.folio-disciplines a { display: flex; flex-direction: column; gap: 6px; min-height: 44px; font-size: 15px; transition: opacity 0.2s ease; }
+.folio-disciplines a:hover { opacity: 0.75; }
+.folio-disciplines span:first-child { font-size: 13px; font-weight: 600; color: hsl(var(--muted)); }
+.folio-eyebrow, .folio-title span, .folio-hero-side, .folio-disciplines li { animation: folio-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.folio-eyebrow { animation-delay: 0.05s; }
+.folio-title span:nth-child(1) { animation-delay: 0.15s; }
+.folio-title span:nth-child(2) { animation-delay: 0.27s; }
+.folio-hero-side { animation-delay: 0.9s; }
+.folio-disciplines li:nth-child(1) { animation-delay: 1s; }
+.folio-disciplines li:nth-child(2) { animation-delay: 1.08s; }
+.folio-disciplines li:nth-child(3) { animation-delay: 1.16s; }
+.folio-disciplines li:nth-child(4) { animation-delay: 1.24s; }
+@keyframes folio-rise { from { opacity: 0; transform: translateY(24px); } }
+@keyframes folio-unveil { to { opacity: 0; } }
+@keyframes folio-settle { from { transform: scale(1.08); } }
+@keyframes folio-settle-rtl { from { transform: scaleX(-1) scale(1.08); } to { transform: scaleX(-1); } }
+@media (max-width: 900px) {
+  .folio-hero-head { max-width: none; }
+  .folio-hero-side { margin-top: 20px; }
+  .folio-disciplines { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 36px; }
+}
+@media (max-width: 800px) {
+  .folio-hero { margin-top: 74px; min-height: calc(100svh - 74px); border-radius: 0 0 28px 28px; }
+  .folio-hero-media img { object-position: 62% 20%; }
+  .folio-hero-media::after,
+  html[dir="rtl"] .folio-hero-media::after { background: linear-gradient(0deg, hsl(var(--primary)) 18%, hsl(var(--primary) / 0.75) 50%, hsl(var(--primary) / 0.15) 85%); }
+  .folio-hero-inner { padding-block: 48px 28px; }
+  .folio-eyebrow { font-size: 18px; }
+  .folio-hero-side p { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-hero-media img, .folio-eyebrow, .folio-title span, .folio-hero-side, .folio-disciplines li { animation: none; }
+  .folio-hero-media::before { display: none; }
+}
+
+/* Client logos under the hero (src/components/studio/ClientMarquee.tsx). */
+.client-band { padding-block: 44px; }
+.client-band-inner { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 40px; align-items: center; }
+.client-band-label { font-size: 14px; font-weight: 600; line-height: 1.5; color: hsl(var(--primary)); }
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track { display: flex; width: max-content; animation: marquee 70s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-row { display: flex; align-items: center; gap: 64px; padding-inline-end: 64px; list-style: none; margin: 0; padding-inline-start: 0; }
+.marquee-row img { display: block; height: 40px; width: auto; max-width: 160px; object-fit: contain; opacity: 0.85; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (max-width: 800px) {
+  .client-band { padding-block: 32px; }
+  .client-band-inner { grid-template-columns: 1fr; gap: 18px; }
+  .marquee-row { gap: 44px; padding-inline-end: 44px; }
+  .marquee-row img { height: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; mask-image: none; }
+  .marquee-track { animation: none; }
+  .marquee-row[aria-hidden] { display: none; }
 }

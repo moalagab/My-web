@@ -1,5 +1,4 @@
 import {
-  ArrowDown,
   ArrowUpRight,
   Quote,
 } from "lucide-react";
@@ -22,6 +21,7 @@ import WordReveal from "@/components/studio/WordReveal";
 import ServiceScroll from "@/components/studio/ServiceScroll";
 import ProcessScroll from "@/components/studio/ProcessScroll";
 import ProofStrip from "@/components/studio/ProofStrip";
+import ClientMarquee from "@/components/studio/ClientMarquee";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
 import Picture from "@/components/Picture";
@@ -32,8 +32,8 @@ export default function HomePage() {
   const ar = lang === "ar";
   const prefix = ar ? "" : "/en";
   const title = ar
-    ? ["فكرة واضحة.", "علامة مؤثرة.", "نظام يعمل."]
-    : ["Clear thinking.", "Distinct brands.", "Working systems."];
+    ? ["أصمّم ما يُرى.", "وأبني ما يعمل."]
+    : ["I design what’s seen.", "I build what works."];
   const selected = selectedIdentityProjects.slice(0, 6);
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
@@ -48,58 +48,45 @@ export default function HomePage() {
       />
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="studio-hero cinematic-hero hero-brand" data-no-reveal>
-          <div className="cinematic-portrait" aria-hidden="true">
-            <Picture src={heroPortrait} sizes="(min-width: 1024px) 60vw, 100vw" alt="" fetchPriority="high" decoding="async" />
+        <section className="folio-hero" data-no-reveal>
+          <div className="folio-hero-media" aria-hidden="true">
+            <Picture src={heroPortrait} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
           </div>
-          <div className="cinematic-side-note" dir="ltr" aria-hidden="true">MO ALAGAB / INDEPENDENT PRACTICE</div>
-          <div className="studio-container hero-grid">
-            <div className="hero-copy">
-              <p className="hero-profile-index" dir="ltr"><span>01 / PROFILE</span><span>DESIGN × SYSTEMS</span></p>
-              <p className="studio-eyebrow">
-                <span className="identity-dot" />
-                {h.hero.eyebrow}
-              </p>
-              <h1 className="hero-title">
-                {title.map((line, i) => (
-                  <span key={line} className={i === 1 ? "hero-title-soft" : ""}>
-                    {line}
-                  </span>
-                ))}
-              </h1>
-              <p className="hero-description">{h.hero.body}</p>
-              <div className="hero-actions">
+          <div className="studio-container folio-hero-inner">
+            <div className="folio-hero-head">
+              <div>
+                <p className="folio-eyebrow">{ar ? "محمد العجب —" : "Mohammed Alagab —"}</p>
+                <h1 className="folio-title">
+                  {title.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </h1>
+              </div>
+              <div className="folio-hero-side">
+                <p>{h.hero.body}</p>
                 <Link
                   to={`${prefix}/start`}
-                  className="studio-button studio-button-light"
+                  className="nav-pill folio-pill"
                   onClick={() => track("cta_start_click", { location: "hero" })}
                 >
                   {h.hero.primary}
-                  <ArrowUpRight className={arrow} size={19} />
+                  <ArrowUpRight className={arrow} size={16} />
                 </Link>
-                <a href="#work" className="studio-text-link">
-                  {h.hero.secondary}
-                  <ArrowDown size={17} />
-                </a>
               </div>
             </div>
-            <Link to={`${prefix}/about`} className="hero-profile-link">
-              <span dir="ltr">MO<br />ALAGAB</span>
-              <span>{ar ? "تعرّف على Mo" : "ABOUT MO"}<ArrowUpRight size={18} className={arrow} /></span>
-            </Link>
-          </div>
-          <div className="studio-container hero-baseline">
-            <span>
-              {ar
-                ? "الرياض · نعمل عبر الحدود"
-                : "RIYADH · WORKING ACROSS BORDERS"}
-            </span>
-            <span dir="ltr">STRATEGY → DESIGN → BUILD</span>
-            <a href="#work" aria-label={h.hero.secondary}>
-              <ArrowDown size={18} />
-            </a>
+            <ol className="folio-disciplines">
+              {h.services.items.map((s, i) => (
+                <li key={s.slug}>
+                  <Link to={`${prefix}/services/${s.slug}`}>
+                    <span dir="ltr">#0{i + 1}</span>
+                    <span dir="ltr">{h.hero.pills[i]}</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
+        <ClientMarquee />
         <ProofStrip
           label={h.proof.label}
           facts={h.proof.facts}
