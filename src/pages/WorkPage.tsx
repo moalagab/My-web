@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { ArrowUpRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
+import CurvedGallery from "@/components/studio/CurvedGallery";
 import ProjectCards from "@/components/studio/ProjectCards";
 import PageHero from "@/components/studio/PageHero";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -98,6 +99,7 @@ export default function WorkPage() {
             <ProjectCards items={visible} />
           </div>
         </section>
+        <CurvedGallery />
         <section className="studio-cta">
           <div className="studio-container">
             <p className="studio-eyebrow">YOUR BRAND / NEXT CHAPTER</p>

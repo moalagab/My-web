@@ -18,6 +18,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { orderedProjects, selectedIdentityProjects } from "@/content/projects";
 import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import ProofStrip from "@/components/studio/ProofStrip";
+import StepRows from "@/components/studio/StepRows";
+import CurvedGallery from "@/components/studio/CurvedGallery";
 import ClientMarquee from "@/components/studio/ClientMarquee";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
@@ -113,6 +115,7 @@ export default function HomePage() {
             <FeaturedProjects items={selected} />
           </div>
         </section>
+        <CurvedGallery />
         <section className="studio-section studio-services" id="services">
           <div className="studio-container">
             <div className="section-heading">
@@ -140,16 +143,14 @@ export default function HomePage() {
               {h.services.items.map((s, i) => (
                 <li key={s.slug} className="service-card" data-reveal>
                   <Link viewTransition to={`${prefix}/services/${s.slug}`}>
-                    <span className="service-card-top">
-                      <span className="service-card-number" dir="ltr">0{i + 1}</span>
-                      <span className="service-card-arrow" aria-hidden="true">
-                        <ArrowUpRight size={18} className={arrow} />
-                      </span>
+                    <span className="service-card-media" aria-hidden="true">
+                      <Picture src={`/work/media/service-${s.slug}.webp`} sizes="(min-width: 900px) 45vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
                     </span>
+                    <span className="service-card-number" dir="ltr">0{i + 1}</span>
+                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
                     <h3>
                       <span dir="ltr">{s.title}</span>
                     </h3>
-                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
                     <p className="service-card-value">{s.value}</p>
                   </Link>
                 </li>
@@ -207,18 +208,7 @@ export default function HomePage() {
                   : "Know where we are and what comes next. A defined scope, staged delivery, and decisions with a clear rationale."}
               </p>
             </div>
-            <ol className="step-rows">
-              {h.process.steps.map((step, i) => (
-                <li key={step.title} className="step-row" data-reveal>
-                  <span className="step-number" dir="ltr">0{i + 1}</span>
-                  <h3>
-                    {step.title}
-                    <span dir="ltr">{step.english}</span>
-                  </h3>
-                  <p>{step.body}</p>
-                </li>
-              ))}
-            </ol>
+            <StepRows steps={h.process.steps} />
           </div>
         </section>
         <section className="studio-section studio-about">

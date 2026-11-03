@@ -10,6 +10,13 @@ const AUTO_REVEAL = [
   ".start-step",
   ".bento-card",
   ".service-line-facts > div",
+  ".svc-facts > div",
+  ".about-principles-list > li",
+  ".about-timeline-list > li",
+  ".about-impact",
+  ".about-questions",
+  ".lt-explorer",
+  ".product-feature-list > li",
 ].map((s) => `main ${s}`);
 
 /** Animate explicitly marked content only; primary content always remains readable. */

@@ -4,6 +4,7 @@ import PageMeta from "@/components/PageMeta";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Picture from "@/components/Picture";
 import PageHero from "@/components/studio/PageHero";
 import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -45,7 +46,7 @@ export default function ServiceLinePage() {
       <Navigation />
       <main>
         <PageHero
-          image={line.slug === "brand" ? projects.find((p) => p.slug === "ekka-rebranding")?.cover : undefined}
+          image={`/work/media/service-${line.slug}.webp`}
           eyebrow={<span dir="ltr">{line.title}</span>}
           title={seo.heading}
           side={<p>{line.what}</p>}
@@ -79,15 +80,16 @@ export default function ServiceLinePage() {
         </div>
 
         <section className="studio-section">
-          <div className="studio-container">
-            <div className="section-heading">
-              <div>
-                <p className="studio-eyebrow">{copy.askEyebrow}</p>
-                <h2>
-                  <span dir="ltr">{line.title}</span>
-                </h2>
-              </div>
+          <div className="studio-container svc-qa">
+            <div className="svc-qa-aside">
+              <p className="studio-eyebrow">{copy.askEyebrow}</p>
+              <h2>
+                <span dir="ltr">{line.title}</span>
+              </h2>
               <p className="section-intro">{line.tagline}</p>
+              <div className="svc-qa-media" aria-hidden="true">
+                <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 1000px) 38vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
+              </div>
             </div>
             <div className="case-rows">
               {answers.map((qa, i) => (

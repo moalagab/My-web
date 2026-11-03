@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portraitImage from "@/assets/portrait-mo.webp";
+import Picture from "@/components/Picture";
 import PageHero from "@/components/studio/PageHero";
 
 const paragraphs = (text: string) =>
@@ -48,10 +49,17 @@ export default function AboutPage() {
           id="story"
           aria-labelledby="story-title"
         >
-          <div className="studio-container about-editorial-grid">
+          <div className="studio-container">
             <div className="about-section-heading">
               <p className="studio-eyebrow">01 / {c.storyEyebrow}</p>
               <h2 id="story-title">{c.storyTitle}</h2>
+            </div>
+          </div>
+          <div className="studio-container about-split">
+            <aside className="about-aside">
+              <div className="about-aside-media" aria-hidden="true">
+                <Picture src="/work/media/about-studio.webp" sizes="(min-width: 1000px) 36vw, 100vw" alt="" loading="lazy" decoding="async" width={1200} height={1600} />
+              </div>
               <div className="about-experience">
                 <span>
                   <b dir="ltr">12+</b>
@@ -62,7 +70,7 @@ export default function AboutPage() {
                   {ar ? "نظام هوية" : "Identity systems"}
                 </span>
               </div>
-            </div>
+            </aside>
             <div className="about-story-copy">
               <div className="about-paragraphs">
                 {c.story.map((p, i) => (

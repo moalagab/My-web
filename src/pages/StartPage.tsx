@@ -284,7 +284,7 @@ const StartPage = () => {
       <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
       <main className="start-page">
-        <PageHero compact eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.sub}</p>} />
+        <PageHero compact image="/work/media/start-desk.webp" focus="60% 55%" eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.sub}</p>} />
 
         <Section className="bg-background">
           <SectionInner className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
