@@ -316,16 +316,15 @@ html[lang="ar"] .studio-eyebrow {
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
-  background: hsl(var(--primary));
+  background: transparent;
   color: hsl(var(--secondary));
-  transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 /* Over a page hero the bar has no background; it turns navy only while the phone menu is open. */
-body:has(.folio-hero) .studio-header:not(.is-open):not(.is-scrolled) { background: transparent; }
-/* Once the page moves the bar frosts over whatever is under it: navy on dark sections, light on light ones. */
-.studio-header.is-scrolled { background: hsl(var(--primary) / 0.86); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); }
+/* The bar never has a background (only the open phone menu turns navy); its text turns navy over light sections. */
+.studio-header.is-open { background: hsl(var(--primary)); }
 .studio-header.is-scrolled .header-inner { height: 72px; }
-.studio-header.is-light { background: hsl(var(--background) / 0.86); color: hsl(var(--primary)); box-shadow: 0 1px 0 hsl(var(--primary) / 0.08); }
+.studio-header.is-light { color: hsl(var(--primary)); }
 .studio-header.is-light .nav-link { color: hsl(var(--primary)); }
 .studio-header.is-light .nav-pill--outline { color: hsl(var(--primary)); border-color: hsl(var(--primary) / 0.25); }
 .studio-header.is-light .nav-pill--outline:hover { border-color: hsl(var(--primary)); }
@@ -343,6 +342,7 @@ body:has(.folio-hero) .studio-header:not(.is-open):not(.is-scrolled) { backgroun
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: row-reverse;
   gap: 28px;
 }
 .studio-wordmark {
@@ -2138,7 +2138,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 
 /* Header (src/components/Navigation.tsx): centred links, services dropdown, two pills. */
 .nav-links {
-  margin-inline-start: auto; display: flex; align-items: center; gap: 40px; list-style: none; padding: 0;
+  margin-inline-end: auto; display: flex; align-items: center; gap: 40px; list-style: none; padding: 0;
 }
 .nav-link {
   display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
@@ -2166,9 +2166,9 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .nav-dropdown li a:hover { background: hsl(var(--secondary) / 0.6); }
 .nav-dropdown-all {
   display: flex; align-items: center; justify-content: space-between; min-height: 44px;
-  margin-top: 6px; padding: 0 14px; border-top: 1px solid hsl(var(--border)); font-size: 13px;
+  margin-top: 6px; padding: 0 14px; border-top: 1px solid hsl(var(--border)); font-size: 13px; color: hsl(var(--primary));
 }
-.nav-actions { display: flex; align-items: center; gap: 10px; margin-inline-start: 40px; }
+.nav-actions { display: flex; align-items: center; gap: 10px; margin-inline-end: 40px; }
 .nav-pill {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 18px; border-radius: 30px; font-size: 14px; font-weight: 500;

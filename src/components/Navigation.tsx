@@ -7,9 +7,9 @@ import { track } from "@/lib/analytics";
 /**
  * Navy bar that opens the page, as on Folioblox: wordmark, links grouped at
  * the end with a services dropdown, a language pill and the start pill with
- * its sliding arrow. It stays fixed: clear over the hero, then a frosted bar
- * whose text turns navy over light sections and light over navy ones. On
- * phones it expands downward into large links.
+ * its sliding arrow, laid out mirrored (wordmark at the end). It stays fixed
+ * and transparent; its text turns navy over light sections and light over
+ * navy ones. On phones it expands downward into large links.
  */
 export default function Navigation() {
   const { lang, dictionary: d, isRtl } = useLanguage();
