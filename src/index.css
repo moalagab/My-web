@@ -2521,12 +2521,12 @@ html[dir="rtl"] .folio-hero-media img { transform: scaleX(-1); animation-name: f
 .folio-hero-media::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, hsl(var(--primary) / 0.92) 0%, hsl(var(--primary) / 0.55) 42%, transparent 72%),
+    linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.92) 6%, hsl(var(--primary) / 0.55) 42%, transparent 72%),
     linear-gradient(0deg, hsl(var(--primary) / 0.85) 0%, transparent 38%);
 }
 html[dir="rtl"] .folio-hero-media::after {
   background:
-    linear-gradient(270deg, hsl(var(--primary) / 0.92) 0%, hsl(var(--primary) / 0.55) 42%, transparent 72%),
+    linear-gradient(270deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.92) 6%, hsl(var(--primary) / 0.55) 42%, transparent 72%),
     linear-gradient(0deg, hsl(var(--primary) / 0.85) 0%, transparent 38%);
 }
 /* Opening: navy first with the words, then the portrait comes through. The image paints at once underneath, so LCP is not delayed. */
@@ -2597,13 +2597,13 @@ html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1
 .marquee-track { display: flex; width: max-content; animation: marquee 70s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-row { display: flex; align-items: center; gap: 64px; padding-inline-end: 64px; list-style: none; margin: 0; padding-inline-start: 0; }
-.marquee-row img { display: block; height: 40px; width: auto; max-width: 160px; object-fit: contain; opacity: 0.85; }
+.marquee-row img { display: block; height: var(--h, 40px); width: auto; border-radius: 0; opacity: 0.85; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @media (max-width: 800px) {
   .client-band { margin-top: -28px; padding-block: 60px 36px; border-radius: 0 0 28px 28px; }
   .client-band-inner { grid-template-columns: 1fr; gap: 18px; }
   .marquee-row { gap: 44px; padding-inline-end: 44px; }
-  .marquee-row img { height: 32px; }
+  .marquee-row img { height: calc(var(--h, 40px) * 0.8); }
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee { overflow-x: auto; mask-image: none; }
