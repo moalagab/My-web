@@ -239,10 +239,12 @@ export default function AboutPage() {
                 ))}
                 <Link
                   to={`${prefix}/start`}
-                  className="studio-button studio-button-light"
+                  className="nav-pill nav-pill--solid"
                 >
-                  {dictionary.navigation.start}
-                  <ArrowUpRight size={19} className={arrow} />
+                  <span>{dictionary.navigation.start}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight size={18} className={arrow} />
+                  </span>
                 </Link>
               </div>
             </div>
