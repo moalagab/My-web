@@ -23,7 +23,6 @@ import Navigation from "@/components/Navigation";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 const PDFViewer = lazy(() => import("@/components/PDFViewer"));
 import { Eyebrow } from "@/components/system/Eyebrow";
-import { Pill } from "@/components/system/Pill";
 import { Section, SectionInner } from "@/components/system/Section";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -34,6 +33,7 @@ import {
   type Project,
 } from "@/content/projects";
 import Picture from "@/components/Picture";
+import PageHero from "@/components/studio/PageHero";
 import { useWhatsapp } from "@/lib/whatsapp";
 
 const ProjectDetailPage = () => {
@@ -101,21 +101,6 @@ const ProjectDetailPage = () => {
     { key: "result", value: project.result },
   ];
 
-  const summaryItems = [
-    {
-      label: copy.summary.client,
-      value: project.hideClient
-        ? copy.summary.hiddenClient
-        : localizedField(project.client, lang),
-    },
-    { label: copy.summary.year, value: project.year ?? null },
-    { label: copy.summary.role, value: localizedField(project.role, lang) },
-    {
-      label: copy.summary.deliverables,
-      value: localizedField(project.system, lang),
-    },
-  ].filter((item) => Boolean(item.value));
-
   const description = project.context ? project.context[lang] : title;
 
   const cardTitle = (candidate: Project) =>
@@ -147,72 +132,26 @@ const ProjectDetailPage = () => {
       />
       <Navigation />
 
-      <main className="pt-20 case-page">
-        <section className="bg-primary pt-10 text-primary-foreground">
-          <div className="container max-w-content px-6">
-            <Link
-              to={`${prefix}/work`}
-              className="inline-flex items-center gap-2 font-mono text-xs text-primary-foreground/70 transition-colors hover:text-primary-foreground"
-            >
-              {isRtl ? (
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-              )}
+      <main className="case-page">
+        <PageHero
+          image={project.cover}
+          eyebrow={<span dir="ltr">{project.year ?? lineLabel}</span>}
+          title={title}
+          meta={[
+            {
+              label: copy.summary.client,
+              value: project.hideClient ? copy.summary.hiddenClient : localizedField(project.client, lang) ?? title,
+            },
+            { label: lang === "ar" ? "المجال" : "Category", value: project.discipline?.[lang] ?? lineLabel },
+            ...(project.year ? [{ label: copy.summary.year, value: <span dir="ltr">{project.year}</span> }] : []),
+          ]}
+          actions={
+            <Link to={`${prefix}/work`} className="nav-pill nav-pill--outline">
+              {isRtl ? <ArrowRight className="h-4 w-4" aria-hidden="true" /> : <ArrowLeft className="h-4 w-4" aria-hidden="true" />}
               {copy.back}
             </Link>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Pill className="border-primary-foreground/30 bg-transparent text-primary-foreground">
-                {lineLabel}
-              </Pill>
-              {project.year ? (
-                <span
-                  dir="ltr"
-                  className="font-mono text-xs text-primary-foreground/70"
-                >
-                  {project.year}
-                </span>
-              ) : null}
-            </div>
-            <h1 className="mt-5 max-w-4xl text-balance pb-12 font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              {title}
-            </h1>
-          </div>
-          <div className="case-cover w-full overflow-hidden bg-secondary">
-            <Picture
-              src={project.cover}
-              sizes="100vw"
-              fetchPriority="high"
-              alt={title}
-              className="h-full w-full object-cover"
-              width={1200}
-              height={1500}
-            />
-          </div>
-        </section>
-
-        {summaryItems.length > 0 ? (
-          <section className="border-b border-border bg-background py-8">
-            <div className="container max-w-content px-6">
-              <dl
-                data-reveal-stagger
-                className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-              >
-                {summaryItems.map((item) => (
-                  <div key={item.label}>
-                    <dt
-                      className="eyebrow text-xs text-muted-foreground"
-                      dir="ltr"
-                    >
-                      {item.label}
-                    </dt>
-                    <dd className="mt-2 text-sm leading-6">{item.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </section>
-        ) : null}
+          }
+        />
 
         <div className="container max-w-content px-6 pt-8">
           <Breadcrumbs
@@ -225,16 +164,14 @@ const ProjectDetailPage = () => {
 
         <Section className="bg-background">
           <SectionInner>
-            <div className="grid gap-10 md:grid-cols-2 md:gap-x-12 md:gap-y-14">
+            <div className="case-rows">
               {sections.map(({ key, value }) => {
                 const text = localizedField(value, lang);
                 if (!text) return null;
                 return (
-                  <article key={key}>
-                    <Eyebrow>{copy.sections[key]}</Eyebrow>
-                    <p className="mt-4 text-lg leading-8 text-muted-foreground">
-                      {text}
-                    </p>
+                  <article key={key} className="case-row" data-reveal>
+                    <h2>{copy.sections[key]}</h2>
+                    <p>{text}</p>
                   </article>
                 );
               })}

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { track } from '@/lib/analytics';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import PageHero from '@/components/studio/PageHero';
 import { Eyebrow } from '@/components/system/Eyebrow';
 import { Section, SectionInner } from '@/components/system/Section';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -18,14 +19,8 @@ const PrivacyPage = () => {
     <>
       <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
-      <main className="pt-20">
-        <section className="bg-primary py-14 text-primary-foreground md:py-20">
-          <SectionInner>
-            <Eyebrow className="text-primary-foreground/70">{copy.eyebrow}</Eyebrow>
-            <h1 className="mt-4 font-display text-4xl md:text-5xl">{copy.title}</h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-primary-foreground/80">{copy.intro}</p>
-          </SectionInner>
-        </section>
+      <main>
+        <PageHero compact eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.intro}</p>} />
 
         <Section className="bg-background">
           <SectionInner className="max-w-3xl">

@@ -35,8 +35,6 @@ export default function Navigation() {
     { label: d.navigation.about, path: "/about" },
   ];
   const current = (path: string) => location.pathname.startsWith(to(path));
-  // On the home page the bar sits over the hero photo.
-  const home = location.pathname === "/" || location.pathname === "/en" || location.pathname === "/en/";
   const arrow = isRtl ? "-scale-x-100" : "";
 
   useEffect(() => {
@@ -99,7 +97,7 @@ export default function Navigation() {
       <a href="#main-content" className="skip-link">
         {d.navigation.skip}
       </a>
-      <header className={`studio-header ${home ? "studio-header--overlay" : ""} ${menuOpen ? "is-open" : ""}`}>
+      <header className={`studio-header ${menuOpen ? "is-open" : ""}`}>
         <nav className="header-inner" aria-label={d.navigation.label}>
           <Link to={to()} className="studio-wordmark">
             <span dir="ltr">

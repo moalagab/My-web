@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import { Link } from "react-router";
 import Navigation from "@/components/Navigation";
+import PageHero from "@/components/studio/PageHero";
 import Footer from "@/components/Footer";
 import LifeTentShowcase from "@/components/studio/LifeTentShowcase";
 import ProductVisual from "@/components/studio/ProductVisual";
@@ -30,18 +31,18 @@ export default function ProductsPage() {
         description={d.home.products.items.map((p) => p.body).join(" ")}
       />
       <Navigation />
-      <main className="pt-20 products-page" id="main-content">
-        <section className="bg-primary text-primary-foreground">
-          <div className="studio-container">
-            <p className="studio-eyebrow">PRODUCTS / BUILT TO WORK</p>
-            <h1 className="mt-6 max-w-4xl">{title}</h1>
-            <p className="mt-6 max-w-xl text-base leading-8 opacity-80">
+      <main className="products-page" id="main-content">
+        <PageHero
+          eyebrow="PRODUCTS / BUILT TO WORK"
+          title={title}
+          side={
+            <p>
               {ar
                 ? "التصميم لا يتوقف عند الواجهة. هذه منتجات بنيتها لربط تجربة المستخدم بما يحدث خلفها."
                 : "Design does not end at the interface. These are products I built to connect the user experience with what happens behind it."}
             </p>
-          </div>
-        </section>
+          }
+        />
         <LifeTentShowcase />
         <section className="studio-section">
           <div className="studio-container product-detail-list">

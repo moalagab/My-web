@@ -3,7 +3,7 @@ import { ArrowUpRight, MessageCircle } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
-import { Eyebrow } from "@/components/system/Eyebrow";
+import PageHero from "@/components/studio/PageHero";
 import { Section, SectionInner } from "@/components/system/Section";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -28,16 +28,8 @@ export default function FaqPage() {
         }}
       />
       <Navigation />
-      <main className="pt-20">
-        <section className="bg-primary py-14 text-primary-foreground md:py-20">
-          <SectionInner>
-            <Eyebrow className="text-primary-foreground/80">{copy.eyebrow}</Eyebrow>
-            <h1 className="mt-4 font-display text-4xl md:text-5xl">{copy.title}</h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-primary-foreground/85">
-              {copy.intro}
-            </p>
-          </SectionInner>
-        </section>
+      <main>
+        <PageHero compact eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.intro}</p>} />
 
         <Section className="bg-background">
           <SectionInner className="max-w-3xl space-y-16">

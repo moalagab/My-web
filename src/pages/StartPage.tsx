@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
+import PageHero from "@/components/studio/PageHero";
 import Turnstile from "@/components/Turnstile";
 import { Eyebrow } from "@/components/system/Eyebrow";
 import { Section, SectionInner } from "@/components/system/Section";
@@ -282,20 +283,8 @@ const StartPage = () => {
     <>
       <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
-      <main className="pt-20 start-page">
-        <section className="bg-primary py-14 text-primary-foreground md:py-20">
-          <SectionInner>
-            <Eyebrow className="text-primary-foreground/70">
-              {copy.eyebrow}
-            </Eyebrow>
-            <h1 className="mt-4 font-display text-4xl md:text-6xl">
-              {copy.title}
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-8 text-primary-foreground/80 md:text-lg">
-              {copy.sub}
-            </p>
-          </SectionInner>
-        </section>
+      <main className="start-page">
+        <PageHero compact eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.sub}</p>} />
 
         <Section className="bg-background">
           <SectionInner className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">

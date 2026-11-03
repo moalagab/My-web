@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Picture from "@/components/Picture";
+import PageHero from "@/components/studio/PageHero";
 import { Eyebrow } from "@/components/system/Eyebrow";
 import { Section, SectionInner } from "@/components/system/Section";
 import { Button } from "@/components/ui/button";
@@ -45,44 +46,31 @@ export default function ServiceLinePage() {
         }}
       />
       <Navigation />
-      <main className="pt-20">
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6">
-            <Eyebrow className="text-primary-foreground/80">
-              <span dir="ltr">{line.title}</span>
-            </Eyebrow>
-            <h1 className="mt-6 max-w-4xl text-balance font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              {seo.heading}
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/85">
-              {line.what}
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" variant="secondary">
-                <Link to={`${prefix}/start?service=${line.slug}`}>
-                  {d.home.finalCta.button}
-                  <ArrowUpRight className={arrowClass} />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+      <main>
+        <PageHero
+          image={line.slug === "brand" ? projects.find((p) => p.slug === "ekka-rebranding")?.cover : undefined}
+          eyebrow={<span dir="ltr">{line.title}</span>}
+          title={seo.heading}
+          side={<p>{line.what}</p>}
+          actions={
+            <div className="folio-actions">
+              <Link to={`${prefix}/start?service=${line.slug}`} className="nav-pill folio-pill">
+                {d.home.finalCta.button}
+                <ArrowUpRight size={16} className={arrowClass} />
+              </Link>
+              <a
+                href={whatsapp.href}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => whatsapp.onClick("service_hero")}
+                className="nav-pill nav-pill--outline"
               >
-                <a
-                  href={whatsapp.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => whatsapp.onClick("service_hero")}
-                >
-                  <MessageCircle aria-hidden="true" />
-                  {d.ui.whatsapp.button}
-                </a>
-              </Button>
+                <MessageCircle size={16} aria-hidden="true" />
+                {d.ui.whatsapp.button}
+              </a>
             </div>
-          </div>
-        </section>
+          }
+        />
 
         <div className="container max-w-content px-6 pt-8">
           <Breadcrumbs

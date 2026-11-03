@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { projects, type ServiceLine } from "@/content/projects";
 import Picture from "@/components/Picture";
+import PageHero from "@/components/studio/PageHero";
 
 const ServicesPage = () => {
   const { lang, dictionary, isRtl } = useLanguage();
@@ -21,35 +22,22 @@ const ServicesPage = () => {
     <>
       <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
-      <main className="pt-20 services-page">
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6">
-            <Eyebrow className="text-primary-foreground/70">
-              {copy.eyebrow}
-            </Eyebrow>
-            <h1 className="mt-6 max-w-4xl text-balance font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              <span dir="ltr">{copy.title}</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/80">
-              {copy.body}
-            </p>
-            <nav
-              aria-label={copy.packagesLabel}
-              className="mt-10 flex flex-wrap gap-2"
-            >
+      <main className="services-page">
+        <PageHero
+          image={projects.find((p) => p.slug === "gyptech-brand")?.cover}
+          eyebrow={copy.eyebrow}
+          title={<span dir="ltr">{copy.title}</span>}
+          side={<p>{copy.body}</p>}
+          actions={
+            <nav aria-label={copy.packagesLabel} className="folio-chips">
               {copy.lines.map((line) => (
-                <a
-                  key={line.slug}
-                  href={`#${line.slug}`}
-                  className="eyebrow inline-flex min-h-11 items-center rounded-full border border-primary-foreground/30 px-4 text-xs text-primary-foreground/85 transition-colors hover:border-primary-foreground"
-                  dir="ltr"
-                >
+                <a key={line.slug} href={`#${line.slug}`} dir="ltr">
                   {line.title}
                 </a>
               ))}
             </nav>
-          </div>
-        </section>
+          }
+        />
 
         {copy.lines.map((line, index) => {
           const caseStudy = projects.find(

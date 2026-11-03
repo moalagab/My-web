@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portraitImage from "@/assets/portrait-mo.webp";
-import Picture from "@/components/Picture";
+import PageHero from "@/components/studio/PageHero";
 
 const paragraphs = (text: string) =>
   text.split("\n").map((p, i) => <p key={i}>{p}</p>);
@@ -21,43 +21,28 @@ export default function AboutPage() {
     <>
       <PageMeta title={c.metaTitle} description={c.metaDescription} />
       <Navigation />
-      <main className="pt-20 about-page" id="main-content">
-        <section className="about-hero">
-          <div className="studio-container about-hero-grid">
-            <div className="about-hero-copy">
-              <p className="studio-eyebrow">{c.eyebrow}</p>
-              <h1>{c.name}</h1>
-              <p className="about-descriptor" dir="ltr">
-                {c.descriptor}
-              </p>
-              <p className="about-hero-statement">{c.heroStatement}</p>
-              <nav
-                className="about-section-nav"
-                aria-label={ar ? "أقسام صفحة عن Mo" : "About page sections"}
-              >
-                {anchors.map((anchor, i) => (
-                  <Link key={anchor} to={`${prefix}/about#${anchor}`}>
-                    {c.sectionLabels[i]}
-                    <ArrowUpRight size={16} className={arrow} />
-                  </Link>
-                ))}
-              </nav>
-            </div>
-            <figure className="about-portrait">
-              <Picture
-                src={portraitImage}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                alt={c.portraitAlt}
-                width={800}
-                height={1000}
-                loading="eager"
-              />
-              <figcaption dir="ltr">
-                MO ALAGAB / FROM VISION TO SYSTEMS
-              </figcaption>
-            </figure>
-          </div>
-        </section>
+      <main className="about-page" id="main-content">
+        <PageHero
+          image={portraitImage}
+          focus="30% 22%"
+          eyebrow={c.eyebrow}
+          title={c.name}
+          side={
+            <>
+              <strong dir="ltr">{c.descriptor}</strong>
+              <p>{c.heroStatement}</p>
+            </>
+          }
+          actions={
+            <nav className="folio-chips" aria-label={ar ? "أقسام صفحة عن Mo" : "About page sections"}>
+              {anchors.map((anchor, i) => (
+                <Link key={anchor} to={`${prefix}/about#${anchor}`}>
+                  {c.sectionLabels[i]}
+                </Link>
+              ))}
+            </nav>
+          }
+        />
         <section
           className="studio-section about-story"
           id="story"

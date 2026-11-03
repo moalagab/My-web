@@ -35,7 +35,8 @@ test("services pin a number that follows the active service", async ({ page }) =
   await scrollUntil(
     page,
     () => page.locator(".svc-block").nth(2).evaluate((el) =>
-      window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * 0.45, behavior: "instant" }),
+      // Top at 30% of the viewport: well inside the 40–45% band that marks the active service.
+      window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * 0.3, behavior: "instant" }),
     ),
     async () =>
       (await page.locator(".svc-digit").textContent()) === "3" &&

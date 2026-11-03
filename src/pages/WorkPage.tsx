@@ -4,7 +4,8 @@ import { Link } from "react-router";
 import { ArrowUpRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
-import WorkCollection from "@/components/studio/WorkCollection";
+import ProjectCards from "@/components/studio/ProjectCards";
+import PageHero from "@/components/studio/PageHero";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { orderedProjects, selectedIdentityProjects } from "@/content/projects";
 
@@ -38,47 +39,30 @@ export default function WorkPage() {
     <>
       <PageMeta title={copy.metaTitle} description={copy.body} />
       <Navigation />
-      <main className="pt-20 work-page" id="main-content">
-        <section className="portfolio-intro">
-          <div className="studio-container">
-            <p className="studio-eyebrow">
-              SELECTED WORK / THE IDENTITY COLLECTION
-            </p>
-            <div className="portfolio-intro-grid">
-              <h1>
-                {ar ? (
-                  <>
-                    هويات تُرى.
-                    <br />
-                    <span>وتُتذكّر.</span>
-                  </>
-                ) : (
-                  <>
-                    Seen.
-                    <br />
-                    <span>Remembered.</span>
-                  </>
-                )}
-              </h1>
-              <div>
-                <p>
-                  {ar
-                    ? "من الفكرة إلى الشعار، ومن الشعار إلى كل نقطة تواصل. مجموعة منتقاة تُظهر كيف تتحول العلامة إلى نظام بصري متماسك."
-                    : "From idea to mark, from mark to every touchpoint. A curated collection showing how brands become coherent visual systems."}
-                </p>
-                <a
-                  href="https://www.behance.net/ma_alagab"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="studio-text-link"
-                >
-                  {ar ? "المعرض على Behance" : "Portfolio on Behance"}
-                  <ArrowUpRight size={18} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+      <main className="work-page" id="main-content">
+        <PageHero
+          image={orderedProjects.find((p) => p.slug === "talia-bakery")?.cover}
+          eyebrow="SELECTED WORK / THE IDENTITY COLLECTION"
+          title={ar ? <>هويات تُرى.<br />وتُتذكّر.</> : <>Seen.<br />Remembered.</>}
+          side={
+            <>
+              <p>
+                {ar
+                  ? "من الفكرة إلى الشعار، ومن الشعار إلى كل نقطة تواصل. مجموعة منتقاة تُظهر كيف تتحول العلامة إلى نظام بصري متماسك."
+                  : "From idea to mark, from mark to every touchpoint. A curated collection showing how brands become coherent visual systems."}
+              </p>
+              <a
+                href="https://www.behance.net/ma_alagab"
+                target="_blank"
+                rel="noreferrer"
+                className="nav-pill folio-pill"
+              >
+                {ar ? "المعرض على Behance" : "Portfolio on Behance"}
+                <ArrowUpRight size={16} />
+              </a>
+            </>
+          }
+        />
         <section className="portfolio-filter-section">
           <div className="studio-container">
             <div
@@ -111,7 +95,7 @@ export default function WorkPage() {
             <h2 id="work-gallery-heading" className="sr-only">
               {ar ? "معرض الأعمال" : "Work gallery"}
             </h2>
-            <WorkCollection items={visible} eagerFirst />
+            <ProjectCards items={visible} />
           </div>
         </section>
         <section className="studio-cta">

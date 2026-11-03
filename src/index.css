@@ -326,8 +326,8 @@ html[lang="ar"] .studio-eyebrow {
   background: hsl(var(--primary));
   color: hsl(var(--secondary));
 }
-/* Home: the bar sits over the hero photo; it turns navy only while the phone menu is open. */
-.studio-header--overlay:not(.is-open) { background: transparent; }
+/* Over a page hero the bar has no background; it turns navy only while the phone menu is open. */
+body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
 .header-inner {
   position: relative;
   height: 88px;
@@ -377,15 +377,6 @@ html[lang="ar"] .studio-eyebrow {
 }
 .skip-link:focus {
   transform: none;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  align-items: center;
-  gap: 24px;
-  padding-top: 84px;
-  padding-bottom: 68px;
-  min-height: 660px;
 }
 .studio-button {
   display: inline-flex;
@@ -884,9 +875,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .wordmark-name {
     display: none;
   }
-  .hero-grid {
-    padding-top: 65px;
-  }
   .about-grid,
   .faq-grid {
     gap: 50px;
@@ -899,16 +887,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
   .studio-wordmark > span:first-child {
     font-size: 40px;
-  }
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding-top: 48px;
-    padding-bottom: 25px;
-    min-height: 0;
-  }
-  .hero-copy {
-    max-width: 600px;
   }
   .brand-sculpture {
     width: 72%;
@@ -1001,13 +979,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
 }
 @media (max-width: 480px) {
-  .hero-grid {
-    padding-top: 42px;
-  }
-  .hero-copy .studio-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.07em;
-  }
   .studio-button {
     font-size: 12px;
     padding: 15px 21px;
@@ -1213,11 +1184,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   margin-top: 8px;
   line-height: 1.9;
 }
-.case-page .case-cover {
-  aspect-ratio: 1.9;
-  max-width: 1440px;
-  margin-inline: auto;
-}
 .case-page .case-gallery {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
@@ -1351,9 +1317,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   .case-page .case-gallery {
     gap: 12px;
   }
-  .case-page .case-cover {
-    aspect-ratio: 1.25;
-  }
   .start-page form {
     padding: 22px 18px;
   }
@@ -1370,16 +1333,17 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     transform: none;
     transition: none;
   }
+  /* Folioblox entrance: blocks rise 50px and fade in once they reach the screen. */
   [data-reveal-target].is-revealed {
-    animation: studio-rise 0.65s var(--studio-ease) both;
+    animation: studio-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
   .page-enter {
     animation: studio-page 0.2s ease-out;
   }
   @keyframes studio-rise {
     from {
-      opacity: 0.45;
-      transform: translateY(20px);
+      opacity: 0;
+      transform: translateY(50px);
     }
     to {
       opacity: 1;
@@ -1843,35 +1807,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 
 /* A consistent editorial collection: a lead spread, then paired application plates. */
-.portfolio-intro {
-  background: hsl(var(--primary));
-  color: hsl(var(--secondary));
-  padding: 85px 0 75px;
-}
-.portfolio-intro-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 65px;
-  align-items: end;
-  margin-top: 32px;
-}
-.portfolio-intro h1 {
-  font-size: clamp(58px, 7.6vw, 112px);
-  line-height: 1.18;
-  letter-spacing: -0.03em;
-}
-.portfolio-intro h1 span {
-  color: hsl(var(--muted));
-}
-.portfolio-intro-grid > div > p {
-  line-height: 2.1;
-  max-width: 480px;
-  font-size: 16px;
-  margin-bottom: 28px;
-}
-.portfolio-intro a {
-  font-size: 12px;
-}
 .portfolio-filter-section {
   border-bottom: 1px solid hsl(var(--border));
   background: hsl(var(--background));
@@ -1906,208 +1841,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   font-size: 12px;
   color: hsl(var(--accent));
 }
-.portfolio-collection {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 64px 32px;
-}
-.portfolio-piece {
-  min-width: 0;
-}
-.portfolio-piece--wide {
-  grid-column: 1/-1;
-}
-.portfolio-card {
-  display: block;
-  border-top: 1px solid hsl(var(--primary) / 0.3);
-  padding-top: 18px;
-}
-.portfolio-card-header {
-  display: flex;
-  align-items: center;
-  gap: 17px;
-  margin-bottom: 20px;
-  min-height: 48px;
-}
-.portfolio-number {
-  font-size: 12px;
-  color: hsl(var(--accent));
-  flex-shrink: 0;
-}
-.portfolio-card h3 {
-  font-size: clamp(20px, 2.4vw, 33px);
-  line-height: 1.4;
-  font-weight: 500;
-}
-.portfolio-discipline {
-  margin-inline-start: auto;
-  font-size: 13px;
-  color: hsl(var(--accent));
-  max-width: 170px;
-  line-height: 1.7;
-}
-.portfolio-arrow {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: hsl(var(--secondary));
-  flex-shrink: 0;
-  transition:
-    background 0.2s,
-    color 0.2s;
-}
-.portfolio-stage {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  background: hsl(var(--secondary));
-  gap: 10px;
-  padding: 10px;
-  overflow: hidden;
-  border-radius: var(--radius-surface);
-}
-.portfolio-main-image {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1.56;
-  min-width: 0;
-  background: hsl(var(--secondary));
-}
-.portfolio-main-image > img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform 0.7s var(--studio-ease);
-}
-.portfolio-piece--wide .portfolio-stage {
-  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
-  padding: 14px;
-  gap: 14px;
-}
-.portfolio-piece--wide .portfolio-main-image {
-  aspect-ratio: 1.52;
-}
-.portfolio-detail-image {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  overflow: hidden;
-  background: hsl(var(--background));
-}
-.portfolio-detail-image > img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.portfolio-detail-image > span {
-  position: absolute;
-  inset-inline: 16px;
-  bottom: 15px;
-  font-size: 12px;
-  padding: 9px 12px;
-  width: fit-content;
-  background: hsl(var(--background) / 0.94);
-  color: hsl(var(--primary));
-  border-radius: 999px;
-}
-.portfolio-view {
-  position: absolute;
-  bottom: 24px;
-  inset-inline-start: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 16px;
-  font-size: 12px;
-  background: hsl(var(--primary));
-  color: hsl(var(--secondary));
-  border-radius: 999px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
-}
-.portfolio-card:hover .portfolio-view,
-.portfolio-card:focus-visible .portfolio-view {
-  opacity: 1;
-  transform: none;
-}
-.portfolio-card:hover .portfolio-main-image img {
-  transform: scale(1.02);
-}
-.portfolio-card:hover .portfolio-arrow,
-.portfolio-card:focus-visible .portfolio-arrow {
-  background: hsl(var(--primary));
-  color: hsl(var(--secondary));
-}
-.portfolio-card-foot {
-  display: flex;
-  gap: 24px;
-  justify-content: space-between;
-  margin-top: 17px;
-  align-items: start;
-}
-.portfolio-card-foot > p {
-  font-size: 12px;
-  line-height: 1.95;
-  color: hsl(var(--accent));
-  max-width: 700px;
-}
-.portfolio-card-foot > span {
-  font-size: 11px;
-  letter-spacing: 0.11em;
-  flex-shrink: 0;
-  color: hsl(var(--accent));
-  margin-top: 6px;
-}
-.portfolio-piece:not(.portfolio-piece--wide) .portfolio-card-foot > span {
-  display: none;
-}
-.portfolio-piece--wide .portfolio-card h3 {
-  font-size: clamp(27px, 3.4vw, 48px);
-}
-@media (max-width: 900px) {
-  .portfolio-intro-grid {
-    gap: 30px;
-  }
-  .portfolio-collection {
-    gap: 42px 24px;
-  }
-  .portfolio-card-header {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .portfolio-discipline {
-    order: 4;
-    flex-basis: 100%;
-    max-width: none;
-    margin-inline-start: 29px;
-  }
-  .portfolio-arrow {
-    margin-inline-start: auto;
-  }
-  .portfolio-card-foot > span {
-    display: none;
-  }
-}
 @media (max-width: 600px) {
-  .portfolio-intro {
-    padding: 52px 0;
-  }
-  .portfolio-intro-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  .portfolio-intro h1 {
-    font-size: 59px;
-  }
-  .portfolio-intro-grid > div > p {
-    font-size: 14px;
-  }
   .portfolio-filters > button {
     font-size: 13px;
     padding: 10px 13px;
@@ -2116,99 +1850,9 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     flex-basis: 100%;
     padding-top: 9px;
   }
-  .portfolio-collection {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .portfolio-piece--wide {
-    grid-column: auto;
-  }
-  .portfolio-piece--wide .portfolio-stage {
-    grid-template-columns: 1fr;
-    padding: 8px;
-    gap: 8px;
-  }
-  .portfolio-stage {
-    padding: 8px;
-  }
-  .portfolio-main-image,
-  .portfolio-piece--wide .portfolio-main-image {
-    aspect-ratio: 1.56;
-  }
-  .portfolio-detail-image {
-    display: none;
-  }
-  .portfolio-piece--wide .portfolio-card h3,
-  .portfolio-card h3 {
-    font-size: 24px;
-  }
-  .portfolio-card-header {
-    margin-bottom: 16px;
-  }
-  .portfolio-card-foot > p {
-    font-size: 13px;
-  }
-  .portfolio-view {
-    display: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .portfolio-card:hover .portfolio-main-image img {
-    transform: none;
-  }
 }
 
 /* About Mo: a readable narrative with distinct editorial chapters. */
-.about-hero {
-  background: hsl(var(--primary));
-  color: hsl(var(--secondary));
-  padding: 75px 0 65px;
-}
-.about-hero-grid {
-  display: grid;
-  grid-template-columns: 1.35fr 0.8fr;
-  gap: 85px;
-  align-items: center;
-}
-.about-hero h1 {
-  font-size: clamp(52px, 6.7vw, 96px);
-  line-height: 1.3;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  margin-top: 22px;
-}
-.about-descriptor {
-  margin-top: 15px;
-  font-size: 13px;
-  letter-spacing: 0.03em;
-  color: hsl(var(--muted));
-  width: fit-content;
-}
-.about-hero-statement {
-  font-size: clamp(19px, 2vw, 28px);
-  line-height: 1.95;
-  margin: 40px 0 32px;
-  max-width: 650px;
-}
-.about-section-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-}
-.about-section-nav a {
-  display: inline-flex;
-  gap: 20px;
-  align-items: center;
-  min-height: 44px;
-  border: 1px solid hsl(var(--secondary) / 0.3);
-  padding: 10px 17px;
-  border-radius: 999px;
-  font-size: 13px;
-  transition: background 0.2s;
-}
-.about-section-nav a:hover {
-  background: hsl(var(--accent));
-}
 .about-portrait {
   min-width: 0;
 }
@@ -2593,25 +2237,11 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
 }
 @media (max-width: 700px) {
-  .about-hero {
-    padding: 45px 0;
-  }
   .about-hero-grid,
   .about-editorial-grid,
   .about-closing-grid {
     grid-template-columns: 1fr;
     gap: 35px;
-  }
-  .about-hero h1 {
-    font-size: 52px;
-  }
-  .about-descriptor {
-    font-size: 12px;
-    line-height: 1.8;
-  }
-  .about-hero-statement {
-    font-size: 20px;
-    margin: 28px 0;
   }
   .about-portrait {
     max-width: 340px;
@@ -2747,17 +2377,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .product-visual,
 .case-cover,
 .case-gallery button,
-.portfolio-stage,
-.portfolio-main-image,
-.portfolio-detail-image {
-  overflow: hidden;
-}
-.portfolio-main-image,
-.portfolio-detail-image,
-.portfolio-main-image > img,
-.portfolio-detail-image > img {
-  border-radius: var(--radius-control);
-}
 .life-tiles > div,
 .agent-core,
 .workflow-end span,
@@ -2787,21 +2406,9 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .portfolio-main-image,
 .portfolio-detail-image,
 .case-gallery button,
-.case-cover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .portfolio-main-image > img,
 .portfolio-detail-image > img,
 .case-gallery img,
-.case-cover img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
 .case-lightbox img {
   width: auto;
   height: auto;
@@ -2815,10 +2422,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 
 
 /* Work gallery images sit directly on the page, without backing panels. */
-.portfolio-collection .portfolio-stage,
-.portfolio-collection .portfolio-main-image,
-.portfolio-collection .portfolio-detail-image { background: transparent; box-shadow: none; }
-.portfolio-collection .portfolio-stage { padding: 0; }
 
 /* Stacked selected work (src/components/studio/StackedWork.tsx). */
 .stack { list-style: none; margin: 0; padding: 0; }
@@ -2978,7 +2581,7 @@ html[dir="rtl"] .svc-block { --svc-shift: -40px; }
 }
 .proc-number { display: block; font-size: clamp(96px, 11vw, 168px); font-weight: 300; line-height: 1; color: hsl(var(--accent)); }
 .proc-card h3 { margin-top: 12px; font-size: clamp(30px, 3vw, 44px); font-weight: 500; }
-.proc-card .studio-eyebrow { margin-top: 10px; opacity: 0.75; }
+.proc-card .studio-eyebrow { margin-top: 10px; }
 .proc-card p { margin-top: 20px; max-width: 32rem; font-size: 18px; line-height: 1.8; }
 .proc-bar { margin-top: 48px; height: 2px; background: hsl(var(--border)); }
 .proc-bar span {
@@ -3148,7 +2751,7 @@ html[dir="rtl"] .folio-hero-media::after {
 .folio-title { margin-top: 14px; font-size: clamp(42px, 5vw, 80px); font-weight: 700; line-height: 1.02; letter-spacing: -0.045em; }
 html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1.22; letter-spacing: -0.01em; }
 .folio-title span { display: block; }
-@media (min-width: 801px) { .folio-title span { white-space: nowrap; } }
+@media (min-width: 801px) { .folio-hero:not(.folio-hero--page) .folio-title span { white-space: nowrap; } }
 .folio-hero-side p { font-size: 18px; line-height: 1.75; color: hsl(var(--secondary) / 0.88); max-width: 30rem; }
 .folio-pill { margin-top: 24px; background: hsl(var(--secondary)); color: hsl(var(--primary)); }
 .folio-pill:hover { background: hsl(var(--background)); }
@@ -3215,3 +2818,108 @@ html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1
   .marquee-track { animation: none; }
   .marquee-row[aria-hidden] { display: none; }
 }
+
+/* Inner-page hero (src/components/studio/PageHero.tsx), same system as the home hero. */
+.folio-hero--page { min-height: min(80svh, 780px); }
+.folio-hero--plain { background: radial-gradient(ellipse at 78% 18%, hsl(var(--accent) / 0.55), transparent 60%), hsl(var(--primary)); }
+.folio-page-head { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: end; }
+.folio-hero--page .folio-title { font-size: clamp(44px, 6.6vw, 104px); line-height: 1.04; animation: folio-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both; }
+html[lang="ar"] .folio-hero--page .folio-title { line-height: 1.22; }
+.folio-hero--page .folio-hero-side { margin-top: 0; animation-delay: 0.45s; }
+.folio-hero-side strong { display: block; margin-bottom: 10px; font-size: 22px; font-weight: 700; line-height: 1.4; color: hsl(var(--secondary)); }
+.folio-page-meta {
+  margin-top: 48px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px;
+  animation: folio-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s both;
+}
+.folio-page-meta dl { display: flex; flex-wrap: wrap; gap: 24px 72px; margin: 0; }
+.folio-page-meta dt { font-size: 13px; color: hsl(var(--muted)); }
+.folio-page-meta dt span { color: hsl(var(--muted)); }
+.folio-page-meta dd { margin: 6px 0 0; font-size: 15px; }
+/* Work images: no mirroring or nudging (those are for the portrait); a fuller fade keeps any picture readable. */
+.folio-hero-media.folio-hero-media--work { inset: 0; }
+.folio-hero-media--work img,
+html[dir="rtl"] .folio-hero-media--work img { object-position: var(--focus, center); transform: none; animation-name: folio-settle; }
+.folio-hero-media--work::after,
+html[dir="rtl"] .folio-hero-media--work::after {
+  background: linear-gradient(0deg, hsl(var(--primary) / 0.94) 0%, hsl(var(--primary) / 0.55) 55%, hsl(var(--primary) / 0.35) 100%);
+}
+@media (max-width: 900px) {
+  .folio-page-head { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 800px) {
+  .folio-hero--page { min-height: 70svh; }
+  .folio-page-meta dl { gap: 18px 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-hero--page .folio-title, .folio-page-meta { animation: none; }
+}
+
+/* Section rhythm after Folioblox: accent label, bold title, strong side paragraph, pill links. */
+.studio-eyebrow { font-size: 15px; letter-spacing: 0.04em; color: hsl(var(--accent)); }
+/* Labels keep at least 4.5:1: light blue on navy sections, navy on the mid-blue about band. */
+.studio-services .studio-eyebrow,
+.studio-cta .studio-eyebrow,
+.about-closing .studio-eyebrow { color: hsl(var(--muted)); }
+.studio-about .studio-eyebrow { color: hsl(var(--primary)); }
+.section-heading h2,
+.about-copy h2,
+.faq-grid h2 { font-weight: 700; line-height: 1.18; letter-spacing: -0.035em; }
+html[lang="ar"] .section-heading h2,
+html[lang="ar"] .about-copy h2,
+html[lang="ar"] .faq-grid h2 { line-height: 1.4; letter-spacing: 0; }
+.section-intro { max-width: 30rem; font-size: 19px; line-height: 1.65; font-weight: 500; opacity: 1; }
+.studio-text-link {
+  gap: 12px; min-height: 48px; padding-inline: 22px 6px; border-radius: 30px;
+  background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 14px; font-weight: 700;
+  transition: background 0.3s ease;
+}
+.studio-text-link svg {
+  box-sizing: border-box; width: 36px; height: 36px; padding: 9px; border-radius: 50%;
+  background: hsl(var(--secondary)); color: hsl(var(--primary));
+}
+.studio-text-link:hover { background: hsl(var(--accent)); }
+.studio-text-link:hover svg { translate: none; }
+
+/* Project cards (src/components/studio/ProjectCards.tsx), after the Folioblox projects page. */
+.project-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px 32px; }
+.project-card--wide { grid-column: 1 / -1; }
+.project-card-media { display: block; overflow: hidden; border-radius: 24px; aspect-ratio: 4 / 3; background: hsl(var(--secondary)); }
+.project-card--wide .project-card-media { aspect-ratio: 21 / 9; }
+.project-card-media picture, .project-card-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.project-card-media img { transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.project-card:hover .project-card-media img { transform: scale(1.04); }
+.project-card-body { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-top: 22px; }
+.project-card-body h3 { font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+.project-card-body p { margin-top: 6px; font-size: 15px; color: hsl(var(--accent)); }
+.project-card-body .studio-text-link { flex-shrink: 0; }
+@media (max-width: 800px) {
+  .project-cards { grid-template-columns: 1fr; gap: 48px; }
+  .project-card--wide .project-card-media { aspect-ratio: 4 / 3; }
+  .project-card-body { flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { .project-card-media img { transition: none; } }
+
+/* Project page body after Folioblox: label with an accent rule, paragraph beside it; rounded gallery. */
+.case-rows { display: grid; gap: 64px; }
+.case-row { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 48px; align-items: start; }
+.case-row h2 {
+  display: flex; align-items: center; gap: 20px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+}
+.case-row h2::before { content: ""; flex: 0 0 72px; height: 3px; border-radius: 2px; background: hsl(var(--accent)); }
+.case-row p { font-size: 18px; line-height: 1.85; color: hsl(var(--muted-foreground)); }
+.case-page .case-gallery button { border: 0; border-radius: 20px; }
+.case-page .case-gallery img { border-radius: 20px; }
+@media (max-width: 800px) {
+  .case-row { grid-template-columns: 1fr; gap: 14px; }
+  .case-row h2::before { flex-basis: 40px; }
+}
+.folio-hero--compact { min-height: min(56svh, 560px); }
+.folio-hero--compact .folio-title { font-size: clamp(40px, 5.2vw, 80px); }
+.folio-chips, .folio-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.folio-chips a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 30px;
+  border: 1px solid hsl(var(--secondary) / 0.3); font-size: 13px; color: hsl(var(--secondary));
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.folio-chips a:hover { border-color: hsl(var(--secondary)); background: hsl(var(--secondary) / 0.08); }
+@media (max-width: 800px) { .folio-hero--compact { min-height: 0; } }
