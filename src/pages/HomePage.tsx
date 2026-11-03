@@ -16,9 +16,8 @@ import {
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { selectedIdentityProjects } from "@/content/projects";
-import StackedWork from "@/components/studio/StackedWork";
+import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import WordReveal from "@/components/studio/WordReveal";
-import ServiceScroll from "@/components/studio/ServiceScroll";
 import ProcessScroll from "@/components/studio/ProcessScroll";
 import ProofStrip from "@/components/studio/ProofStrip";
 import ClientMarquee from "@/components/studio/ClientMarquee";
@@ -110,7 +109,7 @@ export default function HomePage() {
                 <ArrowUpRight className={arrow} size={20} />
               </Link>
             </div>
-            <StackedWork items={selected} />
+            <FeaturedProjects items={selected} />
           </div>
         </section>
         <section className="studio-section studio-services" id="services">
@@ -124,21 +123,32 @@ export default function HomePage() {
                   </span>
                 </h2>
               </div>
+              <div className="section-side">
+                <p className="section-intro">
+                  {ar
+                    ? "أجمع بين الإبداع والتقنية والخبرة التشغيلية لتطوير حلول وتجارب تساعد الشركات على تحويل أفكارها إلى مشاريع وأنظمة تعمل على أرض الواقع."
+                    : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."}
+                </p>
+                <Link to={`${prefix}/services`} className="studio-text-link">
+                  {dictionary.servicesPage.allServices}
+                  <ArrowUpRight className={arrow} size={18} />
+                </Link>
+              </div>
             </div>
-            <WordReveal
-              className="statement"
-              text={
-                ar
-                  ? "أجمع بين الإبداع والتقنية والخبرة التشغيلية لتطوير حلول وتجارب تساعد الشركات على تحويل أفكارها إلى مشاريع وأنظمة تعمل على أرض الواقع."
-                  : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."
-              }
-            />
-            <ServiceScroll
-              items={h.services.items}
-              label="WHAT I DO"
-              deliverablesLabel={h.services.deliverablesLabel}
-              detailsLabel={h.services.details}
-            />
+            <ul className="service-cards">
+              {h.services.items.map((s, i) => (
+                <li key={s.slug} className="service-card" data-reveal>
+                  <Link to={`${prefix}/services/${s.slug}`}>
+                    <span className="service-card-number" dir="ltr">0{i + 1}</span>
+                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
+                    <h3>
+                      <span dir="ltr">{s.title}</span>
+                    </h3>
+                    <p>{s.value}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
         <section className="studio-section studio-products">

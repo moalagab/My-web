@@ -18,30 +18,22 @@ const scrollToFraction = (page: Page, selector: string, fraction: number) =>
     window.scrollTo({ top: top + (el.scrollHeight - window.innerHeight) * f, behavior: "instant" });
   }, fraction);
 
-test("selected work cards stack as you scroll", async ({ page }) => {
+test("selected work shows as Folioblox rows that alternate sides", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".stack-card")).toHaveCount(6);
-  const first = page.locator(".stack-card").first();
-  const list = page.locator(".stack");
-  await scrollUntil(
-    page,
-    () => list.evaluate((el) => window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top + 600, behavior: "instant" })),
-    async () => (await first.evaluate((el) => Number(el.style.getPropertyValue("--cover")))) > 0.3,
-  );
+  const rows = page.locator(".featured-row");
+  await expect(rows).toHaveCount(6);
+  const first = await rows.nth(0).locator(".featured-row-media").boundingBox();
+  const second = await rows.nth(1).locator(".featured-row-media").boundingBox();
+  // Same image size, opposite sides.
+  expect(Math.abs(first!.width - second!.width)).toBeLessThan(2);
+  expect(Math.abs(first!.x - second!.x)).toBeGreaterThan(200);
 });
 
-test("services pin a number that follows the active service", async ({ page }) => {
+test("services show as four cards linking to their pages", async ({ page }) => {
   await page.goto("/en");
-  await scrollUntil(
-    page,
-    () => page.locator(".svc-block").nth(2).evaluate((el) =>
-      // Top at 30% of the viewport: well inside the 40–45% band that marks the active service.
-      window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * 0.3, behavior: "instant" }),
-    ),
-    async () =>
-      (await page.locator(".svc-digit").textContent()) === "3" &&
-      /is-in/.test((await page.locator(".svc-block").nth(2).getAttribute("class")) ?? ""),
-  );
+  const cards = page.locator(".service-card a");
+  await expect(cards).toHaveCount(4);
+  await expect(cards.first()).toHaveAttribute("href", "/en/services/digital");
 });
 
 test("process steps advance with scroll", async ({ page }) => {
@@ -56,7 +48,6 @@ test("process steps advance with scroll", async ({ page }) => {
 test("reduced motion shows everything still and readable", async ({ browser }) => {
   const page = await browser.newPage({ reducedMotion: "reduce" });
   await page.goto("/en");
-  await expect(page.locator(".stack-card").first()).toHaveCSS("position", "relative");
   for (const card of await page.locator(".proc-card").all()) await expect(card).toHaveCSS("opacity", "1");
   await expect(page.locator(".word-reveal span").first()).toHaveCSS("opacity", "1");
   await page.close();

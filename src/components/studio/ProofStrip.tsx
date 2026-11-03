@@ -33,9 +33,9 @@ function CountUp({ value, play, delay }: { value: string; play: boolean; delay: 
 }
 
 /**
- * Proof numbers that count up once when the strip comes into view. Below the
- * fold the columns also rise in; on screen at load they only count, so
- * nothing visible is hidden.
+ * Proof numbers as Folioblox cards that count up once when the section comes
+ * into view. Below the fold the cards also rise in; on screen at load they
+ * only count, so nothing visible is hidden.
  */
 export default function ProofStrip({ intro, facts, label }: { intro: string; facts: readonly Fact[]; label: string }) {
   const ref = useRef<HTMLElement>(null);
@@ -63,16 +63,23 @@ export default function ProofStrip({ intro, facts, label }: { intro: string; fac
   }, []);
 
   return (
-    <section ref={ref} className="studio-proof" aria-label={label} data-no-reveal data-proof={state}>
-      <div className="studio-container proof-grid">
-        <p>{intro}</p>
-        {facts.map((f, i) => (
-          <div key={f.number} style={{ "--d": `${i * 120 + 120}ms` } as React.CSSProperties}>
-            <CountUp value={f.number} play={state === "in"} delay={i * 120 + 120} />
-            <span>{f.label}</span>
-            {f.detail ? <small>{f.detail}</small> : null}
+    <section ref={ref} className="studio-section studio-proof" aria-labelledby="proof-title" data-no-reveal data-proof={state}>
+      <div className="studio-container">
+        <div className="section-heading">
+          <div>
+            <p className="studio-eyebrow">{label}</p>
+            <h2 id="proof-title">{intro}</h2>
           </div>
-        ))}
+        </div>
+        <ul className="stat-cards">
+          {facts.map((f, i) => (
+            <li key={f.number} className="stat-card" style={{ "--d": `${i * 120 + 120}ms` } as React.CSSProperties}>
+              <CountUp value={f.number} play={state === "in"} delay={i * 120 + 120} />
+              <span>{f.label}</span>
+              {f.detail ? <small>{f.detail}</small> : null}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

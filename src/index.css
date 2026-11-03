@@ -231,14 +231,11 @@
 
   /* Editorial subhead */
 
-
   /* Focus ring for accessibility */
 
   /* Hover underline effect */
 
-
   /* Project list item */
-
 
   /* Smooth focus states for accessibility */
 }
@@ -265,7 +262,6 @@
     opacity: 1;
   }
 }
-
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
@@ -467,45 +463,7 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
   }
 }
 .studio-proof {
-  background: hsl(var(--secondary));
-  color: hsl(var(--primary));
-}
-.proof-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: 40px;
-  padding-block: 44px;
-  align-items: start;
-}
-.proof-grid > p {
-  font-size: 19px;
-  line-height: 1.7;
-  white-space: pre-line;
-  padding-top: 5px;
-}
-.proof-grid > div {
-  position: relative;
-  padding-inline-start: 28px;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 5px 12px;
-  align-items: baseline;
-}
-.proof-grid strong {
-  font-variant-numeric: tabular-nums;
-  font-size: 44px;
-  line-height: 1.2;
-  font-weight: 500;
-  letter-spacing: -0.05em;
-}
-.proof-grid span {
-  font-size: 12px;
-}
-.proof-grid small {
-  grid-column: 1/-1;
-  font-size: 12px;
-  line-height: 1.7;
-  opacity: 0.75;
+  background: hsl(var(--background));
 }
 .studio-section {
   padding-block: 110px;
@@ -537,8 +495,7 @@ body:has(.folio-hero) .studio-header:not(.is-open) { background: transparent; }
   background: hsl(var(--background));
 }
 .studio-services {
-  background: hsl(var(--primary));
-  color: hsl(var(--secondary));
+  background: hsl(var(--background));
 }
 .studio-products {
   background: hsl(var(--secondary));
@@ -893,32 +850,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     max-width: 400px;
     justify-self: center;
     margin-top: 10px;
-  }
-  .proof-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px 10px;
-    padding-block: 30px;
-  }
-  .proof-grid > p {
-    grid-column: 1/-1;
-    font-size: 17px;
-    white-space: normal;
-  }
-  .proof-grid > div {
-    padding-inline-start: 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 8px;
-  }
-  .proof-grid strong {
-    font-size: 35px;
-  }
-  .proof-grid small {
-    width: 100%;
-    font-size: 12px;
-  }
-  .proof-grid span {
-    font-size: 13px;
   }
   .studio-section {
     padding-block: 70px;
@@ -2349,7 +2280,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
 }
 
-
 /* Shared curved corners across images, framed content and UI surfaces. */
 @layer base {
   img, video, iframe {
@@ -2416,61 +2346,6 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   margin-inline: auto;
 }
 
-
-
-
-
-
-/* Work gallery images sit directly on the page, without backing panels. */
-
-/* Stacked selected work (src/components/studio/StackedWork.tsx). */
-.stack { list-style: none; margin: 0; padding: 0; }
-.stack-card {
-  position: sticky; top: calc(104px + var(--i) * 14px);
-  height: min(calc(100svh - 136px), 780px); margin-bottom: 56px;
-  border-radius: 28px; overflow: hidden; transform-origin: center top;
-  transform: scale(calc(1 - var(--cover, 0) * 0.06));
-}
-/* Covered cards dim under an overlay, cheaper to paint than a filter. */
-.stack-card::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: hsl(var(--primary)); opacity: calc(var(--cover, 0) * 0.3);
-}
-.stack-card:last-child { margin-bottom: 0; }
-.stack-card--dark { background: hsl(var(--primary)); color: hsl(var(--secondary)); }
-.stack-card--light { background: hsl(var(--secondary)); color: hsl(var(--primary)); }
-.stack-card-inner {
-  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
-  gap: 48px; height: 100%; padding: 48px; align-items: stretch;
-}
-.stack-copy { display: flex; flex-direction: column; justify-content: center; }
-.stack-label { font-size: 12px; letter-spacing: 0.14em; opacity: 0.75; }
-.stack-copy h3 {
-  margin-top: 22px; font-size: clamp(34px, 4.4vw, 68px); font-weight: 700;
-  line-height: 1.1; letter-spacing: -0.03em;
-}
-html[lang="ar"] .stack-copy h3 { letter-spacing: 0; line-height: 1.3; }
-.stack-discipline { margin-top: 18px; font-size: 15px; opacity: 0.8; }
-.stack-link {
-  align-self: flex-start; margin-top: 40px; display: inline-flex; align-items: center; gap: 10px;
-  min-height: 44px; font-size: 14px; border-bottom: 1px solid currentColor;
-}
-.stack-media { display: block; height: 100%; min-height: 0; border-radius: 18px; overflow: hidden; }
-.stack-media picture, .stack-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.stack-media img { transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.stack-card:hover .stack-media img { transform: scale(1.03); }
-@media (max-width: 760px) {
-  .stack-card { top: calc(86px + var(--i) * 10px); height: calc(100svh - 110px); border-radius: 22px; margin-bottom: 32px; }
-  .stack-card-inner { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 20px; padding: 24px; }
-  .stack-copy h3 { font-size: 32px; margin-top: 12px; }
-  .stack-link { margin-top: 16px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .stack-card { position: relative; top: auto; transform: none; }
-  .stack-card::after { content: none; }
-  .stack-media img { transition: none; }
-}
-
 /* Word-by-word reveal (src/components/studio/WordReveal.tsx); without --p every word is fully visible. */
 /* --dim keeps unread words at 3:1 contrast, the WCAG minimum for large text. */
 .word-reveal { --dim: 0.48; }
@@ -2481,77 +2356,11 @@ html[lang="ar"] .stack-copy h3 { letter-spacing: 0; line-height: 1.3; }
   font-size: clamp(24px, 2vw, 30px); line-height: 1.55; color: hsl(var(--foreground));
   --dim: 0.62; /* the about section sits on a mid-blue background */
 }
-.studio-services .statement {
-  max-width: 1100px; margin-bottom: 72px;
-  font-size: clamp(26px, 3.2vw, 46px); line-height: 1.45; font-weight: 500; letter-spacing: -0.01em;
-}
-@media (max-width: 760px) {
-  .studio-services .statement { font-size: 24px; margin-bottom: 40px; }
-}
 
-/* Services scroll story (src/components/studio/ServiceScroll.tsx): pinned turning mark, one service per screen. */
-.svc-scroll {
-  display: grid; grid-template-columns: 240px minmax(0, 1fr) minmax(0, 440px) 140px;
-  column-gap: 32px; margin-top: 40px;
-}
-.svc-pin {
-  grid-column: 1; grid-row: 1; position: sticky; top: 200px; align-self: start;
-  width: 240px; height: 320px; display: grid; place-items: center;
-  margin-inline-start: clamp(0px, 8vw, 112px);
-}
-.svc-shape {
-  grid-area: 1 / 1; width: 203px; height: 203px; background: hsl(var(--secondary)); border-radius: 6px;
-  transform: rotate(calc(48deg + var(--step) * 16deg)) scale(calc(1 - var(--step) * 0.01));
-  transition: transform 0.9s cubic-bezier(0.34, 1.4, 0.64, 1);
-}
-/* Drawn in the section colour, so the parts of the digit over the square read as cut out. */
-.svc-digit {
-  grid-area: 1 / 1; font-size: 300px; font-weight: 700; line-height: 1; letter-spacing: -0.04em;
-  color: hsl(var(--primary)); transform-origin: center; position: relative; z-index: 1;
-  animation: svc-flip 0.7s cubic-bezier(0.34, 1.4, 0.64, 1);
-}
 @keyframes svc-flip {
   0% { transform: scaleX(0); }
   55% { transform: scaleX(1.45); }
   100% { transform: scaleX(1); }
-}
-.svc-list { grid-column: 3; grid-row: 1; list-style: none; margin: 0; padding: 0; }
-.svc-block {
-  min-height: 100svh; padding-top: 200px; padding-bottom: 80px;
-  transform: translateX(var(--svc-shift, 40px)) scale(0.9); transform-origin: center top;
-  transition: transform 0.9s cubic-bezier(0.34, 1.3, 0.64, 1);
-}
-html[dir="rtl"] .svc-block { --svc-shift: -40px; }
-.svc-block.is-in { transform: none; }
-.svc-block h3 { font-size: 36px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
-.svc-value { margin-top: 18px; font-size: 18px; line-height: 1.7; opacity: 0.85; }
-.svc-label { margin-top: 32px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
-.svc-block ul { list-style: none; margin: 12px 0 0; padding: 0; }
-.svc-block ul li { padding-block: 12px; border-bottom: 1px solid hsl(var(--secondary) / 0.15); font-size: 15px; }
-.svc-link {
-  margin-top: 28px; display: inline-flex; align-items: center; gap: 10px;
-  min-height: 44px; font-size: 14px; border-bottom: 1px solid currentColor;
-}
-.svc-tag {
-  grid-column: 4; grid-row: 1; position: sticky; top: 200px; align-self: start;
-  justify-self: end; font-size: 12px; letter-spacing: 0.12em;
-}
-.svc-index { display: none; }
-@media (max-width: 1100px) {
-  .svc-scroll { grid-template-columns: 200px minmax(0, 1fr) minmax(0, 420px); }
-  .svc-pin { width: 200px; }
-  .svc-tag { display: none; }
-}
-@media (max-width: 760px) {
-  .svc-scroll { display: block; }
-  .svc-pin, .svc-tag { display: none; }
-  .svc-block { min-height: 0; padding-block: 36px; transform: none; border-top: 1px solid hsl(var(--secondary) / 0.15); }
-  .svc-index { display: block; font-size: 64px; font-weight: 700; line-height: 1; color: hsl(var(--muted)); margin-bottom: 14px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .svc-shape, .svc-block { transition: none; }
-  .svc-digit { animation: none; }
-  .svc-block { transform: none; }
 }
 
 /* Process as a pinned story (src/components/studio/ProcessScroll.tsx). */
@@ -2690,31 +2499,13 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
   .nav-mobile:not([hidden]) { animation: none; }
 }
 
-/* Proof strip (src/components/studio/ProofStrip.tsx): dividers grow, columns rise in turn, numbers count up. */
-.proof-grid > div::before {
-  content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 1px;
-  background: hsl(var(--primary) / 0.2); transform-origin: top;
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
-}
-.proof-grid > p,
-.proof-grid > div {
-  transition: opacity 0.7s ease var(--d, 0ms), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
-}
-[data-proof="waiting"] .proof-grid > p,
-[data-proof="waiting"] .proof-grid > div { opacity: 0; transform: translateY(16px); }
-[data-proof="waiting"] .proof-grid > div::before { transform: scaleY(0); }
-.proof-grid strong span { font-size: inherit; }
-@media (prefers-reduced-motion: reduce) {
-  .proof-grid > p, .proof-grid > div, .proof-grid > div::before { transition: none; }
-}
-
 /* Hero after Folioblox: full-bleed portrait, huge two-line title, numbered disciplines. */
 .folio-hero {
   position: relative; isolation: isolate; overflow: hidden;
   padding-top: 88px; min-height: 100svh;
   display: flex; align-items: flex-end;
   background: hsl(var(--primary)); color: hsl(var(--secondary));
-  border-radius: 0 0 40px 40px;
+  border-radius: 0 0 100px 100px; z-index: 1;
 }
 .folio-hero-media { position: absolute; inset: 0; z-index: -1; }
 /* Nudge the photo toward the figure's side so the face clears the title; the navy fade covers the edge. */
@@ -2795,9 +2586,10 @@ html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1
 }
 
 /* Client logos under the hero (src/components/studio/ClientMarquee.tsx). */
-.client-band { padding-block: 44px; }
+/* Grey band tucked under the hero's rounded corners, as on Folioblox. */
+.client-band { position: relative; margin-top: -100px; padding-block: 150px 56px; background: hsl(var(--secondary) / 0.55); border-radius: 0 0 100px 100px; }
 .client-band-inner { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 40px; align-items: center; }
-.client-band-label { font-size: 14px; font-weight: 500; line-height: 1.5; color: hsl(var(--primary)); }
+.client-band-label { font-size: 15px; font-weight: 700; line-height: 1.45; color: hsl(var(--foreground)); }
 .marquee {
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
@@ -2808,7 +2600,7 @@ html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1
 .marquee-row img { display: block; height: 40px; width: auto; max-width: 160px; object-fit: contain; opacity: 0.85; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @media (max-width: 800px) {
-  .client-band { padding-block: 32px; }
+  .client-band { margin-top: -28px; padding-block: 60px 36px; border-radius: 0 0 28px 28px; }
   .client-band-inner { grid-template-columns: 1fr; gap: 18px; }
   .marquee-row { gap: 44px; padding-inline-end: 44px; }
   .marquee-row img { height: 32px; }
@@ -2857,7 +2649,6 @@ html[dir="rtl"] .folio-hero-media--work::after {
 /* Section rhythm after Folioblox: accent label, bold title, strong side paragraph, pill links. */
 .studio-eyebrow { font-size: 15px; letter-spacing: 0.04em; color: hsl(var(--accent)); }
 /* Labels keep at least 4.5:1: light blue on navy sections, navy on the mid-blue about band. */
-.studio-services .studio-eyebrow,
 .studio-cta .studio-eyebrow,
 .about-closing .studio-eyebrow { color: hsl(var(--muted)); }
 .studio-about .studio-eyebrow { color: hsl(var(--primary)); }
@@ -2923,3 +2714,67 @@ html[lang="ar"] .faq-grid h2 { line-height: 1.4; letter-spacing: 0; }
 }
 .folio-chips a:hover { border-color: hsl(var(--secondary)); background: hsl(var(--secondary) / 0.08); }
 @media (max-width: 800px) { .folio-hero--compact { min-height: 0; } }
+
+/* Folioblox section heads: large accent label, extra-bold title, paragraph and pill on the side. */
+.section-heading .studio-eyebrow { font-size: clamp(18px, 1.9vw, 28px); font-weight: 700; letter-spacing: 0.01em; }
+.section-heading h2 { font-size: clamp(32px, 4.2vw, 60px); font-weight: 800; }
+.section-side { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; max-width: 30rem; }
+
+/* Stats as Folioblox cards (src/components/studio/ProofStrip.tsx). */
+.stat-cards, .service-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+.stat-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat-card, .service-card > a {
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px;
+  min-height: 300px; padding: 40px; border-radius: 30px; background: hsl(var(--secondary) / 0.55);
+}
+.stat-card::before, .service-card > a::before {
+  content: ""; position: absolute; inset: 40px 40px auto; height: 3px; border-radius: 2px; background: hsl(var(--accent));
+}
+.stat-card strong { align-self: flex-start; font-variant-numeric: tabular-nums; font-size: clamp(56px, 6vw, 88px); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: hsl(var(--primary)); }
+.stat-card strong span { font-size: inherit; }
+.stat-card > span { font-size: 20px; font-weight: 700; }
+.stat-card small { font-size: 15px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+.stat-card { transition: opacity 0.7s ease var(--d, 0ms), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms); }
+[data-proof="waiting"] .stat-card { opacity: 0; transform: translateY(50px); }
+
+/* Services as Folioblox cards. */
+.service-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.service-card > a { min-height: 420px; transition: background 0.3s ease; }
+.service-card > a:hover { background: hsl(var(--secondary)); }
+.service-card-number { position: absolute; inset: 64px 40px auto; font-size: 15px; font-weight: 700; color: hsl(var(--accent)); }
+.service-card-tagline { font-size: 17px; font-weight: 700; line-height: 1.45; color: hsl(var(--accent)); }
+.service-card h3 { font-size: 24px; font-weight: 800; line-height: 1.25; letter-spacing: -0.02em; }
+.service-card > a > p:last-child { font-size: 15px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
+
+/* Featured projects as Folioblox rows (src/components/studio/FeaturedProjects.tsx). */
+.featured-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 96px; }
+.featured-row { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.featured-row:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); }
+.featured-row:nth-child(even) .featured-row-media { order: 2; }
+.featured-row-media { display: block; overflow: hidden; border-radius: 30px; aspect-ratio: 16 / 11; background: hsl(var(--secondary)); }
+.featured-row-media picture, .featured-row-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.featured-row-media img { transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.featured-row:hover .featured-row-media img { transform: scale(1.04); }
+.featured-row-body { max-width: 26rem; padding-top: 28px; border-top: 3px solid hsl(var(--accent)); }
+.featured-row-body h3 { font-size: clamp(28px, 2.8vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+.featured-row-body p { margin-top: 16px; font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
+.featured-row-body .studio-text-link { margin-top: 28px; }
+
+@media (max-width: 1100px) {
+  .service-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+  .stat-cards, .service-cards { grid-template-columns: 1fr; }
+  .stat-card, .service-card > a { min-height: 0; padding: 72px 28px 32px; border-radius: 24px; }
+  .stat-card::before, .service-card > a::before { inset: 32px 28px auto; }
+  .service-card-number { position: static; }
+  .featured-rows { gap: 64px; }
+  .featured-row, .featured-row:nth-child(even) { grid-template-columns: 1fr; gap: 24px; }
+  .featured-row:nth-child(even) .featured-row-media { order: 0; }
+  .featured-row-media { border-radius: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-card, .featured-row-media img { transition: none; }
+}
+/* The count-up reserves its final width; keep the digits flush with the label on Arabic pages. */
+html[dir="rtl"] .stat-card strong { text-align: right; }
