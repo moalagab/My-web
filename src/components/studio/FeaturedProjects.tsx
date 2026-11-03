@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Project } from "@/content/projects";
 import Picture from "@/components/Picture";
+import ProjectMediaLink from "@/components/studio/ProjectMediaLink";
 
 /**
  * Featured projects as Folioblox rows: a large rounded image beside a narrow
@@ -20,7 +21,7 @@ export default function FeaturedProjects({ items }: { items: Project[] }) {
         const description = p.context?.[lang] ?? p.discipline?.[lang] ?? dictionary.workPage.filters[p.serviceLine];
         return (
           <li key={p.slug} className="featured-row" data-reveal>
-            <Link to={`${prefix}/work/${p.slug}`} className="featured-row-media" tabIndex={-1} aria-hidden="true">
+            <ProjectMediaLink to={`${prefix}/work/${p.slug}`} className="featured-row-media">
               <Picture
                 src={p.cover}
                 sizes="(min-width: 900px) 62vw, 100vw"
@@ -30,11 +31,11 @@ export default function FeaturedProjects({ items }: { items: Project[] }) {
                 height={900}
                 decoding="async"
               />
-            </Link>
+            </ProjectMediaLink>
             <div className="featured-row-body">
               <h3>{title}</h3>
               <p>{description}</p>
-              <Link to={`${prefix}/work/${p.slug}`} className="studio-text-link">
+              <Link to={`${prefix}/work/${p.slug}`} viewTransition className="studio-text-link">
                 {dictionary.servicesPage.caseCta}
                 <span className="sr-only">: {title}</span>
                 <ArrowUpRight size={18} className={isRtl ? "-scale-x-100" : ""} />

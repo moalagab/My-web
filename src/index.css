@@ -1072,7 +1072,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   }
   /* Folioblox entrance: blocks rise 50px and fade in once they reach the screen. */
   [data-reveal-target].is-revealed {
-    animation: studio-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation: studio-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms) backwards;
   }
   .page-enter {
     animation: studio-page 0.2s ease-out;
@@ -2712,3 +2712,86 @@ html[dir="rtl"] .studio-eyebrow:not(:has(> *)) { display: block; unicode-bidi: p
 .folio-cta-package > p:first-child { font-size: 13px; letter-spacing: 0.04em; color: hsl(var(--muted)); }
 .folio-cta-package strong { font-size: 22px; font-weight: 800; }
 .agent-core, .agent-core > span { color: hsl(var(--accent-foreground)); opacity: 1; font-size: 12px; }
+
+/* ---------------------------------------------------------------------------
+   Motion language. One easing family, three speeds: 0.2s for presses, 0.45s
+   for hovers and page changes, 0.8s for blocks entering. Scroll effects run
+   on the browser's scroll timeline (no JavaScript per frame) and only where
+   supported; everything sits behind prefers-reduced-motion.
+   --------------------------------------------------------------------------- */
+:root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-press: cubic-bezier(0.34, 1.4, 0.64, 1); }
+.scroll-progress { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Page changes: the header stays put, the page lifts away and the next one rises in. */
+  .studio-header { view-transition-name: site-header; }
+  ::view-transition-old(root) { animation: vt-out 0.25s ease-in both; }
+  ::view-transition-new(root) { animation: vt-in 0.55s var(--ease-out) both; }
+  ::view-transition-group(project-cover) { animation-duration: 0.65s; animation-timing-function: var(--ease-out); }
+  ::view-transition-old(project-cover), ::view-transition-new(project-cover) { height: 100%; object-fit: cover; overflow: clip; }
+  @keyframes vt-out { to { opacity: 0; transform: translateY(-16px); } }
+  @keyframes vt-in { from { opacity: 0; transform: translateY(32px); } }
+
+  /* Presses give way under the finger, hovers lift. */
+  .nav-pill, .studio-text-link, .folio-chips a, .service-card > a, .pkg-card, .bento-card, .testimonial-grid figure {
+    transition-property: background, color, border-color, padding, transform;
+    transition-duration: 0.35s, 0.35s, 0.25s, 0.45s, 0.45s;
+    transition-timing-function: ease, ease, ease, var(--ease-out), var(--ease-out);
+  }
+  .nav-pill:active, .studio-text-link:active, .folio-chips a:active { transform: scale(0.96); transition-duration: 0.12s; }
+  .service-card > a:hover, .pkg-card:hover, .bento-card:hover { transform: translateY(-6px); }
+  .service-card > a:active, .pkg-card:active { transform: translateY(-2px) scale(0.99); }
+  .studio-text-link svg { transition: transform 0.45s var(--ease-out), background 0.3s ease; }
+  .studio-text-link:hover svg { transform: translate(3px, -3px) rotate(45deg); }
+  html[dir="rtl"] .studio-text-link:hover svg { transform: translate(-3px, -3px) rotate(-45deg) scaleX(-1); }
+  .step-row { transition: background 0.4s ease, transform 0.45s var(--ease-out); }
+  .step-row:hover { transform: translateX(8px); }
+  html[dir="rtl"] .step-row:hover { transform: translateX(-8px); }
+  .step-row:hover .step-number::before { transform: scaleY(1.35); }
+  .step-number::before { transition: transform 0.45s var(--ease-out); }
+
+  @supports (animation-timeline: scroll()) {
+    /* Reading progress along the top edge. */
+    .scroll-progress {
+      display: block; position: fixed; inset: 0 0 auto; z-index: 70; height: 3px; pointer-events: none;
+      background: hsl(var(--accent)); transform-origin: 0 50%;
+      animation: progress-grow linear both; animation-timeline: scroll(root);
+    }
+    html[dir="rtl"] .scroll-progress { transform-origin: 100% 50%; }
+    @keyframes progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* The hero sinks back as you leave it: the photo drifts and grows, the words lift and fade. */
+    .folio-hero-media { animation: hero-drift linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+    .folio-hero-inner { animation: hero-lift linear both; animation-timeline: scroll(root); animation-range: 25vh 100vh; }
+    @keyframes hero-drift { to { transform: translateY(22%) scale(1.08); } }
+    @keyframes hero-lift { to { opacity: 0.15; transform: translateY(-48px); } }
+
+    /* Photos move a little slower than their frames as they pass. */
+    .featured-row-media picture, .project-card-media picture, .about-gallery picture {
+      display: block; height: 100%;
+      animation: frame-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%;
+    }
+    @keyframes frame-drift { from { transform: translateY(-5%) scale(1.12); } to { transform: translateY(5%) scale(1.12); } }
+
+    /* Section titles unmask from below as they enter. */
+    .section-heading h2, .folio-cta h2, .studio-cta h2 {
+      animation: title-unmask linear both; animation-timeline: view(); animation-range: entry 0% entry 75%;
+    }
+    @keyframes title-unmask {
+      from { opacity: 0; transform: translateY(0.45em); clip-path: inset(0 0 100% 0); }
+      to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); }
+    }
+
+    /* Each eyebrow draws a short accent rule before its words. */
+    .section-heading .studio-eyebrow::before {
+      content: ""; display: inline-block; width: 28px; height: 2px; margin-inline-end: 12px; vertical-align: middle;
+      background: currentColor; transform-origin: 0 50%;
+      animation: rule-draw linear both; animation-timeline: view(); animation-range: entry 10% entry 90%;
+    }
+    html[dir="rtl"] .section-heading .studio-eyebrow::before { transform-origin: 100% 50%; }
+    @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  }
+}
+/* Inner-page heroes show their image at once: a project cover grows straight into it. */
+.folio-hero--page .folio-hero-media::before { display: none; }

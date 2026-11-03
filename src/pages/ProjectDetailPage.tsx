@@ -134,6 +134,7 @@ const ProjectDetailPage = () => {
 
       <main className="case-page">
         <PageHero
+          mediaName="project-cover"
           image={project.cover}
           eyebrow={<span dir="ltr">{project.year ?? lineLabel}</span>}
           title={title}
@@ -309,6 +310,7 @@ const ProjectDetailPage = () => {
             <nav className="mt-14 flex flex-wrap items-center justify-between gap-6 border-t border-border pt-10">
               {prev ? (
                 <Link
+                  viewTransition
                   to={`${prefix}/work/${prev.slug}`}
                   className="group flex items-center gap-4"
                 >
@@ -337,6 +339,7 @@ const ProjectDetailPage = () => {
               )}
               {next ? (
                 <Link
+                  viewTransition
                   to={`${prefix}/work/${next.slug}`}
                   className="group flex items-center gap-4 text-end"
                 >

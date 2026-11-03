@@ -80,3 +80,31 @@ test("reduced motion skips the hero reveal and stops the logos", async ({ browse
   await expect(page.locator(".folio-title span").first()).toHaveCSS("opacity", "1");
   await page.close();
 });
+
+test("a project cover opens its case study through a view transition, from the top", async ({ page }) => {
+  await page.goto("/en");
+  const link = page.locator(".featured-row-body .studio-text-link").first();
+  await link.scrollIntoViewIfNeeded();
+  await page.evaluate(() => {
+    const start = document.startViewTransition?.bind(document);
+    if (!start) return;
+    document.startViewTransition = ((cb: ViewTransitionUpdateCallback) => {
+      (window as unknown as { __vt: boolean }).__vt = true;
+      return start(cb);
+    }) as typeof document.startViewTransition;
+  });
+  await link.click();
+  await expect(page).toHaveURL(/\/en\/work\//);
+  expect(await page.evaluate(() => (window as unknown as { __vt?: boolean }).__vt)).toBe(true);
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+});
+
+test("reduced motion keeps the hero still on scroll and hides the progress bar", async ({ browser }) => {
+  const context = await browser.newContext({ reducedMotion: "reduce" });
+  const page = await context.newPage();
+  await page.goto("/en");
+  await page.evaluate(() => scrollTo(0, 500));
+  await expect(page.locator(".folio-hero-inner")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".scroll-progress")).toBeHidden();
+  await context.close();
+});

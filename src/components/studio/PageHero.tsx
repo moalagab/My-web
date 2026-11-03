@@ -18,6 +18,7 @@ export default function PageHero({
   actions,
   focus,
   compact = false,
+  mediaName,
 }: {
   eyebrow: ReactNode;
   title: ReactNode;
@@ -29,6 +30,8 @@ export default function PageHero({
   focus?: string;
   /** Shorter hero for pages whose content should come quickly (forms, FAQ, legal). */
   compact?: boolean;
+  /** Shared view-transition name, so a project cover can grow into this image. */
+  mediaName?: string;
 }) {
   return (
     <section
@@ -39,7 +42,7 @@ export default function PageHero({
         <div
           className="folio-hero-media folio-hero-media--work"
           aria-hidden="true"
-          style={focus ? ({ "--focus": focus } as React.CSSProperties) : undefined}
+          style={{ ...(focus ? { "--focus": focus } : {}), ...(mediaName ? { viewTransitionName: mediaName } : {}) } as React.CSSProperties}
         >
           <Picture src={image} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
         </div>

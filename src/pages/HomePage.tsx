@@ -77,7 +77,7 @@ export default function HomePage() {
             <ol className="folio-disciplines">
               {h.services.items.map((s, i) => (
                 <li key={s.slug}>
-                  <Link to={`${prefix}/services/${s.slug}`}>
+                  <Link viewTransition to={`${prefix}/services/${s.slug}`}>
                     <span dir="ltr">#0{i + 1}</span>
                     <span dir="ltr">{h.hero.pills[i]}</span>
                   </Link>
@@ -139,7 +139,7 @@ export default function HomePage() {
             <ul className="service-cards">
               {h.services.items.map((s, i) => (
                 <li key={s.slug} className="service-card" data-reveal>
-                  <Link to={`${prefix}/services/${s.slug}`}>
+                  <Link viewTransition to={`${prefix}/services/${s.slug}`}>
                     <span className="service-card-top">
                       <span className="service-card-number" dir="ltr">0{i + 1}</span>
                       <span className="service-card-arrow" aria-hidden="true">

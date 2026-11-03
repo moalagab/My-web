@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Project } from "@/content/projects";
 import Picture from "@/components/Picture";
+import ProjectMediaLink from "@/components/studio/ProjectMediaLink";
 
 /**
  * Projects as large Folioblox cards: a rounded image that rises in, then the
@@ -19,7 +20,7 @@ export default function ProjectCards({ items }: { items: Project[] }) {
         const title = ar ? p.title_ar : p.title_en;
         return (
           <li key={p.slug} className={i === 0 ? "project-card project-card--wide" : "project-card"} data-reveal>
-            <Link to={`${prefix}/work/${p.slug}`} className="project-card-media" tabIndex={-1} aria-hidden="true">
+            <ProjectMediaLink to={`${prefix}/work/${p.slug}`} className="project-card-media">
               <Picture
                 src={p.cover}
                 sizes={i === 0 ? "100vw" : "(min-width: 900px) 50vw, 100vw"}
@@ -29,13 +30,13 @@ export default function ProjectCards({ items }: { items: Project[] }) {
                 height={900}
                 decoding="async"
               />
-            </Link>
+            </ProjectMediaLink>
             <div className="project-card-body">
               <div>
                 <h3>{title}</h3>
                 <p>{p.discipline?.[lang] ?? dictionary.workPage.filters[p.serviceLine]}</p>
               </div>
-              <Link to={`${prefix}/work/${p.slug}`} className="studio-text-link">
+              <Link to={`${prefix}/work/${p.slug}`} viewTransition className="studio-text-link">
                 {dictionary.servicesPage.caseCta}
                 <span className="sr-only">: {title}</span>
                 <ArrowUpRight size={18} className={isRtl ? "-scale-x-100" : ""} />

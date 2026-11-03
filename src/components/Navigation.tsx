@@ -91,10 +91,13 @@ export default function Navigation() {
       if (!frame) frame = requestAnimationFrame(update);
     };
     update();
+    // Read again once a page transition has finished painting the new page.
+    const settle = window.setTimeout(update, 750);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       cancelAnimationFrame(frame);
+      window.clearTimeout(settle);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -121,6 +124,7 @@ export default function Navigation() {
   );
   const startPill = (
     <Link
+      viewTransition
       to={to("/start")}
       className="nav-pill nav-pill--solid"
       onClick={() => track("cta_start_click", { location: "header" })}
@@ -179,13 +183,13 @@ export default function Navigation() {
                     <ul>
                       {services.map((s) => (
                         <li key={s.slug}>
-                          <Link to={to(`/services/${s.slug}`)} tabIndex={servicesOpen ? undefined : -1}>
+                          <Link viewTransition to={to(`/services/${s.slug}`)} tabIndex={servicesOpen ? undefined : -1}>
                             <span dir="ltr">{s.title}</span>
                           </Link>
                         </li>
                       ))}
                     </ul>
-                    <Link to={to("/services")} className="nav-dropdown-all" tabIndex={servicesOpen ? undefined : -1}>
+                    <Link viewTransition to={to("/services")} className="nav-dropdown-all" tabIndex={servicesOpen ? undefined : -1}>
                       {d.servicesPage.allServices}
                       <ArrowUpRight size={14} className={arrow} />
                     </Link>
@@ -193,7 +197,7 @@ export default function Navigation() {
                 </li>
               ) : (
                 <li key={i.path}>
-                  <Link to={to(i.path)} className="nav-link" aria-current={current(i.path) ? "page" : undefined}>
+                  <Link viewTransition to={to(i.path)} className="nav-link" aria-current={current(i.path) ? "page" : undefined}>
                     {i.label}
                   </Link>
                 </li>
@@ -206,7 +210,7 @@ export default function Navigation() {
             {languagePill}
           </div>
 
-          <Link to={to()} className="studio-wordmark">
+          <Link viewTransition to={to()} className="studio-wordmark">
             <span dir="ltr">
               mo<span className="wordmark-dot">.</span>
             </span>
@@ -223,7 +227,7 @@ export default function Navigation() {
           <ul>
             {items.map((i) => (
               <li key={i.path}>
-                <Link to={to(i.path)} aria-current={current(i.path) ? "page" : undefined}>
+                <Link viewTransition to={to(i.path)} aria-current={current(i.path) ? "page" : undefined}>
                   {i.label}
                 </Link>
               </li>
