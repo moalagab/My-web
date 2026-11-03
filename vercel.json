@@ -4,6 +4,10 @@
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
   "outputDirectory": "build/client",
+  "redirects": [
+    { "source": "/services/ai", "destination": "/services/digital", "permanent": true },
+    { "source": "/en/services/ai", "destination": "/en/services/digital", "permanent": true }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/__spa-fallback.html" }],
   "headers": [
     {

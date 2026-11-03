@@ -34,10 +34,10 @@
       "primary": "Start a project",
       "secondary": "See the work",
       "pills": [
-        "Brand Identity",
-        "Digital Products",
-        "AI Automation",
-        "Experiential Design"
+        "AI & Digital",
+        "Events & Exhibitions",
+        "Brand & Creative",
+        "Business Operations"
       ]
     },
     "proof": {
@@ -61,58 +61,58 @@
     },
     "services": {
       "eyebrow": "01 / SERVICES",
-      "title": "Four paths. One working system.",
+      "title": "Four paths. Real execution.",
       "details": "Details",
       "deliverablesLabel": "Deliverables",
       "packagesLabel": "Packages",
       "items": [
         {
-          "slug": "brand",
-          "role": "CORE",
-          "title": "Brand & Visual",
-          "value": "An identity built as an applicable visual system, not an isolated logo.",
-          "deliverables": [
-            "Strategy and positioning",
-            "Visual identity system",
-            "Practical application guide"
-          ],
-          "packages": "Essential Identity · Core Identity · Strategy + Identity · Social Visual · Monthly Design Retainer"
-        },
-        {
           "slug": "digital",
-          "role": "GROWTH",
-          "title": "Digital Products",
-          "value": "From idea and interface to a Web Product that actually works.",
+          "role": "SMART SYSTEMS",
+          "title": "AI & Digital Solutions",
+          "value": "Websites, business apps, AI agents, and automations that connect systems, teams, and data.",
           "deliverables": [
-            "Product definition and scope",
-            "UX/UI and prototype",
-            "Product build and launch"
+            "Websites and business apps",
+            "CRM and ERP integration",
+            "AI agents and automation"
           ],
-          "packages": "Landing Page · Business Website · MVP / Web App"
-        },
-        {
-          "slug": "ai",
-          "role": "GROWTH",
-          "title": "AI Automation",
-          "value": "AI agents and workflows tied to a real business problem and real data, with sensitive decisions kept human.",
-          "deliverables": [
-            "Workflow analysis",
-            "Workflow design and integration",
-            "Testing and operational handover"
-          ],
-          "packages": "Automation Audit · Workflow Build · AI Agent Pilot"
+          "packages": "Landing Page · Business Website · MVP / Business App · Automation Audit + Blueprint · CRM & Workflow Automation · AI Agent Pilot"
         },
         {
           "slug": "experiential",
-          "role": "SELECTIVE",
-          "title": "Experiential Design",
-          "value": "Turning identity into an executable booth or event experience.",
+          "role": "LIVE EXPERIENCES",
+          "title": "Events, Exhibitions & Brand Experiences",
+          "value": "Creative concepts for exhibitions and events, from booth design to on-site execution.",
           "deliverables": [
             "Experience concept",
-            "Booth graphic system",
-            "Vendor-ready production files"
+            "Booth design and 3D",
+            "Production and on-site execution"
           ],
-          "packages": "Booth Concept · Booth Design · Event Branding"
+          "packages": "Booth Concept · Booth Concept + 3D + Graphics · Event Branding · Creative & Technical Direction"
+        },
+        {
+          "slug": "brand",
+          "role": "CREATIVE THINKING",
+          "title": "Brand & Creative Solutions",
+          "value": "Strategy, positioning, identities, and campaigns that build a consistent presence.",
+          "deliverables": [
+            "Strategy and positioning",
+            "Visual identity system",
+            "Campaigns and marketing materials"
+          ],
+          "packages": "Essential Identity · Core Identity · Strategy + Identity · Campaign Creative · Social Visual Starter · Monthly Design Retainer"
+        },
+        {
+          "slug": "operations",
+          "role": "REAL EXECUTION",
+          "title": "Business & Operations Solutions",
+          "value": "Operating procedures, follow-up, and performance measurement that cut complexity.",
+          "deliverables": [
+            "Workflow mapping",
+            "SOPs",
+            "Follow-up and KPIs"
+          ],
+          "packages": "Operations Diagnostic · SOP System · Project Control & KPIs"
         }
       ]
     },
@@ -279,10 +279,10 @@
     "filtersLabel": "Filter by service line",
     "filters": {
       "all": "All",
-      "brand": "Brand & Visual",
-      "digital": "Digital Products",
-      "ai": "AI Automation",
-      "experiential": "Experiential"
+      "brand": "Brand & Creative",
+      "digital": "AI & Digital",
+      "experiential": "Events & Experiences",
+      "operations": "Business & Operations"
     },
     "empty": "No published projects in this service line yet.",
     "ctaTitle": "Seen something close to your case?",
@@ -328,11 +328,11 @@
     }
   },
   "servicesPage": {
-    "metaTitle": "Services — Mo Alagab",
-    "metaDescription": "Four service lines: Brand & Visual, Digital Products, AI Automation, and Experiential Design — clear scope and timeline for every package.",
-    "eyebrow": "SERVICES / SCOPE",
-    "title": "Four service lines, scope written before we start.",
-    "body": "Each line has defined packages with scope and timeline. Pricing follows the brief, in the proposal.",
+    "metaTitle": "What I Do — Mo Alagab",
+    "metaDescription": "AI and digital solutions, exhibitions and brand experiences, identities and campaigns, and business operations — clear scope and timeline for every package.",
+    "eyebrow": "WHAT I DO",
+    "title": "Creative Thinking. Smart Systems. Real Execution.",
+    "body": "From digital systems to brands and real-world experiences, I help companies and entrepreneurs turn ideas into solutions they can execute, combining strategic thinking, creativity, technology, and operational management.",
     "whatLabel": "What it is",
     "whoLabel": "Who it is for",
     "deliverablesLabel": "What you get",
@@ -346,66 +346,21 @@
     "caseCta": "See the project",
     "lines": [
       {
-        "slug": "brand",
-        "role": "CORE",
-        "title": "Brand & Visual",
-        "what": "Build the brand as a full visual system: positioning, logo, color, type, and ready applications. The result is a system your team can apply consistently, not a standalone logo file.",
-        "who": "Organizations starting fresh, or whose current identity no longer represents them.",
-        "deliverables": [
-          "Positioning and core messaging",
-          "Visual identity system (logo, color, type, grid)",
-          "Corporate applications and core print items",
-          "A practical usage guide for team and vendors",
-          "Source files and export-ready versions"
-        ],
-        "notIncluded": "Hosting, paid assets (licensed fonts or images), printing and production, copywriting, translation, and photography — quoted separately.",
-        "packages": [
-          {
-            "name": "Essential Identity",
-            "scope": "Logo, color, type, and core applications ready to use.",
-            "timeline": "2–3 weeks",
-            "fit": "A new venture that needs a fast, correct visual base."
-          },
-          {
-            "name": "Core Identity",
-            "scope": "Full identity system with corporate applications and a usage guide.",
-            "timeline": "3–4 weeks",
-            "fit": "An established company where more than one person applies the brand."
-          },
-          {
-            "name": "Strategy + Identity",
-            "scope": "Positioning and messaging first, then an identity system built on it.",
-            "timeline": "4–6 weeks",
-            "fit": "An organization that needs to clarify its position before the visuals."
-          },
-          {
-            "name": "Social Visual Starter",
-            "scope": "A social template system with applied examples.",
-            "timeline": "1–2 weeks",
-            "fit": "An existing identity that needs organized application on platforms."
-          },
-          {
-            "name": "Monthly Design Retainer",
-            "scope": "An agreed monthly volume of visual output with rolling priorities.",
-            "timeline": "Monthly",
-            "fit": "A team that needs ongoing design without an in-house hire."
-          }
-        ]
-      },
-      {
         "slug": "digital",
-        "role": "GROWTH",
-        "title": "Digital Products",
-        "what": "Design and build web products and interfaces that actually work and get the user to the goal. From scope definition and design through launch and handover.",
-        "who": "Teams that need a site or digital product serving a clear business process.",
+        "role": "SMART SYSTEMS",
+        "title": "AI & Digital Solutions",
+        "tagline": "Smarter digital solutions. More efficient business.",
+        "what": "I design and build websites and business applications, and I build AI agents and automations that connect systems, teams, and data. From CRM development and ERP integration to sales, marketing, and operations automation, I deliver practical digital solutions shaped around each project's needs.",
+        "who": "Companies and teams that need a website or system serving a clear business process, or that lose time to repetitive tasks and data scattered across tools.",
         "deliverables": [
-          "Problem, scope, and first-release priorities",
+          "Problem definition, scope, and first-release priorities",
           "UX/UI and a reviewable prototype",
-          "Frontend build and required integrations",
-          "Tracking setup and core forms",
-          "File handover and training on updates"
+          "Website or app build with the required functionality",
+          "CRM or ERP connected to your team's tools and data",
+          "AI agents and workflows with clear limits on what stays a human decision",
+          "Operational handover and team training"
         ],
-        "notIncluded": "Hosting and domain, paid assets, printing and production, copywriting, translation, and photography — quoted separately.",
+        "notIncluded": "Hosting and domain, model and tool subscriptions, CRM/ERP licenses, paid assets, copywriting, translation, and photography are priced separately.",
         "packages": [
           {
             "name": "Landing Page",
@@ -415,85 +370,165 @@
           },
           {
             "name": "Business Website",
-            "scope": "A multi-page site with structured content and an SEO foundation.",
+            "scope": "A multi-page website with structured content and an SEO foundation.",
             "timeline": "3–6 weeks",
-            "fit": "A company that needs a site that represents it and takes enquiries."
+            "fit": "A company that needs a site that represents it and receives requests."
           },
           {
-            "name": "MVP / Web App",
-            "scope": "A first product with core features, accounts, and an admin view.",
+            "name": "MVP / Business App",
+            "scope": "A business app or first product with core features, accounts, and a dashboard.",
             "timeline": "6–12 weeks",
-            "fit": "A product idea that needs a usable version to test."
-          }
-        ]
-      },
-      {
-        "slug": "ai",
-        "role": "GROWTH",
-        "title": "AI Automation",
-        "what": "Build workflows and AI agents tied to a real business problem and real data. Sensitive decisions stay with people; the system handles the repetition.",
-        "who": "Teams spending long hours on repetitive tasks or near-identical replies.",
-        "deliverables": [
-          "A map of the current workflow and automation opportunities",
-          "Workflow design and data sources",
-          "Tool build, integration, and testing on real cases",
-          "Clear limits on what the system handles and what stays human",
-          "Operational handover and team training"
-        ],
-        "notIncluded": "Model and tool subscriptions, hosting, paid assets, copywriting, translation, and photography — quoted separately.",
-        "packages": [
+            "fit": "An idea or internal process that needs a usable, testable version."
+          },
           {
             "name": "Automation Audit + Blueprint",
-            "scope": "Workflow analysis and a written blueprint of automation priorities.",
+            "scope": "Workflow analysis and a written blueprint of automation and integration priorities.",
             "timeline": "1–2 weeks",
-            "fit": "A team that senses the waste but not where to start."
+            "fit": "A team that knows there is waste but not where to start."
           },
           {
-            "name": "Workflow Build",
-            "scope": "Build, integrate, and operationally test one or more workflows.",
-            "timeline": "2–4 weeks",
-            "fit": "A specific repetitive process ready to automate."
+            "name": "CRM & Workflow Automation",
+            "scope": "CRM setup or ERP integration, plus one automated sales, marketing, or operations flow tested on real cases.",
+            "timeline": "2–5 weeks",
+            "fit": "A specific repeating process ready to automate and connect."
           },
           {
             "name": "AI Agent Pilot",
-            "scope": "A scoped AI agent on real data, with measurement and follow-up.",
+            "scope": "A narrowly scoped AI agent on real data, with measurement and follow-up.",
             "timeline": "3–5 weeks",
-            "fit": "An organization that wants to test an agent before scaling."
+            "fit": "An organization that wants to trial an AI agent before scaling."
           }
         ]
       },
       {
         "slug": "experiential",
-        "role": "SELECTIVE",
-        "title": "Experiential Design",
-        "what": "Extend the identity into a physical experience at exhibitions and events: booth concept, graphics, and production files. Designed around the vendor, budget, and schedule.",
-        "who": "Organizations exhibiting at an event that needs a coherent on-brand presence.",
+        "role": "LIVE EXPERIENCES",
+        "title": "Events, Exhibitions & Brand Experiences",
+        "tagline": "From a creative idea to an experience people live.",
+        "what": "I develop creative concepts for exhibitions, events, and brand experiences, from booth and interactive space design to creative and technical direction. I bring together design, planning, production coordination, and on-site execution to create experiences that reflect the brand and leave an impression on its audience.",
+        "who": "Organizations exhibiting, hosting an event, or staging a brand experience that needs to stay true to their identity from concept to opening day.",
         "deliverables": [
-          "Experience concept and space layout",
-          "Graphic system for booth and screens",
-          "Print and digital event assets",
-          "Vendor-ready production files",
-          "Support on production questions before the event"
+          "Experience concept and space planning",
+          "Booth or interactive space design with a 3D model",
+          "Graphic system for the booth, screens, and print",
+          "Production-ready files for the vendor",
+          "Production coordination and on-site creative and technical direction"
         ],
-        "notIncluded": "Production, installation and printing, space rental, paid assets, copywriting, translation, and photography — quoted separately.",
+        "notIncluded": "Fabrication, installation and print costs, venue rental, paid assets, copywriting, translation, and photography are priced separately or paid to the vendor directly.",
         "packages": [
           {
             "name": "Booth Concept",
-            "scope": "Visual concept and space layout with illustrative visuals.",
+            "scope": "A visual concept and space plan with illustrative renders.",
             "timeline": "1–2 weeks",
-            "fit": "A near-term appearance that needs a clear direction fast."
+            "fit": "An upcoming show that needs a clear direction fast."
           },
           {
             "name": "Booth Concept + 3D + Graphics",
-            "scope": "Concept plus a 3D model and a full graphic system.",
+            "scope": "The concept with a 3D model and a complete graphic system.",
             "timeline": "2–4 weeks",
-            "fit": "A flagship booth that needs an accurate view before production."
+            "fit": "A flagship booth that needs a precise vision before production."
           },
           {
             "name": "Event Branding",
-            "scope": "Event identity with its print and digital deliverables.",
+            "scope": "An event identity with its print and digital outputs.",
             "timeline": "2–3 weeks",
             "fit": "An event or conference that needs its own identity."
+          },
+          {
+            "name": "Creative & Technical Direction",
+            "scope": "Creative and technical oversight and vendor coordination from design through on-site execution.",
+            "timeline": "Set by the event date",
+            "fit": "A vendor-built project that needs someone to keep execution true to the design."
+          }
+        ]
+      },
+      {
+        "slug": "brand",
+        "role": "CREATIVE THINKING",
+        "title": "Brand & Creative Solutions",
+        "tagline": "Clear brands. Identities with presence.",
+        "what": "I help brands build their personality and strengthen their presence, from strategy and positioning to visual identities and communication systems. My work also covers marketing and advertising campaigns, corporate and marketing materials, and creative direction that keeps every visual touchpoint consistent and distinctive.",
+        "who": "Companies starting fresh, those whose current identity no longer represents them, or teams that need campaigns and marketing materials consistent with their brand.",
+        "deliverables": [
+          "Strategy, positioning, and core messaging",
+          "Visual identity system (logo, color, typography, grid)",
+          "Communication systems and a usage guide for teams and vendors",
+          "Marketing and advertising campaigns",
+          "Corporate and marketing materials ready for print and publishing"
+        ],
+        "notIncluded": "Hosting, paid assets (licensed fonts or images), printing and production, media buying, copywriting, translation, and photography are priced separately.",
+        "packages": [
+          {
+            "name": "Essential Identity",
+            "scope": "Logo, color, typography, and core applications ready to use.",
+            "timeline": "2–3 weeks",
+            "fit": "A new venture that needs a fast, correct visual foundation."
+          },
+          {
+            "name": "Core Identity",
+            "scope": "A complete identity system with corporate applications and a usage guide.",
+            "timeline": "3–4 weeks",
+            "fit": "An established company that needs a system more than one person can use."
+          },
+          {
+            "name": "Strategy + Identity",
+            "scope": "Positioning and messaging, then an identity system built on them, with full guidelines.",
+            "timeline": "4–6 weeks",
+            "fit": "An organization that needs to clarify its position before its look."
+          },
+          {
+            "name": "Campaign Creative",
+            "scope": "Campaign idea, visual system, and outputs for ads, social, and print.",
+            "timeline": "2–4 weeks",
+            "fit": "A product or season launch that needs a campaign consistent with the brand."
+          },
+          {
+            "name": "Social Visual Starter",
+            "scope": "A system of social media visual templates with application examples.",
+            "timeline": "1–2 weeks",
+            "fit": "An existing identity that needs organized use across platforms."
+          },
+          {
+            "name": "Monthly Design Retainer",
+            "scope": "Creative direction and an agreed number of visual deliverables each month, with rolling priorities.",
+            "timeline": "Monthly",
+            "fit": "A team that needs ongoing design without an in-house hire."
+          }
+        ]
+      },
+      {
+        "slug": "operations",
+        "role": "REAL EXECUTION",
+        "title": "Business & Operations Solutions",
+        "tagline": "Organized operations. Clearer execution.",
+        "what": "I help companies organize their work and develop their operating systems, from mapping workflows and building standard operating procedures (SOPs) to project management, follow-up mechanisms, and performance measurement. I focus on reducing complexity, clarifying responsibilities, and improving the quality of execution to achieve practical, sustainable results.",
+        "who": "Companies growing faster than their systems: unclear responsibilities, procedures living in people's heads, and projects that are hard to track.",
+        "deliverables": [
+          "Map of current workflows and points of complexity",
+          "Written, usable standard operating procedures (SOPs)",
+          "A clear responsibility matrix across roles",
+          "Follow-up mechanisms and KPIs for projects and teams",
+          "Handover and team training on the new system"
+        ],
+        "notIncluded": "Recruitment and HR, legal and financial advice, project management tool licenses, and day-to-day execution on the team's behalf are priced separately.",
+        "packages": [
+          {
+            "name": "Operations Diagnostic",
+            "scope": "Workflow and responsibility analysis with a written report of improvement priorities.",
+            "timeline": "1–2 weeks",
+            "fit": "A company that feels the chaos but doesn't know where to start."
+          },
+          {
+            "name": "SOP System",
+            "scope": "Standard operating procedures for core processes, with templates and checklists.",
+            "timeline": "3–6 weeks",
+            "fit": "A team that needs one way of working that doesn't depend on one person."
+          },
+          {
+            "name": "Project Control & KPIs",
+            "scope": "A project management and follow-up system with KPIs and a tracking dashboard.",
+            "timeline": "3–5 weeks",
+            "fit": "An organization running several projects that needs a clear view of progress and delays."
           }
         ]
       }
@@ -513,21 +548,21 @@
     },
     "costAnswer": "I don't publish fixed prices because the price depends on scope. After the brief and a 20-minute call, you get a written proposal with three options and a clear timeline before any payment. Payment is 50% to begin and 50% before final delivery, and 15% VAT is itemized in the proposal when applicable.",
     "lineSeo": {
-      "brand": {
-        "heading": "Brand identity design",
-        "seoTitle": "Brand identity design in Riyadh — Brand & Visual | Mo Alagab"
-      },
       "digital": {
-        "heading": "Digital product and website design",
-        "seoTitle": "Website and digital product design — Digital Products | Mo Alagab"
-      },
-      "ai": {
-        "heading": "AI automation and agents",
-        "seoTitle": "AI business automation — AI Automation | Mo Alagab"
+        "heading": "AI, digital solutions, and business automation",
+        "seoTitle": "Websites, business systems, and AI automation — AI & Digital Solutions | Mo Alagab"
       },
       "experiential": {
-        "heading": "Exhibition and event experience design",
-        "seoTitle": "Exhibition booth and event design — Experiential Design | Mo Alagab"
+        "heading": "Exhibition, event, and brand experience design",
+        "seoTitle": "Exhibition booth and event design — Events & Brand Experiences | Mo Alagab"
+      },
+      "brand": {
+        "heading": "Brand identity and creative campaigns",
+        "seoTitle": "Brand identity and campaign design in Riyadh — Brand & Creative | Mo Alagab"
+      },
+      "operations": {
+        "heading": "Business operations and standard operating procedures",
+        "seoTitle": "Operations, SOPs, and performance tracking — Business & Operations | Mo Alagab"
       }
     }
   },
@@ -618,10 +653,10 @@
       },
       "options": {
         "service": {
-          "brand": "Brand & Visual",
-          "digital": "Digital Product",
-          "ai": "AI Automation",
-          "experiential": "Experiential",
+          "digital": "AI & Digital",
+          "experiential": "Events & Experiences",
+          "brand": "Brand & Creative",
+          "operations": "Business & Operations",
           "unsure": "Not sure yet"
         },
         "budget": {

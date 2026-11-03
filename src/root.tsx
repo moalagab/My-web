@@ -27,7 +27,7 @@ const jsonLd = [
     image: { "@type": "ImageObject", url: `${SITE}/og.png`, width: 1200, height: 630 },
     jobTitle: ["Brand Designer", "AI Product Builder"],
     description: "Brand Designer and AI Product Builder based in Riyadh.",
-    knowsAbout: ["Brand and Visual Design", "Digital Products", "AI Automation", "Experiential Design"],
+    knowsAbout: ["AI and Digital Solutions", "Events, Exhibitions and Brand Experiences", "Brand and Creative Solutions", "Business and Operations Solutions"],
     worksFor: { "@type": "Organization", name: "Mohammed Alagab Design Studio", url: SITE },
     address: {
       "@type": "PostalAddress",
@@ -50,7 +50,7 @@ const jsonLd = [
     url: SITE,
     name: "Mohammed Alagab — Brand Designer & AI Product Builder",
     alternateName: "محمد العجب — مصمم علامات وباني منتجات AI",
-    description: "Brand, digital product, AI automation, and experiential design portfolio.",
+    description: "AI and digital solutions, brand experiences, brand and creative, and business operations portfolio.",
     publisher: { "@id": `${SITE}/#person` },
     inLanguage: ["ar", "en"],
   },
@@ -71,7 +71,7 @@ const jsonLd = [
     },
     geo: { "@type": "GeoCoordinates", latitude: "24.7136", longitude: "46.6753" },
     areaServed: ["Saudi Arabia", "GCC", "Oman", "Sudan"],
-    serviceType: ["Brand & Visual", "Digital Products", "AI Automation", "Experiential Design"],
+    serviceType: ["AI & Digital Solutions", "Events, Exhibitions & Brand Experiences", "Brand & Creative Solutions", "Business & Operations Solutions"],
     founder: { "@id": `${SITE}/#person` },
   },
 ];

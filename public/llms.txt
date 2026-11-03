@@ -6,10 +6,10 @@
 
 Each service page answers the buyer's first questions: what it is, who it is for, what you receive, what is not included, how long it takes, cost and the steps.
 
-- [Brand & Visual](https://moalagab.art/en/services/brand): the brand as a full visual system — positioning, logo, color, type and ready applications.
-- [Digital Products](https://moalagab.art/en/services/digital): web products and interfaces designed and built from scope definition through launch and handover.
-- [AI Automation](https://moalagab.art/en/services/ai): workflows and AI agents tied to a real business problem and real data; sensitive decisions stay with people.
-- [Experiential Design](https://moalagab.art/en/services/experiential): booth concepts, graphics and production files for exhibitions and events.
+- [AI & Digital Solutions](https://moalagab.art/en/services/digital): websites, business apps, AI agents and automations that connect systems, teams and data, including CRM development and ERP integration.
+- [Events, Exhibitions & Brand Experiences](https://moalagab.art/en/services/experiential): creative concepts, booth and interactive space design, creative and technical direction, production coordination and on-site execution.
+- [Brand & Creative Solutions](https://moalagab.art/en/services/brand): strategy, positioning, visual identities, communication systems, campaigns and marketing materials.
+- [Business & Operations Solutions](https://moalagab.art/en/services/operations): workflow mapping, standard operating procedures (SOPs), project management, follow-up and performance measurement.
 
 ## Key pages
 

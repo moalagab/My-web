@@ -28,7 +28,7 @@ const ServicesPage = () => {
               {copy.eyebrow}
             </Eyebrow>
             <h1 className="mt-6 max-w-4xl text-balance font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              {copy.title}
+              <span dir="ltr">{copy.title}</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/80">
               {copy.body}
@@ -71,6 +71,9 @@ const ServicesPage = () => {
                     >
                       {line.title}
                     </h2>
+                    <p className="mt-4 font-display text-xl font-bold text-accent">
+                      {line.tagline}
+                    </p>
                     <p className="mt-6 text-lg leading-8 text-muted-foreground">
                       {line.what}
                     </p>

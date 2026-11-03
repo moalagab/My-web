@@ -24,15 +24,15 @@ import { siteSettings } from "@/lib/site-content";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
-type ServiceKey = "brand" | "digital" | "ai" | "experiential" | "unsure";
+type ServiceKey = "digital" | "experiential" | "brand" | "operations" | "unsure";
 type BudgetKey = "lt5k" | "5to10k" | "10to25k" | "gt25k" | "undecided";
 type TimelineKey = "month" | "1to3" | "flexible";
 
 const SERVICE_KEYS: ServiceKey[] = [
-  "brand",
   "digital",
-  "ai",
   "experiential",
+  "brand",
+  "operations",
   "unsure",
 ];
 const BUDGET_KEYS: BudgetKey[] = [
