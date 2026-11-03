@@ -5,6 +5,7 @@
   },
   "navigation": {
     "label": "Primary navigation",
+    "footerLabel": "Footer navigation",
     "home": "Home",
     "work": "Work",
     "services": "Services",

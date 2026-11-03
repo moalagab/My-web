@@ -8,7 +8,7 @@ import { track } from "@/lib/analytics";
  * Navy bar that opens the page, as on Folioblox: wordmark, links grouped at
  * the end with a services dropdown, a language pill and the start pill with
  * its sliding arrow, laid out with the wordmark at the end. It stays fixed
- * and transparent; its text turns navy over light sections and light over
+ * and transparent; each item turns navy over light sections and light over
  * navy ones. On phones it expands downward into large links.
  */
 export default function Navigation() {
@@ -17,7 +17,6 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [onLight, setOnLight] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLLIElement>(null);
   const closeTimer = useRef(0);
@@ -64,27 +63,29 @@ export default function Navigation() {
     };
   }, []);
 
-  // Reads the background just under the bar so its text stays legible on any section.
+  // Each item in the bar reads the background right behind it, so a link over a light band turns
+  // navy while its neighbour over a navy band stays light.
   useEffect(() => {
     let frame = 0;
+    const isLightAt = (x: number, y: number, bar: HTMLElement) => {
+      let el = document.elementsFromPoint(x, y).find((node) => !bar.contains(node)) as HTMLElement | undefined;
+      while (el) {
+        const [r, g, b, a = 1] = (getComputedStyle(el).backgroundColor.match(/[\d.]+/g) ?? []).map(Number);
+        if (a > 0.5) return 0.2126 * r + 0.7152 * g + 0.0722 * b > 140;
+        el = el.parentElement ?? undefined;
+      }
+      return true;
+    };
     const update = () => {
       frame = 0;
       setScrolled(window.scrollY > 8);
       const bar = headerRef.current;
       if (!bar) return;
-      const y = bar.offsetHeight + 1;
-      let el = document
-        .elementsFromPoint(window.innerWidth / 2, y)
-        .find((node) => !bar.contains(node)) as HTMLElement | undefined;
-      while (el) {
-        const [r, g, b, a = 1] = (getComputedStyle(el).backgroundColor.match(/[\d.]+/g) ?? []).map(Number);
-        if (a > 0.5) {
-          setOnLight(0.2126 * r + 0.7152 * g + 0.0722 * b > 140);
-          return;
-        }
-        el = el.parentElement ?? undefined;
-      }
-      setOnLight(true);
+      bar.querySelectorAll<HTMLElement>(".studio-wordmark > span:not(.sr-only), .nav-link, .nav-pill, .nav-burger").forEach((item) => {
+        const box = item.getBoundingClientRect();
+        if (!box.width) return;
+        item.dataset.tone = isLightAt(box.left + box.width / 2, box.top + box.height / 2, bar) ? "light" : "dark";
+      });
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -138,7 +139,7 @@ export default function Navigation() {
       </a>
       <header
         ref={headerRef}
-        className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""} ${onLight && !menuOpen ? "is-light" : ""}`}
+        className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""}`}
       >
         <nav className="header-inner" aria-label={d.navigation.label}>
           <button

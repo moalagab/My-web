@@ -258,12 +258,10 @@ const ProjectDetailPage = () => {
 
         <Section className="bg-background">
           <SectionInner>
-            <div className="border border-border bg-card p-8 md:p-12">
-              <Eyebrow>{copy.similar.eyebrow}</Eyebrow>
-              <h2 className="mt-4 font-display text-3xl font-bold md:text-4xl">
-                {copy.similar.title}
-              </h2>
-              <p className="mt-4 max-w-2xl leading-8 text-muted-foreground">
+            <div className="folio-cta" data-reveal>
+              <p className="studio-eyebrow">{copy.similar.eyebrow}</p>
+              <h2>{copy.similar.title}</h2>
+              <p>
                 {matchedPackage
                   ? copy.similar.body
                   : lang === "ar"
@@ -271,46 +269,40 @@ const ProjectDetailPage = () => {
                     : "Share your project context and the outcome you need. We will define the right scope before we start."}
               </p>
               {matchedPackage ? (
-                <div className="mt-8 border-t border-border pt-6">
-                  <p className="eyebrow text-xs text-muted-foreground">
-                    {copy.similar.packageLabel}
-                  </p>
-                  <p className="mt-3 font-display text-xl font-bold" dir="ltr">
-                    {project.nextService}
-                  </p>
+                <div className="folio-cta-package">
+                  <p>{copy.similar.packageLabel}</p>
+                  <strong dir="ltr">{project.nextService}</strong>
                   {matchedPackage ? (
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
+                    <p>
                       {matchedPackage.scope}{" "}
                       <span dir="ltr">({matchedPackage.timeline})</span>
                     </p>
                   ) : null}
                 </div>
               ) : null}
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg">
-                  <Link
-                    to={`${prefix}/start?service=${project.serviceLine}${matchedPackage ? `&package=${encodeURIComponent(matchedPackage.name)}` : ""}`}
-                  >
-                    {copy.similar.cta}
-                    <ArrowUpRight className={arrowClass} />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link to={`${prefix}/services/${project.serviceLine}`}>
-                    {copy.similar.details}
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <a
-                    href={whatsapp.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => whatsapp.onClick("case_study")}
-                  >
-                    <MessageCircle aria-hidden="true" />
-                    {dictionary.ui.whatsapp.button}
-                  </a>
-                </Button>
+              <div className="folio-actions">
+                <Link
+                  to={`${prefix}/start?service=${project.serviceLine}${matchedPackage ? `&package=${encodeURIComponent(matchedPackage.name)}` : ""}`}
+                  className="nav-pill nav-pill--solid"
+                >
+                  <span>{copy.similar.cta}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight size={18} className={arrowClass} />
+                  </span>
+                </Link>
+                <Link to={`${prefix}/services/${project.serviceLine}`} className="nav-pill nav-pill--outline">
+                  {copy.similar.details}
+                </Link>
+                <a
+                  href={whatsapp.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => whatsapp.onClick("case_study")}
+                  className="nav-pill nav-pill--outline"
+                >
+                  <MessageCircle size={16} aria-hidden="true" />
+                  {dictionary.ui.whatsapp.button}
+                </a>
               </div>
             </div>
 

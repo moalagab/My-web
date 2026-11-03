@@ -5,6 +5,7 @@
   },
   "navigation": {
     "label": "التنقل الرئيسي",
+    "footerLabel": "روابط التذييل",
     "home": "الرئيسية",
     "work": "الأعمال",
     "services": "الخدمات",
@@ -292,10 +293,10 @@
   "caseStudy": {
     "back": "العودة للأعمال",
     "summary": {
-      "client": "Client",
-      "year": "Year",
-      "role": "Role",
-      "deliverables": "Deliverables",
+      "client": "العميل",
+      "year": "السنة",
+      "role": "الدور",
+      "deliverables": "المخرجات",
       "hiddenClient": "غير معلن"
     },
     "sections": {

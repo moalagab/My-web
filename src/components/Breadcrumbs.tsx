@@ -71,7 +71,7 @@ const Breadcrumbs = ({ customItems }: BreadcrumbsProps) => {
                   {item.label}
                 </span>
               ) : (
-                <Link to={item.path} className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground">
+                <Link to={item.path} className="flex min-h-11 items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground">
                   {index === 0 && <Home className="h-4 w-4" aria-hidden="true" />}
                   <span>{item.label}</span>
                 </Link>

@@ -324,14 +324,15 @@ html[lang="ar"] .studio-eyebrow {
 /* The bar never has a background (only the open phone menu turns navy); its text turns navy over light sections. */
 .studio-header.is-open { background: hsl(var(--primary)); }
 .studio-header.is-scrolled .header-inner { height: 72px; }
-.studio-header.is-light { color: hsl(var(--primary)); }
-.studio-header.is-light .nav-link { color: hsl(var(--primary)); }
-.studio-header.is-light .nav-pill--outline { color: hsl(var(--primary)); border-color: hsl(var(--primary) / 0.25); }
-.studio-header.is-light .nav-pill--outline:hover { border-color: hsl(var(--primary)); }
-.studio-header.is-light .nav-pill--solid:not(:hover) { background: hsl(var(--primary)); color: hsl(var(--secondary)); }
-.studio-header.is-light .nav-pill--solid:not(:hover) .nav-pill-dot { background: hsl(var(--secondary)); color: hsl(var(--primary)); }
-.studio-header.is-light .nav-burger span { background: hsl(var(--primary)); }
-.studio-header.is-light .wordmark-dot { color: hsl(var(--accent)); }
+.studio-header:not(.is-open) .studio-wordmark > [data-tone="light"],
+.studio-header:not(.is-open) .nav-link[data-tone="light"] { color: hsl(var(--primary)); }
+.studio-header:not(.is-open) .nav-pill--outline[data-tone="light"] { color: hsl(var(--primary)); border-color: hsl(var(--primary) / 0.25); }
+.studio-header:not(.is-open) .nav-pill--outline[data-tone="light"]:hover { border-color: hsl(var(--primary)); }
+.studio-header:not(.is-open) .nav-pill--solid[data-tone="light"]:not(:hover) { background: hsl(var(--primary)); color: hsl(var(--secondary)); }
+.studio-header:not(.is-open) .nav-pill--solid[data-tone="light"]:not(:hover) .nav-pill-dot { background: hsl(var(--secondary)); color: hsl(var(--primary)); }
+.studio-header:not(.is-open) .nav-burger[data-tone="light"] span { background: hsl(var(--primary)); }
+.studio-header:not(.is-open) .studio-wordmark > [data-tone="light"] .wordmark-dot { color: hsl(var(--accent)); }
+.studio-wordmark > span, .nav-link, .nav-burger span { transition: color 0.3s ease, background 0.3s ease; }
 /* Over the hero image a soft navy veil sits behind the bar so the links never rest on the photo. */
 .folio-hero::after { content: ""; position: absolute; inset: 0 0 auto; height: 180px; z-index: -1; pointer-events: none; background: linear-gradient(hsl(var(--primary) / 0.7), hsl(var(--primary) / 0)); }
 .header-inner {
@@ -883,6 +884,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .footer-middle nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-content: start;
   gap: 0 14px;
   font-size: 13px;
 }
@@ -896,7 +898,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 .footer-social {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
   font-size: 13px;
 }
 .footer-social a {
@@ -2557,7 +2559,7 @@ html[dir="rtl"] .stat-card strong { text-align: right; }
 .step-row h3 { display: flex; flex-direction: column; gap: 4px; font-size: 22px; font-weight: 700; }
 .step-row h3 span { font-size: 13px; font-weight: 500; color: hsl(var(--accent)); }
 .step-row p { font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
-.section-intro { font-weight: 600; }
+.section-intro { font-weight: 500; }
 @media (max-width: 900px) {
   .bento { grid-template-columns: 1fr; }
   .bento-card { min-height: 420px; }
@@ -2686,3 +2688,27 @@ html[lang="ar"] .studio-cta h2 { letter-spacing: 0; line-height: 1.4; }
   .start-page form { padding: 28px 22px; border-radius: 24px; }
   .start-contact { border-radius: 24px; padding: 24px; }
 }
+
+/* Readability floor from the site audit: no visible text under 12px, every tap target at least 44px. */
+.lt-explorer-heading > span, .lt-connected, .lt-concept-top, .about-impact-stack, .about-method li span { font-size: 12px; }
+.lt-tab { font-size: 13px; }
+.folio-cta-mail { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 800px) {
+  .lt-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lt-tab { font-size: 12px; min-height: 64px; }
+  .lt-connected, .lt-facts > span { font-size: 12px; }
+  /* On phones the product mock sits above the text instead of under it, so the title stays on navy. */
+  .bento-card--image { flex-direction: column; align-items: stretch; }
+  .bento-card--image .bento-media { position: relative; inset: auto; margin: 20px 20px 0; height: 240px; }
+}
+@media (max-width: 800px) {
+  /* Stacked headings: the side text takes only its own height (its 26rem basis is a width on desktop). */
+  .section-heading > :first-child, .section-heading > .section-side { flex: none; }
+  .bento-card--accent { min-height: 0; }
+}
+/* English labels on Arabic pages ("05 / THE PERSON BEHIND THE WORK") keep their own word order, still aligned right. */
+html[dir="rtl"] .studio-eyebrow:not(:has(> *)) { display: block; unicode-bidi: plaintext; text-align: right; }
+.folio-cta-package { display: grid; gap: 6px; justify-items: center; margin-top: 8px; padding-top: 20px; border-top: 1px solid hsl(var(--secondary) / 0.2); }
+.folio-cta-package > p:first-child { font-size: 13px; letter-spacing: 0.04em; color: hsl(var(--muted)); }
+.folio-cta-package strong { font-size: 22px; font-weight: 800; }
+.agent-core, .agent-core > span { color: hsl(var(--accent-foreground)); opacity: 1; font-size: 12px; }

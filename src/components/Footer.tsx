@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
         <div className="footer-middle">
           <p>{d.footer.statement}</p>
-          <nav aria-label={d.navigation.label}>
+          <nav aria-label={d.navigation.footerLabel}>
             {links.map(([l, p]) => (
               <Link key={p} to={to(p)}>
                 {l}
