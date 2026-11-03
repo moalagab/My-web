@@ -3494,3 +3494,48 @@ html[lang="ar"] .hero-brand .cinematic-portrait::after {
 .portfolio-collection .portfolio-main-image,
 .portfolio-collection .portfolio-detail-image { background: transparent; box-shadow: none; }
 .portfolio-collection .portfolio-stage { padding: 0; }
+
+/* Scroll-driven 3D hero (src/components/home/ScrollHero.tsx): the section pins while the spacer scrolls. */
+.hero-track { position: relative; }
+.hero-track > .studio-hero { position: sticky; top: var(--hero-stick, 0px); min-height: 100svh; }
+.hero-spacer { height: 150vh; }
+.hero-brand .hero-visual::before { content: none; }
+.hero-brand .hero-visual img,
+.hero-brand .hero-visual canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; filter: none; mask-image: none;
+}
+html[lang="en"] .hero-brand .hero-visual img,
+html[lang="en"] .hero-brand .hero-visual canvas { left: 0; transform: scaleX(-1); }
+.hero-paths {
+  position: absolute; z-index: 3; inset-inline-start: 72px; bottom: 215px;
+  display: grid; grid-template-columns: repeat(2, max-content); gap: 0 36px;
+  list-style: none; margin: 0; padding: 0;
+}
+.hero-paths a {
+  display: flex; align-items: center; gap: 10px; min-height: 44px;
+  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: hsl(var(--secondary) / .7); border-bottom: 1px solid transparent;
+  transition: color .3s ease, border-color .3s ease;
+}
+.hero-paths a > span:first-child { color: hsl(var(--muted)); }
+.hero-paths a:hover,
+[data-path="0"] .hero-paths li:nth-child(1) a,
+[data-path="1"] .hero-paths li:nth-child(2) a,
+[data-path="2"] .hero-paths li:nth-child(3) a,
+[data-path="3"] .hero-paths li:nth-child(4) a,
+[data-path="all"] .hero-paths a,
+.hero-track[data-still] .hero-paths a { color: hsl(var(--secondary)); border-color: currentColor; }
+.hero-track[data-still] .hero-spacer { display: none; }
+.hero-track[data-still] > .studio-hero { position: relative; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-spacer, .hero-visual canvas { display: none; }
+  .hero-track > .studio-hero { position: relative; }
+  .hero-paths a { color: hsl(var(--secondary)); border-color: currentColor; transition: none; }
+}
+@media (max-width: 640px) {
+  .hero-spacer { height: 100vh; }
+  .hero-brand .hero-visual img,
+  .hero-brand .hero-visual canvas { height: 530px; }
+  .hero-paths { display: none; }
+}

@@ -11,7 +11,7 @@ import PageMeta from "@/components/PageMeta";
 import { Link } from "react-router";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import heroPortrait from "@/assets/portrait-mo-unified.webp";
+import ScrollHero from "@/components/home/ScrollHero";
 import ProductVisual from "@/components/studio/ProductVisual";
 import {
   Accordion,
@@ -49,11 +49,19 @@ export default function HomePage() {
       />
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="studio-hero cinematic-hero hero-brand" data-no-reveal>
-          <div className="cinematic-portrait" aria-hidden="true">
-            <Picture src={heroPortrait} sizes="(min-width: 1024px) 60vw, 100vw" alt="" fetchPriority="high" decoding="async" />
-          </div>
+        <ScrollHero className="studio-hero cinematic-hero hero-brand">
           <div className="cinematic-side-note" dir="ltr" aria-hidden="true">MO ALAGAB / INDEPENDENT PRACTICE</div>
+          {/* Lights up with the module that faces the camera, all four once they lock together. */}
+          <ol className="hero-paths">
+            {h.services.items.map((s, i) => (
+              <li key={s.slug}>
+                <Link to={`${prefix}/services/${s.slug}`}>
+                  <span dir="ltr">0{i + 1}</span>
+                  <span dir="ltr">{h.hero.pills[i]}</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
           <div className="studio-container hero-grid">
             <div className="hero-copy">
               <p className="hero-profile-index" dir="ltr"><span>01 / PROFILE</span><span>DESIGN × SYSTEMS</span></p>
@@ -100,7 +108,7 @@ export default function HomePage() {
               <ArrowDown size={18} />
             </a>
           </div>
-        </section>
+        </ScrollHero>
         <section
           className="studio-proof"
           aria-label={h.proof.label}
