@@ -27,7 +27,7 @@ export default function FaqPage() {
       />
       <Navigation />
       <main>
-        <PageHero compact eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.intro}</p>} />
+        <PageHero compact image="/work/media/mono-ribbon.webp" eyebrow={copy.eyebrow} title={copy.title} side={<p>{copy.intro}</p>} />
 
         {groups.map((group, g) => (
           <section key={group.label} className={`studio-section ${g % 2 === 1 ? "service-line--tint" : ""}`} aria-labelledby={`group-${g}`}>

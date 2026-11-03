@@ -2751,7 +2751,7 @@ html[dir="rtl"] .studio-eyebrow:not(:has(> *)) { display: block; unicode-bidi: p
 
     /* The hero sinks back as you leave it: the photo drifts and grows, the words lift and fade. */
     .folio-hero-media { animation: hero-drift linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
-    .folio-hero-inner { animation: hero-lift linear both; animation-timeline: scroll(root); animation-range: 25vh 100vh; }
+    .folio-hero-inner, .mono-hero-inner { animation: hero-lift linear both; animation-timeline: scroll(root); animation-range: 25vh 100vh; }
     @keyframes hero-drift { to { transform: translateY(22%) scale(1.08); } }
     @keyframes hero-lift { to { opacity: 0.15; transform: translateY(-48px); } }
 
@@ -3024,3 +3024,154 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
 .about-principles-list > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .svc-tile-number { padding: 6px 12px; border-radius: 30px; background: hsl(var(--background) / 0.92); color: hsl(var(--primary)); top: 20px; }
 .about-paragraphs p { font-size: 17px; line-height: 1.85; }
+
+/* ===========================================================================
+   Editorial theme (after monomode's anniversary site, in Mo's identity):
+   paper grain, glossy spheres drifting behind the page, headlines in a
+   high-contrast display serif (Amiri for Arabic, Bodoni Moda for Latin),
+   light pages broken by a deep navy band, giant words that slide on scroll.
+   =========================================================================== */
+@font-face {
+  font-family: "Mo Display"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/fonts/Amiri-Bold-subset.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+}
+@font-face {
+  font-family: "Mo Display"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/fonts/BodoniModa-Variable.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+:root { --display: "Mo Display", "Lama", serif; --copper: 22 48% 60%; }
+
+/* Paper grain over everything, very fine. */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: 0.09; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Spheres behind the page; light sections let them through. */
+.ambient { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+main, .studio-footer { position: relative; z-index: 1; }
+main .studio-section:not(.mono-dark):not(.studio-process):not(.service-line--tint):not(.about-principles) { background-color: transparent; }
+.orb { position: absolute; border-radius: 50%; filter: blur(26px); opacity: 0.75; translate: calc(var(--px, 0) * var(--pull, 40px)) calc(var(--py, 0) * var(--pull, 40px)); }
+.orb--navy { width: 30vw; height: 30vw; top: 34vh; inset-inline-end: -12vw; --pull: 60px; background: radial-gradient(circle at 34% 30%, hsl(214 45% 62%), hsl(214 34% 28%) 52%, hsl(214 42% 14%) 82%); }
+.orb--mist { width: 22vw; height: 22vw; bottom: -6vw; inset-inline-start: -5vw; --pull: 30px; background: radial-gradient(circle at 36% 32%, hsl(0 0% 100%), hsl(207 40% 84%) 45%, hsl(206 26% 58%) 85%); }
+.orb--copper { width: 13vw; height: 13vw; bottom: 6vh; inset-inline-end: 22vw; --pull: 80px; background: radial-gradient(circle at 34% 30%, hsl(28 80% 86%), hsl(var(--copper)) 50%, hsl(18 46% 36%) 86%); }
+.orb--slate { width: 8vw; height: 8vw; top: 38vh; inset-inline-start: 4vw; --pull: 100px; background: radial-gradient(circle at 34% 30%, hsl(207 30% 86%), hsl(206 22% 45%) 55%, hsl(214 34% 22%) 90%); }
+@media (prefers-reduced-motion: no-preference) {
+  .orb { animation: orb-drift 26s ease-in-out infinite alternate; }
+  .orb--mist { animation-duration: 32s; animation-delay: -8s; }
+  .orb--copper { animation-duration: 21s; animation-delay: -4s; }
+  .orb--slate { animation-duration: 18s; animation-delay: -12s; }
+  @keyframes orb-drift { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-3vw, 4vh) scale(1.06); } 100% { transform: translate(2vw, -3vh) scale(0.96); } }
+}
+@media (max-width: 800px) {
+  .orb--navy { width: 56vw; height: 56vw; } .orb--mist { width: 44vw; height: 44vw; } .orb--copper { width: 26vw; height: 26vw; } .orb--slate { width: 16vw; height: 16vw; }
+}
+
+/* Display serif for headlines; Lama Sans stays for everything else. */
+html[lang] :is(.folio-title, .section-heading h2, .studio-cta h2, .folio-cta h2, .curve-head h2, .svc-line-body h2, .about-section-heading h2,
+.svc-qa-aside h2, .lt-intro h2, .featured-row-body h3, .project-card-body h3, .about-closing h2, .mono-words span) {
+  font-family: var(--display); font-weight: 500; letter-spacing: -0.015em;
+}
+html[lang="ar"] :is(.folio-title, .section-heading h2, .studio-cta h2, .folio-cta h2, .curve-head h2, .svc-line-body h2, .about-section-heading h2, .svc-qa-aside h2, .lt-intro h2, .featured-row-body h3, .project-card-body h3, .about-closing h2, .mono-words span) {
+  font-weight: 700; letter-spacing: 0;
+}
+.section-heading h2 { font-size: clamp(40px, 5.2vw, 84px); line-height: 1.02; }
+html[lang="ar"] .section-heading h2 { line-height: 1.4; }
+
+/* Home hero: the title as the whole opening, a ruled line of years, then the portrait, the promise and the four lines. */
+.mono-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding: 140px 0 56px; }
+.mono-hero-inner { width: 100%; }
+.mono-hero-title { margin: 0; font-size: clamp(60px, 9.6vw, 178px); line-height: 0.95; color: hsl(var(--foreground)); }
+html[lang="ar"] .mono-hero-title { font-size: clamp(60px, 10.5vw, 196px); line-height: 1.22; }
+.mono-hero-title span { display: block; }
+.mono-hero-title span:nth-child(2) { padding-inline-start: 14vw; }
+.mono-hero-rule { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 24px; align-items: center; margin-top: 40px; padding-top: 14px; border-top: 1px solid hsl(var(--foreground) / 0.8); font-size: 14px; }
+.mono-hero-rule span { font-family: var(--display); font-size: 18px; font-style: italic; }
+.mono-hero-rule p { text-align: center; }
+.mono-hero-foot { display: grid; grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(24px, 4vw, 64px); align-items: end; margin-top: 40px; }
+.mono-hero-portrait { overflow: hidden; aspect-ratio: 3 / 4; border-radius: 26px; background: hsl(var(--primary)); }
+.mono-hero-portrait picture, .mono-hero-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 80% 30%; }
+.mono-hero .folio-hero-side { margin: 0; }
+.mono-hero .folio-hero-side p { color: hsl(var(--muted-foreground)); font-size: 17px; }
+.mono-hero .folio-hero-side .nav-pill { margin-top: 22px; }
+.mono-hero .folio-disciplines { margin: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 28px; }
+.mono-hero .folio-disciplines span:first-child { color: hsl(var(--accent)); font-family: var(--display); font-style: italic; font-size: 16px; }
+.mono-hero .folio-disciplines a { color: hsl(var(--foreground)); border-top: 1px solid hsl(var(--primary) / 0.2); padding-top: 12px; }
+@media (max-width: 900px) {
+  .mono-hero { padding-top: 120px; }
+  .mono-hero-title span:nth-child(2) { padding-inline-start: 8vw; }
+  .mono-hero-rule { grid-template-columns: auto auto; } .mono-hero-rule p { grid-column: 1 / -1; grid-row: 2; text-align: start; }
+  .mono-hero-foot { grid-template-columns: 120px minmax(0, 1fr); }
+  .mono-hero .folio-disciplines { grid-column: 1 / -1; }
+}
+
+/* Inner pages: the same opening, with the page's picture in a rounded frame beside the title. */
+.mono-page-hero { position: relative; min-height: 0; padding: 150px 0 64px; color: hsl(var(--foreground)); background: none; }
+.mono-page-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: end; }
+.mono-page-hero--media .mono-page-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); }
+.mono-page-head .folio-eyebrow { color: hsl(var(--accent)); font-size: 16px; }
+.mono-page-head .folio-title { margin-top: 16px; font-size: clamp(48px, 7vw, 124px); line-height: 1; }
+html[lang="ar"] .mono-page-head .folio-title { line-height: 1.35; }
+.mono-page-head .folio-title span { display: block; }
+.mono-page-head .folio-hero-side { margin-top: 26px; max-width: 34rem; }
+.mono-page-head .folio-hero-side p, .mono-page-head .folio-hero-side { color: hsl(var(--muted-foreground)); font-size: 18px; line-height: 1.75; }
+.mono-page-head .folio-hero-side strong { display: block; margin-bottom: 8px; color: hsl(var(--foreground)); }
+.mono-page-media { overflow: hidden; aspect-ratio: 4 / 5; border-radius: 34px; background: hsl(var(--primary)); }
+.mono-page-media picture, .mono-page-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 50%); }
+.mono-page-hero .folio-page-meta { margin-top: 36px; padding-top: 20px; border-top: 1px solid hsl(var(--primary) / 0.18); color: hsl(var(--foreground)); }
+.mono-page-hero .folio-page-meta dt { color: hsl(var(--accent)); }
+.mono-page-hero .folio-page-meta dd { color: hsl(var(--foreground)); }
+.mono-page-hero .folio-chips a, .mono-page-hero .nav-pill--outline { color: hsl(var(--primary)); border-color: hsl(var(--primary) / 0.25); }
+.mono-page-hero .folio-chips a:hover, .mono-page-hero .nav-pill--outline:hover { border-color: hsl(var(--primary)); background: hsl(var(--primary) / 0.05); }
+.mono-page-hero .folio-pill { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+.mono-page-hero.folio-hero--compact { padding-bottom: 32px; }
+@media (max-width: 900px) {
+  .mono-page-hero { padding-top: 120px; }
+  .mono-page-hero--media .mono-page-grid { grid-template-columns: 1fr; }
+  .mono-page-media { aspect-ratio: 16 / 11; border-radius: 24px; }
+}
+
+/* Client logos sit on the paper between two rules. */
+.client-band { margin-top: 0; padding-block: 36px; background: none; border-radius: 0; border-block: 1px solid hsl(var(--primary) / 0.14); }
+
+/* Giant words that slide apart as they pass. */
+.mono-words { position: relative; z-index: 1; overflow: hidden; padding-block: 40px 24px; color: hsl(var(--foreground)); }
+.mono-words span { display: block; white-space: nowrap; font-size: clamp(88px, 17vw, 320px); line-height: 0.92; }
+html[lang="ar"] .mono-words span { line-height: 1.15; }
+.mono-words span:last-child { text-align: end; }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .mono-words span:first-child { animation: words-left linear both; animation-timeline: view(); animation-range: cover; }
+    .mono-words span:last-child { animation: words-right linear both; animation-timeline: view(); animation-range: cover; }
+    @keyframes words-left { from { transform: translateX(14vw); } to { transform: translateX(-14vw); } }
+    @keyframes words-right { from { transform: translateX(-14vw); } to { transform: translateX(14vw); } }
+  }
+}
+
+/* The deep navy band. */
+.mono-dark {
+  position: relative; z-index: 1; margin-inline: clamp(8px, 1.4vw, 22px); border-radius: clamp(28px, 4vw, 56px);
+  background: hsl(var(--primary)); color: hsl(var(--secondary));
+}
+.mono-dark .section-heading h2, .mono-dark h3 { color: hsl(var(--secondary)); }
+.mono-dark .studio-eyebrow { color: hsl(var(--muted)); }
+.mono-dark .section-intro { color: hsl(var(--secondary) / 0.85); }
+.mono-dark .studio-text-link { background: hsl(var(--secondary)); color: hsl(var(--primary)); }
+.mono-dark .studio-text-link svg { background: hsl(var(--primary)); color: hsl(var(--secondary)); }
+.mono-dark .service-card > a { background: hsl(var(--secondary) / 0.07); color: hsl(var(--secondary)); }
+.mono-dark .service-card > a:hover { background: hsl(var(--secondary) / 0.12); }
+.mono-dark .service-card-tagline { color: hsl(var(--secondary) / 0.92); }
+.mono-dark .service-card-value { color: hsl(var(--secondary) / 0.8); }
+html[lang] .mono-dark .service-card h3 { font-family: var(--display); font-weight: 500; font-size: clamp(28px, 2.6vw, 40px); }
+html[lang="ar"] .mono-dark .service-card h3 { font-weight: 700; }
+
+/* Work rows and project cards: the names in the display serif, images in deeper rounded frames. */
+.featured-row-media, .project-card-media { border-radius: 34px; }
+.featured-row-body h3 { font-size: clamp(32px, 3.4vw, 54px); }
+/* Project pages: covers are landscape, so the frame is too. */
+.mono-page-hero--wide .mono-page-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.mono-page-hero--wide .mono-page-media { aspect-ratio: 4 / 3; }
+@media (max-width: 900px) { .mono-page-hero--wide .mono-page-grid { grid-template-columns: 1fr; } }
+html[dir="rtl"] .mono-page-head .folio-title [dir="ltr"] { display: block; text-align: right; }

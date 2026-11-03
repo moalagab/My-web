@@ -4,10 +4,9 @@ import Picture from "@/components/Picture";
 type Meta = { label: string; value: ReactNode };
 
 /**
- * Inner-page hero in the home hero's system (after Folioblox): an image from
- * Mo's work behind a navy fade, a light-blue label, a huge title, a short
- * side line, and optional details or actions along the bottom. Without an
- * image it is plain navy.
+ * Inner-page hero, editorial: a small label, the title set large in the
+ * display serif, a short side line and optional details or actions; when the
+ * page has an image it sits beside the words in a rounded frame.
  */
 export default function PageHero({
   eyebrow,
@@ -35,41 +34,37 @@ export default function PageHero({
 }) {
   return (
     <section
-      className={`folio-hero folio-hero--page ${image ? "" : "folio-hero--plain"} ${compact ? "folio-hero--compact" : ""}`}
+      className={`folio-hero--page mono-page-hero ${image ? "mono-page-hero--media" : ""} ${mediaName ? "mono-page-hero--wide" : ""} ${compact ? "folio-hero--compact" : ""}`}
       data-no-reveal
     >
-      {image && (
-        <div
-          className="folio-hero-media folio-hero-media--work"
-          aria-hidden="true"
-          style={{ ...(focus ? { "--focus": focus } : {}), ...(mediaName ? { viewTransitionName: mediaName } : {}) } as React.CSSProperties}
-        >
-          <Picture src={image} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
-        </div>
-      )}
-      <div className="studio-container folio-hero-inner">
-        <div className="folio-page-head">
-          <div>
-            <p className="folio-eyebrow">{eyebrow}</p>
-            <h1 className="folio-title">{title}</h1>
-          </div>
+      <div className="studio-container mono-page-grid">
+        <div className="mono-page-head">
+          <p className="folio-eyebrow">{eyebrow}</p>
+          <h1 className="folio-title">{title}</h1>
           {side && <div className="folio-hero-side">{side}</div>}
+          {(meta || actions) && (
+            <div className="folio-page-meta">
+              {meta && (
+                <dl>
+                  {meta.map((m) => (
+                    <div key={m.label}>
+                      <dt>{m.label}</dt>
+                      <dd>{m.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              {actions}
+            </div>
+          )}
         </div>
-        {(meta || actions) && (
-          <div className="folio-page-meta">
-            {meta && (
-              <dl>
-                {meta.map((m) => (
-                  <div key={m.label}>
-                    <dt>
-                      <span aria-hidden="true">#</span> {m.label}
-                    </dt>
-                    <dd>{m.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-            {actions}
+        {image && (
+          <div
+            className="mono-page-media"
+            aria-hidden="true"
+            style={{ ...(focus ? { "--focus": focus } : {}), ...(mediaName ? { viewTransitionName: mediaName } : {}) } as React.CSSProperties}
+          >
+            <Picture src={image} sizes="(min-width: 1000px) 42vw, 100vw" alt="" fetchPriority="high" decoding="async" />
           </div>
         )}
       </div>

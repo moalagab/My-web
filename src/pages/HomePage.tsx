@@ -50,42 +50,50 @@ export default function HomePage() {
       />
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="folio-hero" data-no-reveal>
-          <div className="folio-hero-media" aria-hidden="true">
-            <Picture src={heroPortrait} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
-          </div>
-          <div className="studio-container folio-hero-inner">
-            <div className="folio-hero-head">
-              <div>
-                <p className="folio-eyebrow">{ar ? "محمد العجب —" : "Mohammed Alagab —"}</p>
-                <h1 className="folio-title">
-                  {title.map((line) => (
-                    <span key={line}>{line}</span>
-                  ))}
-                </h1>
+        <section className="mono-hero">
+          <div className="studio-container mono-hero-inner">
+            <h1 className="folio-title mono-hero-title">
+              {title.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </h1>
+            <div className="mono-hero-rule">
+              <span dir="ltr">2013</span>
+              <p>
+                {ar
+                  ? "محمد العجب، مصمم علامات وباني منتجات بالذكاء الاصطناعي، من الرياض"
+                  : "Mohammed Alagab, brand designer and AI product builder in Riyadh"}
+              </p>
+              <span dir="ltr">2026</span>
+            </div>
+            <div className="mono-hero-foot">
+              <div className="mono-hero-portrait" aria-hidden="true">
+                <Picture src={heroPortrait} sizes="(min-width: 900px) 22vw, 60vw" alt="" fetchPriority="high" decoding="async" />
               </div>
               <div className="folio-hero-side">
                 <p>{h.hero.body}</p>
                 <Link
                   to={`${prefix}/start`}
-                  className="nav-pill folio-pill"
+                  className="nav-pill nav-pill--solid"
                   onClick={() => track("cta_start_click", { location: "hero" })}
                 >
-                  {h.hero.primary}
-                  <ArrowUpRight className={arrow} size={16} />
+                  <span>{h.hero.primary}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight className={arrow} size={18} />
+                  </span>
                 </Link>
               </div>
+              <ol className="folio-disciplines">
+                {h.services.items.map((s, i) => (
+                  <li key={s.slug}>
+                    <Link viewTransition to={`${prefix}/services/${s.slug}`}>
+                      <span dir="ltr">#0{i + 1}</span>
+                      <span dir="ltr">{h.hero.pills[i]}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <ol className="folio-disciplines">
-              {h.services.items.map((s, i) => (
-                <li key={s.slug}>
-                  <Link viewTransition to={`${prefix}/services/${s.slug}`}>
-                    <span dir="ltr">#0{i + 1}</span>
-                    <span dir="ltr">{h.hero.pills[i]}</span>
-                  </Link>
-                </li>
-              ))}
-            </ol>
           </div>
         </section>
         <ClientMarquee />
@@ -116,7 +124,11 @@ export default function HomePage() {
           </div>
         </section>
         <CurvedGallery />
-        <section className="studio-section studio-services" id="services">
+        <div className="mono-words" aria-hidden="true">
+          <span>{ar ? "ما أقدّمه" : "What I do"}</span>
+          <span>{ar ? "حلول تعمل" : "Solutions"}</span>
+        </div>
+        <section className="studio-section studio-services mono-dark" id="services">
           <div className="studio-container">
             <div className="section-heading">
               <div>

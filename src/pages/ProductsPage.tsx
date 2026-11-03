@@ -44,7 +44,7 @@ export default function ProductsPage() {
       <Navigation />
       <main className="products-page" id="main-content">
         <PageHero
-          image="/work/media/products-devices.webp"
+          image="/work/media/mono-rings.webp"
           eyebrow="PRODUCTS / BUILT TO WORK"
           title={title}
           side={

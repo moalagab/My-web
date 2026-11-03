@@ -104,7 +104,7 @@ test("reduced motion keeps the hero still on scroll and hides the progress bar",
   const page = await context.newPage();
   await page.goto("/en");
   await page.evaluate(() => scrollTo(0, 500));
-  await expect(page.locator(".folio-hero-inner")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".mono-hero-inner")).toHaveCSS("opacity", "1");
   await expect(page.locator(".scroll-progress")).toBeHidden();
   await context.close();
 });

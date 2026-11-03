@@ -21,7 +21,7 @@ const ServicesPage = () => {
       <Navigation />
       <main className="services-page">
         <PageHero
-          image="/work/media/service-digital.webp"
+          image="/work/media/mono-spheres.webp"
           eyebrow={copy.eyebrow}
           title={<span dir="ltr">{copy.title}</span>}
           side={<p>{copy.body}</p>}
