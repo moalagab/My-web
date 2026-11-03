@@ -5,9 +5,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { track } from "@/lib/analytics";
 
 /**
- * Fixed light bar: wordmark, centred links with a services dropdown, a
- * language pill and a filled start pill. On phones the bar expands downward
- * into large links.
+ * Navy bar that opens the page, as on Folioblox: wordmark, links grouped at
+ * the end with a services dropdown, a language pill and the start pill with
+ * its sliding arrow. It scrolls away with the page. On phones it expands
+ * downward into large links.
  */
 export default function Navigation() {
   const { lang, dictionary: d, isRtl } = useLanguage();
@@ -34,6 +35,8 @@ export default function Navigation() {
     { label: d.navigation.about, path: "/about" },
   ];
   const current = (path: string) => location.pathname.startsWith(to(path));
+  // On the home page the bar sits over the hero photo.
+  const home = location.pathname === "/" || location.pathname === "/en" || location.pathname === "/en/";
   const arrow = isRtl ? "-scale-x-100" : "";
 
   useEffect(() => {
@@ -84,8 +87,10 @@ export default function Navigation() {
       className="nav-pill nav-pill--solid"
       onClick={() => track("cta_start_click", { location: "header" })}
     >
-      {d.navigation.start}
-      <ArrowUpRight size={16} className={arrow} />
+      <span>{d.navigation.start}</span>
+      <span className="nav-pill-dot" aria-hidden="true">
+        <ArrowUpRight size={18} className={arrow} />
+      </span>
     </Link>
   );
 
@@ -94,7 +99,7 @@ export default function Navigation() {
       <a href="#main-content" className="skip-link">
         {d.navigation.skip}
       </a>
-      <header className={`studio-header ${menuOpen ? "is-open" : ""}`}>
+      <header className={`studio-header ${home ? "studio-header--overlay" : ""} ${menuOpen ? "is-open" : ""}`}>
         <nav className="header-inner" aria-label={d.navigation.label}>
           <Link to={to()} className="studio-wordmark">
             <span dir="ltr">

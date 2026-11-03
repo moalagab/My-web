@@ -320,12 +320,14 @@ html[lang="ar"] .studio-eyebrow {
   letter-spacing: 0.04em;
 }
 .studio-header {
-  position: fixed;
+  position: absolute;
   inset: 0 0 auto;
   z-index: 50;
-  background: hsl(var(--background));
-  color: hsl(var(--primary));
+  background: hsl(var(--primary));
+  color: hsl(var(--secondary));
 }
+/* Home: the bar sits over the hero photo; it turns navy only while the phone menu is open. */
+.studio-header--overlay:not(.is-open) { background: transparent; }
 .header-inner {
   position: relative;
   height: 88px;
@@ -3005,12 +3007,11 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
 
 /* Header (src/components/Navigation.tsx): centred links, services dropdown, two pills. */
 .nav-links {
-  position: absolute; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 40px; list-style: none; margin: 0; padding: 0;
+  margin-inline-start: auto; display: flex; align-items: center; gap: 40px; list-style: none; padding: 0;
 }
 .nav-link {
   display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
-  font-size: 16px; font-weight: 400; color: hsl(var(--primary)); transition: opacity 0.2s ease;
+  font-size: 16px; font-weight: 400; color: hsl(var(--secondary)); transition: opacity 0.2s ease;
 }
 .nav-link:hover { opacity: 0.65; }
 .nav-link[aria-current] { font-weight: 500; }
@@ -3036,19 +3037,30 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
   display: flex; align-items: center; justify-content: space-between; min-height: 44px;
   margin-top: 6px; padding: 0 14px; border-top: 1px solid hsl(var(--border)); font-size: 13px;
 }
-.nav-actions { display: flex; align-items: center; gap: 8px; }
+.nav-actions { display: flex; align-items: center; gap: 10px; margin-inline-start: 40px; }
 .nav-pill {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 18px; border-radius: 30px; font-size: 14px; font-weight: 500;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
-.nav-pill--outline { border: 1px solid hsl(var(--primary) / 0.18); background: hsl(var(--background)); color: hsl(var(--primary)); }
-.nav-pill--outline:hover { border-color: hsl(var(--primary)); }
-.nav-pill--solid { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-.nav-pill--solid:hover { background: hsl(var(--foreground)); }
+.nav-pill--outline { border: 1px solid hsl(var(--secondary) / 0.3); background: transparent; color: hsl(var(--secondary)); }
+.nav-pill--outline:hover { border-color: hsl(var(--secondary)); }
+/* Start pill: on hover it fills, the arrow circle slides to the other end and the text turns light. */
+.nav-pill--solid {
+  position: relative; min-height: 50px; padding-inline: 28px 62px; font-weight: 700;
+  background: hsl(var(--secondary)); color: hsl(var(--primary));
+  transition: background 0.35s ease, color 0.35s ease, padding 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nav-pill-dot {
+  position: absolute; inset-inline-end: 5px; top: 5px; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center; background: hsl(var(--primary)); color: hsl(var(--secondary));
+  transition: inset-inline-end 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.35s ease;
+}
+.nav-pill--solid:hover { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); padding-inline: 62px 28px; }
+.nav-pill--solid:hover .nav-pill-dot { inset-inline-end: calc(100% - 45px); background: hsl(var(--primary)); }
 .nav-burger { display: none; position: relative; width: 44px; height: 44px; }
 .nav-burger span {
-  position: absolute; left: 11px; width: 22px; height: 1.5px; background: hsl(var(--primary));
+  position: absolute; left: 11px; width: 22px; height: 1.5px; background: hsl(var(--secondary));
   transition: transform 0.3s ease, top 0.3s ease;
 }
 .nav-burger span:first-child { top: 18px; }
@@ -3059,7 +3071,7 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
   display: block; padding: 4px 20px 28px; animation: nav-drop 0.3s ease;
 }
 .nav-mobile ul { list-style: none; margin: 0; padding: 0; }
-.nav-mobile li a { display: block; padding-block: 12px; font-size: 22px; color: hsl(var(--primary)); }
+.nav-mobile li a { display: block; padding-block: 12px; font-size: 22px; color: hsl(var(--secondary)); }
 .nav-mobile li a[aria-current] { font-weight: 500; }
 .nav-mobile-actions { display: flex; gap: 8px; margin-top: 20px; }
 @keyframes nav-drop { from { opacity: 0; transform: translateY(-8px); } }
@@ -3096,7 +3108,7 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
 /* Hero after Folioblox: full-bleed portrait, huge two-line title, numbered disciplines. */
 .folio-hero {
   position: relative; isolation: isolate; overflow: hidden;
-  margin-top: 88px; min-height: calc(100svh - 88px);
+  padding-top: 88px; min-height: 100svh;
   display: flex; align-items: flex-end;
   background: hsl(var(--primary)); color: hsl(var(--secondary));
   border-radius: 0 0 40px 40px;
@@ -3163,7 +3175,7 @@ html[lang="ar"] .folio-title { line-height: 1.22; letter-spacing: -0.01em; }
   .folio-disciplines { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 36px; }
 }
 @media (max-width: 800px) {
-  .folio-hero { margin-top: 74px; min-height: calc(100svh - 74px); border-radius: 0 0 28px 28px; }
+  .folio-hero { padding-top: 74px; border-radius: 0 0 28px 28px; }
   .folio-hero-media img { object-position: 62% 20%; }
   .folio-hero-media::after,
   html[dir="rtl"] .folio-hero-media::after { background: linear-gradient(0deg, hsl(var(--primary)) 18%, hsl(var(--primary) / 0.75) 50%, hsl(var(--primary) / 0.15) 85%); }
