@@ -1,10 +1,6 @@
 import {
   ArrowDown,
   ArrowUpRight,
-  Boxes,
-  Bot,
-  ClipboardList,
-  Palette,
   Quote,
 } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
@@ -21,7 +17,10 @@ import {
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { selectedIdentityProjects } from "@/content/projects";
-import WorkCollection from "@/components/studio/WorkCollection";
+import StackedWork from "@/components/studio/StackedWork";
+import WordReveal from "@/components/studio/WordReveal";
+import ServiceScroll from "@/components/studio/ServiceScroll";
+import ProcessScroll from "@/components/studio/ProcessScroll";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
 import Picture from "@/components/Picture";
@@ -35,7 +34,6 @@ export default function HomePage() {
     ? ["فكرة واضحة.", "علامة مؤثرة.", "نظام يعمل."]
     : ["Clear thinking.", "Distinct brands.", "Working systems."];
   const selected = selectedIdentityProjects.slice(0, 6);
-  const icons = [Bot, Boxes, Palette, ClipboardList];
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
     <>
@@ -135,7 +133,7 @@ export default function HomePage() {
                 <ArrowUpRight className={arrow} size={20} />
               </Link>
             </div>
-            <WorkCollection items={selected} />
+            <StackedWork items={selected} />
           </div>
         </section>
         <section className="studio-section studio-services" id="services">
@@ -149,40 +147,21 @@ export default function HomePage() {
                   </span>
                 </h2>
               </div>
-              <p className="section-intro">
-                {ar
+            </div>
+            <WordReveal
+              className="statement"
+              text={
+                ar
                   ? "أجمع بين الإبداع والتقنية والخبرة التشغيلية لتطوير حلول وتجارب تساعد الشركات على تحويل أفكارها إلى مشاريع وأنظمة تعمل على أرض الواقع."
-                  : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."}
-              </p>
-            </div>
-            <div className="service-editorial">
-              {h.services.items.map((s, i) => {
-                const Icon = icons[i];
-                return (
-                  <Link
-                    to={`${prefix}/services#${s.slug}`}
-                    className="service-editorial-row"
-                    key={s.slug}
-                    data-reveal
-                  >
-                    <span className="service-number" dir="ltr">
-                      0{i + 1}
-                    </span>
-                    <div>
-                      <Icon strokeWidth={1.2} size={28} />
-                      <h3 dir="ltr">{s.title}</h3>
-                    </div>
-                    <p>{s.value}</p>
-                    <span className="service-link">
-                      <ArrowUpRight className={arrow} size={25} />
-                      <span className="sr-only">
-                        {h.services.details}: {s.title}
-                      </span>
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
+                  : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."
+              }
+            />
+            <ServiceScroll
+              items={h.services.items}
+              label="WHAT I DO"
+              deliverablesLabel={h.services.deliverablesLabel}
+              detailsLabel={h.services.details}
+            />
           </div>
         </section>
         <section className="studio-section studio-products">
@@ -245,31 +224,19 @@ export default function HomePage() {
         </section>
         <section className="studio-section studio-process">
           <div className="studio-container">
-            <div className="section-heading">
-              <div>
-                <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
-                <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
+            <ProcessScroll steps={h.process.steps}>
+              <div className="section-heading">
+                <div>
+                  <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
+                  <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
+                </div>
+                <p className="section-intro">
+                  {ar
+                    ? "أنت تعرف أين نحن، وماذا يأتي بعد. نطاق محدد، تسليم على مراحل، وقرارات نفهم أسبابها."
+                    : "Know where we are and what comes next. A defined scope, staged delivery, and decisions with a clear rationale."}
+                </p>
               </div>
-              <p className="section-intro">
-                {ar
-                  ? "أنت تعرف أين نحن، وماذا يأتي بعد. نطاق محدد، تسليم على مراحل، وقرارات نفهم أسبابها."
-                  : "Know where we are and what comes next. A defined scope, staged delivery, and decisions with a clear rationale."}
-              </p>
-            </div>
-            <div className="process-grid">
-              {h.process.steps.map((s, i) => (
-                <article key={s.title} data-reveal>
-                  <span className="process-number" dir="ltr">
-                    0{i + 1}
-                  </span>
-                  <h3>{s.title}</h3>
-                  <span className="studio-eyebrow" dir="ltr">
-                    {s.english}
-                  </span>
-                  <p>{s.body}</p>
-                </article>
-              ))}
-            </div>
+            </ProcessScroll>
           </div>
         </section>
         <section className="studio-section studio-about">
@@ -293,7 +260,7 @@ export default function HomePage() {
                   : "A partner in thinking.\nA craftsman in execution."}
               </h2>
               {h.about.paragraphs.map((p) => (
-                <p key={p}>{p}</p>
+                <WordReveal key={p} text={p} className="about-reveal" />
               ))}
               <Link to={`${prefix}/about`} className="studio-text-link">
                 {h.about.link}
