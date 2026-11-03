@@ -140,12 +140,17 @@ export default function HomePage() {
               {h.services.items.map((s, i) => (
                 <li key={s.slug} className="service-card" data-reveal>
                   <Link to={`${prefix}/services/${s.slug}`}>
-                    <span className="service-card-number" dir="ltr">0{i + 1}</span>
-                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
+                    <span className="service-card-top">
+                      <span className="service-card-number" dir="ltr">0{i + 1}</span>
+                      <span className="service-card-arrow" aria-hidden="true">
+                        <ArrowUpRight size={18} className={arrow} />
+                      </span>
+                    </span>
                     <h3>
                       <span dir="ltr">{s.title}</span>
                     </h3>
-                    <p>{s.value}</p>
+                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
+                    <p className="service-card-value">{s.value}</p>
                   </Link>
                 </li>
               ))}

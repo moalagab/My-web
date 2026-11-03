@@ -2476,13 +2476,20 @@ h1, h2, h3 { text-wrap: balance; }
 [data-proof="waiting"] .stat-card { opacity: 0; transform: translateY(50px); }
 
 /* Services as Folioblox cards. */
-.service-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.service-card > a { min-height: 420px; transition: background 0.3s ease; }
+/* Two wide cards per row so every name fits in one or two even lines; everything aligns from the top. */
+.service-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.service-card > a { justify-content: flex-start; gap: 0; height: 100%; min-height: 340px; padding: 72px 44px 44px; transition: background 0.3s ease; }
 .service-card > a:hover { background: hsl(var(--secondary)); }
-.service-card-number { position: absolute; inset: 64px 40px auto; font-size: 15px; font-weight: 700; color: hsl(var(--accent)); }
-.service-card-tagline { font-size: 17px; font-weight: 700; line-height: 1.45; color: hsl(var(--accent)); }
-.service-card h3 { font-size: 24px; font-weight: 800; line-height: 1.25; letter-spacing: -0.02em; }
-.service-card > a > p:last-child { font-size: 15px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
+.service-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+.service-card-number { font-size: 15px; font-weight: 700; color: hsl(var(--accent)); }
+.service-card-arrow {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: hsl(var(--primary)); color: hsl(var(--secondary)); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.service-card > a:hover .service-card-arrow { transform: rotate(45deg); }
+.service-card h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.service-card-tagline { margin-top: 14px; font-size: 17px; font-weight: 500; line-height: 1.5; color: hsl(var(--accent)); }
+.service-card-value { margin-top: auto; padding-top: 28px; max-width: 34rem; font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
 
 /* Featured projects as Folioblox rows (src/components/studio/FeaturedProjects.tsx). */
 .featured-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 96px; }
@@ -2498,14 +2505,13 @@ h1, h2, h3 { text-wrap: balance; }
 .featured-row-body p { margin-top: 16px; font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
 .featured-row-body .studio-text-link { margin-top: 28px; }
 
-@media (max-width: 1100px) {
-  .service-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+
 @media (max-width: 800px) {
   .stat-cards, .service-cards { grid-template-columns: 1fr; }
   .stat-card, .service-card > a { min-height: 0; padding: 72px 28px 32px; border-radius: 24px; }
   .stat-card::before, .service-card > a::before { inset: 32px 28px auto; }
-  .service-card-number { position: static; }
+  .service-card > a { padding-top: 64px; }
+  .service-card-top { margin-bottom: 24px; }
   .featured-rows { gap: 64px; }
   .featured-row, .featured-row:nth-child(even) { grid-template-columns: 1fr; gap: 24px; }
   .featured-row:nth-child(even) .featured-row-media { order: 0; }
