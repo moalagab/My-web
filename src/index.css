@@ -2438,8 +2438,25 @@ html[lang="ar"] .section-heading h2,
 
 /* Folioblox section heads: large accent label, extra-bold title, paragraph and pill on the side. */
 .section-heading .studio-eyebrow { font-size: clamp(18px, 1.9vw, 28px); font-weight: 700; letter-spacing: 0.01em; }
-.section-heading h2 { font-size: clamp(32px, 4.2vw, 60px); font-weight: 800; }
+.section-heading h2 { font-size: clamp(32px, 3.8vw, 56px); font-weight: 800; }
 .section-side { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; max-width: 30rem; }
+/* Section titles take the full row and stay on one line where they fit; a title that must break
+   splits into even lines with tight leading, the same on every page. */
+.section-heading > :first-child { flex: 1 1 auto; min-width: 0; }
+.section-heading > .section-side { flex: 0 1 26rem; }
+.section-heading h2,
+html[lang="ar"] .section-heading h2,
+.about-section-heading h2 { max-width: none; line-height: 1.12; text-wrap: balance; white-space: pre-line; }
+html[lang="ar"] .section-heading h2,
+html[lang="ar"] .about-section-heading h2 { font-size: clamp(32px, 3.8vw, 56px); font-weight: 800; line-height: 1.35; }
+/* An English title inside the Arabic page keeps the Latin leading. */
+html[lang="ar"] .section-heading h2:has(> [dir="ltr"]:only-child) { line-height: 1.12; }
+h1, h2, h3 { text-wrap: balance; }
+/* About: the title runs across the top like the other sections, the text follows at the end. */
+.about-editorial-grid { grid-template-columns: 1fr; gap: 56px; }
+.about-section-heading { position: static; }
+.about-section-heading h2 { font-size: clamp(32px, 3.8vw, 56px); font-weight: 800; }
+.about-editorial-grid > :not(.about-section-heading) { max-width: 860px; }
 
 /* Stats as Folioblox cards (src/components/studio/ProofStrip.tsx). */
 .stat-cards, .service-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
