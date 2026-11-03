@@ -1,5 +1,10 @@
 import { expect, test, type Page } from "@playwright/test";
 
+/** Wait for hydration: the router restores scroll on hydrate, which would undo an earlier scroll. */
+const hydrated = async (page: Page) => {
+  await expect(page.locator(".studio-proof")).not.toHaveAttribute("data-proof", "static");
+};
+
 const scrollToFraction = async (page: Page, selector: string, fraction: number) => {
   await page.locator(selector).evaluate((el, f) => {
     const top = window.scrollY + el.getBoundingClientRect().top;
@@ -9,6 +14,7 @@ const scrollToFraction = async (page: Page, selector: string, fraction: number) 
 
 test("selected work cards stack as you scroll", async ({ page }) => {
   await page.goto("/");
+  await hydrated(page);
   await expect(page.locator(".stack-card")).toHaveCount(6);
   const first = page.locator(".stack-card").first();
   await first.evaluate((el) => window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top + el.offsetHeight, behavior: "instant" }));
@@ -17,6 +23,7 @@ test("selected work cards stack as you scroll", async ({ page }) => {
 
 test("services pin a number that follows the active service", async ({ page }) => {
   await page.goto("/en");
+  await hydrated(page);
   await page.locator(".svc-block").nth(2).evaluate((el) =>
     window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - window.innerHeight * 0.45, behavior: "instant" }),
   );
@@ -26,6 +33,7 @@ test("services pin a number that follows the active service", async ({ page }) =
 
 test("process steps advance with scroll", async ({ page }) => {
   await page.goto("/");
+  await hydrated(page);
   await scrollToFraction(page, ".proc-track", 0.8);
   await expect(page.locator(".proc-card.is-active h3")).toHaveText("نطلق");
 });
