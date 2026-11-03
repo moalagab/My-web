@@ -23,9 +23,7 @@ const ServicesPage = () => {
         <PageHero
           image="/work/media/service-digital.webp"
           eyebrow={copy.eyebrow}
-          title={copy.title.split(/(?<=\.)\s+/).map((line) => (
-            <span key={line}>{line}</span>
-          ))}
+          title={<span dir="ltr">{copy.title}</span>}
           side={<p>{copy.body}</p>}
         />
 
@@ -33,14 +31,15 @@ const ServicesPage = () => {
         <section className="studio-section svc-index-section" aria-label={copy.packagesLabel}>
           <div className="studio-container">
             <ul className="svc-index">
-              {copy.lines.map((line) => (
-                <li key={line.slug}>
+              {copy.lines.map((line, index) => (
+                <li key={line.slug} data-reveal>
                   <a href={`#${line.slug}`} className="svc-tile">
                     <span className="svc-tile-media" aria-hidden="true">
                       <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 900px) 25vw, 50vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
                     </span>
-                    <span className="svc-tile-title">{line.title}</span>
-                    {lang === "ar" && <span className="svc-tile-role" dir="ltr">{line.latin}</span>}
+                    <span className="svc-tile-number" dir="ltr">0{index + 1}</span>
+                    <span className="svc-tile-title" dir="ltr">{line.title}</span>
+                    <span className="svc-tile-role" dir="ltr">{line.role}</span>
                   </a>
                 </li>
               ))}
@@ -61,10 +60,13 @@ const ServicesPage = () => {
               <div className="studio-container svc-line-grid">
                 <div className="svc-line-media" aria-hidden="true">
                   <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 900px) 45vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
+                  <span className="svc-line-index" dir="ltr">0{index + 1}</span>
                 </div>
                 <div className="svc-line-body">
-                  <h2>{line.title}</h2>
-                  {lang === "ar" && <p className="latin" dir="ltr">{line.latin}</p>}
+                  <p className="studio-eyebrow" dir="ltr">{line.role}</p>
+                  <h2>
+                    <span dir="ltr">{line.title}</span>
+                  </h2>
                   <p className="svc-line-tagline">{line.tagline}</p>
                   <p className="svc-line-what">{line.what}</p>
                   <dl className="svc-facts">
@@ -100,8 +102,9 @@ const ServicesPage = () => {
               <div className="studio-container">
                 <h3 className="service-line-subhead">{copy.packagesLabel}</h3>
                 <ul className="pkg-cards">
-                  {line.packages.map((pack) => (
-                    <li key={pack.name} className="pkg-card">
+                  {line.packages.map((pack, p) => (
+                    <li key={pack.name} className="pkg-card" data-reveal>
+                      <span className="pkg-card-index" dir="ltr">{`0${index + 1}.${p + 1}`}</span>
                       <h4>
                         <span dir="ltr">{pack.name}</span>
                       </h4>
@@ -140,7 +143,7 @@ const ServicesPage = () => {
 
         <section className="studio-section">
           <div className="studio-container">
-            <div className="folio-cta">
+            <div className="folio-cta" data-reveal>
               <h2>{dictionary.home.finalCta.title}</h2>
               <p>{dictionary.home.finalCta.body}</p>
               <Link to={`${prefix}/start`} viewTransition className="nav-pill nav-pill--solid">

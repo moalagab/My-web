@@ -1,4 +1,16 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+/**
+ * The router restores scroll when hydration finishes, which can undo a scroll
+ * made just before it. Re-apply the scroll on every poll until the effect shows.
+ */
+const scrollUntil = async (page: Page, scroll: () => Promise<unknown>, done: () => Promise<boolean>) => {
+  await expect.poll(async () => {
+    await scroll();
+    await page.waitForTimeout(150);
+    return done();
+  }, { timeout: 10_000 }).toBe(true);
+};
 
 test("selected work shows as Folioblox rows that alternate sides", async ({ page }) => {
   await page.goto("/");
@@ -11,24 +23,14 @@ test("selected work shows as Folioblox rows that alternate sides", async ({ page
   expect(Math.abs(first!.x - second!.x)).toBeGreaterThan(200);
 });
 
-test("services show as four rows, Arabic name first with the English name under it", async ({ page }) => {
+test("services show as four cards linking to their pages", async ({ page }) => {
   await page.goto("/en");
-  const rows = page.locator(".svc-row");
-  await expect(rows).toHaveCount(4);
-  await expect(rows.first()).toHaveAttribute("href", "/en/services/digital");
-  await page.goto("/");
-  await expect(page.locator(".svc-row h3").first()).toHaveText("حلول الذكاء الاصطناعي والرقمية");
-  await expect(page.locator(".svc-row .latin").first()).toHaveText("AI & Digital Solutions");
+  const cards = page.locator(".service-card a");
+  await expect(cards).toHaveCount(4);
+  await expect(cards.first()).toHaveAttribute("href", "/en/services/digital");
 });
 
-test("section labels use the page language and carry no numbering", async ({ page }) => {
-  await page.goto("/");
-  const labels = await page.locator("main .section-heading .studio-eyebrow").allTextContents();
-  expect(labels.length).toBeGreaterThan(4);
-  for (const label of labels) expect(label).not.toMatch(/^\s*\d+\s*\/|[A-Z]{4,}/);
-});
-
-test("process shows four step rows", async ({ page }) => {
+test("process shows four Folioblox step rows", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".step-row")).toHaveCount(4);
   await expect(page.locator(".step-row h3").last()).toContainText("نطلق");
@@ -40,10 +42,19 @@ test("reduced motion shows everything still and readable", async ({ browser }) =
   await page.close();
 });
 
-test("experience figures show their real values from the start", async ({ page }) => {
+test("proof numbers count up when the strip comes into view", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 600 });
   await page.goto("/en");
-  const figures = page.locator(".studio-proof .stat-card strong");
-  await expect(figures).toHaveText(["12+", "3", "40+"]);
+  const strip = page.locator(".studio-proof");
+  await expect(strip).toHaveAttribute("data-proof", "waiting");
+  await scrollUntil(
+    page,
+    () => strip.scrollIntoViewIfNeeded(),
+    async () => (await strip.getAttribute("data-proof")) === "in",
+  );
+  await expect(strip.locator("strong span[aria-hidden]").last()).toHaveText("40+");
+  // The real value is always in the DOM for readers.
+  await expect(strip.locator("strong .sr-only").first()).toHaveText("12+");
 });
 
 test("hero leads with the two-line title and lists the four services", async ({ page }) => {
@@ -54,18 +65,18 @@ test("hero leads with the two-line title and lists the four services", async ({ 
   await expect(page.locator("h1")).toContainText("I build what works.");
 });
 
-test("client logos form one still wall with readable names", async ({ page }) => {
+test("client logos drift and have readable names once", async ({ page }) => {
   await page.goto("/en");
-  const logos = page.locator(".client-wall img");
-  await expect(logos).toHaveCount(26);
-  await expect(logos.first()).toHaveAttribute("alt", /\S/);
-  await expect(logos.first()).toHaveCSS("animation-name", "none");
+  const named = page.locator(".marquee-row:not([aria-hidden]) img");
+  await expect(named).toHaveCount(26);
+  await expect(named.first()).toHaveAttribute("alt", /\S/);
+  await expect(page.locator(".marquee-track")).toHaveCSS("animation-name", "marquee");
 });
 
-test("reduced motion skips the hero grid and the title reveal", async ({ browser }) => {
+test("reduced motion skips the hero reveal and stops the logos", async ({ browser }) => {
   const page = await browser.newPage({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.locator(".hero-grid span").first()).toHaveCSS("animation-name", "none");
+  await expect(page.locator(".marquee-track")).toHaveCSS("animation-name", "none");
   await expect(page.locator(".folio-title span").first()).toHaveCSS("opacity", "1");
   await page.close();
 });

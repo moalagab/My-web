@@ -47,7 +47,7 @@ export default function ServiceLinePage() {
       <main>
         <PageHero
           image={`/work/media/service-${line.slug}.webp`}
-          eyebrow={line.title}
+          eyebrow={<span dir="ltr">{line.title}</span>}
           title={seo.heading}
           side={<p>{line.what}</p>}
           actions={
@@ -83,8 +83,9 @@ export default function ServiceLinePage() {
           <div className="studio-container svc-qa">
             <div className="svc-qa-aside">
               <p className="studio-eyebrow">{copy.askEyebrow}</p>
-              <h2>{line.title}</h2>
-              {lang === "ar" && <p className="latin" dir="ltr">{line.latin}</p>}
+              <h2>
+                <span dir="ltr">{line.title}</span>
+              </h2>
               <p className="section-intro">{line.tagline}</p>
               <div className="svc-qa-media" aria-hidden="true">
                 <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 1000px) 38vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
@@ -92,7 +93,7 @@ export default function ServiceLinePage() {
             </div>
             <div className="case-rows">
               {answers.map((qa, i) => (
-                <section key={qa.q} className="case-row" aria-labelledby={`q-${i}`}>
+                <section key={qa.q} className="case-row" aria-labelledby={`q-${i}`} data-reveal>
                   <h2 id={`q-${i}`}>{qa.q}</h2>
                   <div>
                     {qa.a && <p>{qa.a}</p>}
@@ -125,7 +126,7 @@ export default function ServiceLinePage() {
 
         <section className="studio-section">
           <div className="studio-container">
-            <div className="folio-cta">
+            <div className="folio-cta" data-reveal>
               <h2>{d.home.finalCta.title}</h2>
               <p>{d.home.finalCta.body}</p>
               <div className="folio-actions">

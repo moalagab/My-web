@@ -29,16 +29,16 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "مصمم علامات وباني منتجات بالذكاء الاصطناعي",
+      "eyebrow": "BRAND DESIGNER & AI PRODUCT BUILDER",
       "title": "من الفكرة إلى نظام يعمل",
       "body": "أصمم العلامات والتجارب التي يراها العميل، وأبني المنتجات والأنظمة الذكية التي تجعل العمل يحدث خلفها.",
       "primary": "ابدأ مشروعك",
       "secondary": "شوف الأعمال",
       "pills": [
-        "الذكاء الاصطناعي والرقمي",
-        "الفعاليات والمعارض",
-        "العلامة والإبداع",
-        "الأعمال والتشغيل"
+        "AI & Digital",
+        "Events & Exhibitions",
+        "Brand & Creative",
+        "Business Operations"
       ]
     },
     "proof": {
@@ -61,7 +61,7 @@
       "logosLabel": "عملاء مختارون"
     },
     "services": {
-      "eyebrow": "ما أقدّمه",
+      "eyebrow": "01 / SERVICES",
       "title": "أربعة مسارات. تنفيذ على أرض الواقع.",
       "details": "تفاصيل",
       "deliverablesLabel": "المخرجات",
@@ -70,59 +70,55 @@
         {
           "slug": "digital",
           "role": "SMART SYSTEMS",
-          "title": "حلول الذكاء الاصطناعي والرقمية",
+          "title": "AI & Digital Solutions",
           "value": "مواقع وتطبيقات أعمال، ووكلاء AI وأتمتة تربط الأنظمة والفرق والبيانات.",
           "deliverables": [
             "مواقع وتطبيقات أعمال",
             "CRM وتكامل ERP",
             "وكلاء AI وأتمتة"
           ],
-          "packages": "Landing Page · Business Website · MVP / Business App · Automation Audit + Blueprint · CRM & Workflow Automation · AI Agent Pilot",
-          "latin": "AI & Digital Solutions"
+          "packages": "Landing Page · Business Website · MVP / Business App · Automation Audit + Blueprint · CRM & Workflow Automation · AI Agent Pilot"
         },
         {
           "slug": "experiential",
           "role": "LIVE EXPERIENCES",
-          "title": "الفعاليات والمعارض وتجارب العلامة",
+          "title": "Events, Exhibitions & Brand Experiences",
           "value": "مفاهيم إبداعية للمعارض والفعاليات، من تصميم الجناح إلى التنفيذ الميداني.",
           "deliverables": [
             "مفهوم التجربة",
             "تصميم الجناح و3D",
             "تنسيق الإنتاج والتنفيذ"
           ],
-          "packages": "Booth Concept · Booth Concept + 3D + Graphics · Event Branding · Creative & Technical Direction",
-          "latin": "Events, Exhibitions & Brand Experiences"
+          "packages": "Booth Concept · Booth Concept + 3D + Graphics · Event Branding · Creative & Technical Direction"
         },
         {
           "slug": "brand",
           "role": "CREATIVE THINKING",
-          "title": "حلول العلامة والإبداع",
+          "title": "Brand & Creative Solutions",
           "value": "استراتيجية وتموضع وهويات بصرية وحملات تصنع حضوراً متسقاً.",
           "deliverables": [
             "استراتيجية وتموضع",
             "نظام هوية بصرية",
             "حملات ومواد تسويقية"
           ],
-          "packages": "Essential Identity · Core Identity · Strategy + Identity · Campaign Creative · Social Visual Starter · Monthly Design Retainer",
-          "latin": "Brand & Creative Solutions"
+          "packages": "Essential Identity · Core Identity · Strategy + Identity · Campaign Creative · Social Visual Starter · Monthly Design Retainer"
         },
         {
           "slug": "operations",
           "role": "REAL EXECUTION",
-          "title": "حلول الأعمال والتشغيل",
+          "title": "Business & Operations Solutions",
           "value": "إجراءات تشغيل ومتابعة وقياس أداء تقلل التعقيد وتوضح المسؤوليات.",
           "deliverables": [
             "تحليل مسارات العمل",
             "إجراءات تشغيل SOPs",
             "متابعة وقياس أداء"
           ],
-          "packages": "Operations Diagnostic · SOP System · Project Control & KPIs",
-          "latin": "Business & Operations Solutions"
+          "packages": "Operations Diagnostic · SOP System · Project Control & KPIs"
         }
       ]
     },
     "work": {
-      "eyebrow": "أعمال مختارة",
+      "eyebrow": "02 / SELECTED WORK",
       "title": "أعمال مختارة",
       "all": "كل الأعمال",
       "items": [
@@ -165,7 +161,7 @@
       ]
     },
     "products": {
-      "eyebrow": "منتجات بنيتها",
+      "eyebrow": "03 / PRODUCTS I BUILT",
       "title": "منتجات بنيتها",
       "caption": "منتجات تشتغل الآن، مو نماذج عرض.",
       "visit": "افتح المنتج",
@@ -184,7 +180,7 @@
       ]
     },
     "process": {
-      "eyebrow": "طريقة العمل",
+      "eyebrow": "04 / HOW WE WORK",
       "title": "كيف نشتغل",
       "steps": [
         {
@@ -210,7 +206,7 @@
       ]
     },
     "about": {
-      "eyebrow": "عن مو",
+      "eyebrow": "05 / ABOUT MO",
       "title": "محمد العجب",
       "paragraphs": [
         "Brand Designer & AI Product Builder مقيم في الرياض.",
@@ -221,7 +217,7 @@
       "portraitAlt": "محمد العجب"
     },
     "testimonials": {
-      "eyebrow": "من العملاء",
+      "eyebrow": "06 / IN THEIR WORDS",
       "title": "بكلماتهم.",
       "intro": "توصيات منشورة على LinkedIn، مترجمة من الإنجليزية.",
       "link": "كل التوصيات على LinkedIn",
@@ -240,7 +236,7 @@
       ]
     },
     "faq": {
-      "eyebrow": "أسئلة شائعة",
+      "eyebrow": "06 / FAQ",
       "title": "أسئلة متكررة",
       "items": [
         {
@@ -278,7 +274,7 @@
   },
   "workPage": {
     "metaTitle": "الأعمال — Mo Alagab",
-    "eyebrow": "الأعمال",
+    "eyebrow": "WORK / PROOF",
     "title": "عمل يمكن رؤيته واستخدامه.",
     "body": "مشاريع مختارة تعرض السياق، القرار، والنظام كما حدث فعلاً.",
     "filtersLabel": "تصفية حسب مسار الخدمة",
@@ -320,7 +316,7 @@
     "pdfLabel": "ملف البروفايل",
     "pdfButton": "عرض البروفايل",
     "similar": {
-      "eyebrow": "الخطوة التالية",
+      "eyebrow": "NEXT STEP",
       "title": "مشروع مشابه؟",
       "body": "لو حالتك قريبة من هذا المشروع، هذه الحزمة هي الأقرب للبداية.",
       "packageLabel": "الحزمة المناسبة",
@@ -335,8 +331,8 @@
   "servicesPage": {
     "metaTitle": "خدماتي — Mo Alagab",
     "metaDescription": "حلول رقمية وذكاء اصطناعي، معارض وفعاليات وتجارب علامات، هويات وحملات، وتنظيم العمليات — نطاق واضح وجدول زمني لكل حزمة.",
-    "eyebrow": "خدماتي",
-    "title": "تفكير إبداعي. أنظمة ذكية. تنفيذ حقيقي.",
+    "eyebrow": "خدماتي / WHAT I DO",
+    "title": "Creative Thinking. Smart Systems. Real Execution.",
     "body": "من بناء الأنظمة الرقمية إلى تطوير العلامات التجارية والتجارب الواقعية، أساعد الشركات ورواد الأعمال على تحويل الأفكار إلى حلول قابلة للتنفيذ، تجمع بين التفكير الاستراتيجي والإبداع والتقنية والإدارة التشغيلية.",
     "whatLabel": "إيش هو",
     "whoLabel": "لمين",
@@ -346,14 +342,14 @@
     "fitLabel": "مناسب لـ",
     "packageCta": "اطلب عرض",
     "notIncludedLabel": "غير مشمول",
-    "caseEyebrow": "من الأعمال",
+    "caseEyebrow": "CASE STUDY",
     "caseLabel": "مشروع من هذا المسار",
     "caseCta": "شوف المشروع",
     "lines": [
       {
         "slug": "digital",
         "role": "SMART SYSTEMS",
-        "title": "حلول الذكاء الاصطناعي والرقمية",
+        "title": "AI & Digital Solutions",
         "tagline": "حلول رقمية أذكى. أعمال أكثر كفاءة.",
         "what": "أصمم وأطوّر المواقع الإلكترونية وتطبيقات الأعمال، وأبني وكلاء الذكاء الاصطناعي (AI Agents) وحلول الأتمتة التي تربط الأنظمة والفرق والبيانات. من تطوير أنظمة CRM وتكامل ERP إلى أتمتة المبيعات والتسويق والعمليات، أقدّم حلولاً رقمية عملية تناسب احتياجات كل مشروع.",
         "who": "شركات وفرق تحتاج موقعاً أو نظاماً يخدم عملية عمل واضحة، أو تقضي وقتاً طويلاً في مهام متكررة وبيانات متفرقة بين أكثر من أداة.",
@@ -403,13 +399,12 @@
             "timeline": "3–5 أسابيع",
             "fit": "جهة تريد تجربة وكيل AI قبل التوسع."
           }
-        ],
-        "latin": "AI & Digital Solutions"
+        ]
       },
       {
         "slug": "experiential",
         "role": "LIVE EXPERIENCES",
-        "title": "الفعاليات والمعارض وتجارب العلامة",
+        "title": "Events, Exhibitions & Brand Experiences",
         "tagline": "من الفكرة الإبداعية إلى تجربة تُعاش.",
         "what": "أطوّر المفاهيم الإبداعية للمعارض والفعاليات وتجارب العلامات التجارية، من تصميم أجنحة المعارض والمساحات التفاعلية إلى الإشراف الإبداعي والفني. أجمع بين التصميم والتخطيط وتنسيق الإنتاج والتنفيذ الميداني لصناعة تجارب تعكس هوية العلامة وتترك أثراً لدى جمهورها.",
         "who": "جهات تشارك في معرض أو تنظم فعالية أو تجربة علامة، وتحتاج حضوراً متماسكاً مع هويتها من الفكرة حتى يوم الافتتاح.",
@@ -446,13 +441,12 @@
             "timeline": "حسب موعد الفعالية",
             "fit": "مشروع منفّذ عبر موردين يحتاج من يضمن مطابقة التنفيذ للتصميم."
           }
-        ],
-        "latin": "Events, Exhibitions & Brand Experiences"
+        ]
       },
       {
         "slug": "brand",
         "role": "CREATIVE THINKING",
-        "title": "حلول العلامة والإبداع",
+        "title": "Brand & Creative Solutions",
         "tagline": "علامات تجارية واضحة. هويات تصنع حضوراً.",
         "what": "أساعد العلامات التجارية على بناء شخصيتها وتعزيز حضورها، من تطوير الاستراتيجيات والتموضع إلى تصميم الهويات البصرية وأنظمة الاتصال. تشمل خدماتي تطوير الحملات التسويقية والإعلانية، وتصميم المواد المؤسسية والتسويقية، والإدارة الإبداعية للمشاريع لضمان تجربة بصرية متسقة ومميزة.",
         "who": "شركات وجهات تبدأ من جديد، أو هويتها الحالية ما صارت تمثلها، أو تحتاج حملات ومواد تسويقية متسقة مع علامتها.",
@@ -501,13 +495,12 @@
             "timeline": "شهري",
             "fit": "فريق يحتاج تصميماً مستمراً بدون توظيف داخلي."
           }
-        ],
-        "latin": "Brand & Creative Solutions"
+        ]
       },
       {
         "slug": "operations",
         "role": "REAL EXECUTION",
-        "title": "حلول الأعمال والتشغيل",
+        "title": "Business & Operations Solutions",
         "tagline": "عمليات منظمة. تنفيذ أكثر وضوحاً.",
         "what": "أساعد الشركات على تنظيم أعمالها وتطوير أنظمتها التشغيلية، من تحليل مسارات العمل وبناء إجراءات التشغيل القياسية (SOPs) إلى إدارة المشاريع وتطوير آليات المتابعة وقياس الأداء. أركز على تقليل التعقيد، وتوضيح المسؤوليات، وتحسين جودة التنفيذ لتحقيق نتائج عملية ومستدامة.",
         "who": "شركات تنمو أسرع من أنظمتها: مسؤوليات غير واضحة، إجراءات في رؤوس الأشخاص، ومشاريع يصعب متابعتها.",
@@ -538,8 +531,7 @@
             "timeline": "3–5 أسابيع",
             "fit": "جهة تدير عدة مشاريع وتحتاج رؤية واضحة للتقدم والتأخير."
           }
-        ],
-        "latin": "Business & Operations Solutions"
+        ]
       }
     ],
     "detailCta": "تفاصيل الخدمة",
@@ -600,7 +592,7 @@
     "tokenRole": "الاستخدام"
   },
   "productsPage": {
-    "eyebrow": "المنتجات",
+    "eyebrow": "المنتجات / قريباً",
     "title": "المنتجات الرقمية قيد التجهيز.",
     "body": "هذه صفحة مؤقتة ضمن النظام الجديد. سيُضاف المحتوى في المرحلة التالية.",
     "action": "ابدأ مشروعك"
@@ -608,11 +600,11 @@
   "startPage": {
     "metaTitle": "ابدأ مشروعك — Mo Alagab",
     "metaDescription": "أرسل نبذة قصيرة عن مشروعك، وأرد عليك خلال يومي عمل بخطوة تالية واضحة.",
-    "eyebrow": "نبذة المشروع",
+    "eyebrow": "START / BRIEF",
     "title": "خلّنا نبدأ",
     "sub": "أرسل نبذة قصيرة، وأرد عليك خلال يومي عمل بخطوة تالية واضحة.",
     "next": {
-      "eyebrow": "بعد الإرسال",
+      "eyebrow": "WHAT HAPPENS NEXT",
       "title": "إيش يصير بعد ما ترسل؟",
       "steps": [
         {
@@ -728,7 +720,7 @@
   "privacyPage": {
     "metaTitle": "سياسة الخصوصية — Mo Alagab",
     "metaDescription": "ما البيانات التي نجمعها عبر نموذج بدء المشروع، لماذا، وكم تبقى، وكيف تطلب حذفها.",
-    "eyebrow": "الخصوصية",
+    "eyebrow": "PRIVACY",
     "title": "سياسة الخصوصية",
     "intro": "صفحة قصيرة وواضحة: هذه هي كل البيانات التي أجمعها عنك، وليش، وكم تبقى عندي.",
     "sections": [
@@ -771,17 +763,17 @@
   "aboutPage": {
     "metaTitle": "عن محمد العجب — Design × Operations × Applied AI",
     "metaDescription": "من بناء الهوية إلى بناء النظام: مسيرة محمد العجب بين التصميم والعمليات والذكاء الاصطناعي التطبيقي. أكثر من 12 سنة عبر السودان وعُمان والسعودية.",
-    "eyebrow": "عن مو",
+    "eyebrow": "ABOUT / MO",
     "name": "محمد العجب",
     "descriptor": "Design × Operations × Applied AI",
     "portraitAlt": "محمد العجب",
-    "storyEyebrow": "القصة",
+    "storyEyebrow": "STORY",
     "story": [
       "بدأت مسيرتي من المكان الذي يراه الناس: العلامة، الصورة، والتجربة.",
       "على مدى أكثر من 12 سنة بين السودان وعُمان والسعودية، عملت في بناء العلامات، الإخراج الفني، المعارض وتفعيل العلامات، ثم انتقلت تدريجيًا إلى إدارة العمليات وتسليم المشاريع.",
       "بنيت أكثر من 40 نظام هوية لجهات وقطاعات مختلفة، وعملت مع فرق وموردين وأصحاب قرار في مشاريع تمتد من الهوية والإعلان إلى المعارض والتجارب الميدانية."
     ],
-    "principlesEyebrow": "المبادئ",
+    "principlesEyebrow": "PRINCIPLES",
     "principlesTitle": "مبادئ أعمل بها",
     "principles": [
       {
@@ -811,7 +803,7 @@
         "body": "أفضل طريقة لفهم النظام هي بناؤه وتشغيله.\nلذلك أفضل Prototype يعمل، أو Workflow حقيقي، أو منتج يمكن تجربته، على عشر صفحات من التنظير."
       }
     ],
-    "timelineEyebrow": "المسيرة",
+    "timelineEyebrow": "TIMELINE",
     "timelineTitle": "المسار",
     "timeline": [
       {
@@ -864,7 +856,7 @@
         "body": "اليوم أعمل في نقطة التقاطع بين العمليات، الذكاء الاصطناعي وبناء المنتجات.\nأبني Workflows وAI Agents ومنتجات رقمية، وأحوّل مشاكل العمل الحقيقية إلى أنظمة يمكن تشغيلها وقياسها.\nمشاريعي الحالية تشمل تجارب مثل Smart Field وLifeTent؛ الأول يثبت تطبيق الأتمتة على عملية مبيعات حقيقية، والثاني يمثل تجربتي في بناء منتج عربي من الصفر."
       }
     ],
-    "toolsEyebrow": "الأدوات",
+    "toolsEyebrow": "TOOLS",
     "toolsTitle": "أدوات أعمل بها",
     "tools": [
       "Figma",
@@ -916,7 +908,7 @@
       "اختبره"
     ],
     "productsLink": "استكشف المنتجات",
-    "closingEyebrow": "أخيراً",
+    "closingEyebrow": "CLOSING",
     "closingTitle": "الأفكار وحدها\nلا تكفي.",
     "closingBody": [
       "الفكرة تحتاج نظامًا يجعلها تعمل.",
@@ -944,7 +936,7 @@
       "faq": "الأسئلة الشائعة"
     },
     "notFound": {
-      "eyebrow": "الصفحة غير موجودة",
+      "eyebrow": "404 / الصفحة غير موجودة",
       "title": "هذا المسار يتوقف هنا.",
       "body": "ارجع للرئيسية، أو تصفّح الأعمال، أو ابدأ بـ brief واضح.",
       "home": "الرئيسية",
@@ -968,7 +960,7 @@
   "faqPage": {
     "metaTitle": "الأسئلة الشائعة — Mo Alagab",
     "metaDescription": "إجابات مباشرة عن المدة، والدفع، والتعديلات، وملكية الملفات، وما يحدث بعد إرسال النبذة.",
-    "eyebrow": "الأسئلة الشائعة",
+    "eyebrow": "FAQ",
     "title": "الأسئلة الشائعة",
     "intro": "إجابات قصيرة ومباشرة قبل أن تبدأ.",
     "generalLabel": "العمل والدفع",

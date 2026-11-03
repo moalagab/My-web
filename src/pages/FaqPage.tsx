@@ -41,7 +41,7 @@ export default function FaqPage() {
                 {group.items.map((qa) => {
                   n += 1;
                   return (
-                    <section key={qa.q} className="case-row" aria-labelledby={`faq-${n}`}>
+                    <section key={qa.q} className="case-row" aria-labelledby={`faq-${n}`} data-reveal>
                       <h3 id={`faq-${n}`}>{qa.q}</h3>
                       <div>
                         {qa.a && <p>{qa.a}</p>}
@@ -63,7 +63,7 @@ export default function FaqPage() {
 
         <section className="studio-section">
           <div className="studio-container">
-            <div className="folio-cta">
+            <div className="folio-cta" data-reveal>
               <h2>{copy.ctaTitle}</h2>
               <p>{copy.ctaBody}</p>
               <div className="folio-actions">

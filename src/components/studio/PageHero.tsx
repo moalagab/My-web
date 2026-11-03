@@ -36,6 +36,7 @@ export default function PageHero({
   return (
     <section
       className={`folio-hero folio-hero--page ${image ? "" : "folio-hero--plain"} ${compact ? "folio-hero--compact" : ""}`}
+      data-no-reveal
     >
       {image && (
         <div

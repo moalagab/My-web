@@ -45,7 +45,7 @@ export default function ProductsPage() {
       <main className="products-page" id="main-content">
         <PageHero
           image="/work/media/products-devices.webp"
-          eyebrow={d.productsPage.eyebrow}
+          eyebrow="PRODUCTS / BUILT TO WORK"
           title={title}
           side={
             <p>
@@ -59,7 +59,7 @@ export default function ProductsPage() {
           <div className="studio-container">
             <ul className="product-pillars">
               {pillars.map((p, i) => (
-                <li key={p.title}>
+                <li key={p.title} data-reveal>
                   <span dir="ltr">0{i + 1}</span>
                   <h2>{p.title}</h2>
                   <p>{p.body}</p>
@@ -73,12 +73,14 @@ export default function ProductsPage() {
           <div className="studio-container">
             <ul className="featured-rows">
               {d.home.products.items.slice(1).map((p) => (
-                <li className="featured-row" key={p.name}>
+                <li className="featured-row" key={p.name} data-reveal>
                   <div className="featured-row-media" aria-hidden="true">
                     <ProductVisual kind="agent" />
                   </div>
                   <div className="featured-row-body">
-                    <p className="studio-eyebrow">{ar ? "أتمتة بالذكاء الاصطناعي" : "AI automation"}</p>
+                    <p className="studio-eyebrow" dir="ltr">
+                      02 / AI AUTOMATION
+                    </p>
                     <h2 dir="ltr">{p.name}</h2>
                     <p>{p.body}</p>
                     <ul className="product-feature-list">
@@ -98,6 +100,7 @@ export default function ProductsPage() {
         </section>
         <section className="studio-cta">
           <div className="studio-container">
+            <p className="studio-eyebrow">LET’S BUILD /</p>
             <h2>
               {ar ? "فكرتك تستحق\nأن تعمل." : "Your idea deserves\nto work."}
             </h2>

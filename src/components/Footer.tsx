@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="footer-top">
           <div>
             <p className="studio-eyebrow">
-              {lang === "ar" ? "ابدأ بمحادثة." : "Start with a conversation."}
+              {lang === "ar" ? "ابدأ بمحادثة." : "START A CONVERSATION."}
             </p>
             <a
               className="footer-email"

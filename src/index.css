@@ -406,6 +406,13 @@ html[lang="ar"] .studio-eyebrow {
   transform: translateY(-3px);
   background: hsl(var(--accent));
 }
+.studio-button-light {
+  background: hsl(var(--secondary));
+  color: hsl(var(--primary));
+}
+.studio-button-light:hover {
+  background: hsl(var(--muted));
+}
 .studio-text-link {
   display: inline-flex;
   align-items: center;
@@ -1051,9 +1058,34 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
     padding: 22px 18px;
   }
 }
+/* Reveal only marked blocks; no blank sections and no persistent layer promotion. */
+[data-reveal-stagger] > * {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 @media (prefers-reduced-motion: no-preference) {
+  [data-reveal-target] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  /* Folioblox entrance: blocks rise 50px and fade in once they reach the screen. */
+  [data-reveal-target].is-revealed {
+    animation: studio-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms) backwards;
+  }
   .page-enter {
     animation: studio-page 0.2s ease-out;
+  }
+  @keyframes studio-rise {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
   @keyframes studio-page {
     from {
@@ -2286,9 +2318,25 @@ html[lang="ar"] .folio-title { font-size: clamp(46px, 6vw, 96px); line-height: 1
 .client-band { position: relative; margin-top: -100px; padding-block: 150px 56px; background: hsl(var(--secondary) / 0.55); border-radius: 0 0 100px 100px; }
 .client-band-inner { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 40px; align-items: center; }
 .client-band-label { font-size: 15px; font-weight: 700; line-height: 1.45; color: hsl(var(--foreground)); }
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track { display: flex; width: max-content; animation: marquee 70s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-row { display: flex; align-items: center; gap: 88px; padding-inline-end: 88px; list-style: none; margin: 0; padding-inline-start: 0; }
+.marquee-row img { display: block; height: var(--h, 40px); width: auto; border-radius: 0; }
+@keyframes marquee { to { transform: translateX(-50%); } }
 @media (max-width: 800px) {
   .client-band { margin-top: -28px; padding-block: 60px 36px; border-radius: 0 0 28px 28px; }
   .client-band-inner { grid-template-columns: 1fr; gap: 18px; }
+  .marquee-row { gap: 44px; padding-inline-end: 44px; }
+  .marquee-row img { height: calc(var(--h, 40px) * 0.8); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; mask-image: none; }
+  .marquee-track { animation: none; }
+  .marquee-row[aria-hidden] { display: none; }
 }
 
 /* Inner-page hero (src/components/studio/PageHero.tsx), same system as the home hero. */
@@ -2427,9 +2475,17 @@ h1, h2, h3 { text-wrap: balance; }
 .stat-card > span { font-size: 20px; font-weight: 700; }
 .stat-card small { font-size: 15px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
 .stat-card { transition: opacity 0.7s ease var(--d, 0ms), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms); }
+[data-proof="waiting"] .stat-card { opacity: 0; transform: translateY(50px); }
 
 /* Services as Folioblox cards. */
 /* Two wide cards per row so every name fits in one or two even lines; everything aligns from the top. */
+.service-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.service-card > a { justify-content: flex-start; gap: 0; height: 100%; min-height: 340px; padding: 72px 44px 44px; transition: background 0.3s ease; }
+.service-card > a:hover { background: hsl(var(--secondary)); }
+.service-card-number { font-size: 15px; font-weight: 700; color: hsl(var(--accent)); }
+.service-card > a:hover .service-card h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.service-card-tagline { margin-top: 14px; font-size: 17px; font-weight: 500; line-height: 1.5; color: hsl(var(--accent)); }
+.service-card-value { margin-top: auto; padding-top: 28px; max-width: 34rem; font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
 
 /* Featured projects as Folioblox rows (src/components/studio/FeaturedProjects.tsx). */
 .featured-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 96px; }
@@ -2450,6 +2506,7 @@ h1, h2, h3 { text-wrap: balance; }
   .stat-cards, .service-cards { grid-template-columns: 1fr; }
   .stat-card, .service-card > a { min-height: 0; padding: 72px 28px 32px; border-radius: 24px; }
   .stat-card::before, .service-card > a::before { inset: 32px 28px auto; }
+  .service-card > a { padding-top: 64px; }
     .featured-rows { gap: 64px; }
   .featured-row, .featured-row:nth-child(even) { grid-template-columns: 1fr; gap: 24px; }
   .featured-row:nth-child(even) .featured-row-media { order: 0; }
@@ -2509,7 +2566,15 @@ html[dir="rtl"] .stat-card strong { text-align: right; }
 /* Services page lines (src/pages/ServicesPage.tsx) in the Folioblox section rhythm. */
 .service-line--tint { background: hsl(var(--secondary) / 0.45); }
 .service-line-what { font-size: 16px; line-height: 1.8; color: hsl(var(--muted-foreground)); }
+.service-line-facts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
+  padding: 40px; border-radius: 30px; background: hsl(var(--background)); border: 1px solid hsl(var(--border));
+}
 .service-line-facts h3, .service-line-subhead { font-size: 15px; font-weight: 700; color: hsl(var(--accent)); }
+.service-line-facts p, .service-line-facts li { margin-top: 10px; font-size: 15px; line-height: 1.75; }
+.service-line-facts ul { list-style: none; margin: 0; padding: 0; }
+.service-line-facts li { display: flex; gap: 10px; align-items: flex-start; }
+.service-line-facts li svg { margin-top: 6px; color: hsl(var(--accent)); }
 .service-line-subhead { margin: 56px 0 20px; font-size: clamp(18px, 1.9vw, 26px); }
 .pkg-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
 .pkg-card {
@@ -2538,6 +2603,7 @@ html[lang="ar"] .folio-cta h2 { letter-spacing: 0; line-height: 1.4; }
 .folio-cta .nav-pill { margin-top: 12px; }
 @media (max-width: 800px) {
   .service-line-facts, .pkg-cards { grid-template-columns: 1fr; }
+  .service-line-facts { padding: 28px; border-radius: 24px; }
   .pkg-card { border-radius: 24px; padding: 64px 28px 28px; }
   .pkg-card::before { inset: 28px 28px auto; }
   .folio-cta { border-radius: 28px; }
@@ -2639,13 +2705,16 @@ html[dir="rtl"] .studio-eyebrow:not(:has(> *)) { display: block; unicode-bidi: p
 .agent-core, .agent-core > span { color: hsl(var(--accent-foreground)); opacity: 1; font-size: 12px; }
 
 /* ---------------------------------------------------------------------------
-   Motion. One orchestrated moment (the hero grid drawing on arrival), page
-   changes through the View Transitions API, the curved work strip, and motion
-   that answers the visitor: presses, the step highlight, image hovers.
+   Motion language. One easing family, three speeds: 0.2s for presses, 0.45s
+   for hovers and page changes, 0.8s for blocks entering. Scroll effects run
+   on the browser's scroll timeline (no JavaScript per frame) and only where
+   supported; everything sits behind prefers-reduced-motion.
    --------------------------------------------------------------------------- */
-:root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
+:root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-press: cubic-bezier(0.34, 1.4, 0.64, 1); }
+.scroll-progress { display: none; }
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Page changes: the header stays put, the page lifts away and the next one rises in. */
   .studio-header { view-transition-name: site-header; }
   ::view-transition-old(root) { animation: vt-out 0.25s ease-in both; }
   ::view-transition-new(root) { animation: vt-in 0.55s var(--ease-out) both; }
@@ -2654,14 +2723,91 @@ html[dir="rtl"] .studio-eyebrow:not(:has(> *)) { display: block; unicode-bidi: p
   @keyframes vt-out { to { opacity: 0; transform: translateY(-16px); } }
   @keyframes vt-in { from { opacity: 0; transform: translateY(32px); } }
 
-  .nav-pill, .studio-text-link, .folio-chips a { transition-property: background, color, border-color, transform; transition-duration: 0.3s; }
+  /* Presses give way under the finger, hovers lift. */
+  .nav-pill, .studio-text-link, .folio-chips a, .service-card > a, .pkg-card, .bento-card, .testimonial-grid figure {
+    transition-property: background, color, border-color, padding, transform;
+    transition-duration: 0.35s, 0.35s, 0.25s, 0.45s, 0.45s;
+    transition-timing-function: ease, ease, ease, var(--ease-out), var(--ease-out);
+  }
   .nav-pill:active, .studio-text-link:active, .folio-chips a:active { transform: scale(0.96); transition-duration: 0.12s; }
+  .service-card > a:hover, .pkg-card:hover, .bento-card:hover { transform: translateY(-6px); }
+  .service-card > a:active, .pkg-card:active { transform: translateY(-2px) scale(0.99); }
+  .studio-text-link svg { transition: transform 0.45s var(--ease-out), background 0.3s ease; }
+  .studio-text-link:hover svg { transform: translate(3px, -3px) rotate(45deg); }
+  html[dir="rtl"] .studio-text-link:hover svg { transform: translate(-3px, -3px) rotate(-45deg) scaleX(-1); }
+  .step-row { transition: background 0.4s ease, transform 0.45s var(--ease-out); }
+  .step-row:hover .step-number::before { transform: scaleY(1.35); }
+  .step-number::before { transition: transform 0.45s var(--ease-out); }
+
+  @supports (animation-timeline: scroll()) {
+    /* Reading progress along the top edge. */
+    .scroll-progress {
+      display: block; position: fixed; inset: 0 0 auto; z-index: 70; height: 3px; pointer-events: none;
+      background: hsl(var(--accent)); transform-origin: 0 50%;
+      animation: progress-grow linear both; animation-timeline: scroll(root);
+    }
+    html[dir="rtl"] .scroll-progress { transform-origin: 100% 50%; }
+    @keyframes progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* The hero sinks back as you leave it: the photo drifts and grows, the words lift and fade. */
+    .folio-hero-media { animation: hero-drift linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+    .folio-hero-inner { animation: hero-lift linear both; animation-timeline: scroll(root); animation-range: 25vh 100vh; }
+    @keyframes hero-drift { to { transform: translateY(22%) scale(1.08); } }
+    @keyframes hero-lift { to { opacity: 0.15; transform: translateY(-48px); } }
+
+    /* Photos move a little slower than their frames as they pass. */
+    .featured-row-media picture, .project-card-media picture, .about-gallery picture {
+      display: block; height: 100%;
+      animation: frame-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%;
+    }
+    @keyframes frame-drift { from { transform: translateY(-5%) scale(1.12); } to { transform: translateY(5%) scale(1.12); } }
+
+    /* Section titles unmask from below as they enter. */
+    .section-heading h2, .folio-cta h2, .studio-cta h2 {
+      animation: title-unmask linear both; animation-timeline: view(); animation-range: entry 0% entry 75%;
+    }
+    @keyframes title-unmask {
+      from { opacity: 0; transform: translateY(0.45em); clip-path: inset(0 0 100% 0); }
+      to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); }
+    }
+
+    /* Each eyebrow draws a short accent rule before its words. */
+    .section-heading .studio-eyebrow::before {
+      content: ""; display: inline-block; width: 28px; height: 2px; margin-inline-end: 12px; vertical-align: middle;
+      background: currentColor; transform-origin: 0 50%;
+      animation: rule-draw linear both; animation-timeline: view(); animation-range: entry 10% entry 90%;
+    }
+    html[dir="rtl"] .section-heading .studio-eyebrow::before { transform-origin: 100% 50%; }
+    @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  }
 }
 /* Inner-page heroes show their image at once: a project cover grows straight into it. */
 .folio-hero--page .folio-hero-media::before { display: none; }
 
 /* WHAT I DO, after Folioblox: a tall grey card, its picture framed inside the top, then the
    accent line, the name and the short description settle at the bottom. */
+.service-card > a { padding: 14px 14px 40px; min-height: 0; gap: 0; justify-content: flex-start; }
+.service-card > a::before { display: none; }
+.service-card-media { position: relative; display: block; overflow: hidden; border-radius: 22px; aspect-ratio: 16 / 10; margin-bottom: 36px; background: hsl(var(--primary)); }
+.service-card-media picture, .service-card-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.service-card-media img { transition: transform 1.1s var(--ease-out); }
+.service-card > a:hover .service-card-media img { transform: scale(1.06); }
+.service-card-number {
+  position: absolute; top: 30px; inset-inline-start: 30px; z-index: 1;
+  padding: 6px 12px; border-radius: 30px; font-size: 13px; font-weight: 700;
+  background: hsl(var(--background) / 0.92); color: hsl(var(--primary));
+}
+.service-card-tagline, .service-card h3, .service-card-value { padding-inline: 26px; }
+.service-card-tagline { margin-top: 0; order: 0; font-size: 17px; font-weight: 700; color: hsl(var(--accent)); }
+.service-card h3 { margin-top: 12px; }
+.service-card-value { margin-top: 14px; padding-top: 0; }
+@media (max-width: 800px) {
+  .service-card > a { padding: 10px 10px 28px; }
+  .service-card-media { border-radius: 18px; margin-bottom: 24px; }
+  .service-card-number { top: 22px; inset-inline-start: 22px; }
+  .service-card-tagline, .service-card h3, .service-card-value { padding-inline: 16px; }
+}
 
 /* Experience: one long grey panel split in three, the figures large, a thin divider between them,
    and the heading on the left with the proof row underneath. */
@@ -2755,6 +2901,7 @@ html[lang="ar"] .curve-head h2 { line-height: 1.3; letter-spacing: 0; }
 .svc-tile-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, hsl(var(--primary) / 0.92), hsl(var(--primary) / 0.15) 60%); }
 .svc-tile-media picture, .svc-tile-media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease-out); }
 .svc-tile:hover .svc-tile-media img { transform: scale(1.07); }
+.svc-tile-number { position: absolute; top: 24px; inset-inline-start: 26px; font-size: 14px; font-weight: 700; color: hsl(var(--muted)); }
 .svc-tile-title { font-size: clamp(19px, 1.6vw, 24px); font-weight: 800; line-height: 1.2; text-wrap: balance; }
 html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: right; }
 .svc-tile-role { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: hsl(var(--secondary) / 0.75); }
@@ -2763,6 +2910,10 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
 .svc-line.service-line--tint .svc-line-media { order: 2; }
 .svc-line-media { position: sticky; top: 110px; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 30px; background: hsl(var(--primary)); }
 .svc-line-media picture, .svc-line-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.svc-line-index {
+  position: absolute; bottom: 22px; inset-inline-start: 26px; font-size: clamp(64px, 8vw, 120px); font-weight: 800; line-height: 1;
+  letter-spacing: -0.05em; color: hsl(var(--secondary) / 0.9); mix-blend-mode: soft-light;
+}
 .svc-line-body { padding-block: 12px; }
 .svc-line-body h2 { margin-top: 14px; font-size: clamp(34px, 4vw, 58px); font-weight: 800; line-height: 1.08; letter-spacing: -0.035em; text-wrap: balance; }
 .svc-line-tagline { margin-top: 20px; font-size: 20px; font-weight: 700; color: hsl(var(--accent)); }
@@ -2775,6 +2926,7 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
 .svc-facts li { display: flex; gap: 10px; align-items: flex-start; }
 .svc-facts li svg { margin-top: 6px; color: hsl(var(--accent)); }
 .svc-line .service-line-subhead { margin-top: 88px; }
+.pkg-card-index { font-size: 13px; font-weight: 700; color: hsl(var(--accent)); }
 @media (max-width: 1000px) {
   .svc-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .svc-line-grid { grid-template-columns: 1fr; }
@@ -2786,7 +2938,11 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
   .svc-facts > div { grid-template-columns: 1fr; gap: 8px; }
   .svc-line .service-line-subhead { margin-top: 56px; }
 }
-
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .svc-line-media picture { animation: frame-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+  }
+}
 
 /* Service detail: the questions run beside a held column with the line's picture and promise. */
 .svc-qa { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
@@ -2837,7 +2993,19 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
   .about-principles-list > li::before { inset: 28px 24px auto; }
 }
 
-
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Timeline: each period's rail fills and its dot lights as it reaches the middle of the screen. */
+    .about-timeline-period::after {
+      content: ""; position: absolute; top: 0; bottom: 0; inset-inline-end: -1px; width: 1px; background: hsl(var(--accent));
+      transform-origin: 50% 0; animation: rail-fill linear both; animation-timeline: view(); animation-range: entry 60% cover 55%;
+    }
+    .about-timeline-dot { z-index: 1; animation: dot-light linear both; animation-timeline: view(); animation-range: entry 80% cover 45%; }
+    @keyframes rail-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes dot-light { to { background: hsl(var(--accent)); transform: scale(1.3); } }
+    .about-aside-media picture { display: block; height: 100%; animation: frame-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+  }
+}
 
 /* Products: three principles in one grey panel, the same rhythm as the experience panel. */
 .product-pillars-section { padding-bottom: 24px; }
@@ -2854,160 +3022,5 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
   .step-media, .step-media img { opacity: 1; transform: none; }
 }
 .about-principles-list > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.svc-tile-number { padding: 6px 12px; border-radius: 30px; background: hsl(var(--background) / 0.92); color: hsl(var(--primary)); top: 20px; }
 .about-paragraphs p { font-size: 17px; line-height: 1.85; }
-
-/* ===========================================================================
-   Direction: "What is seen, and what is behind it."
-   One family (Lama Sans) on a 1.25 scale; labels in sentence case and the
-   page's language; ruled rows where content is a list, cards only where it
-   is a unit (projects, packages, products). The construction grid is the
-   one memorable device: it draws once in the hero and returns over the work
-   when you point at it.
-   =========================================================================== */
-:root {
-  --fs-small: 14px; --fs-body: 17px; --fs-lead: 20px;
-  --fs-h3: clamp(22px, 1.9vw, 28px);
-  --fs-h2: clamp(34px, 4.2vw, 61px);
-  --fs-display: clamp(52px, 8.4vw, 132px);
-  --rule: 1px solid hsl(var(--primary) / 0.14);
-  --grid-line: hsl(var(--secondary) / 0.22);
-}
-
-/* Labels: sentence case, page language, no tracking, no numbering. */
-.studio-eyebrow, html[lang="ar"] .studio-eyebrow, .folio-eyebrow {
-  text-transform: none; letter-spacing: 0; font-size: 16px; font-weight: 500; line-height: 1.5;
-}
-.section-heading .studio-eyebrow { font-size: 17px; font-weight: 500; letter-spacing: 0; margin-bottom: 4px; }
-.section-heading .studio-eyebrow::before { content: none; }
-.section-heading h2 { font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.03em; }
-html[lang="ar"] .section-heading h2 { font-weight: 700; letter-spacing: 0; }
-.latin { margin-top: 6px; font-size: var(--fs-small); font-weight: 500; letter-spacing: 0.01em; color: hsl(var(--accent)); }
-html[dir="rtl"] .latin { text-align: right; }
-
-/* Internal links say what they do; only links that leave the site carry the arrow. */
-.studio-text-link:not([target="_blank"]) svg { display: none; }
-.studio-text-link:not([target="_blank"]) { padding-inline: 24px; }
-.nav-pill--solid:not([target="_blank"]), .nav-pill--solid:not([target="_blank"]):hover { padding-inline: 26px; }
-.nav-pill--solid:not([target="_blank"]) .nav-pill-dot { display: none; }
-.nav-actions .nav-pill--solid:not([target="_blank"]), .nav-actions .nav-pill--solid:not([target="_blank"]):hover { padding-inline: 18px; }
-.folio-pill:not([target="_blank"]) svg { display: none; }
-
-/* Hero: the construction grid draws column by column, then settles as a faint guide. */
-.hero-grid { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: flex; justify-content: space-between; }
-.hero-grid span { width: 1px; height: 100%; background: var(--grid-line); transform-origin: 50% 0; }
-.hero-grid i { position: absolute; inset-inline: var(--studio-gutter); height: 1px; background: var(--grid-line); transform-origin: 0 50%; }
-html[dir="rtl"] .hero-grid i { transform-origin: 100% 50%; }
-.hero-grid i:nth-of-type(1) { top: 88px; }
-.hero-grid i:nth-of-type(2) { top: 58%; }
-.hero-grid i:nth-of-type(3) { bottom: 120px; }
-.folio-hero-inner { position: relative; z-index: 1; }
-@media (prefers-reduced-motion: no-preference) {
-  .hero-grid span { animation: grid-draw-y 0.9s var(--ease-out) calc(var(--i) * 45ms) both, grid-settle 1.2s ease 1.5s both; }
-  .hero-grid i { animation: grid-draw-x 1.1s var(--ease-out) 0.35s both, grid-settle 1.2s ease 1.5s both; }
-  @keyframes grid-draw-y { from { transform: scaleY(0); } }
-  @keyframes grid-draw-x { from { transform: scaleX(0); } }
-  @keyframes grid-settle { from { opacity: 1; } to { opacity: 0.45; } }
-}
-@media (max-width: 800px) {
-  .hero-grid span:nth-child(even) { display: none; }
-}
-
-/* The same grid returns over a piece of work when you point at it: the system behind the visible. */
-.featured-row-media, .project-card-media, .svc-row-media { position: relative; }
-.featured-row-media::after, .project-card-media::after, .svc-row-media::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-  background:
-    repeating-linear-gradient(90deg, hsl(var(--secondary) / 0.55) 0 1px, transparent 1px calc(100% / 12)),
-    repeating-linear-gradient(0deg, hsl(var(--secondary) / 0.4) 0 1px, transparent 1px calc(100% / 6));
-  mix-blend-mode: overlay; transition: opacity 0.5s ease;
-}
-.featured-row:hover .featured-row-media::after, .project-card:hover .project-card-media::after, .svc-row:hover .svc-row-media::after { opacity: 1; }
-
-/* What I do: four ruled rows; the picture, the name (Arabic first, the English name under it), the promise. */
-.svc-rows { list-style: none; margin: 0; padding: 0; border-top: var(--rule); }
-.svc-row {
-  display: grid; grid-template-columns: 220px minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 56px); align-items: center;
-  padding-block: 28px; border-bottom: var(--rule);
-}
-.svc-row-media { display: block; overflow: hidden; aspect-ratio: 16 / 10; border-radius: 18px; background: hsl(var(--primary)); }
-.svc-row-media picture, .svc-row-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.svc-row-media img { transition: transform 0.9s var(--ease-out); }
-.svc-row:hover .svc-row-media img { transform: scale(1.05); }
-.svc-row-name h3 { font-size: clamp(24px, 2.3vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; transition: color 0.3s ease; }
-html[lang="ar"] .svc-row-name h3 { line-height: 1.45; letter-spacing: 0; }
-.svc-row:hover .svc-row-name h3 { color: hsl(var(--accent)); }
-.svc-row-copy { display: grid; gap: 8px; }
-.svc-row-copy strong { font-size: var(--fs-lead); font-weight: 700; }
-.svc-row-copy span { font-size: 16px; line-height: 1.7; color: hsl(var(--muted-foreground)); }
-@media (max-width: 900px) {
-  .svc-row { grid-template-columns: 140px minmax(0, 1fr); }
-  .svc-row-copy { grid-column: 1 / -1; }
-}
-@media (max-width: 520px) {
-  .svc-row { grid-template-columns: 1fr; gap: 16px; }
-}
-
-/* Experience: a ruled row of three figures, no panel. */
-.studio-proof .stat-cards { padding: 0; gap: 0; border-radius: 0; background: none; border-top: var(--rule); border-bottom: var(--rule); }
-.studio-proof .stat-card { padding: 40px 0; border-radius: 0; background: none; }
-.studio-proof .stat-card:hover { background: none; }
-.studio-proof .stat-card::before { content: none; }
-.studio-proof .stat-card + .stat-card { box-shadow: none; padding-inline-start: 40px; border-inline-start: var(--rule); }
-html[dir="rtl"] .studio-proof .stat-card + .stat-card { box-shadow: none; }
-.studio-proof .stat-card strong { font-size: clamp(64px, 7.5vw, 112px); font-weight: 700; letter-spacing: -0.05em; }
-@media (max-width: 800px) {
-  .studio-proof .stat-card, .studio-proof .stat-card + .stat-card { padding: 28px 0; border-inline-start: 0; box-shadow: none; }
-  .studio-proof .stat-card + .stat-card, html[dir="rtl"] .studio-proof .stat-card + .stat-card { border-top: var(--rule); }
-}
-
-/* Testimonials: the quote is the design; a rule, the words large, the name under them. */
-.testimonial-grid figure { padding: 32px 0 0; border-radius: 0; background: none; border-top: 2px solid hsl(var(--accent)); }
-.testimonial-grid figure::before { content: none; }
-.testimonial-grid blockquote { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.65; }
-
-/* About principles: not a sequence, so ruled rows with no numbers; the title beside its body. */
-.about-principles-list { grid-template-columns: 1fr; gap: 0; border-top: var(--rule); }
-.about-principles-list > li { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 32px; padding: 36px 0; border-radius: 0; background: none; border-bottom: var(--rule); }
-.about-principles-list > li:first-child { padding-top: 36px; }
-.about-principles-list > li::before, .about-principle-number { display: none; }
-.about-principles-list > li:hover { transform: none; box-shadow: none; }
-.about-principles-list > li:last-child:nth-child(odd) { grid-column: auto; }
-@media (max-width: 800px) { .about-principles-list > li { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; } }
-
-/* Product principles: three ruled columns, no numbers, no panel. */
-.product-pillars { padding: 0; gap: 0; border-radius: 0; background: none; border-top: var(--rule); }
-.product-pillars li { padding: 36px 36px 0 0; border-radius: 0; }
-html[dir="rtl"] .product-pillars li { padding: 36px 0 0 36px; }
-.product-pillars li + li { border-inline-start: var(--rule); padding-inline-start: 36px; }
-.product-pillars li:hover { background: none; transform: none; }
-.product-pillars span { display: none; }
-@media (max-width: 900px) {
-  .product-pillars li, html[dir="rtl"] .product-pillars li, .product-pillars li + li { padding: 28px 0; border-inline-start: 0; }
-  .product-pillars li + li { border-top: var(--rule); }
-}
-
-/* Client logos: one still wall. */
-.client-wall { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px 48px; }
-.client-wall img { display: block; width: auto; height: auto; max-height: 64px; border-radius: 0; }
-@media (max-width: 800px) { .client-wall { gap: 22px 32px; justify-content: flex-start; } .client-wall img { max-height: 46px; } }
-
-/* Services page tiles: name over picture, the English name small under the Arabic. */
-.svc-tile-role { text-transform: none; letter-spacing: 0.01em; font-size: 13px; }
-.svc-line-body .latin { margin-top: 8px; font-size: 15px; }
-
-/* Alignment: text starts where reading starts; only the closing invitation is centred. */
-.curve-head { align-items: flex-start; text-align: start; }
-.curve-head h2 { max-width: 16ch; font-size: var(--fs-h2); font-weight: 700; }
-.curve-labels { text-align: start; }
-
-/* Closing: the invitation in display size, the one place type takes the whole width. */
-.studio-cta h2, .folio-cta h2 { font-size: var(--fs-display); font-weight: 700; line-height: 1; letter-spacing: -0.045em; max-width: none; }
-html[lang="ar"] .studio-cta h2, html[lang="ar"] .folio-cta h2 { line-height: 1.25; letter-spacing: 0; }
-.folio-cta h2 { font-size: clamp(40px, 6vw, 88px); }
-
-/* Hover lifts were decoration; cards now stay where they are. */
-.pkg-card:hover, .bento-card:hover { transform: none; }
-@media (max-width: 800px) {
-  .client-wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); place-items: center; gap: 22px 16px; }
-  .client-wall img { max-width: 100%; max-height: 40px; }
-}

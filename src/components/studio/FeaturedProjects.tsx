@@ -20,7 +20,7 @@ export default function FeaturedProjects({ items }: { items: Project[] }) {
         const title = ar ? p.title_ar : p.title_en;
         const description = p.context?.[lang] ?? p.discipline?.[lang] ?? dictionary.workPage.filters[p.serviceLine];
         return (
-          <li key={p.slug} className="featured-row">
+          <li key={p.slug} className="featured-row" data-reveal>
             <ProjectMediaLink to={`${prefix}/work/${p.slug}`} className="featured-row-media">
               <Picture
                 src={p.cover}
