@@ -78,7 +78,7 @@ test("llms.txt and robots.txt are served", async ({ request }) => {
 });
 
 test("service pages answer buyer questions with Service and FAQPage data", async ({ request }) => {
-  for (const path of ["/services/brand", "/en/services/ai"]) {
+  for (const path of ["/services/brand", "/en/services/operations"]) {
     const html = await (await request.get(path)).text();
     const h = head(html);
     const types = h.jsonLd.flatMap((d) => (Array.isArray(d) ? d : [d])).map((d) => d["@type"]);

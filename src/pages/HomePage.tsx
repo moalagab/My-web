@@ -3,8 +3,8 @@ import {
   ArrowUpRight,
   Boxes,
   Bot,
+  ClipboardList,
   Palette,
-  PanelsTopLeft,
   Quote,
 } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
@@ -35,7 +35,7 @@ export default function HomePage() {
     ? ["فكرة واضحة.", "علامة مؤثرة.", "نظام يعمل."]
     : ["Clear thinking.", "Distinct brands.", "Working systems."];
   const selected = selectedIdentityProjects.slice(0, 6);
-  const icons = [Palette, PanelsTopLeft, Bot, Boxes];
+  const icons = [Bot, Boxes, Palette, ClipboardList];
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
     <>
@@ -144,15 +144,15 @@ export default function HomePage() {
               <div>
                 <p className="studio-eyebrow">02 / WHAT I DO</p>
                 <h2>
-                  {ar
-                    ? "من الصورة الكبيرة،\nإلى أدق التفاصيل."
-                    : "The bigger picture.\nEvery last detail."}
+                  <span dir="ltr">
+                    {"Creative Thinking.\nSmart Systems.\nReal Execution."}
+                  </span>
                 </h2>
               </div>
               <p className="section-intro">
                 {ar
-                  ? "أربط ما يراه العميل بما يحتاجه فريقك ليشغّل العمل. أربعة مسارات، وتجربة واحدة متماسكة."
-                  : "Connecting what your customers see with what your team needs to operate. Four disciplines. One coherent experience."}
+                  ? "أجمع بين الإبداع والتقنية والخبرة التشغيلية لتطوير حلول وتجارب تساعد الشركات على تحويل أفكارها إلى مشاريع وأنظمة تعمل على أرض الواقع."
+                  : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."}
               </p>
             </div>
             <div className="service-editorial">

@@ -77,7 +77,7 @@ import asdam14 from "@/assets/asdam/Artboard_14.webp";
 import feaalCover from "@/assets/feaal/cover.webp";
 import tamalukCover from "@/assets/tamaluk/cover.webp";
 
-export type ServiceLine = "brand" | "digital" | "ai" | "experiential";
+export type ServiceLine = "digital" | "experiential" | "brand" | "operations";
 
 export type Localized = { ar: string; en: string };
 
