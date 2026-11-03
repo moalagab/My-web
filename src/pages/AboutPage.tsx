@@ -51,7 +51,7 @@ export default function AboutPage() {
         >
           <div className="studio-container">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">01 / {c.storyEyebrow}</p>
+              <p className="studio-eyebrow">{c.storyEyebrow}</p>
               <h2 id="story-title">{c.storyTitle}</h2>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function AboutPage() {
         >
           <div className="studio-container about-editorial-grid">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">02 / {c.principlesEyebrow}</p>
+              <p className="studio-eyebrow">{c.principlesEyebrow}</p>
               <h2 id="principles-title">{c.principlesTitle}</h2>
             </div>
             <ol className="about-principles-list">
@@ -180,10 +180,10 @@ export default function AboutPage() {
         >
           <div className="studio-container about-editorial-grid">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">03 / {c.timelineEyebrow}</p>
+              <p className="studio-eyebrow">{c.timelineEyebrow}</p>
               <h2 id="timeline-title">{c.timelineTitle}</h2>
               <p className="about-timeline-caption" dir="ltr">
-                DESIGN → OPERATIONS → APPLIED AI
+                Design → Operations → Applied AI
               </p>
             </div>
             <div>
@@ -238,7 +238,7 @@ export default function AboutPage() {
         </section>
         <section className="about-closing">
           <div className="studio-container">
-            <p className="studio-eyebrow">04 / {c.closingEyebrow}</p>
+            <p className="studio-eyebrow">{c.closingEyebrow}</p>
             <div className="about-closing-grid">
               <h2>{c.closingTitle}</h2>
               <div className="about-closing-body">

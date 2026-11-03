@@ -43,7 +43,7 @@ export default function WorkPage() {
       <main className="work-page" id="main-content">
         <PageHero
           image={orderedProjects.find((p) => p.slug === "talia-bakery")?.cover}
-          eyebrow="SELECTED WORK / THE IDENTITY COLLECTION"
+          eyebrow={dictionary.workPage.eyebrow}
           title={ar ? <>هويات تُرى.<br />وتُتذكّر.</> : <>Seen.<br />Remembered.</>}
           side={
             <>
@@ -102,7 +102,6 @@ export default function WorkPage() {
         <CurvedGallery />
         <section className="studio-cta">
           <div className="studio-container">
-            <p className="studio-eyebrow">YOUR BRAND / NEXT CHAPTER</p>
             <h2>{copy.ctaTitle}</h2>
             <div>
               <p>{copy.ctaBody}</p>

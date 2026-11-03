@@ -60,7 +60,7 @@ export default function StepRows({ steps }: { steps: readonly Step[] }) {
         <li
           key={step.title}
           className={`step-row ${i === active ? "is-active" : ""}`}
-          data-reveal
+         
           onPointerMove={(e) => onMove(e, i)}
         >
           <span className="step-number" dir="ltr">

@@ -86,7 +86,7 @@ export default function CurvedGallery() {
 
   return (
     <section className="studio-section curve-gallery" aria-labelledby="curve-title">
-      <div className="studio-container curve-head" data-reveal>
+      <div className="studio-container curve-head">
         <h2 id="curve-title">{ar ? "وخلف العلامات، أعمال أكثر." : "There’s more behind the brands."}</h2>
         <p>
           {ar

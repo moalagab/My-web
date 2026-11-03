@@ -184,7 +184,7 @@ export default function Navigation() {
                       {services.map((s) => (
                         <li key={s.slug}>
                           <Link viewTransition to={to(`/services/${s.slug}`)} tabIndex={servicesOpen ? undefined : -1}>
-                            <span dir="ltr">{s.title}</span>
+                            <span>{s.title}</span>
                           </Link>
                         </li>
                       ))}

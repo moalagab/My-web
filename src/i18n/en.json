@@ -29,7 +29,7 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "BRAND DESIGNER & AI PRODUCT BUILDER",
+      "eyebrow": "Brand designer & AI product builder",
       "title": "From idea to a working system.",
       "body": "I design the brands and experiences customers see, and build the products and AI systems that make the work happen behind them.",
       "primary": "Start a project",
@@ -61,7 +61,7 @@
       "logosLabel": "Selected clients"
     },
     "services": {
-      "eyebrow": "01 / SERVICES",
+      "eyebrow": "What I do",
       "title": "Four paths. Real execution.",
       "details": "Details",
       "deliverablesLabel": "Deliverables",
@@ -77,7 +77,8 @@
             "CRM and ERP integration",
             "AI agents and automation"
           ],
-          "packages": "Landing Page · Business Website · MVP / Business App · Automation Audit + Blueprint · CRM & Workflow Automation · AI Agent Pilot"
+          "packages": "Landing Page · Business Website · MVP / Business App · Automation Audit + Blueprint · CRM & Workflow Automation · AI Agent Pilot",
+          "latin": "AI & Digital Solutions"
         },
         {
           "slug": "experiential",
@@ -89,7 +90,8 @@
             "Booth design and 3D",
             "Production and on-site execution"
           ],
-          "packages": "Booth Concept · Booth Concept + 3D + Graphics · Event Branding · Creative & Technical Direction"
+          "packages": "Booth Concept · Booth Concept + 3D + Graphics · Event Branding · Creative & Technical Direction",
+          "latin": "Events, Exhibitions & Brand Experiences"
         },
         {
           "slug": "brand",
@@ -101,7 +103,8 @@
             "Visual identity system",
             "Campaigns and marketing materials"
           ],
-          "packages": "Essential Identity · Core Identity · Strategy + Identity · Campaign Creative · Social Visual Starter · Monthly Design Retainer"
+          "packages": "Essential Identity · Core Identity · Strategy + Identity · Campaign Creative · Social Visual Starter · Monthly Design Retainer",
+          "latin": "Brand & Creative Solutions"
         },
         {
           "slug": "operations",
@@ -113,12 +116,13 @@
             "SOPs",
             "Follow-up and KPIs"
           ],
-          "packages": "Operations Diagnostic · SOP System · Project Control & KPIs"
+          "packages": "Operations Diagnostic · SOP System · Project Control & KPIs",
+          "latin": "Business & Operations Solutions"
         }
       ]
     },
     "work": {
-      "eyebrow": "02 / SELECTED WORK",
+      "eyebrow": "Selected work",
       "title": "Selected work",
       "all": "All work",
       "items": [
@@ -161,7 +165,7 @@
       ]
     },
     "products": {
-      "eyebrow": "03 / PRODUCTS I BUILT",
+      "eyebrow": "Products I built",
       "title": "Products I built",
       "caption": "Products working now, not display concepts.",
       "visit": "Open product",
@@ -180,7 +184,7 @@
       ]
     },
     "process": {
-      "eyebrow": "04 / HOW WE WORK",
+      "eyebrow": "How we work",
       "title": "How we work",
       "steps": [
         {
@@ -206,7 +210,7 @@
       ]
     },
     "about": {
-      "eyebrow": "05 / ABOUT MO",
+      "eyebrow": "About Mo",
       "title": "Mohammed Alagab",
       "paragraphs": [
         "A Brand Designer & AI Product Builder based in Riyadh.",
@@ -217,7 +221,7 @@
       "portraitAlt": "Mohammed Alagab"
     },
     "testimonials": {
-      "eyebrow": "06 / IN THEIR WORDS",
+      "eyebrow": "From clients",
       "title": "In their words.",
       "intro": "Recommendations published on LinkedIn.",
       "link": "All recommendations on LinkedIn",
@@ -236,7 +240,7 @@
       ]
     },
     "faq": {
-      "eyebrow": "06 / FAQ",
+      "eyebrow": "FAQ",
       "title": "Frequently asked questions",
       "items": [
         {
@@ -274,7 +278,7 @@
   },
   "workPage": {
     "metaTitle": "Work — Mo Alagab",
-    "eyebrow": "WORK / PROOF",
+    "eyebrow": "Work",
     "title": "Work you can see and use.",
     "body": "Selected projects showing the context, the decision, and the system as they actually happened.",
     "filtersLabel": "Filter by service line",
@@ -316,7 +320,7 @@
     "pdfLabel": "Profile document",
     "pdfButton": "View profile",
     "similar": {
-      "eyebrow": "NEXT STEP",
+      "eyebrow": "Next step",
       "title": "A similar project?",
       "body": "If your case is close to this one, this package is the clearest place to start.",
       "packageLabel": "Matching package",
@@ -331,7 +335,7 @@
   "servicesPage": {
     "metaTitle": "What I Do — Mo Alagab",
     "metaDescription": "AI and digital solutions, exhibitions and brand experiences, identities and campaigns, and business operations — clear scope and timeline for every package.",
-    "eyebrow": "WHAT I DO",
+    "eyebrow": "Services",
     "title": "Creative Thinking. Smart Systems. Real Execution.",
     "body": "From digital systems to brands and real-world experiences, I help companies and entrepreneurs turn ideas into solutions they can execute, combining strategic thinking, creativity, technology, and operational management.",
     "whatLabel": "What it is",
@@ -342,7 +346,7 @@
     "fitLabel": "Good fit for",
     "packageCta": "Request a proposal",
     "notIncludedLabel": "Not included",
-    "caseEyebrow": "CASE STUDY",
+    "caseEyebrow": "From the work",
     "caseLabel": "A project from this line",
     "caseCta": "See the project",
     "lines": [
@@ -399,7 +403,8 @@
             "timeline": "3–5 weeks",
             "fit": "An organization that wants to trial an AI agent before scaling."
           }
-        ]
+        ],
+        "latin": "AI & Digital Solutions"
       },
       {
         "slug": "experiential",
@@ -441,7 +446,8 @@
             "timeline": "Set by the event date",
             "fit": "A vendor-built project that needs someone to keep execution true to the design."
           }
-        ]
+        ],
+        "latin": "Events, Exhibitions & Brand Experiences"
       },
       {
         "slug": "brand",
@@ -495,7 +501,8 @@
             "timeline": "Monthly",
             "fit": "A team that needs ongoing design without an in-house hire."
           }
-        ]
+        ],
+        "latin": "Brand & Creative Solutions"
       },
       {
         "slug": "operations",
@@ -531,7 +538,8 @@
             "timeline": "3–5 weeks",
             "fit": "An organization running several projects that needs a clear view of progress and delays."
           }
-        ]
+        ],
+        "latin": "Business & Operations Solutions"
       }
     ],
     "detailCta": "Service details",
@@ -592,7 +600,7 @@
     "tokenRole": "Role"
   },
   "productsPage": {
-    "eyebrow": "PRODUCTS / SOON",
+    "eyebrow": "Products",
     "title": "Digital products are being prepared.",
     "body": "This is a temporary page within the new system. Content will be added in the next phase.",
     "action": "Start a project"
@@ -600,11 +608,11 @@
   "startPage": {
     "metaTitle": "Start a project — Mo Alagab",
     "metaDescription": "Send a short brief and I will reply within two business days with a clear next step.",
-    "eyebrow": "START / BRIEF",
+    "eyebrow": "Project brief",
     "title": "Let's start",
     "sub": "Send a short brief and I will reply within two business days with a clear next step.",
     "next": {
-      "eyebrow": "WHAT HAPPENS NEXT",
+      "eyebrow": "After you send",
       "title": "What happens after you send",
       "steps": [
         {
@@ -720,7 +728,7 @@
   "privacyPage": {
     "metaTitle": "Privacy policy — Mo Alagab",
     "metaDescription": "What the project form collects, why, how long it is kept, and how to request deletion.",
-    "eyebrow": "PRIVACY",
+    "eyebrow": "Privacy",
     "title": "Privacy policy",
     "intro": "A short, plain page: exactly what I collect, why, and how long I keep it.",
     "sections": [
@@ -763,17 +771,17 @@
   "aboutPage": {
     "metaTitle": "About Mohammed Alagab — Design × Operations × Applied AI",
     "metaDescription": "From building identities to building systems: Mohammed Alagab’s path through design, operations and applied AI. Over 12 years across Sudan, Oman and Saudi Arabia.",
-    "eyebrow": "ABOUT / MO",
+    "eyebrow": "About Mo",
     "name": "Mohammed Alagab",
     "descriptor": "Design × Operations × Applied AI",
     "portraitAlt": "Mohammed Alagab",
-    "storyEyebrow": "STORY",
+    "storyEyebrow": "Story",
     "story": [
       "I began where people see the work: the brand, the image and the experience.",
       "Over more than 12 years across Sudan, Oman and Saudi Arabia, I worked in branding, art direction, exhibitions and brand activation, then gradually moved into operations and project delivery.",
       "I built more than 40 identity systems for organisations across sectors, working with teams, suppliers and decision-makers on projects spanning identity and advertising through to exhibitions and on-site experiences."
     ],
-    "principlesEyebrow": "PRINCIPLES",
+    "principlesEyebrow": "Principles",
     "principlesTitle": "Principles I work by",
     "principles": [
       {
@@ -803,7 +811,7 @@
         "body": "The best way to understand a system is to build and run it.\nI prefer a working prototype, a real workflow or a product you can try over ten pages of theory."
       }
     ],
-    "timelineEyebrow": "TIMELINE",
+    "timelineEyebrow": "Timeline",
     "timelineTitle": "The path",
     "timeline": [
       {
@@ -856,7 +864,7 @@
         "body": "Today, I work at the intersection of operations, AI and product building.\nI build workflows, AI agents and digital products, turning real business problems into systems that can be operated and measured.\nCurrent projects include Smart Field and LifeTent: the first demonstrates automation within a real sales process; the second is my experience of building an Arabic product from scratch."
       }
     ],
-    "toolsEyebrow": "TOOLS",
+    "toolsEyebrow": "Tools",
     "toolsTitle": "Tools I work with",
     "tools": [
       "Figma",
@@ -908,7 +916,7 @@
       "Test it"
     ],
     "productsLink": "Explore the products",
-    "closingEyebrow": "CLOSING",
+    "closingEyebrow": "Finally",
     "closingTitle": "Ideas alone\nare not enough.",
     "closingBody": [
       "An idea needs a system that makes it work.",
@@ -936,7 +944,7 @@
       "faq": "FAQ"
     },
     "notFound": {
-      "eyebrow": "404 / NOT FOUND",
+      "eyebrow": "Page not found",
       "title": "This path stops here.",
       "body": "Go back home, browse the work, or start with a clear brief.",
       "home": "Home",

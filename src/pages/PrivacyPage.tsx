@@ -24,7 +24,7 @@ const PrivacyPage = () => {
           <div className="studio-container">
             <div className="case-rows">
               {copy.sections.map((section) => (
-                <article key={section.title} className="case-row" data-reveal>
+                <article key={section.title} className="case-row">
                   <h2>{section.title}</h2>
                   <p>{section.body}</p>
                 </article>
@@ -35,7 +35,7 @@ const PrivacyPage = () => {
 
         <section className="studio-section">
           <div className="studio-container">
-            <div className="folio-cta" data-reveal>
+            <div className="folio-cta">
               <h2>{copy.contactLabel}</h2>
               <a href={`mailto:${siteSettings.email}`} className="folio-cta-mail" dir="ltr">
                 {siteSettings.email}

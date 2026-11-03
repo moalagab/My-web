@@ -170,7 +170,7 @@ const ProjectDetailPage = () => {
                 const text = localizedField(value, lang);
                 if (!text) return null;
                 return (
-                  <article key={key} className="case-row" data-reveal>
+                  <article key={key} className="case-row">
                     <h2>{copy.sections[key]}</h2>
                     <p>{text}</p>
                   </article>
@@ -228,7 +228,7 @@ const ProjectDetailPage = () => {
           <Section className="bg-card">
             <SectionInner>
               <Eyebrow>{copy.gallery}</Eyebrow>
-              <div data-reveal-stagger className="case-gallery mt-8 grid">
+              <div className="case-gallery mt-8 grid">
                 {project.gallery.map((image, galleryIndex) => (
                   <button
                     key={image.src}
@@ -259,7 +259,7 @@ const ProjectDetailPage = () => {
 
         <Section className="bg-background">
           <SectionInner>
-            <div className="folio-cta" data-reveal>
+            <div className="folio-cta">
               <p className="studio-eyebrow">{copy.similar.eyebrow}</p>
               <h2>{copy.similar.title}</h2>
               <p>

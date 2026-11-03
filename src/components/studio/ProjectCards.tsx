@@ -19,7 +19,7 @@ export default function ProjectCards({ items }: { items: Project[] }) {
       {items.map((p, i) => {
         const title = ar ? p.title_ar : p.title_en;
         return (
-          <li key={p.slug} className={i === 0 ? "project-card project-card--wide" : "project-card"} data-reveal>
+          <li key={p.slug} className={i === 0 ? "project-card project-card--wide" : "project-card"}>
             <ProjectMediaLink to={`${prefix}/work/${p.slug}`} className="project-card-media">
               <Picture
                 src={p.cover}

@@ -50,9 +50,18 @@ export default function HomePage() {
       />
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="folio-hero" data-no-reveal>
+        <section className="folio-hero">
           <div className="folio-hero-media" aria-hidden="true">
             <Picture src={heroPortrait} sizes="100vw" alt="" fetchPriority="high" decoding="async" />
+          </div>
+          {/* The construction grid behind the page: it draws once on arrival, then stays as a faint guide. */}
+          <div className="hero-grid studio-container" aria-hidden="true">
+            {Array.from({ length: 13 }, (_, i) => (
+              <span key={i} style={{ "--i": i } as React.CSSProperties} />
+            ))}
+            <i />
+            <i />
+            <i />
           </div>
           <div className="studio-container folio-hero-inner">
             <div className="folio-hero-head">
@@ -102,7 +111,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">01 / SELECTED WORK</p>
+                <p className="studio-eyebrow">{h.work.eyebrow}</p>
                 <h2>
                   {ar ? "الفكرة، حين تصبح واقعًا." : "Ideas, made tangible."}
                 </h2>
@@ -120,12 +129,8 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">02 / WHAT I DO</p>
-                <h2>
-                  <span dir="ltr">
-                    {"Creative Thinking.\nSmart Systems.\nReal Execution."}
-                  </span>
-                </h2>
+                <p className="studio-eyebrow">{h.services.eyebrow}</p>
+                <h2>{ar ? "تفكير إبداعي.\nأنظمة ذكية.\nتنفيذ حقيقي." : "Creative thinking.\nSmart systems.\nReal execution."}</h2>
               </div>
               <div className="section-side">
                 <p className="section-intro">
@@ -139,19 +144,21 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <ul className="service-cards">
-              {h.services.items.map((s, i) => (
-                <li key={s.slug} className="service-card" data-reveal>
-                  <Link viewTransition to={`${prefix}/services/${s.slug}`}>
-                    <span className="service-card-media" aria-hidden="true">
-                      <Picture src={`/work/media/service-${s.slug}.webp`} sizes="(min-width: 900px) 45vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
+            <ul className="svc-rows">
+              {h.services.items.map((s) => (
+                <li key={s.slug}>
+                  <Link viewTransition to={`${prefix}/services/${s.slug}`} className="svc-row">
+                    <span className="svc-row-media" aria-hidden="true">
+                      <Picture src={`/work/media/service-${s.slug}.webp`} sizes="(min-width: 900px) 240px, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
                     </span>
-                    <span className="service-card-number" dir="ltr">0{i + 1}</span>
-                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
-                    <h3>
-                      <span dir="ltr">{s.title}</span>
-                    </h3>
-                    <p className="service-card-value">{s.value}</p>
+                    <span className="svc-row-name">
+                      <h3>{s.title}</h3>
+                      {ar && <span className="latin" dir="ltr">{s.latin}</span>}
+                    </span>
+                    <span className="svc-row-copy">
+                      <strong>{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</strong>
+                      <span>{s.value}</span>
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -162,7 +169,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">03 / DESIGN MEETS TECHNOLOGY</p>
+                <p className="studio-eyebrow">{h.products.eyebrow}</p>
                 <h2>{h.products.title}</h2>
               </div>
               <div className="section-side">
@@ -175,7 +182,7 @@ export default function HomePage() {
             </div>
             <ul className="bento">
               {h.products.items.map((p, i) => (
-                <li key={p.name} className={i === 0 ? "bento-card bento-card--image" : "bento-card bento-card--accent"} data-reveal>
+                <li key={p.name} className={i === 0 ? "bento-card bento-card--image" : "bento-card bento-card--accent"}>
                   {i === 0 && (
                     <div className="bento-media" aria-hidden="true">
                       <ProductVisual kind="life" />
@@ -199,7 +206,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
+                <p className="studio-eyebrow">{h.process.eyebrow}</p>
                 <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
               </div>
               <p className="section-intro">
@@ -215,7 +222,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">05 / THE PERSON BEHIND THE WORK</p>
+                <p className="studio-eyebrow">{h.about.eyebrow}</p>
                 <h2>
                   {ar
                     ? "شريك في الفكرة.\nودقيق في التنفيذ."
@@ -234,11 +241,11 @@ export default function HomePage() {
               </div>
             </div>
             <ul className="about-gallery">
-              <li data-reveal>
+              <li>
                 <Picture src={portrait} sizes="(min-width: 900px) 33vw, 100vw" alt={h.about.portraitAlt} width={800} height={1000} loading="lazy" />
               </li>
               {aboutWork.map((p) => (
-                <li key={p.slug} data-reveal>
+                <li key={p.slug}>
                   <Picture src={p.cover} sizes="(min-width: 900px) 33vw, 100vw" alt={ar ? p.title_ar : p.title_en} width={800} height={1000} loading="lazy" />
                 </li>
               ))}
@@ -262,7 +269,7 @@ export default function HomePage() {
             </div>
             <div className="testimonial-grid">
               {h.testimonials.items.map((t) => (
-                <figure key={t.name} data-reveal>
+                <figure key={t.name}>
                   <Quote aria-hidden="true" size={28} className={isRtl ? "-scale-x-100" : ""} />
                   <blockquote>
                     <p>{t.quote}</p>
@@ -280,7 +287,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">07 / BEFORE WE START</p>
+                <p className="studio-eyebrow">{h.faq.eyebrow}</p>
                 <h2>{h.faq.title}</h2>
               </div>
               <p className="section-intro">
@@ -305,7 +312,6 @@ export default function HomePage() {
         </section>
         <section className="studio-cta">
           <div className="studio-container">
-            <p className="studio-eyebrow">YOUR NEXT CHAPTER /</p>
             <h2>
               {ar
                 ? "لنصنع شيئًا\nيستحق أن يُرى."

@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, type ReactNode } from "react";
 import { useLocation } from "react-router";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 export default function PageTransition({ children }: { children: ReactNode }) {
   const { pathname, hash } = useLocation();
   // Scroll before the new page paints, so a view transition captures it from the top.
@@ -25,10 +24,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       main.setAttribute("tabindex", "-1");
     }
   }, [pathname]);
-  useScrollReveal();
   return (
     <div className="page-enter">
-      <div className="scroll-progress" aria-hidden="true" />
       {children}
     </div>
   );
