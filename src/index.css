@@ -592,7 +592,7 @@ html[lang="ar"] .hero-title {
   padding-top: 5px;
 }
 .proof-grid > div {
-  border-inline-start: 1px solid hsl(var(--primary) / 0.2);
+  position: relative;
   padding-inline-start: 28px;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -600,6 +600,7 @@ html[lang="ar"] .hero-title {
   align-items: baseline;
 }
 .proof-grid strong {
+  font-variant-numeric: tabular-nums;
   font-size: 44px;
   line-height: 1.2;
   font-weight: 500;
@@ -3481,4 +3482,22 @@ html[dir="rtl"] .proc-bar span { transform-origin: right; }
 @media (prefers-reduced-motion: reduce) {
   .nav-dropdown, .nav-link svg, .nav-burger span { transition: none; }
   .nav-mobile:not([hidden]) { animation: none; }
+}
+
+/* Proof strip (src/components/studio/ProofStrip.tsx): dividers grow, columns rise in turn, numbers count up. */
+.proof-grid > div::before {
+  content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 1px;
+  background: hsl(var(--primary) / 0.2); transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
+}
+.proof-grid > p,
+.proof-grid > div {
+  transition: opacity 0.7s ease var(--d, 0ms), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
+}
+[data-proof="waiting"] .proof-grid > p,
+[data-proof="waiting"] .proof-grid > div { opacity: 0; transform: translateY(16px); }
+[data-proof="waiting"] .proof-grid > div::before { transform: scaleY(0); }
+.proof-grid strong span { font-size: inherit; }
+@media (prefers-reduced-motion: reduce) {
+  .proof-grid > p, .proof-grid > div, .proof-grid > div::before { transition: none; }
 }

@@ -38,3 +38,15 @@ test("reduced motion shows everything still and readable", async ({ browser }) =
   await expect(page.locator(".word-reveal span").first()).toHaveCSS("opacity", "1");
   await page.close();
 });
+
+test("proof numbers count up when the strip comes into view", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 600 });
+  await page.goto("/en");
+  const strip = page.locator(".studio-proof");
+  await expect(strip).toHaveAttribute("data-proof", "waiting");
+  await strip.scrollIntoViewIfNeeded();
+  await expect(strip).toHaveAttribute("data-proof", "in");
+  await expect(strip.locator("strong span[aria-hidden]").last()).toHaveText("40+");
+  // The real value is always in the DOM for readers.
+  await expect(strip.locator("strong .sr-only").first()).toHaveText("12+");
+});

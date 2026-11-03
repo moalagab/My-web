@@ -21,6 +21,7 @@ import StackedWork from "@/components/studio/StackedWork";
 import WordReveal from "@/components/studio/WordReveal";
 import ServiceScroll from "@/components/studio/ServiceScroll";
 import ProcessScroll from "@/components/studio/ProcessScroll";
+import ProofStrip from "@/components/studio/ProofStrip";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
 import Picture from "@/components/Picture";
@@ -99,26 +100,15 @@ export default function HomePage() {
             </a>
           </div>
         </section>
-        <section
-          className="studio-proof"
-          aria-label={h.proof.label}
-          data-no-reveal
-        >
-          <div className="studio-container proof-grid">
-            <p>
-              {ar
-                ? "خبرة تصنع الوضوح.\nوأعمال تثبت الفكرة."
-                : "Experience brings clarity.\nThe work makes it tangible."}
-            </p>
-            {h.proof.facts.map((f) => (
-              <div key={f.number}>
-                <strong dir="ltr">{f.number}</strong>
-                <span>{f.label}</span>
-                {"detail" in f && f.detail ? <small>{f.detail}</small> : null}
-              </div>
-            ))}
-          </div>
-        </section>
+        <ProofStrip
+          label={h.proof.label}
+          facts={h.proof.facts}
+          intro={
+            ar
+              ? "خبرة تصنع الوضوح.\nوأعمال تثبت الفكرة."
+              : "Experience brings clarity.\nThe work makes it tangible."
+          }
+        />
         <section className="studio-section studio-work" id="work">
           <div className="studio-container">
             <div className="section-heading">
