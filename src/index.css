@@ -2188,6 +2188,14 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
 }
 .nav-pill--solid:hover { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); padding-inline: 62px 28px; }
 .nav-pill--solid:hover .nav-pill-dot { inset-inline-end: calc(100% - 45px); background: hsl(var(--primary)); }
+/* Header pills run slimmer than the page buttons: shorter, tighter, a smaller arrow circle. */
+.nav-actions .nav-pill, .nav-mobile-actions .nav-pill { min-height: 38px; padding-inline: 14px; font-size: 13px; }
+.nav-actions .nav-pill--solid, .nav-mobile-actions .nav-pill--solid { min-height: 40px; padding-inline: 18px 46px; }
+.nav-actions .nav-pill-dot, .nav-mobile-actions .nav-pill-dot { width: 32px; height: 32px; top: 4px; inset-inline-end: 4px; }
+.nav-actions .nav-pill-dot svg, .nav-mobile-actions .nav-pill-dot svg { width: 15px; height: 15px; }
+.nav-actions .nav-pill--solid:hover, .nav-mobile-actions .nav-pill--solid:hover { padding-inline: 46px 18px; }
+.nav-actions .nav-pill--solid:hover .nav-pill-dot, .nav-mobile-actions .nav-pill--solid:hover .nav-pill-dot { inset-inline-end: calc(100% - 36px); }
+.nav-actions { gap: 8px; }
 .nav-burger { display: none; position: relative; width: 44px; height: 44px; }
 .nav-burger span {
   position: absolute; left: 11px; width: 22px; height: 1.5px; background: hsl(var(--secondary));
