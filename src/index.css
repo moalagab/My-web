@@ -3028,13 +3028,13 @@ html[dir="rtl"] .svc-tile-title, html[dir="rtl"] .svc-tile-role { text-align: ri
 /* ===========================================================================
    Editorial theme (after monomode's anniversary site, in Mo's identity):
    paper grain, glossy spheres drifting behind the page, headlines in a
-   high-contrast display serif (Amiri for Arabic, Bodoni Moda for Latin),
+   high-contrast display serif (Thmanyah Serif Text for Arabic, Bodoni Moda for Latin),
    light pages broken by a deep navy band, giant words that slide on scroll.
    =========================================================================== */
+/* Arabic headlines and titles: Thmanyah Serif Text Bold, used as supplied. One weight keeps Arabic pages light. */
 @font-face {
-  font-family: "Mo Display"; font-style: normal; font-weight: 100 900; font-display: swap;
-  src: url("/fonts/Amiri-Bold-subset.woff2") format("woff2");
-  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+  font-family: "Thmanyah Serif Text"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("/fonts/thmanyah-serif-text-Bold.woff2") format("woff2");
 }
 @font-face {
   font-family: "Mo Display"; font-style: normal; font-weight: 100 900; font-display: swap;
@@ -3075,7 +3075,7 @@ html[lang] :is(.folio-title, .section-heading h2, .studio-cta h2, .folio-cta h2,
   font-family: var(--display); font-weight: 500; letter-spacing: -0.015em;
 }
 html[lang="ar"] :is(.folio-title, .section-heading h2, .studio-cta h2, .folio-cta h2, .curve-head h2, .svc-line-body h2, .about-section-heading h2, .svc-qa-aside h2, .lt-intro h2, .featured-row-body h3, .project-card-body h3, .about-closing h2, .mono-words span) {
-  font-weight: 700; letter-spacing: 0;
+  font-family: "Thmanyah Serif Text", var(--display); font-weight: 700; letter-spacing: 0;
 }
 .section-heading h2 { font-size: clamp(40px, 5.2vw, 84px); line-height: 1.02; }
 html[lang="ar"] .section-heading h2 { line-height: 1.4; }
@@ -3175,3 +3175,20 @@ html[lang="ar"] .mono-dark .service-card h3 { font-weight: 700; }
 .mono-page-hero--wide .mono-page-media { aspect-ratio: 4 / 3; }
 @media (max-width: 900px) { .mono-page-hero--wide .mono-page-grid { grid-template-columns: 1fr; } }
 html[dir="rtl"] .mono-page-head .folio-title [dir="ltr"] { display: block; text-align: right; }
+
+/* Arabic: the smaller titles take Thmanyah too, so every heading level shares the serif voice;
+   body text and the interface stay in Lama Sans. Thmanyah sits a little taller, so leading opens up. */
+html[lang="ar"] :is(.service-card h3, .svc-tile-title, .step-row h3, .pkg-card h4, .about-principles h3, .about-timeline-entry h3,
+  .case-row h2, .case-row h3, .lt-panel-copy h3, .bento-body h3, .stat-card > span, .svc-facts dt, .service-line-subhead,
+  .about-turning-point p, .about-impact h3, .testimonial-grid blockquote, .faq-rows button, .curve-labels li span:last-child) {
+  font-family: "Thmanyah Serif Text", "Lama", serif; font-weight: 700; letter-spacing: 0;
+}
+html[lang="ar"] .mono-hero-title { line-height: 1.3; }
+html[lang="ar"] .mono-page-head .folio-title { line-height: 1.4; }
+html[lang="ar"] .section-heading h2 { line-height: 1.45; }
+html[lang="ar"] .mono-dark .service-card h3 { font-family: "Thmanyah Serif Text", var(--display); font-weight: 700; }
+html[lang="ar"] .testimonial-grid blockquote { line-height: 1.9; }
+@media (max-width: 520px) {
+  html[lang="ar"] .mono-hero-title { font-size: 54px; }
+  .mono-hero-title span:nth-child(2) { padding-inline-start: 0; }
+}

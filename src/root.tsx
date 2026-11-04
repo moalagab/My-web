@@ -107,7 +107,7 @@ export function Layout({ children }: { children: ReactNode }) {
         {/* The display serif for headlines: the page's own script, so the hero title doesn't reflow when it arrives. */}
         <link
           rel="preload"
-          href={en ? "/fonts/BodoniModa-Variable.woff2" : "/fonts/Amiri-Bold-subset.woff2"}
+          href={en ? "/fonts/BodoniModa-Variable.woff2" : "/fonts/thmanyah-serif-text-Bold.woff2"}
           as="font"
           type="font/woff2"
           crossOrigin=""
