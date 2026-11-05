@@ -37,10 +37,7 @@ export default function ProductsPage() {
       ];
   return (
     <>
-      <PageMeta
-        title={`${d.navigation.products} — ${d.brand.name}`}
-        description={d.home.products.items.map((p) => p.body).join(" ")}
-      />
+      <PageMeta title={d.productsPage.metaTitle} description={d.productsPage.metaDescription} />
       <Navigation />
       <main className="products-page" id="main-content">
         <PageHero

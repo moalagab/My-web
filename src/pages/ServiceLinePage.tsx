@@ -33,7 +33,7 @@ export default function ServiceLinePage() {
 
   return (
     <>
-      <PageMeta title={seo.seoTitle} description={line.what} />
+      <PageMeta title={seo.seoTitle} description={seo.description} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

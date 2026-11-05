@@ -101,7 +101,20 @@ const ProjectDetailPage = () => {
     { key: "result", value: project.result },
   ];
 
-  const description = project.context ? project.context[lang] : title;
+  // Search snippet: the project's context, then what was decided and built, cut at a word under 158 characters.
+  const fullDescription = [project.context?.[lang], project.decision?.[lang], project.system?.[lang]]
+    .filter(Boolean)
+    .join(" ") || title;
+  const description =
+    fullDescription.length <= 158
+      ? fullDescription
+      : `${fullDescription.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+
+  // "Name: discipline | Mo Alagab", dropping the discipline when the title would pass 62 characters.
+  const brand = lang === "ar" ? "محمد العجب" : "Mo Alagab";
+  const discipline = project.discipline?.[lang].split(" · ")[0];
+  const withDiscipline = discipline ? `${title}: ${discipline} | ${brand}` : "";
+  const metaTitle = withDiscipline && withDiscipline.length <= 62 ? withDiscipline : `${title} | ${brand}`;
 
   const cardTitle = (candidate: Project) =>
     lang === "ar" ? candidate.title_ar : candidate.title_en;
@@ -109,7 +122,7 @@ const ProjectDetailPage = () => {
   return (
     <>
       <PageMeta
-        title={`${title} — ${lineLabel} | Mo Alagab`}
+        title={metaTitle}
         description={description}
         type="article"
       />

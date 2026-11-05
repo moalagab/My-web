@@ -38,7 +38,7 @@ export default function WorkPage() {
         );
   return (
     <>
-      <PageMeta title={copy.metaTitle} description={copy.body} />
+      <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
       <main className="work-page" id="main-content">
         <PageHero
