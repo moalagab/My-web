@@ -1417,7 +1417,7 @@ main:not(.studio-home) label:has(input[type="radio"]:checked) {
   border-radius: var(--radius-surface);
 }
 .lt-concept-items > div > span {
-  font-size: 9px;
+  font-size: 12px;
   color: hsl(var(--secondary));
 }
 .lt-concept-items p {
@@ -3145,8 +3145,8 @@ html[lang="ar"] .mono-words span { line-height: 1.15; }
   @supports (animation-timeline: view()) {
     .mono-words span:first-child { animation: words-left linear both; animation-timeline: view(); animation-range: cover; }
     .mono-words span:last-child { animation: words-right linear both; animation-timeline: view(); animation-range: cover; }
-    @keyframes words-left { from { transform: translateX(14vw); } to { transform: translateX(-14vw); } }
-    @keyframes words-right { from { transform: translateX(-14vw); } to { transform: translateX(14vw); } }
+    @keyframes words-left { from { transform: translateX(var(--slide, 14vw)); } to { transform: translateX(calc(var(--slide, 14vw) * -1)); } }
+    @keyframes words-right { from { transform: translateX(calc(var(--slide, 14vw) * -1)); } to { transform: translateX(var(--slide, 14vw)); } }
   }
 }
 
@@ -3333,3 +3333,19 @@ html[dir="rtl"] .journey-panel-head p { text-align: right; }
   .journey-list .studio-text-link { margin-top: 14px; }
 }
 .about-timeline .about-editorial-grid > :not(.about-section-heading) { max-width: none; }
+
+/* Phones: the bar tucks away while reading down and comes back on the way up; once the page has
+   moved it sits on frosted paper so the logo and menu never land on top of text or photos. */
+.studio-header { transition: background 0.35s ease, color 0.35s ease, transform 0.4s var(--ease-out, ease); }
+@media (max-width: 800px) {
+  .studio-header.is-tucked { transform: translateY(-100%); }
+  .studio-header.is-scrolled:not(.is-open) { background: hsl(var(--background) / 0.82); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); box-shadow: 0 1px 0 hsl(var(--primary) / 0.08); }
+  .studio-header.is-scrolled:not(.is-open) .studio-wordmark > span { color: hsl(var(--primary)); }
+  .studio-header.is-scrolled:not(.is-open) .studio-wordmark .wordmark-dot { color: hsl(var(--accent)); }
+  .studio-header.is-scrolled:not(.is-open) .nav-burger span { background: hsl(var(--primary)); }
+  /* The giant words fit the screen instead of being cut at its edge. */
+  .mono-words span { font-size: clamp(52px, 15vw, 88px); }
+  .mono-words { --slide: 3vw; }
+  .footer-legal a { min-width: 44px; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .studio-header.is-tucked { transform: none; } }
