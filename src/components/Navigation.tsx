@@ -17,6 +17,7 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [tucked, setTucked] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLLIElement>(null);
   const closeTimer = useRef(0);
@@ -67,6 +68,7 @@ export default function Navigation() {
   // navy while its neighbour over a navy band stays light.
   useEffect(() => {
     let frame = 0;
+    let lastY = window.scrollY;
     const isLightAt = (x: number, y: number, bar: HTMLElement) => {
       let el = document.elementsFromPoint(x, y).find((node) => !bar.contains(node)) as HTMLElement | undefined;
       while (el) {
@@ -79,6 +81,12 @@ export default function Navigation() {
     const update = () => {
       frame = 0;
       setScrolled(window.scrollY > 8);
+      // Phones: the bar slips away while reading down and returns on the way up.
+      const y = window.scrollY;
+      if (window.matchMedia("(max-width: 800px)").matches) {
+        if (Math.abs(y - lastY) > 6) setTucked(y > lastY && y > 160);
+      } else setTucked(false);
+      lastY = y;
       const bar = headerRef.current;
       if (!bar) return;
       bar.querySelectorAll<HTMLElement>(".studio-wordmark > span:not(.sr-only), .nav-link, .nav-pill, .nav-burger").forEach((item) => {
@@ -143,7 +151,7 @@ export default function Navigation() {
       </a>
       <header
         ref={headerRef}
-        className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""}`}
+        className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""} ${tucked && !menuOpen ? "is-tucked" : ""}`}
       >
         <nav className="header-inner" aria-label={d.navigation.label}>
           <button
