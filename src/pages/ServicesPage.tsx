@@ -1,10 +1,10 @@
 import PageMeta from "@/components/PageMeta";
 import { Link } from "react-router";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, Clock3 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects, type ServiceLine } from "@/content/projects";
+import { showcaseFor, type ServiceLine } from "@/content/projects";
 import PageHero from "@/components/studio/PageHero";
 import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import Picture from "@/components/Picture";
@@ -48,9 +48,7 @@ const ServicesPage = () => {
         </section>
 
         {copy.lines.map((line, index) => {
-          const caseStudy = projects.find(
-            (project) => project.serviceLine === (line.slug as ServiceLine),
-          );
+          const caseStudy = showcaseFor(line.slug as ServiceLine)[0];
           return (
             <section
               key={line.slug}
@@ -102,29 +100,31 @@ const ServicesPage = () => {
               <div className="studio-container">
                 <h3 className="service-line-subhead">{copy.packagesLabel}</h3>
                 <ul className="pkg-cards">
-                  {line.packages.map((pack, p) => (
+                  {line.packages.map((pack) => (
                     <li key={pack.name} className="pkg-card" data-reveal>
-                      <span className="pkg-card-index" dir="ltr">{`0${index + 1}.${p + 1}`}</span>
-                      <h4>
-                        <span dir="ltr">{pack.name}</span>
-                      </h4>
-                      <p>{pack.scope}</p>
-                      <dl>
-                        <div>
-                          <dt>{copy.timelineLabel}</dt>
-                          <dd dir="ltr">{pack.timeline}</dd>
-                        </div>
-                        <div>
-                          <dt>{copy.fitLabel}</dt>
-                          <dd>{pack.fit}</dd>
-                        </div>
-                      </dl>
+                      <div className="pkg-card-head">
+                        <h4>
+                          <span dir="ltr">{pack.name}</span>
+                        </h4>
+                        <span className="pkg-time">
+                          <Clock3 size={15} aria-hidden="true" />
+                          <span className="sr-only">{copy.timelineLabel}: </span>
+                          <span dir="ltr">{pack.timeline}</span>
+                        </span>
+                      </div>
+                      <p className="pkg-scope">{pack.scope}</p>
+                      <div className="pkg-fit">
+                        <span>{copy.fitLabel}</span>
+                        <p>{pack.fit}</p>
+                      </div>
                       <Link
                         to={`${prefix}/start?service=${line.slug}&package=${encodeURIComponent(pack.name)}`}
-                        className="studio-text-link"
+                        className="nav-pill nav-pill--solid pkg-cta"
                       >
-                        {copy.packageCta}
-                        <ArrowUpRight size={18} className={arrowClass} />
+                        <span>{copy.packageCta}</span>
+                        <span className="nav-pill-dot" aria-hidden="true">
+                          <ArrowUpRight size={18} className={arrowClass} />
+                        </span>
                       </Link>
                     </li>
                   ))}

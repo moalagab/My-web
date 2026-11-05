@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portraitImage from "@/assets/portrait-mo.webp";
 import Picture from "@/components/Picture";
+import JourneyMap from "@/components/studio/JourneyMap";
 import PageHero from "@/components/studio/PageHero";
 
 const paragraphs = (text: string) =>
@@ -51,7 +52,7 @@ export default function AboutPage() {
         >
           <div className="studio-container">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">01 / {c.storyEyebrow}</p>
+              <p className="studio-eyebrow">{c.storyEyebrow}</p>
               <h2 id="story-title">{c.storyTitle}</h2>
             </div>
           </div>
@@ -146,7 +147,7 @@ export default function AboutPage() {
         >
           <div className="studio-container about-editorial-grid">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">02 / {c.principlesEyebrow}</p>
+              <p className="studio-eyebrow">{c.principlesEyebrow}</p>
               <h2 id="principles-title">{c.principlesTitle}</h2>
             </div>
             <ol className="about-principles-list">
@@ -180,48 +181,22 @@ export default function AboutPage() {
         >
           <div className="studio-container about-editorial-grid">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">03 / {c.timelineEyebrow}</p>
+              <p className="studio-eyebrow">{c.timelineEyebrow}</p>
               <h2 id="timeline-title">{c.timelineTitle}</h2>
               <p className="about-timeline-caption" dir="ltr">
                 DESIGN → OPERATIONS → APPLIED AI
               </p>
             </div>
             <div>
-              <ol className="about-timeline-list">
-                {c.timeline.map((item, i) => (
-                  <li
-                    key={`${item.year}-${item.title}`}
-                    className={
-                      i === c.timeline.length - 1
-                        ? "about-timeline-current"
-                        : ""
-                    }
-                  >
-                    <div className="about-timeline-period">
-                      <span dir="ltr">{item.year}</span>
-                      <span className="about-timeline-dot" aria-hidden="true" />
-                    </div>
-                    <div className="about-timeline-entry">
-                      <h3 dir="auto">{item.title}</h3>
-                      <p className="about-timeline-role" dir="ltr">
-                        {item.role}
-                      </p>
-                      <div className="about-timeline-body">
-                        {paragraphs(item.body)}
-                      </div>
-                      {i === c.timeline.length - 1 && (
-                        <Link
-                          className="studio-text-link"
-                          to={`${prefix}/products`}
-                        >
-                          {c.productsLink}
-                          <ArrowUpRight size={17} className={arrow} />
-                        </Link>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
+              <JourneyMap
+                stops={c.timeline}
+                current={
+                  <Link className="studio-text-link" to={`${prefix}/products`}>
+                    {c.productsLink}
+                    <ArrowUpRight size={17} className={arrow} />
+                  </Link>
+                }
+              />
               <div className="about-method">
                 <p className="studio-eyebrow">{c.methodLabel}</p>
                 <ol>
@@ -238,7 +213,7 @@ export default function AboutPage() {
         </section>
         <section className="about-closing">
           <div className="studio-container">
-            <p className="studio-eyebrow">04 / {c.closingEyebrow}</p>
+            <p className="studio-eyebrow">{c.closingEyebrow}</p>
             <div className="about-closing-grid">
               <h2>{c.closingTitle}</h2>
               <div className="about-closing-body">

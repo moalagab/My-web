@@ -871,3 +871,12 @@ export const orderedProjects = [
   ...selectedIdentityProjects,
   ...projects.filter((p) => p.selectionRank === undefined),
 ];
+
+/** The work each service line leads with, in order: the first is its case study on the Services page. */
+const lineShowcase: Partial<Record<ServiceLine, string[]>> = {
+  brand: ["gyptech-brand", "ekka-rebranding", "talia-bakery"],
+};
+export const showcaseFor = (line: ServiceLine): Project[] =>
+  (lineShowcase[line] ?? [])
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter((p): p is Project => Boolean(p));

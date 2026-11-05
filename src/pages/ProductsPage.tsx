@@ -79,7 +79,7 @@ export default function ProductsPage() {
                   </div>
                   <div className="featured-row-body">
                     <p className="studio-eyebrow" dir="ltr">
-                      02 / AI AUTOMATION
+                      AI AUTOMATION
                     </p>
                     <h2 dir="ltr">{p.name}</h2>
                     <p>{p.body}</p>
@@ -100,7 +100,7 @@ export default function ProductsPage() {
         </section>
         <section className="studio-cta">
           <div className="studio-container">
-            <p className="studio-eyebrow">LET’S BUILD /</p>
+            <p className="studio-eyebrow">LET’S BUILD</p>
             <h2>
               {ar ? "فكرتك تستحق\nأن تعمل." : "Your idea deserves\nto work."}
             </h2>

@@ -4,11 +4,11 @@ import PageMeta from "@/components/PageMeta";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Picture from "@/components/Picture";
+import BuyerQuestions from "@/components/studio/BuyerQuestions";
 import PageHero from "@/components/studio/PageHero";
 import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects, type ServiceLine } from "@/content/projects";
+import { showcaseFor, type ServiceLine } from "@/content/projects";
 import { faqJsonLd, serviceAnswers, serviceJsonLd } from "@/lib/answers";
 import { useWhatsapp } from "@/lib/whatsapp";
 
@@ -28,7 +28,7 @@ export default function ServiceLinePage() {
 
   const seo = copy.lineSeo[line.slug as keyof typeof copy.lineSeo];
   const answers = serviceAnswers(line, d);
-  const work = projects.filter((p) => p.serviceLine === (line.slug as ServiceLine)).slice(0, 3);
+  const work = showcaseFor(line.slug as ServiceLine);
   const url = `${SITE}${prefix}/services/${line.slug}`;
 
   return (
@@ -80,35 +80,18 @@ export default function ServiceLinePage() {
         </div>
 
         <section className="studio-section">
-          <div className="studio-container svc-qa">
-            <div className="svc-qa-aside">
-              <p className="studio-eyebrow">{copy.askEyebrow}</p>
-              <h2>
-                <span dir="ltr">{line.title}</span>
-              </h2>
-              <p className="section-intro">{line.tagline}</p>
-              <div className="svc-qa-media" aria-hidden="true">
-                <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 1000px) 38vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
-              </div>
-            </div>
-            <div className="case-rows">
-              {answers.map((qa, i) => (
-                <section key={qa.q} className="case-row" aria-labelledby={`q-${i}`} data-reveal>
-                  <h2 id={`q-${i}`}>{qa.q}</h2>
-                  <div>
-                    {qa.a && <p>{qa.a}</p>}
-                    {qa.list && (
-                      <ul className="case-row-list">
-                        {qa.list.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </div>
+          <BuyerQuestions
+            answers={answers}
+            aside={
+              <>
+                <p className="studio-eyebrow">{copy.askEyebrow}</p>
+                <h2>
+                  <span dir="ltr">{line.title}</span>
+                </h2>
+                <p className="section-intro">{line.tagline}</p>
+              </>
+            }
+          />
         </section>
 
         {work.length > 0 && (

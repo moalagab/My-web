@@ -110,7 +110,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">01 / SELECTED WORK</p>
+                <p className="studio-eyebrow">SELECTED WORK</p>
                 <h2>
                   {ar ? "الفكرة، حين تصبح واقعًا." : "Ideas, made tangible."}
                 </h2>
@@ -132,7 +132,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">02 / WHAT I DO</p>
+                <p className="studio-eyebrow">WHAT I DO</p>
                 <h2>
                   <span dir="ltr">
                     {"Creative Thinking.\nSmart Systems.\nReal Execution."}
@@ -174,7 +174,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">03 / DESIGN MEETS TECHNOLOGY</p>
+                <p className="studio-eyebrow">DESIGN MEETS TECHNOLOGY</p>
                 <h2>{h.products.title}</h2>
               </div>
               <div className="section-side">
@@ -211,7 +211,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
+                <p className="studio-eyebrow">THE WAY FORWARD</p>
                 <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
               </div>
               <p className="section-intro">
@@ -227,7 +227,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">05 / THE PERSON BEHIND THE WORK</p>
+                <p className="studio-eyebrow">THE PERSON BEHIND THE WORK</p>
                 <h2>
                   {ar
                     ? "شريك في الفكرة.\nودقيق في التنفيذ."
@@ -292,7 +292,7 @@ export default function HomePage() {
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">07 / BEFORE WE START</p>
+                <p className="studio-eyebrow">BEFORE WE START</p>
                 <h2>{h.faq.title}</h2>
               </div>
               <p className="section-intro">
@@ -317,7 +317,7 @@ export default function HomePage() {
         </section>
         <section className="studio-cta">
           <div className="studio-container">
-            <p className="studio-eyebrow">YOUR NEXT CHAPTER /</p>
+            <p className="studio-eyebrow">YOUR NEXT CHAPTER</p>
             <h2>
               {ar
                 ? "لنصنع شيئًا\nيستحق أن يُرى."
