@@ -83,6 +83,8 @@ test("reduced motion skips the hero reveal and stops the logos", async ({ browse
 
 test("a project cover opens its case study through a view transition, from the top", async ({ page }) => {
   await page.goto("/en");
+  // Before hydration the click is a full page load with no transition; the header tones mark the app as live.
+  await expect(page.locator(".studio-header [data-tone]").first()).toBeAttached();
   const link = page.locator(".featured-row-body .studio-text-link").first();
   await link.scrollIntoViewIfNeeded();
   await page.evaluate(() => {
