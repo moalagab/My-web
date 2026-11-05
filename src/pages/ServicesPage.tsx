@@ -1,14 +1,12 @@
 import PageMeta from "@/components/PageMeta";
 import { Link } from "react-router";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, Clock3 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
-import { Eyebrow } from "@/components/system/Eyebrow";
-import { Pill } from "@/components/system/Pill";
-import { Section, SectionInner } from "@/components/system/Section";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects, type ServiceLine } from "@/content/projects";
+import { showcaseFor, type ServiceLine } from "@/content/projects";
+import PageHero from "@/components/studio/PageHero";
+import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import Picture from "@/components/Picture";
 
 const ServicesPage = () => {
@@ -21,218 +19,140 @@ const ServicesPage = () => {
     <>
       <PageMeta title={copy.metaTitle} description={copy.metaDescription} />
       <Navigation />
-      <main className="pt-20 services-page">
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6">
-            <Eyebrow className="text-primary-foreground/70">
-              {copy.eyebrow}
-            </Eyebrow>
-            <h1 className="mt-6 max-w-4xl text-balance font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              <span dir="ltr">{copy.title}</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/80">
-              {copy.body}
-            </p>
-            <nav
-              aria-label={copy.packagesLabel}
-              className="mt-10 flex flex-wrap gap-2"
-            >
-              {copy.lines.map((line) => (
-                <a
-                  key={line.slug}
-                  href={`#${line.slug}`}
-                  className="eyebrow inline-flex min-h-11 items-center rounded-full border border-primary-foreground/30 px-4 text-xs text-primary-foreground/85 transition-colors hover:border-primary-foreground"
-                  dir="ltr"
-                >
-                  {line.title}
-                </a>
+      <main className="services-page">
+        <PageHero
+          image="/work/media/mono-spheres.webp"
+          eyebrow={copy.eyebrow}
+          title={<span dir="ltr">{copy.title}</span>}
+          side={<p>{copy.body}</p>}
+        />
+
+        {/* The four lines as a picture index; each tile jumps to its section below. */}
+        <section className="studio-section svc-index-section" aria-label={copy.packagesLabel}>
+          <div className="studio-container">
+            <ul className="svc-index">
+              {copy.lines.map((line, index) => (
+                <li key={line.slug} data-reveal>
+                  <a href={`#${line.slug}`} className="svc-tile">
+                    <span className="svc-tile-media" aria-hidden="true">
+                      <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 900px) 25vw, 50vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
+                    </span>
+                    <span className="svc-tile-number" dir="ltr">0{index + 1}</span>
+                    <span className="svc-tile-title" dir="ltr">{line.title}</span>
+                    <span className="svc-tile-role" dir="ltr">{line.role}</span>
+                  </a>
+                </li>
               ))}
-            </nav>
+            </ul>
           </div>
         </section>
 
         {copy.lines.map((line, index) => {
-          const caseStudy = projects.find(
-            (project) => project.serviceLine === (line.slug as ServiceLine),
-          );
+          const caseStudy = showcaseFor(line.slug as ServiceLine)[0];
           return (
-            <Section
+            <section
               key={line.slug}
               id={line.slug}
-              className={`scroll-mt-24 border-b border-border ${index % 2 === 1 ? "bg-card" : "bg-background"}`}
+              className={`studio-section svc-line scroll-mt-24 ${index % 2 === 1 ? "service-line--tint" : ""}`}
             >
-              <SectionInner>
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14">
-                  <div className="service-info">
-                    <Eyebrow>{`0${index + 1} / ${line.role}`}</Eyebrow>
-                    <h2
-                      className="mt-5 font-display text-3xl font-bold md:text-5xl"
-                      dir="ltr"
-                    >
-                      {line.title}
-                    </h2>
-                    <p className="mt-4 font-display text-xl font-bold text-accent">
-                      {line.tagline}
-                    </p>
-                    <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                      {line.what}
-                    </p>
-                    <Link
-                      to={`${prefix}/services/${line.slug}`}
-                      className="eyebrow mt-5 inline-flex min-h-11 items-center gap-2 text-xs text-accent underline-offset-4 hover:underline"
-                    >
-                      {copy.detailCta}
-                      <ArrowUpRight className={`h-4 w-4 ${arrowClass}`} aria-hidden="true" />
-                    </Link>
-                    <div className="mt-8">
-                      <Eyebrow className="text-muted-foreground">
-                        {copy.whoLabel}
-                      </Eyebrow>
-                      <p className="mt-3 leading-7">{line.who}</p>
-                    </div>
-                    <div className="mt-8">
-                      <Eyebrow className="text-muted-foreground">
-                        {copy.deliverablesLabel}
-                      </Eyebrow>
-                      <ul className="mt-4 space-y-3">
-                        {line.deliverables.map((item) => (
-                          <li key={item} className="flex gap-3 leading-7">
-                            <Check
-                              className="mt-1.5 h-4 w-4 shrink-0 text-accent"
-                              aria-hidden="true"
-                            />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="mt-8 border-s-2 border-border ps-4">
-                      <Eyebrow className="text-muted-foreground">
-                        {copy.notIncludedLabel}
-                      </Eyebrow>
-                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                        {line.notIncluded}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Eyebrow className="text-muted-foreground">
-                      {copy.packagesLabel}
-                    </Eyebrow>
-                    <div
-                      data-reveal-stagger
-                      className="mt-5 grid gap-4 sm:grid-cols-2"
-                    >
-                      {line.packages.map((pack) => (
-                        <article key={pack.name} className="package-card">
-                          <h3
-                            className="font-display text-xl font-bold"
-                            dir="ltr"
-                          >
-                            {pack.name}
-                          </h3>
-                          <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                            {pack.scope}
-                          </p>
-                          <dl className="mt-5 space-y-3 text-sm">
-                            <div>
-                              <dt className="eyebrow text-xs text-muted-foreground">
-                                {copy.timelineLabel}
-                              </dt>
-                              <dd
-                                className="mt-1 font-mono text-accent"
-                                dir="ltr"
-                              >
-                                {pack.timeline}
-                              </dd>
-                            </div>
-                            <div>
-                              <dt className="eyebrow text-xs text-muted-foreground">
-                                {copy.fitLabel}
-                              </dt>
-                              <dd className="mt-1 leading-6">{pack.fit}</dd>
-                            </div>
-                          </dl>
-                          <Button
-                            asChild
-                            variant="outline"
-                            className="mt-6 w-full"
-                          >
-                            <Link
-                              to={`${prefix}/start?service=${line.slug}&package=${encodeURIComponent(pack.name)}`}
-                            >
-                              {copy.packageCta}
-                              <ArrowUpRight className={arrowClass} />
-                            </Link>
-                          </Button>
-                        </article>
-                      ))}
-                    </div>
-
-                    {caseStudy ? (
-                      <div className="mt-10">
-                        <Eyebrow className="text-muted-foreground">
-                          {copy.caseEyebrow}
-                        </Eyebrow>
-                        <Link
-                          to={`${prefix}/work/${caseStudy.slug}`}
-                          className="group mt-4 flex flex-col gap-5 border border-border bg-background p-5 sm:flex-row sm:items-center"
-                        >
-                          <div className="aspect-[4/3] w-full shrink-0 overflow-hidden border border-border bg-secondary sm:w-40">
-                            <Picture
-                              src={caseStudy.cover}
-                              sizes="(min-width: 640px) 160px, 100vw"
-                              alt={
-                                lang === "ar"
-                                  ? caseStudy.title_ar
-                                  : caseStudy.title_en
-                              }
-                              loading="lazy"
-                              width={800}
-                              height={1000}
-                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                            />
-                          </div>
-                          <div className="min-w-0">
-                            <Pill>{copy.caseLabel}</Pill>
-                            <h3 className="mt-3 font-display text-xl font-bold">
-                              {lang === "ar"
-                                ? caseStudy.title_ar
-                                : caseStudy.title_en}
-                            </h3>
-                            <span className="eyebrow mt-3 inline-flex items-center gap-2 text-xs text-accent">
-                              {copy.caseCta}
-                              <ArrowUpRight
-                                className={`h-4 w-4 ${arrowClass}`}
-                                aria-hidden="true"
-                              />
-                            </span>
-                          </div>
-                        </Link>
-                      </div>
-                    ) : null}
-                  </div>
+              <div className="studio-container svc-line-grid">
+                <div className="svc-line-media" aria-hidden="true">
+                  <Picture src={`/work/media/service-${line.slug}.webp`} sizes="(min-width: 900px) 45vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
+                  <span className="svc-line-index" dir="ltr">0{index + 1}</span>
                 </div>
-              </SectionInner>
-            </Section>
+                <div className="svc-line-body">
+                  <p className="studio-eyebrow" dir="ltr">{line.role}</p>
+                  <h2>
+                    <span dir="ltr">{line.title}</span>
+                  </h2>
+                  <p className="svc-line-tagline">{line.tagline}</p>
+                  <p className="svc-line-what">{line.what}</p>
+                  <dl className="svc-facts">
+                    <div>
+                      <dt>{copy.whoLabel}</dt>
+                      <dd>{line.who}</dd>
+                    </div>
+                    <div>
+                      <dt>{copy.deliverablesLabel}</dt>
+                      <dd>
+                        <ul>
+                          {line.deliverables.map((item) => (
+                            <li key={item}>
+                              <Check className="h-4 w-4 shrink-0" aria-hidden="true" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{copy.notIncludedLabel}</dt>
+                      <dd>{line.notIncluded}</dd>
+                    </div>
+                  </dl>
+                  <Link to={`${prefix}/services/${line.slug}`} viewTransition className="studio-text-link">
+                    {copy.detailCta}
+                    <ArrowUpRight size={18} className={arrowClass} />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="studio-container">
+                <h3 className="service-line-subhead">{copy.packagesLabel}</h3>
+                <ul className="pkg-cards">
+                  {line.packages.map((pack) => (
+                    <li key={pack.name} className="pkg-card" data-reveal>
+                      <div className="pkg-card-head">
+                        <h4>
+                          <span dir="ltr">{pack.name}</span>
+                        </h4>
+                        <span className="pkg-time">
+                          <Clock3 size={15} aria-hidden="true" />
+                          <span className="sr-only">{copy.timelineLabel}: </span>
+                          <span dir="ltr">{pack.timeline}</span>
+                        </span>
+                      </div>
+                      <p className="pkg-scope">{pack.scope}</p>
+                      <div className="pkg-fit">
+                        <span>{copy.fitLabel}</span>
+                        <p>{pack.fit}</p>
+                      </div>
+                      <Link
+                        to={`${prefix}/start?service=${line.slug}&package=${encodeURIComponent(pack.name)}`}
+                        className="nav-pill nav-pill--solid pkg-cta"
+                      >
+                        <span>{copy.packageCta}</span>
+                        <span className="nav-pill-dot" aria-hidden="true">
+                          <ArrowUpRight size={18} className={arrowClass} />
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                {caseStudy ? (
+                  <div className="service-line-case">
+                    <p className="studio-eyebrow">{copy.caseEyebrow}</p>
+                    <FeaturedProjects items={[caseStudy]} />
+                  </div>
+                ) : null}
+              </div>
+            </section>
           );
         })}
 
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6 text-center">
-            <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-bold md:text-5xl">
-              {dictionary.home.finalCta.title}
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/75">
-              {dictionary.home.finalCta.body}
-            </p>
-            <Button asChild size="lg" variant="secondary" className="mt-8">
-              <Link to={`${prefix}/start`}>
-                {dictionary.home.finalCta.button}
-                <ArrowUpRight className={arrowClass} />
+        <section className="studio-section">
+          <div className="studio-container">
+            <div className="folio-cta" data-reveal>
+              <h2>{dictionary.home.finalCta.title}</h2>
+              <p>{dictionary.home.finalCta.body}</p>
+              <Link to={`${prefix}/start`} viewTransition className="nav-pill nav-pill--solid">
+                <span>{dictionary.home.finalCta.button}</span>
+                <span className="nav-pill-dot" aria-hidden="true">
+                  <ArrowUpRight size={18} className={arrowClass} />
+                </span>
               </Link>
-            </Button>
+            </div>
           </div>
         </section>
       </main>

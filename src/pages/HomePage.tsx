@@ -1,10 +1,5 @@
 import {
-  ArrowDown,
   ArrowUpRight,
-  Boxes,
-  Bot,
-  ClipboardList,
-  Palette,
   Quote,
 } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
@@ -20,8 +15,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { selectedIdentityProjects } from "@/content/projects";
-import WorkCollection from "@/components/studio/WorkCollection";
+import { orderedProjects, selectedIdentityProjects } from "@/content/projects";
+import FeaturedProjects from "@/components/studio/FeaturedProjects";
+import ProofStrip from "@/components/studio/ProofStrip";
+import StepRows from "@/components/studio/StepRows";
+import CurvedGallery from "@/components/studio/CurvedGallery";
+import ClientMarquee from "@/components/studio/ClientMarquee";
 import { track } from "@/lib/analytics";
 import portrait from "@/assets/portrait-mo.webp";
 import Picture from "@/components/Picture";
@@ -32,10 +31,12 @@ export default function HomePage() {
   const ar = lang === "ar";
   const prefix = ar ? "" : "/en";
   const title = ar
-    ? ["فكرة واضحة.", "علامة مؤثرة.", "نظام يعمل."]
-    : ["Clear thinking.", "Distinct brands.", "Working systems."];
+    ? ["أصمّم ما يُرى.", "وأبني ما يعمل."]
+    : ["I design what’s seen.", "I build what works."];
   const selected = selectedIdentityProjects.slice(0, 6);
-  const icons = [Bot, Boxes, Palette, ClipboardList];
+  const aboutWork = ["ekka-rebranding", "sabaa-construction"]
+    .map((slug) => orderedProjects.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
   const arrow = isRtl ? "-scale-x-100" : "";
   return (
     <>
@@ -49,83 +50,67 @@ export default function HomePage() {
       />
       <Navigation />
       <main id="main-content" className="studio-home">
-        <section className="studio-hero cinematic-hero hero-brand" data-no-reveal>
-          <div className="cinematic-portrait" aria-hidden="true">
-            <Picture src={heroPortrait} sizes="(min-width: 1024px) 60vw, 100vw" alt="" fetchPriority="high" decoding="async" />
-          </div>
-          <div className="cinematic-side-note" dir="ltr" aria-hidden="true">MO ALAGAB / INDEPENDENT PRACTICE</div>
-          <div className="studio-container hero-grid">
-            <div className="hero-copy">
-              <p className="hero-profile-index" dir="ltr"><span>01 / PROFILE</span><span>DESIGN × SYSTEMS</span></p>
-              <p className="studio-eyebrow">
-                <span className="identity-dot" />
-                {h.hero.eyebrow}
+        <section className="mono-hero">
+          <div className="studio-container mono-hero-inner">
+            <h1 className="folio-title mono-hero-title">
+              {title.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </h1>
+            <div className="mono-hero-rule">
+              <span dir="ltr">2013</span>
+              <p>
+                {ar
+                  ? "محمد العجب، مصمم علامات وباني منتجات بالذكاء الاصطناعي، من الرياض"
+                  : "Mohammed Alagab, brand designer and AI product builder in Riyadh"}
               </p>
-              <h1 className="hero-title">
-                {title.map((line, i) => (
-                  <span key={line} className={i === 1 ? "hero-title-soft" : ""}>
-                    {line}
-                  </span>
-                ))}
-              </h1>
-              <p className="hero-description">{h.hero.body}</p>
-              <div className="hero-actions">
+              <span dir="ltr">2026</span>
+            </div>
+            <div className="mono-hero-foot">
+              <div className="mono-hero-portrait" aria-hidden="true">
+                <Picture src={heroPortrait} sizes="(min-width: 900px) 22vw, 60vw" alt="" fetchPriority="high" decoding="async" />
+              </div>
+              <div className="folio-hero-side">
+                <p>{h.hero.body}</p>
                 <Link
                   to={`${prefix}/start`}
-                  className="studio-button studio-button-light"
+                  className="nav-pill nav-pill--solid"
                   onClick={() => track("cta_start_click", { location: "hero" })}
                 >
-                  {h.hero.primary}
-                  <ArrowUpRight className={arrow} size={19} />
+                  <span>{h.hero.primary}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight className={arrow} size={18} />
+                  </span>
                 </Link>
-                <a href="#work" className="studio-text-link">
-                  {h.hero.secondary}
-                  <ArrowDown size={17} />
-                </a>
               </div>
+              <ol className="folio-disciplines">
+                {h.services.items.map((s, i) => (
+                  <li key={s.slug}>
+                    <Link viewTransition to={`${prefix}/services/${s.slug}`}>
+                      <span dir="ltr">#0{i + 1}</span>
+                      <span dir="ltr">{h.hero.pills[i]}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <Link to={`${prefix}/about`} className="hero-profile-link">
-              <span dir="ltr">MO<br />ALAGAB</span>
-              <span>{ar ? "تعرّف على Mo" : "ABOUT MO"}<ArrowUpRight size={18} className={arrow} /></span>
-            </Link>
-          </div>
-          <div className="studio-container hero-baseline">
-            <span>
-              {ar
-                ? "الرياض · نعمل عبر الحدود"
-                : "RIYADH · WORKING ACROSS BORDERS"}
-            </span>
-            <span dir="ltr">STRATEGY → DESIGN → BUILD</span>
-            <a href="#work" aria-label={h.hero.secondary}>
-              <ArrowDown size={18} />
-            </a>
           </div>
         </section>
-        <section
-          className="studio-proof"
-          aria-label={h.proof.label}
-          data-no-reveal
-        >
-          <div className="studio-container proof-grid">
-            <p>
-              {ar
-                ? "خبرة تصنع الوضوح.\nوأعمال تثبت الفكرة."
-                : "Experience brings clarity.\nThe work makes it tangible."}
-            </p>
-            {h.proof.facts.map((f) => (
-              <div key={f.number}>
-                <strong dir="ltr">{f.number}</strong>
-                <span>{f.label}</span>
-                {"detail" in f && f.detail ? <small>{f.detail}</small> : null}
-              </div>
-            ))}
-          </div>
-        </section>
+        <ClientMarquee />
+        <ProofStrip
+          label={h.proof.label}
+          facts={h.proof.facts}
+          intro={
+            ar
+              ? "خبرة تصنع الوضوح.\nوأعمال تثبت الفكرة."
+              : "Experience brings clarity.\nThe work makes it tangible."
+          }
+        />
         <section className="studio-section studio-work" id="work">
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">01 / SELECTED WORK</p>
+                <p className="studio-eyebrow">SELECTED WORK</p>
                 <h2>
                   {ar ? "الفكرة، حين تصبح واقعًا." : "Ideas, made tangible."}
                 </h2>
@@ -135,119 +120,98 @@ export default function HomePage() {
                 <ArrowUpRight className={arrow} size={20} />
               </Link>
             </div>
-            <WorkCollection items={selected} />
+            <FeaturedProjects items={selected} />
           </div>
         </section>
-        <section className="studio-section studio-services" id="services">
+        <CurvedGallery />
+        <div className="mono-words" aria-hidden="true">
+          <span>{ar ? "ما أقدّمه" : "What I do"}</span>
+          <span>{ar ? "حلول تعمل" : "Solutions"}</span>
+        </div>
+        <section className="studio-section studio-services mono-dark" id="services">
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">02 / WHAT I DO</p>
+                <p className="studio-eyebrow">WHAT I DO</p>
                 <h2>
                   <span dir="ltr">
                     {"Creative Thinking.\nSmart Systems.\nReal Execution."}
                   </span>
                 </h2>
               </div>
-              <p className="section-intro">
-                {ar
-                  ? "أجمع بين الإبداع والتقنية والخبرة التشغيلية لتطوير حلول وتجارب تساعد الشركات على تحويل أفكارها إلى مشاريع وأنظمة تعمل على أرض الواقع."
-                  : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."}
-              </p>
+              <div className="section-side">
+                <p className="section-intro">
+                  {ar
+                    ? "أجمع بين الإبداع والتقنية والخبرة التشغيلية لتطوير حلول وتجارب تساعد الشركات على تحويل أفكارها إلى مشاريع وأنظمة تعمل على أرض الواقع."
+                    : "I bring together creativity, technology, and operational experience to build solutions and experiences that help companies turn their ideas into projects and systems that work in the real world."}
+                </p>
+                <Link to={`${prefix}/services`} className="studio-text-link">
+                  {dictionary.servicesPage.allServices}
+                  <ArrowUpRight className={arrow} size={18} />
+                </Link>
+              </div>
             </div>
-            <div className="service-editorial">
-              {h.services.items.map((s, i) => {
-                const Icon = icons[i];
-                return (
-                  <Link
-                    to={`${prefix}/services#${s.slug}`}
-                    className="service-editorial-row"
-                    key={s.slug}
-                    data-reveal
-                  >
-                    <span className="service-number" dir="ltr">
-                      0{i + 1}
+            <ul className="service-cards">
+              {h.services.items.map((s, i) => (
+                <li key={s.slug} className="service-card" data-reveal>
+                  <Link viewTransition to={`${prefix}/services/${s.slug}`}>
+                    <span className="service-card-media" aria-hidden="true">
+                      <Picture src={`/work/media/service-${s.slug}.webp`} sizes="(min-width: 900px) 45vw, 100vw" alt="" loading="lazy" decoding="async" width={1600} height={1200} />
                     </span>
-                    <div>
-                      <Icon strokeWidth={1.2} size={28} />
-                      <h3 dir="ltr">{s.title}</h3>
-                    </div>
-                    <p>{s.value}</p>
-                    <span className="service-link">
-                      <ArrowUpRight className={arrow} size={25} />
-                      <span className="sr-only">
-                        {h.services.details}: {s.title}
-                      </span>
-                    </span>
+                    <span className="service-card-number" dir="ltr">0{i + 1}</span>
+                    <p className="service-card-tagline">{dictionary.servicesPage.lines.find((l) => l.slug === s.slug)?.tagline}</p>
+                    <h3>
+                      <span dir="ltr">{s.title}</span>
+                    </h3>
+                    <p className="service-card-value">{s.value}</p>
                   </Link>
-                );
-              })}
-            </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
         <section className="studio-section studio-products">
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">03 / DESIGN MEETS TECHNOLOGY</p>
+                <p className="studio-eyebrow">DESIGN MEETS TECHNOLOGY</p>
                 <h2>{h.products.title}</h2>
               </div>
-              <p className="section-intro">{h.products.caption}</p>
+              <div className="section-side">
+                <p className="section-intro">{h.products.caption}</p>
+                <Link to={`${prefix}/products`} className="studio-text-link">
+                  {ar ? "استكشف المنتجات" : "Explore the products"}
+                  <ArrowUpRight className={arrow} size={18} />
+                </Link>
+              </div>
             </div>
-            <div className="product-grid">
+            <ul className="bento">
               {h.products.items.map((p, i) => (
-                <article key={p.name} data-reveal>
-                  {/* Same destination as the labelled arrow link below, so hidden from assistive tech. */}
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-hidden="true"
-                    tabIndex={-1}
-                  >
-                    <ProductVisual kind={i === 0 ? "life" : "agent"} />
-                  </a>
-                  <div className="product-caption">
+                <li key={p.name} className={i === 0 ? "bento-card bento-card--image" : "bento-card bento-card--accent"} data-reveal>
+                  {i === 0 && (
+                    <div className="bento-media" aria-hidden="true">
+                      <ProductVisual kind="life" />
+                    </div>
+                  )}
+                  <div className="bento-body">
                     <h3 dir="ltr">{p.name}</h3>
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="round-link"
-                      aria-label={`${h.products.visit}: ${p.name}`}
-                    >
-                      <ArrowUpRight className={arrow} size={22} />
+                    <p>{p.body}</p>
+                    <a href={p.url} target="_blank" rel="noreferrer" className="bento-link">
+                      {h.products.visit}
+                      <span className="sr-only">: {p.name}</span>
+                      <ArrowUpRight className={arrow} size={16} />
                     </a>
                   </div>
-                  <p>{p.body}</p>
-                  {i === 0 && (
-                    <Link
-                      className="studio-text-link lt-home-link"
-                      to={`${prefix}/products#lifetent`}
-                    >
-                      {ar
-                        ? "استكشف نظام LifeTent"
-                        : "Explore the LifeTent system"}
-                      <ArrowUpRight size={17} className={arrow} />
-                    </Link>
-                  )}
-                </article>
+                </li>
               ))}
-            </div>
-            <Link
-              to={`${prefix}/products`}
-              className="studio-text-link products-all"
-            >
-              {ar ? "استكشف المنتجات" : "Explore the products"}
-              <ArrowUpRight className={arrow} size={18} />
-            </Link>
+            </ul>
           </div>
         </section>
         <section className="studio-section studio-process">
           <div className="studio-container">
             <div className="section-heading">
               <div>
-                <p className="studio-eyebrow">04 / THE WAY FORWARD</p>
+                <p className="studio-eyebrow">THE WAY FORWARD</p>
                 <h2>{ar ? "وضوح من أول خطوة." : "Clarity. From day one."}</h2>
               </div>
               <p className="section-intro">
@@ -256,50 +220,41 @@ export default function HomePage() {
                   : "Know where we are and what comes next. A defined scope, staged delivery, and decisions with a clear rationale."}
               </p>
             </div>
-            <div className="process-grid">
-              {h.process.steps.map((s, i) => (
-                <article key={s.title} data-reveal>
-                  <span className="process-number" dir="ltr">
-                    0{i + 1}
-                  </span>
-                  <h3>{s.title}</h3>
-                  <span className="studio-eyebrow" dir="ltr">
-                    {s.english}
-                  </span>
-                  <p>{s.body}</p>
-                </article>
-              ))}
-            </div>
+            <StepRows steps={h.process.steps} />
           </div>
         </section>
         <section className="studio-section studio-about">
-          <div className="studio-container about-grid">
-            <div className="about-portrait" data-reveal>
-              <Picture
-                src={portrait}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                alt={h.about.portraitAlt}
-                width={800}
-                height={1000}
-                loading="lazy"
-              />
-              <span dir="ltr">MO ALAGAB / RIYADH</span>
+          <div className="studio-container">
+            <div className="section-heading">
+              <div>
+                <p className="studio-eyebrow">THE PERSON BEHIND THE WORK</p>
+                <h2>
+                  {ar
+                    ? "شريك في الفكرة.\nودقيق في التنفيذ."
+                    : "A partner in thinking.\nA craftsman in execution."}
+                </h2>
+              </div>
+              <div className="section-side">
+                <p className="section-intro">{h.about.paragraphs[0]}</p>
+                {h.about.paragraphs.slice(1).map((p) => (
+                  <p key={p} className="service-line-what">{p}</p>
+                ))}
+                <Link to={`${prefix}/about`} className="studio-text-link">
+                  {h.about.link}
+                  <ArrowUpRight className={arrow} size={19} />
+                </Link>
+              </div>
             </div>
-            <div className="about-copy">
-              <p className="studio-eyebrow">05 / THE PERSON BEHIND THE WORK</p>
-              <h2>
-                {ar
-                  ? "شريك في الفكرة.\nودقيق في التنفيذ."
-                  : "A partner in thinking.\nA craftsman in execution."}
-              </h2>
-              {h.about.paragraphs.map((p) => (
-                <p key={p}>{p}</p>
+            <ul className="about-gallery">
+              <li data-reveal>
+                <Picture src={portrait} sizes="(min-width: 900px) 33vw, 100vw" alt={h.about.portraitAlt} width={800} height={1000} loading="lazy" />
+              </li>
+              {aboutWork.map((p) => (
+                <li key={p.slug} data-reveal>
+                  <Picture src={p.cover} sizes="(min-width: 900px) 33vw, 100vw" alt={ar ? p.title_ar : p.title_en} width={800} height={1000} loading="lazy" />
+                </li>
               ))}
-              <Link to={`${prefix}/about`} className="studio-text-link">
-                {h.about.link}
-                <ArrowUpRight className={arrow} size={19} />
-              </Link>
-            </div>
+            </ul>
           </div>
         </section>
         <section className="studio-section studio-testimonials">
@@ -309,7 +264,13 @@ export default function HomePage() {
                 <p className="studio-eyebrow">{h.testimonials.eyebrow}</p>
                 <h2>{h.testimonials.title}</h2>
               </div>
-              <p className="section-intro">{h.testimonials.intro}</p>
+              <div className="section-side">
+                <p className="section-intro">{h.testimonials.intro}</p>
+                <a href={h.testimonials.url} target="_blank" rel="noopener noreferrer" className="studio-text-link">
+                  {h.testimonials.link}
+                  <ArrowUpRight className={arrow} size={18} />
+                </a>
+              </div>
             </div>
             <div className="testimonial-grid">
               {h.testimonials.items.map((t) => (
@@ -325,29 +286,22 @@ export default function HomePage() {
                 </figure>
               ))}
             </div>
-            <a
-              href={h.testimonials.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="studio-text-link testimonial-link"
-            >
-              {h.testimonials.link}
-              <ArrowUpRight className={arrow} size={18} />
-            </a>
           </div>
         </section>
         <section className="studio-section studio-faq">
-          <div className="studio-container faq-grid">
-            <div>
-              <p className="studio-eyebrow">07 / BEFORE WE START</p>
-              <h2>{h.faq.title}</h2>
-              <p className="faq-intro">
+          <div className="studio-container">
+            <div className="section-heading">
+              <div>
+                <p className="studio-eyebrow">BEFORE WE START</p>
+                <h2>{h.faq.title}</h2>
+              </div>
+              <p className="section-intro">
                 {ar
                   ? "التفاصيل التي تساعدك على اتخاذ الخطوة التالية بثقة."
                   : "The details that help you take the next step with confidence."}
               </p>
             </div>
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible className="faq-rows">
               {h.faq.items.map((f, i) => (
                 <AccordionItem key={f.question} value={`faq-${i}`}>
                   <AccordionTrigger className="py-6 text-start text-base hover:no-underline">
@@ -363,7 +317,7 @@ export default function HomePage() {
         </section>
         <section className="studio-cta">
           <div className="studio-container">
-            <p className="studio-eyebrow">YOUR NEXT CHAPTER /</p>
+            <p className="studio-eyebrow">YOUR NEXT CHAPTER</p>
             <h2>
               {ar
                 ? "لنصنع شيئًا\nيستحق أن يُرى."
@@ -373,13 +327,15 @@ export default function HomePage() {
               <p>{h.finalCta.body}</p>
               <Link
                 to={`${prefix}/start`}
-                className="studio-button studio-button-light"
+                className="nav-pill nav-pill--solid"
                 onClick={() =>
                   track("cta_start_click", { location: "final_cta" })
                 }
               >
-                {h.finalCta.button}
-                <ArrowUpRight className={arrow} size={20} />
+                <span>{h.finalCta.button}</span>
+                <span className="nav-pill-dot" aria-hidden="true">
+                  <ArrowUpRight className={arrow} size={18} />
+                </span>
               </Link>
             </div>
           </div>

@@ -5,6 +5,7 @@
   },
   "navigation": {
     "label": "Primary navigation",
+    "footerLabel": "Footer navigation",
     "home": "Home",
     "work": "Work",
     "services": "Services",
@@ -60,7 +61,7 @@
       "logosLabel": "Selected clients"
     },
     "services": {
-      "eyebrow": "01 / SERVICES",
+      "eyebrow": "SERVICES",
       "title": "Four paths. Real execution.",
       "details": "Details",
       "deliverablesLabel": "Deliverables",
@@ -117,7 +118,7 @@
       ]
     },
     "work": {
-      "eyebrow": "02 / SELECTED WORK",
+      "eyebrow": "SELECTED WORK",
       "title": "Selected work",
       "all": "All work",
       "items": [
@@ -160,7 +161,7 @@
       ]
     },
     "products": {
-      "eyebrow": "03 / PRODUCTS I BUILT",
+      "eyebrow": "PRODUCTS I BUILT",
       "title": "Products I built",
       "caption": "Products working now, not display concepts.",
       "visit": "Open product",
@@ -179,7 +180,7 @@
       ]
     },
     "process": {
-      "eyebrow": "04 / HOW WE WORK",
+      "eyebrow": "HOW WE WORK",
       "title": "How we work",
       "steps": [
         {
@@ -205,7 +206,7 @@
       ]
     },
     "about": {
-      "eyebrow": "05 / ABOUT MO",
+      "eyebrow": "ABOUT MO",
       "title": "Mohammed Alagab",
       "paragraphs": [
         "A Brand Designer & AI Product Builder based in Riyadh.",
@@ -216,7 +217,7 @@
       "portraitAlt": "Mohammed Alagab"
     },
     "testimonials": {
-      "eyebrow": "06 / IN THEIR WORDS",
+      "eyebrow": "IN THEIR WORDS",
       "title": "In their words.",
       "intro": "Recommendations published on LinkedIn.",
       "link": "All recommendations on LinkedIn",
@@ -235,7 +236,7 @@
       ]
     },
     "faq": {
-      "eyebrow": "06 / FAQ",
+      "eyebrow": "FAQ",
       "title": "Frequently asked questions",
       "items": [
         {

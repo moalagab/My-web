@@ -156,7 +156,6 @@ export const projects: Project[] = [
     title_en: "Waselny",
     serviceLine: "brand",
     featured: true,
-    selectionRank: 3,
     cover: "/work/waselny/10.webp",
     preview: "/work/waselny/09.webp",
     discipline: {
@@ -204,7 +203,6 @@ export const projects: Project[] = [
     title_en: "Smat",
     serviceLine: "brand",
     featured: true,
-    selectionRank: 4,
     cover: "/work/smat-brand/08.webp",
     preview: "/work/smat-brand/07.webp",
     discipline: {
@@ -244,6 +242,187 @@ export const projects: Project[] = [
         url: "https://www.behance.net/gallery/134833449/SMAT-BRAND",
       },
     ],
+  },
+  {
+    slug: "viviano",
+    title_ar: "فيفيانو",
+    title_en: "Viviano",
+    serviceLine: "brand",
+    featured: true,
+    selectionRank: 3,
+    year: "2020",
+    cover: "/work/viviano/01.webp",
+    preview: "/work/viviano/09.webp",
+    discipline: {
+      ar: "هوية وكالة طباعة وهدايا",
+      en: "Print & gift agency identity",
+    },
+    context: {
+      ar: "هوية لوكالة إبداعية تعمل في الطباعة والهدايا.",
+      en: "An identity for a creative agency working in print and gifts.",
+    },
+    decision: {
+      ar: "رمز يجمع حرف V مع شكل لفّة الطباعة، باللونين الكحلي والأصفر.",
+      en: "A mark joining the letter V with the shape of a print roll, in deep navy and yellow.",
+    },
+    system: {
+      ar: "الشعار العربي والإنجليزي، النظام اللوني، نمط من الرمز، والمطبوعات والهدايا.",
+      en: "Arabic and English logo, colour system, a pattern built from the mark, stationery and gift items.",
+    },
+    gallery: gallery(
+      [
+        "/work/viviano/01.webp",
+        "/work/viviano/02.webp",
+        "/work/viviano/03.webp",
+        "/work/viviano/04.webp",
+        "/work/viviano/05.webp",
+        "/work/viviano/06.webp",
+        "/work/viviano/07.webp",
+        "/work/viviano/08.webp",
+        "/work/viviano/09.webp",
+        "/work/viviano/10.webp",
+        "/work/viviano/11.webp",
+      ],
+      "فيفيانو",
+      "Viviano",
+    ),
+    proof: [
+      {
+        label: { ar: "المشروع على Behance", en: "Project on Behance" },
+        url: "https://www.behance.net/gallery/102273395/viviano-agency",
+      },
+    ],
+  },
+  {
+    slug: "daris-brand",
+    title_ar: "دار الاستقرار للتجارة",
+    title_en: "Daris",
+    serviceLine: "brand",
+    featured: true,
+    selectionRank: 4,
+    year: "2021",
+    cover: "/work/daris-brand/07.webp",
+    preview: "/work/daris-brand/06.webp",
+    discipline: {
+      ar: "هوية مؤسسة تجارية",
+      en: "Trading company identity",
+    },
+    context: {
+      ar: "هوية لمؤسسة دار الاستقرار للتجارة، باسم مختصر هو Daris.",
+      en: "An identity for Dar Al-Estgrar Trading, shortened to the name Daris.",
+    },
+    decision: {
+      ar: "حرف D مرسوم كباب مفتوح، بالأخضر الداكن والبرتقالي.",
+      en: "The letter D drawn as an open door, in deep green and orange.",
+    },
+    system: {
+      ar: "الشعار، النظام اللوني، المطبوعات وبطاقات العمل، وتغليف المنتج.",
+      en: "Logo, colour system, stationery and business cards, and product packaging.",
+    },
+    gallery: gallery(
+      [
+        "/work/daris-brand/01.webp",
+        "/work/daris-brand/02.webp",
+        "/work/daris-brand/03.webp",
+        "/work/daris-brand/04.webp",
+        "/work/daris-brand/06.webp",
+        "/work/daris-brand/07.webp",
+        "/work/daris-brand/08.webp",
+      ],
+      "دار الاستقرار للتجارة",
+      "Daris",
+    ),
+    proof: [
+      {
+        label: { ar: "المشروع على Behance", en: "Project on Behance" },
+        url: "https://www.behance.net/gallery/110826459/Dar-alestgrar-trading-Brand",
+      },
+    ],
+  },
+  {
+    slug: "aspar-impex",
+    title_ar: "أسبار إمبكس",
+    title_en: "Aspar Impex",
+    serviceLine: "brand",
+    featured: true,
+    year: "2020",
+    cover: "/work/aspar-impex/01.webp",
+    preview: "/work/aspar-impex/10.webp",
+    discipline: {
+      ar: "هوية شركة تصدير محاصيل",
+      en: "Crop export company identity",
+    },
+    context: {
+      ar: "هوية لشركة تعمل في تصدير المحاصيل من السودان.",
+      en: "An identity for a company exporting crops from Sudan.",
+    },
+    decision: {
+      ar: "حرف A يلتقي بورقة السمسم في رمز واحد، بدرجات الأخضر.",
+      en: "The letter A meets a sesame leaf in a single mark, in shades of green.",
+    },
+    system: {
+      ar: "الشعار، الخط والنظام اللوني، المطبوعات، وأكياس التصدير.",
+      en: "Logo, typography and colour system, stationery, and export sacks.",
+    },
+    gallery: gallery(
+      [
+        "/work/aspar-impex/01.webp",
+        "/work/aspar-impex/03.webp",
+        "/work/aspar-impex/05.webp",
+        "/work/aspar-impex/06.webp",
+        "/work/aspar-impex/07.webp",
+        "/work/aspar-impex/08.webp",
+        "/work/aspar-impex/09.webp",
+        "/work/aspar-impex/10.webp",
+        "/work/aspar-impex/11.webp",
+        "/work/aspar-impex/12.webp",
+        "/work/aspar-impex/13.webp",
+      ],
+      "أسبار إمبكس",
+      "Aspar Impex",
+    ),
+    proof: [
+      {
+        label: { ar: "المشروع على Behance", en: "Project on Behance" },
+        url: "https://www.behance.net/gallery/104884161/ASPAR-IMPEX-BRAND",
+      },
+    ],
+  },
+  {
+    slug: "logofolio-2020",
+    title_ar: "مجموعة شعارات 2020",
+    title_en: "Logofolio 2020",
+    serviceLine: "brand",
+    year: "2020",
+    cover: "/work/logofolio-2020/02.webp",
+    gallery: gallery(
+      [
+        "/work/logofolio-2020/02.webp",
+        "/work/logofolio-2020/03.webp",
+        "/work/logofolio-2020/04.webp",
+        "/work/logofolio-2020/05.webp",
+        "/work/logofolio-2020/06.webp",
+        "/work/logofolio-2020/07.webp",
+        "/work/logofolio-2020/08.webp",
+        "/work/logofolio-2020/09.webp",
+        "/work/logofolio-2020/10.webp",
+        "/work/logofolio-2020/11.webp",
+        "/work/logofolio-2020/12.webp",
+      ],
+      "مجموعة شعارات 2020",
+      "Logofolio 2020",
+    ),
+    context: {
+      ar: "شعارات صُمّمت خلال 2020 لمطاعم وشركات هندسة واتصالات وعيادات وغيرها.",
+      en: "Marks designed during 2020 for restaurants, engineering and telecom firms, clinics and more.",
+    },
+    proof: [
+      {
+        label: { ar: "المجموعة على Behance", en: "Collection on Behance" },
+        url: "https://www.behance.net/gallery/95727161/2020-LOGO-FOLIO",
+      },
+    ],
+    nextService: "Essential Identity",
   },
   {
     slug: "majlan-brand",
@@ -692,3 +871,12 @@ export const orderedProjects = [
   ...selectedIdentityProjects,
   ...projects.filter((p) => p.selectionRank === undefined),
 ];
+
+/** The work each service line leads with, in order: the first is its case study on the Services page. */
+const lineShowcase: Partial<Record<ServiceLine, string[]>> = {
+  brand: ["gyptech-brand", "ekka-rebranding", "talia-bakery"],
+};
+export const showcaseFor = (line: ServiceLine): Project[] =>
+  (lineShowcase[line] ?? [])
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter((p): p is Project => Boolean(p));

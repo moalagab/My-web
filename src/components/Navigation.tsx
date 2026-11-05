@@ -1,61 +1,216 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
-import { ArrowUpRight, Menu } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { track } from "@/lib/analytics";
 
-const loadMobileMenu = () => import("@/components/MobileMenu");
-const MobileMenu = lazy(loadMobileMenu);
-
+/**
+ * Navy bar that opens the page, as on Folioblox: wordmark, links grouped at
+ * the end with a services dropdown, a language pill and the start pill with
+ * its sliding arrow, laid out with the wordmark at the end. It stays fixed
+ * and transparent; each item turns navy over light sections and light over
+ * navy ones. On phones it expands downward into large links.
+ */
 export default function Navigation() {
   const { lang, dictionary: d, isRtl } = useLanguage();
   const location = useLocation();
-  const [open, setOpen] = useState(false);
-  const menuTrigger = useRef<HTMLButtonElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const servicesRef = useRef<HTMLLIElement>(null);
+  const closeTimer = useRef(0);
+  const panelId = useId();
+  const menuId = useId();
   const prefix = lang === "en" ? "/en" : "";
   const to = (p = "") => `${prefix}${p}` || "/";
-  const home =
-    location.pathname === "/" ||
-    location.pathname === "/en" ||
-    location.pathname === "/en/";
+  const otherLang = lang === "ar" ? "en" : "ar";
   const switchPath =
     lang === "ar"
       ? `/en${location.pathname === "/" ? "" : location.pathname}`
       : location.pathname.replace(/^\/en(?=\/|$)/, "") || "/";
-  const languageHref = (target: string) =>
-    `${lang === target ? location.pathname : switchPath}${location.search}${location.hash}`;
+  const languageHref = `${switchPath}${location.search}${location.hash}`;
+  const services = d.home.services.items;
   const items = [
-    { label: d.navigation.work, path: "/work" },
-    { label: d.navigation.services, path: "/services" },
-    { label: d.navigation.products, path: "/products" },
     { label: d.navigation.about, path: "/about" },
+    { label: d.navigation.services, path: "/services" },
+    { label: d.navigation.work, path: "/work" },
+    { label: d.navigation.products, path: "/products" },
   ];
+  const current = (path: string) => location.pathname.startsWith(to(path));
+  const arrow = isRtl ? "-scale-x-100" : "";
+
   useEffect(() => {
-    setOpen(false);
+    setMenuOpen(false);
+    setServicesOpen(false);
   }, [location.pathname]);
+
+  // Escape closes whichever menu is open; a click outside closes the dropdown.
   useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 24);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setServicesOpen(false);
+      setMenuOpen(false);
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (!servicesRef.current?.contains(e.target as Node)) setServicesOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onPointer);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onPointer);
+    };
   }, []);
+
+  // Each item in the bar reads the background right behind it, so a link over a light band turns
+  // navy while its neighbour over a navy band stays light.
+  useEffect(() => {
+    let frame = 0;
+    const isLightAt = (x: number, y: number, bar: HTMLElement) => {
+      let el = document.elementsFromPoint(x, y).find((node) => !bar.contains(node)) as HTMLElement | undefined;
+      while (el) {
+        const [r, g, b, a = 1] = (getComputedStyle(el).backgroundColor.match(/[\d.]+/g) ?? []).map(Number);
+        if (a > 0.5) return 0.2126 * r + 0.7152 * g + 0.0722 * b > 140;
+        el = el.parentElement ?? undefined;
+      }
+      return true;
+    };
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 8);
+      const bar = headerRef.current;
+      if (!bar) return;
+      bar.querySelectorAll<HTMLElement>(".studio-wordmark > span:not(.sr-only), .nav-link, .nav-pill, .nav-burger").forEach((item) => {
+        const box = item.getBoundingClientRect();
+        if (!box.width) return;
+        item.dataset.tone = isLightAt(box.left + box.width / 2, box.top + box.height / 2, bar) ? "light" : "dark";
+      });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    // Read again once a page transition has finished painting the new page.
+    const settle = window.setTimeout(update, 750);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(settle);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [location.pathname]);
+
+  const openServices = () => {
+    window.clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+  const closeServicesSoon = () => {
+    closeTimer.current = window.setTimeout(() => setServicesOpen(false), 120);
+  };
+
+  const languagePill = (
+    <Link
+      to={languageHref}
+      className="nav-pill nav-pill--outline"
+      lang={otherLang}
+      aria-label={`${d.navigation.language}: ${otherLang === "ar" ? d.navigation.arabic : d.navigation.english}`}
+      onClick={() => track("lang_switch", { to: otherLang })}
+    >
+      {otherLang === "ar" ? d.navigation.arabic : d.navigation.english}
+    </Link>
+  );
+  const startPill = (
+    <Link
+      viewTransition
+      to={to("/start")}
+      className="nav-pill nav-pill--solid"
+      onClick={() => track("cta_start_click", { location: "header" })}
+    >
+      <span>{d.navigation.start}</span>
+      <span className="nav-pill-dot" aria-hidden="true">
+        <ArrowUpRight size={18} className={arrow} />
+      </span>
+    </Link>
+  );
+
   return (
     <>
       <a href="#main-content" className="skip-link">
         {d.navigation.skip}
       </a>
       <header
-        className={`studio-header ${home && !scrolled ? "studio-header-dark" : ""} ${scrolled ? "is-scrolled" : ""}`}
+        ref={headerRef}
+        className={`studio-header ${menuOpen ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""}`}
       >
-        <nav
-          className="studio-container header-inner"
-          aria-label={d.navigation.label}
-        >
-          <Link
-            to={to()}
-            className="studio-wordmark"
+        <nav className="header-inner" aria-label={d.navigation.label}>
+          <button
+            type="button"
+            className="nav-burger"
+            aria-label={menuOpen ? d.navigation.closeMenu : d.navigation.openMenu}
+            aria-expanded={menuOpen}
+            aria-controls={menuId}
+            onClick={() => setMenuOpen((o) => !o)}
           >
+            <span />
+            <span />
+          </button>
+
+
+          <ul className="nav-links">
+            {items.map((i) =>
+              i.path === "/services" ? (
+                <li
+                  key={i.path}
+                  ref={servicesRef}
+                  className="nav-services"
+                  onPointerEnter={(e) => e.pointerType === "mouse" && openServices()}
+                  onPointerLeave={(e) => e.pointerType === "mouse" && closeServicesSoon()}
+                >
+                  <button
+                    type="button"
+                    className="nav-link"
+                    aria-expanded={servicesOpen}
+                    aria-controls={panelId}
+                    onClick={() => setServicesOpen((o) => !o)}
+                  >
+                    {i.label}
+                    <ChevronDown size={14} aria-hidden="true" />
+                  </button>
+                  <div id={panelId} className={`nav-dropdown ${servicesOpen ? "is-open" : ""}`}>
+                    <ul>
+                      {services.map((s) => (
+                        <li key={s.slug}>
+                          <Link viewTransition to={to(`/services/${s.slug}`)} tabIndex={servicesOpen ? undefined : -1}>
+                            <span dir="ltr">{s.title}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link viewTransition to={to("/services")} className="nav-dropdown-all" tabIndex={servicesOpen ? undefined : -1}>
+                      {d.servicesPage.allServices}
+                      <ArrowUpRight size={14} className={arrow} />
+                    </Link>
+                  </div>
+                </li>
+              ) : (
+                <li key={i.path}>
+                  <Link viewTransition to={to(i.path)} className="nav-link" aria-current={current(i.path) ? "page" : undefined}>
+                    {i.label}
+                  </Link>
+                </li>
+              ),
+            )}
+          </ul>
+
+          <div className="nav-actions">
+            {startPill}
+            {languagePill}
+          </div>
+
+          <Link viewTransition to={to()} className="studio-wordmark">
             <span dir="ltr">
               mo<span className="wordmark-dot">.</span>
             </span>
@@ -66,73 +221,23 @@ export default function Navigation() {
             </span>
             <span className="sr-only">{` — ${d.navigation.home}`}</span>
           </Link>
-          <div className="desktop-navigation">
-            {items.map((i) => (
-              <Link
-                key={i.path}
-                to={to(i.path)}
-                aria-current={
-                  location.pathname.startsWith(to(i.path)) ? "page" : undefined
-                }
-              >
-                {i.label}
-              </Link>
-            ))}
-          </div>
-          <div className="header-tools">
-            <div
-              className="language-switch"
-              dir="ltr"
-              aria-label={d.navigation.language}
-            >
-              {["ar", "en"].map((l) => (
-                <Link
-                  key={l}
-                  to={languageHref(l)}
-                  aria-current={lang === l ? "page" : undefined}
-                  onClick={() => lang !== l && track("lang_switch", { to: l })}
-                >
-                  {l.toUpperCase()}
-                </Link>
-              ))}
-            </div>
-            <Link
-              to={to("/start")}
-              className="header-cta"
-              onClick={() => track("cta_start_click", { location: "header" })}
-            >
-              {d.navigation.start}
-              <ArrowUpRight size={16} className={isRtl ? "-scale-x-100" : ""} />
-            </Link>
-            <button
-              ref={menuTrigger}
-              type="button"
-              className="mobile-menu-trigger"
-              aria-label={d.navigation.openMenu}
-              aria-haspopup="dialog"
-              aria-expanded={open}
-              onPointerEnter={loadMobileMenu}
-              onTouchStart={loadMobileMenu}
-              onFocus={loadMobileMenu}
-              onClick={() => setOpen(true)}
-            >
-              <Menu size={24} />
-            </button>
-            {open && (
-              <Suspense fallback={null}>
-                <MobileMenu
-                  open={open}
-                  onOpenChange={setOpen}
-                  items={items}
-                  to={to}
-                  d={d}
-                  isRtl={isRtl}
-                  triggerRef={menuTrigger}
-                />
-              </Suspense>
-            )}
-          </div>
         </nav>
+
+        <div id={menuId} className="nav-mobile" hidden={!menuOpen}>
+          <ul>
+            {items.map((i) => (
+              <li key={i.path}>
+                <Link viewTransition to={to(i.path)} aria-current={current(i.path) ? "page" : undefined}>
+                  {i.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="nav-mobile-actions">
+            {languagePill}
+            {startPill}
+          </div>
+        </div>
       </header>
     </>
   );

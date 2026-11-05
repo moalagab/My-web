@@ -151,7 +151,7 @@ export default function LifeTentShowcase() {
         <div className="lt-intro">
           <div>
             <p className="studio-eyebrow" dir="ltr">
-              01 / LIFETENT · PERSONAL OPERATING SYSTEM
+              LIFETENT · PERSONAL OPERATING SYSTEM
             </p>
             <h2 id="lifetent-title">
               {ar ? (

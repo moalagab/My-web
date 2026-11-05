@@ -104,6 +104,14 @@ export function Layout({ children }: { children: ReactNode }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="preload" href="/fonts/LamaSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="preload" href="/fonts/LamaSans-Bold.woff2" as="font" type="font/woff2" crossOrigin="" />
+        {/* The display serif for headlines: the page's own script, so the hero title doesn't reflow when it arrives. */}
+        <link
+          rel="preload"
+          href={en ? "/fonts/BodoniModa-Variable.woff2" : "/fonts/thmanyah-serif-text-Bold.woff2"}
+          as="font"
+          type="font/woff2"
+          crossOrigin=""
+        />
         <Meta />
         <Links />
         <script

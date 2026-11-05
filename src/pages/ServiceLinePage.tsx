@@ -4,12 +4,11 @@ import PageMeta from "@/components/PageMeta";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Picture from "@/components/Picture";
-import { Eyebrow } from "@/components/system/Eyebrow";
-import { Section, SectionInner } from "@/components/system/Section";
-import { Button } from "@/components/ui/button";
+import BuyerQuestions from "@/components/studio/BuyerQuestions";
+import PageHero from "@/components/studio/PageHero";
+import FeaturedProjects from "@/components/studio/FeaturedProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { projects, type ServiceLine } from "@/content/projects";
+import { showcaseFor, type ServiceLine } from "@/content/projects";
 import { faqJsonLd, serviceAnswers, serviceJsonLd } from "@/lib/answers";
 import { useWhatsapp } from "@/lib/whatsapp";
 
@@ -29,7 +28,7 @@ export default function ServiceLinePage() {
 
   const seo = copy.lineSeo[line.slug as keyof typeof copy.lineSeo];
   const answers = serviceAnswers(line, d);
-  const work = projects.filter((p) => p.serviceLine === (line.slug as ServiceLine)).slice(0, 3);
+  const work = showcaseFor(line.slug as ServiceLine);
   const url = `${SITE}${prefix}/services/${line.slug}`;
 
   return (
@@ -45,44 +44,31 @@ export default function ServiceLinePage() {
         }}
       />
       <Navigation />
-      <main className="pt-20">
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6">
-            <Eyebrow className="text-primary-foreground/80">
-              <span dir="ltr">{line.title}</span>
-            </Eyebrow>
-            <h1 className="mt-6 max-w-4xl text-balance font-display text-4xl font-bold leading-[1.15] md:text-6xl">
-              {seo.heading}
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-primary-foreground/85">
-              {line.what}
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" variant="secondary">
-                <Link to={`${prefix}/start?service=${line.slug}`}>
-                  {d.home.finalCta.button}
-                  <ArrowUpRight className={arrowClass} />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+      <main>
+        <PageHero
+          image={`/work/media/service-${line.slug}.webp`}
+          eyebrow={<span dir="ltr">{line.title}</span>}
+          title={seo.heading}
+          side={<p>{line.what}</p>}
+          actions={
+            <div className="folio-actions">
+              <Link to={`${prefix}/start?service=${line.slug}`} className="nav-pill folio-pill">
+                {d.home.finalCta.button}
+                <ArrowUpRight size={16} className={arrowClass} />
+              </Link>
+              <a
+                href={whatsapp.href}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => whatsapp.onClick("service_hero")}
+                className="nav-pill nav-pill--outline"
               >
-                <a
-                  href={whatsapp.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => whatsapp.onClick("service_hero")}
-                >
-                  <MessageCircle aria-hidden="true" />
-                  {d.ui.whatsapp.button}
-                </a>
-              </Button>
+                <MessageCircle size={16} aria-hidden="true" />
+                {d.ui.whatsapp.button}
+              </a>
             </div>
-          </div>
-        </section>
+          }
+        />
 
         <div className="container max-w-content px-6 pt-8">
           <Breadcrumbs
@@ -93,88 +79,50 @@ export default function ServiceLinePage() {
           />
         </div>
 
-        <Section className="bg-background">
-          <SectionInner className="max-w-3xl">
-            <Eyebrow>{copy.askEyebrow}</Eyebrow>
-            <div className="mt-8 space-y-12">
-              {answers.map((qa, i) => (
-                <section key={qa.q} aria-labelledby={`q-${i}`}>
-                  <h2
-                    id={`q-${i}`}
-                    className="font-display text-2xl font-bold md:text-3xl"
-                  >
-                    {qa.q}
-                  </h2>
-                  {qa.a && <p className="mt-4 text-lg leading-8 text-muted-foreground">{qa.a}</p>}
-                  {qa.list && (
-                    <ul className="mt-4 space-y-3 text-lg leading-8 text-muted-foreground">
-                      {qa.list.map((item) => (
-                        <li key={item} className="border-s-2 border-border ps-4">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </section>
-              ))}
-            </div>
-          </SectionInner>
-        </Section>
+        <section className="studio-section">
+          <BuyerQuestions
+            answers={answers}
+            aside={
+              <>
+                <p className="studio-eyebrow">{copy.askEyebrow}</p>
+                <h2>
+                  <span dir="ltr">{line.title}</span>
+                </h2>
+                <p className="section-intro">{line.tagline}</p>
+              </>
+            }
+          />
+        </section>
 
         {work.length > 0 && (
-          <Section className="border-t border-border bg-card">
-            <SectionInner>
-              <Eyebrow>{copy.relatedWork}</Eyebrow>
-              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {work.map((p) => {
-                  const title = lang === "ar" ? p.title_ar : p.title_en;
-                  return (
-                    <Link
-                      key={p.slug}
-                      to={`${prefix}/work/${p.slug}`}
-                      className="group block border border-border bg-background"
-                    >
-                      <div className="aspect-[4/3] overflow-hidden bg-secondary">
-                        <Picture
-                          src={p.cover}
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          alt=""
-                          loading="lazy"
-                          width={800}
-                          height={600}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                      <h3 className="flex items-center justify-between gap-3 p-5 font-display text-xl font-bold">
-                        {title}
-                        <ArrowUpRight className={`h-5 w-5 shrink-0 ${arrowClass}`} aria-hidden="true" />
-                      </h3>
-                    </Link>
-                  );
-                })}
+          <section className="studio-section service-line--tint">
+            <div className="studio-container">
+              <div className="section-heading">
+                <div>
+                  <p className="studio-eyebrow">{copy.relatedWork}</p>
+                </div>
               </div>
-            </SectionInner>
-          </Section>
+              <FeaturedProjects items={work} />
+            </div>
+          </section>
         )}
 
-        <section className="bg-primary py-16 text-primary-foreground md:py-24">
-          <div className="container max-w-content px-6 text-center">
-            <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-bold md:text-5xl">
-              {d.home.finalCta.title}
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/85">
-              {d.home.finalCta.body}
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg" variant="secondary">
-                <Link to={`${prefix}/start?service=${line.slug}`}>
-                  {d.home.finalCta.button}
-                  <ArrowUpRight className={arrowClass} />
+        <section className="studio-section">
+          <div className="studio-container">
+            <div className="folio-cta" data-reveal>
+              <h2>{d.home.finalCta.title}</h2>
+              <p>{d.home.finalCta.body}</p>
+              <div className="folio-actions">
+                <Link to={`${prefix}/start?service=${line.slug}`} className="nav-pill nav-pill--solid">
+                  <span>{d.home.finalCta.button}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight size={18} className={arrowClass} />
+                  </span>
                 </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-                <Link to={`${prefix}/services`}>{copy.allServices}</Link>
-              </Button>
+                <Link to={`${prefix}/services`} className="nav-pill nav-pill--outline">
+                  {copy.allServices}
+                </Link>
+              </div>
             </div>
           </div>
         </section>

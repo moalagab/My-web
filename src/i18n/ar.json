@@ -5,6 +5,7 @@
   },
   "navigation": {
     "label": "التنقل الرئيسي",
+    "footerLabel": "روابط التذييل",
     "home": "الرئيسية",
     "work": "الأعمال",
     "services": "الخدمات",
@@ -60,7 +61,7 @@
       "logosLabel": "عملاء مختارون"
     },
     "services": {
-      "eyebrow": "01 / SERVICES",
+      "eyebrow": "SERVICES",
       "title": "أربعة مسارات. تنفيذ على أرض الواقع.",
       "details": "تفاصيل",
       "deliverablesLabel": "المخرجات",
@@ -117,7 +118,7 @@
       ]
     },
     "work": {
-      "eyebrow": "02 / SELECTED WORK",
+      "eyebrow": "SELECTED WORK",
       "title": "أعمال مختارة",
       "all": "كل الأعمال",
       "items": [
@@ -160,7 +161,7 @@
       ]
     },
     "products": {
-      "eyebrow": "03 / PRODUCTS I BUILT",
+      "eyebrow": "PRODUCTS I BUILT",
       "title": "منتجات بنيتها",
       "caption": "منتجات تشتغل الآن، مو نماذج عرض.",
       "visit": "افتح المنتج",
@@ -179,7 +180,7 @@
       ]
     },
     "process": {
-      "eyebrow": "04 / HOW WE WORK",
+      "eyebrow": "HOW WE WORK",
       "title": "كيف نشتغل",
       "steps": [
         {
@@ -205,7 +206,7 @@
       ]
     },
     "about": {
-      "eyebrow": "05 / ABOUT MO",
+      "eyebrow": "ABOUT MO",
       "title": "محمد العجب",
       "paragraphs": [
         "Brand Designer & AI Product Builder مقيم في الرياض.",
@@ -216,7 +217,7 @@
       "portraitAlt": "محمد العجب"
     },
     "testimonials": {
-      "eyebrow": "06 / IN THEIR WORDS",
+      "eyebrow": "IN THEIR WORDS",
       "title": "بكلماتهم.",
       "intro": "توصيات منشورة على LinkedIn، مترجمة من الإنجليزية.",
       "link": "كل التوصيات على LinkedIn",
@@ -235,7 +236,7 @@
       ]
     },
     "faq": {
-      "eyebrow": "06 / FAQ",
+      "eyebrow": "FAQ",
       "title": "أسئلة متكررة",
       "items": [
         {
@@ -292,10 +293,10 @@
   "caseStudy": {
     "back": "العودة للأعمال",
     "summary": {
-      "client": "Client",
-      "year": "Year",
-      "role": "Role",
-      "deliverables": "Deliverables",
+      "client": "العميل",
+      "year": "السنة",
+      "role": "الدور",
+      "deliverables": "المخرجات",
       "hiddenClient": "غير معلن"
     },
     "sections": {

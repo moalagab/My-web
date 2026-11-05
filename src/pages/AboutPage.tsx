@@ -6,6 +6,8 @@ import Navigation from "@/components/Navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portraitImage from "@/assets/portrait-mo.webp";
 import Picture from "@/components/Picture";
+import JourneyMap from "@/components/studio/JourneyMap";
+import PageHero from "@/components/studio/PageHero";
 
 const paragraphs = (text: string) =>
   text.split("\n").map((p, i) => <p key={i}>{p}</p>);
@@ -21,52 +23,44 @@ export default function AboutPage() {
     <>
       <PageMeta title={c.metaTitle} description={c.metaDescription} />
       <Navigation />
-      <main className="pt-20 about-page" id="main-content">
-        <section className="about-hero">
-          <div className="studio-container about-hero-grid">
-            <div className="about-hero-copy">
-              <p className="studio-eyebrow">{c.eyebrow}</p>
-              <h1>{c.name}</h1>
-              <p className="about-descriptor" dir="ltr">
-                {c.descriptor}
-              </p>
-              <p className="about-hero-statement">{c.heroStatement}</p>
-              <nav
-                className="about-section-nav"
-                aria-label={ar ? "أقسام صفحة عن Mo" : "About page sections"}
-              >
-                {anchors.map((anchor, i) => (
-                  <Link key={anchor} to={`${prefix}/about#${anchor}`}>
-                    {c.sectionLabels[i]}
-                    <ArrowUpRight size={16} className={arrow} />
-                  </Link>
-                ))}
-              </nav>
-            </div>
-            <figure className="about-portrait">
-              <Picture
-                src={portraitImage}
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                alt={c.portraitAlt}
-                width={800}
-                height={1000}
-                loading="eager"
-              />
-              <figcaption dir="ltr">
-                MO ALAGAB / FROM VISION TO SYSTEMS
-              </figcaption>
-            </figure>
-          </div>
-        </section>
+      <main className="about-page" id="main-content">
+        <PageHero
+          image={portraitImage}
+          focus="30% 22%"
+          eyebrow={c.eyebrow}
+          title={c.name}
+          side={
+            <>
+              <strong dir="ltr">{c.descriptor}</strong>
+              <p>{c.heroStatement}</p>
+            </>
+          }
+          actions={
+            <nav className="folio-chips" aria-label={ar ? "أقسام صفحة عن Mo" : "About page sections"}>
+              {anchors.map((anchor, i) => (
+                <Link key={anchor} to={`${prefix}/about#${anchor}`}>
+                  {c.sectionLabels[i]}
+                </Link>
+              ))}
+            </nav>
+          }
+        />
         <section
           className="studio-section about-story"
           id="story"
           aria-labelledby="story-title"
         >
-          <div className="studio-container about-editorial-grid">
+          <div className="studio-container">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">01 / {c.storyEyebrow}</p>
+              <p className="studio-eyebrow">{c.storyEyebrow}</p>
               <h2 id="story-title">{c.storyTitle}</h2>
+            </div>
+          </div>
+          <div className="studio-container about-split">
+            <aside className="about-aside">
+              <div className="about-aside-media" aria-hidden="true">
+                <Picture src="/work/media/about-studio.webp" sizes="(min-width: 1000px) 36vw, 100vw" alt="" loading="lazy" decoding="async" width={1200} height={1600} />
+              </div>
               <div className="about-experience">
                 <span>
                   <b dir="ltr">12+</b>
@@ -77,7 +71,7 @@ export default function AboutPage() {
                   {ar ? "نظام هوية" : "Identity systems"}
                 </span>
               </div>
-            </div>
+            </aside>
             <div className="about-story-copy">
               <div className="about-paragraphs">
                 {c.story.map((p, i) => (
@@ -153,7 +147,7 @@ export default function AboutPage() {
         >
           <div className="studio-container about-editorial-grid">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">02 / {c.principlesEyebrow}</p>
+              <p className="studio-eyebrow">{c.principlesEyebrow}</p>
               <h2 id="principles-title">{c.principlesTitle}</h2>
             </div>
             <ol className="about-principles-list">
@@ -187,48 +181,22 @@ export default function AboutPage() {
         >
           <div className="studio-container about-editorial-grid">
             <div className="about-section-heading">
-              <p className="studio-eyebrow">03 / {c.timelineEyebrow}</p>
+              <p className="studio-eyebrow">{c.timelineEyebrow}</p>
               <h2 id="timeline-title">{c.timelineTitle}</h2>
               <p className="about-timeline-caption" dir="ltr">
                 DESIGN → OPERATIONS → APPLIED AI
               </p>
             </div>
             <div>
-              <ol className="about-timeline-list">
-                {c.timeline.map((item, i) => (
-                  <li
-                    key={`${item.year}-${item.title}`}
-                    className={
-                      i === c.timeline.length - 1
-                        ? "about-timeline-current"
-                        : ""
-                    }
-                  >
-                    <div className="about-timeline-period">
-                      <span dir="ltr">{item.year}</span>
-                      <span className="about-timeline-dot" aria-hidden="true" />
-                    </div>
-                    <div className="about-timeline-entry">
-                      <h3 dir="auto">{item.title}</h3>
-                      <p className="about-timeline-role" dir="ltr">
-                        {item.role}
-                      </p>
-                      <div className="about-timeline-body">
-                        {paragraphs(item.body)}
-                      </div>
-                      {i === c.timeline.length - 1 && (
-                        <Link
-                          className="studio-text-link"
-                          to={`${prefix}/products`}
-                        >
-                          {c.productsLink}
-                          <ArrowUpRight size={17} className={arrow} />
-                        </Link>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
+              <JourneyMap
+                stops={c.timeline}
+                current={
+                  <Link className="studio-text-link" to={`${prefix}/products`}>
+                    {c.productsLink}
+                    <ArrowUpRight size={17} className={arrow} />
+                  </Link>
+                }
+              />
               <div className="about-method">
                 <p className="studio-eyebrow">{c.methodLabel}</p>
                 <ol>
@@ -245,7 +213,7 @@ export default function AboutPage() {
         </section>
         <section className="about-closing">
           <div className="studio-container">
-            <p className="studio-eyebrow">04 / {c.closingEyebrow}</p>
+            <p className="studio-eyebrow">{c.closingEyebrow}</p>
             <div className="about-closing-grid">
               <h2>{c.closingTitle}</h2>
               <div className="about-closing-body">
@@ -254,10 +222,12 @@ export default function AboutPage() {
                 ))}
                 <Link
                   to={`${prefix}/start`}
-                  className="studio-button studio-button-light"
+                  className="nav-pill nav-pill--solid"
                 >
-                  {dictionary.navigation.start}
-                  <ArrowUpRight size={19} className={arrow} />
+                  <span>{dictionary.navigation.start}</span>
+                  <span className="nav-pill-dot" aria-hidden="true">
+                    <ArrowUpRight size={18} className={arrow} />
+                  </span>
                 </Link>
               </div>
             </div>

@@ -1,6 +1,8 @@
 import type { SystemDictionary } from "@/lib/dictionary";
 
-export type QA = { q: string; a: string; list?: string[] };
+/** How an answer is laid out on a service page; plain answers need no kind. */
+export type QAKind = "checklist" | "note" | "durations" | "cost" | "steps";
+export type QA = { q: string; a: string; list?: string[]; kind?: QAKind };
 export type ServiceLineCopy = SystemDictionary["servicesPage"]["lines"][number];
 
 const SITE = "https://moalagab.art";
@@ -12,18 +14,20 @@ export const serviceAnswers = (line: ServiceLineCopy, d: SystemDictionary): QA[]
   return [
     { q: s.qa.what.replace("{title}", line.title), a: line.what },
     { q: s.qa.who, a: line.who },
-    { q: s.qa.deliverables, a: "", list: line.deliverables },
-    { q: s.qa.notIncluded, a: line.notIncluded },
+    { q: s.qa.deliverables, a: "", list: line.deliverables, kind: "checklist" },
+    { q: s.qa.notIncluded, a: line.notIncluded, kind: "note" },
     {
       q: s.qa.timeline,
       a: "",
       list: line.packages.map((p) => `${p.name}: ${p.timeline}`),
+      kind: "durations",
     },
-    { q: s.qa.cost, a: s.costAnswer },
+    { q: s.qa.cost, a: s.costAnswer, kind: "cost" },
     {
       q: s.qa.process,
       a: "",
       list: steps.map((step) => `${step.title}: ${step.body}`),
+      kind: "steps",
     },
   ];
 };
