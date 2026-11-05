@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npm run preview",
+      "startServerCommand": "node scripts/precompress.mjs && npm run preview",
       "startServerReadyPattern": "Local",
       "url": ["http://127.0.0.1:4173/", "http://127.0.0.1:4173/en", "http://127.0.0.1:4173/work", "http://127.0.0.1:4173/services/brand"],
       "numberOfRuns": 3,
