@@ -36,11 +36,11 @@ const jsonLd = [
       addressCountry: "SA",
     },
     email: "mo@moalagab.art",
-    telephone: "+966561167169",
+    telephone: "+966509989313",
     sameAs: [
       "https://www.behance.net/ma_alagab",
       "https://www.linkedin.com/in/moalagab",
-      "https://wa.me/966561167169",
+      "https://wa.me/966509989313",
     ],
   },
   {
@@ -61,7 +61,7 @@ const jsonLd = [
     name: "Mohammed Alagab Design Studio",
     image: `${SITE}/og.png`,
     url: SITE,
-    telephone: "+966561167169",
+    telephone: "+966509989313",
     email: "mo@moalagab.art",
     address: {
       "@type": "PostalAddress",
