@@ -8,7 +8,14 @@
     { "source": "/services/ai", "destination": "/services/digital", "permanent": true },
     { "source": "/en/services/ai", "destination": "/en/services/digital", "permanent": true }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/__spa-fallback.html" }],
+  "rewrites": [
+    { "source": "/admin", "destination": "/__spa-fallback.html" },
+    { "source": "/auth", "destination": "/__spa-fallback.html" },
+    { "source": "/ar/:path*", "destination": "/__spa-fallback.html" },
+    { "source": "/styleguide", "destination": "/__spa-fallback.html" },
+    { "source": "/en/styleguide", "destination": "/__spa-fallback.html" },
+    { "source": "/(en/)?(services/request|book|contact)", "destination": "/__spa-fallback.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -97,6 +97,19 @@ export default function WorkPage() {
               {ar ? "معرض الأعمال" : "Work gallery"}
             </h2>
             <ProjectCards items={visible} />
+            {/* The default view shows only the selection; list the rest as plain links so every case study is reachable from /work. */}
+            {filter === "selected" && (
+              <nav className="work-more" aria-labelledby="work-more-heading">
+                <h3 id="work-more-heading">{ar ? "مشاريع أخرى" : "More projects"}</h3>
+                <ul>
+                  {orderedProjects.slice(selectedIdentityProjects.length).map((p) => (
+                    <li key={p.slug}>
+                      <Link to={`${prefix}/work/${p.slug}`}>{ar ? p.title_ar : p.title_en}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
           </div>
         </section>
         <CurvedGallery />

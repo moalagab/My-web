@@ -85,10 +85,12 @@ export default function ProductsPage() {
                         <li key={f}>{f}</li>
                       ))}
                     </ul>
-                    <a href={p.url} target="_blank" rel="noreferrer" className="studio-text-link">
-                      {d.home.products.visit}
-                      <ArrowUpRight size={18} className={isRtl ? "-scale-x-100" : ""} />
-                    </a>
+                    {p.url && (
+                      <a href={p.url} target="_blank" rel="noreferrer" className="studio-text-link">
+                        {d.home.products.visit}
+                        <ArrowUpRight size={18} className={isRtl ? "-scale-x-100" : ""} />
+                      </a>
+                    )}
                   </div>
                 </li>
               ))}

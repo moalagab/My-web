@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
 const SITE = "https://moalagab.art";
@@ -75,6 +76,26 @@ test("unknown paths fall back with noindex and no canonical", async ({ request }
 test("llms.txt and robots.txt are served", async ({ request }) => {
   expect(await (await request.get("/llms.txt")).text()).toContain("Mohammed Alagab");
   expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap: https://moalagab.art/sitemap.xml");
+});
+
+test("the work page links every case study in its raw HTML", async ({ request }) => {
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  for (const prefix of ["", "/en"]) {
+    const expected = [...sitemap.matchAll(new RegExp(`<loc>${SITE}${prefix}/work/([^<]+)</loc>`, "g"))].map((m) => m[1]);
+    const html = await (await request.get(`${prefix}/work`)).text();
+    const linked = new Set([...html.matchAll(new RegExp(`href="${prefix}/work/([^"]+)"`, "g"))].map((m) => m[1]));
+    expect(expected.length).toBeGreaterThan(10);
+    expect(expected.filter((slug) => !linked.has(slug)), `${prefix}/work`).toEqual([]);
+  }
+});
+
+test("unknown URLs get a real 404 on Vercel: no catch-all rewrite, and a 404.html exists", async ({ request }) => {
+  const vercel = JSON.parse(readFileSync("vercel.json", "utf8"));
+  const sources = vercel.rewrites.map((r: { source: string }) => r.source);
+  expect(sources).not.toContain("/(.*)");
+  expect(existsSync("build/client/404.html")).toBe(true);
+  // Client-only routes still reach the app shell.
+  expect((await request.get("/admin")).status()).toBe(200);
 });
 
 test("service pages answer buyer questions with Service and FAQPage data", async ({ request }) => {
