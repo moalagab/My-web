@@ -154,6 +154,10 @@ export const projects: Project[] = [
     slug: "waselny",
     title_ar: "وصلني",
     title_en: "Waselny",
+    client: {
+      ar: "مشروع ذاتي",
+      en: "Self-initiated",
+    },
     serviceLine: "brand",
     featured: true,
     cover: "/work/waselny/10.webp",
@@ -163,8 +167,8 @@ export const projects: Project[] = [
       en: "Mobility identity · Concept project",
     },
     context: {
-      ar: "مشروع تصوري داخلي لهوية خدمة نقل تشاركي في السعودية، كما هو موضح في عرض بيهانس.",
-      en: "An internal concept project for a ride-sharing service in Saudi Arabia, as identified in the Behance presentation.",
+      ar: "مشروع تصوري داخلي لهوية خدمة نقل تشاركي في السعودية.",
+      en: "An internal concept project for a ride-sharing service in Saudi Arabia.",
     },
     decision: {
       ar: "بناء العلامة من رمز الموقع والحرف العربي، مع تدرّج لوني يصل بين البرتقالي والوردي.",
@@ -392,6 +396,14 @@ export const projects: Project[] = [
     slug: "logofolio-2020",
     title_ar: "مجموعة شعارات 2020",
     title_en: "Logofolio 2020",
+    discipline: {
+      ar: "شعارات لقطاعات متعددة",
+      en: "Logos across sectors",
+    },
+    client: {
+      ar: "عملاء متعددون",
+      en: "Various clients",
+    },
     serviceLine: "brand",
     year: "2020",
     cover: "/work/logofolio-2020/02.webp",
@@ -478,7 +490,7 @@ export const projects: Project[] = [
     selectionRank: 7,
     cover: ekaa12,
     preview: ekaa09,
-    discipline: { ar: "إعادة بناء الهوية", en: "Rebranding" },
+    discipline: { ar: "تحديث علامة قائمة", en: "Refresh of an established brand" },
     gallery: gallery(
       [ekaa01, ekaa06, ekaa07, ekaa09, ekaa10, ekaa11, ekaa12],
       "إعادة بناء هوية إيكا",
@@ -505,6 +517,14 @@ export const projects: Project[] = [
     legacyId: 2,
     title_ar: "مجموعة شعارات #2",
     title_en: "Logofolio #2",
+    discipline: {
+      ar: "شعارات لقطاعات متعددة",
+      en: "Logos across sectors",
+    },
+    client: {
+      ar: "عملاء متعددون",
+      en: "Various clients",
+    },
     serviceLine: "brand",
     cover:
       "/work/logofolio-2/90186d.webp",
@@ -674,6 +694,10 @@ export const projects: Project[] = [
     legacyId: 8,
     title_ar: "علامة نساق",
     title_en: "Nasaq Branding",
+    discipline: {
+      ar: "هوية بالحرف العربي",
+      en: "Arabic letterform identity",
+    },
     serviceLine: "brand",
     cover:
       "/work/nasaq-branding/2bae2f.webp",
@@ -708,6 +732,10 @@ export const projects: Project[] = [
     legacyId: 9,
     title_ar: "سبأ للمقاولات",
     title_en: "Sabaa Construction",
+    discipline: {
+      ar: "هوية شركة مقاولات",
+      en: "Construction company identity",
+    },
     serviceLine: "brand",
     cover: sabaa05,
     featured: true,
@@ -741,6 +769,10 @@ export const projects: Project[] = [
     legacyId: 10,
     title_ar: "مجموعة المحرزي",
     title_en: "Al Mahrizi Group",
+    discipline: {
+      ar: "هوية مجموعة شركات",
+      en: "Group brand identity",
+    },
     serviceLine: "brand",
     cover: mahrizi11,
     featured: true,
@@ -774,6 +806,10 @@ export const projects: Project[] = [
     legacyId: 11,
     title_ar: "مغسلة أسدام الجبل",
     title_en: "Asdam Al Jabal Laundry",
+    discipline: {
+      ar: "هوية مغسلة",
+      en: "Laundry brand identity",
+    },
     serviceLine: "brand",
     cover: asdam07,
     featured: true,
@@ -807,6 +843,14 @@ export const projects: Project[] = [
     legacyId: 12,
     title_ar: "بروفايل شركة فعّال للصناعة",
     title_en: "Feaal Industry Profile",
+    discipline: {
+      ar: "ملف تعريفي لشركة صناعية",
+      en: "Industrial company profile",
+    },
+    client: {
+      ar: "فعّال للصناعة",
+      en: "Feaal Industry",
+    },
     serviceLine: "brand",
     cover: feaalCover,
     featured: true,
@@ -833,6 +877,14 @@ export const projects: Project[] = [
     legacyId: 13,
     title_ar: "بروفايل منصة تملُك",
     title_en: "Tamaluk Platform Profile",
+    discipline: {
+      ar: "ملف تعريفي لمنصة استثمار عقاري",
+      en: "Real-estate investment platform profile",
+    },
+    client: {
+      ar: "منصة تملُك",
+      en: "Tamaluk",
+    },
     serviceLine: "brand",
     cover: tamalukCover,
     featured: true,

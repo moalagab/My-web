@@ -89,6 +89,17 @@ test("the work page links every case study in its raw HTML", async ({ request })
   }
 });
 
+test("case-study descriptions end on a full sentence, not an ellipsis", async ({ request }) => {
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  const paths = [...sitemap.matchAll(new RegExp(`<loc>${SITE}((?:/en)?/work/[^<]+)</loc>`, "g"))].map((m) => m[1]);
+  expect(paths.length).toBeGreaterThan(10);
+  for (const path of paths) {
+    const html = await (await request.get(path)).text();
+    const description = html.match(/name="description" content="([^"]*)"/)?.[1] ?? "";
+    expect.soft(description.endsWith("…"), `${path}: ${description}`).toBe(false);
+  }
+});
+
 test("unknown URLs get a real 404 on Vercel: no catch-all rewrite, and a 404.html exists", async ({ request }) => {
   const vercel = JSON.parse(readFileSync("vercel.json", "utf8"));
   const sources = vercel.rewrites.map((r: { source: string }) => r.source);

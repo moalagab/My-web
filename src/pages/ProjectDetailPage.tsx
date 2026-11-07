@@ -101,14 +101,22 @@ const ProjectDetailPage = () => {
     { key: "result", value: project.result },
   ];
 
-  // Search snippet: the project's context, then what was decided and built, cut at a word under 158 characters.
-  const fullDescription = [project.context?.[lang], project.decision?.[lang], project.system?.[lang]]
-    .filter(Boolean)
-    .join(" ") || title;
-  const description =
-    fullDescription.length <= 158
-      ? fullDescription
-      : `${fullDescription.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+  // Search snippet: the project's context, then what was decided and built, as whole
+  // sentences up to 158 characters, so the snippet never stops mid-sentence. Only a
+  // single sentence longer than that is cut at a word.
+  const sentences = [project.context?.[lang], project.decision?.[lang], project.system?.[lang]].filter(
+    (part): part is string => !!part,
+  );
+  const fitting: string[] = [];
+  for (const sentence of sentences) {
+    if ([...fitting, sentence].join(" ").length > 158) break;
+    fitting.push(sentence);
+  }
+  const description = fitting.length
+    ? fitting.join(" ")
+    : sentences[0]
+      ? `${sentences[0].slice(0, 157).replace(/\s+\S*$/, "")}…`
+      : title;
 
   // "Name: discipline | Mo Alagab", dropping the discipline when the title would pass 62 characters.
   const brand = lang === "ar" ? "محمد العجب" : "Mo Alagab";

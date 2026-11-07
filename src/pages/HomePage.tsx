@@ -43,10 +43,14 @@ export default function HomePage() {
       <PageMeta
         title={
           ar
-            ? "محمد العجب — تصميم العلامات وبناء المنتجات"
-            : "Mo Alagab — Brand Design & Digital Products"
+            ? "محمد العجب | مصمم هوية بصرية وعلامات تجارية في الرياض"
+            : "Mo Alagab | Brand Identity Designer in Riyadh, Saudi Arabia"
         }
-        description={h.hero.body}
+        description={
+          ar
+            ? "مصمم هوية بصرية في الرياض بخبرة تتجاوز 12 سنة وأكثر من 40 نظام هوية في السعودية وعُمان والسودان، وأبني مواقع وأنظمة أتمتة بالذكاء الاصطناعي."
+            : "Brand identity designer in Riyadh with 12+ years and 40+ identity systems across Saudi Arabia, Oman and Sudan. I also build websites and AI automation."
+        }
       />
       <Navigation />
       <main id="main-content" className="studio-home">

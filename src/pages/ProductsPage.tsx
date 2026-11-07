@@ -38,6 +38,23 @@ export default function ProductsPage() {
   return (
     <>
       <PageMeta title={d.productsPage.metaTitle} description={d.productsPage.metaDescription} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "@id": "https://moalagab.art/products#lifetent",
+            name: "LifeTent",
+            applicationCategory: "LifestyleApplication",
+            operatingSystem: "Web",
+            url: "https://www.lifetent.online/",
+            description: d.home.products.items[0].body,
+            inLanguage: lang,
+            creator: { "@id": "https://moalagab.art/#person" },
+          }),
+        }}
+      />
       <Navigation />
       <main className="products-page" id="main-content">
         <PageHero
