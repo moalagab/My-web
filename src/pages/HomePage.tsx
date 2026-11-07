@@ -196,11 +196,13 @@ export default function HomePage() {
                   <div className="bento-body">
                     <h3 dir="ltr">{p.name}</h3>
                     <p>{p.body}</p>
-                    <a href={p.url} target="_blank" rel="noreferrer" className="bento-link">
-                      {h.products.visit}
-                      <span className="sr-only">: {p.name}</span>
-                      <ArrowUpRight className={arrow} size={16} />
-                    </a>
+                    {p.url && (
+                      <a href={p.url} target="_blank" rel="noreferrer" className="bento-link">
+                        {h.products.visit}
+                        <span className="sr-only">: {p.name}</span>
+                        <ArrowUpRight className={arrow} size={16} />
+                      </a>
+                    )}
                   </div>
                 </li>
               ))}

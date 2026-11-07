@@ -1,5 +1,5 @@
 import type { Config } from "@react-router/dev/config";
-import { readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { writeImageVariants } from "./scripts/image-variants.mjs";
 
@@ -58,6 +58,12 @@ export default {
     writeFileSync(
       path.join(reactRouterConfig.buildDirectory, "client", "sitemap.xml"),
       sitemap(),
+    );
+    // Vercel serves 404.html with status 404 for paths with no file; the app
+    // shell then renders the NotFound route in the visitor's language.
+    copyFileSync(
+      path.join(reactRouterConfig.buildDirectory, "client", "__spa-fallback.html"),
+      path.join(reactRouterConfig.buildDirectory, "client", "404.html"),
     );
     await writeImageVariants(path.join(reactRouterConfig.buildDirectory, "client"));
   },
