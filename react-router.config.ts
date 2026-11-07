@@ -1,7 +1,7 @@
 import type { Config } from "@react-router/dev/config";
 import { copyFileSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { writeImageVariants } from "./scripts/image-variants.mjs";
+import { writeCaseShareImages, writeImageVariants } from "./scripts/image-variants.mjs";
 
 const SITE = "https://moalagab.art";
 
@@ -66,5 +66,6 @@ export default {
       path.join(reactRouterConfig.buildDirectory, "client", "404.html"),
     );
     await writeImageVariants(path.join(reactRouterConfig.buildDirectory, "client"));
+    await writeCaseShareImages(path.join(reactRouterConfig.buildDirectory, "client"), projectSlugs);
   },
 } satisfies Config;

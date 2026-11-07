@@ -92,11 +92,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta property="og:site_name" content="Mohammed Alagab Portfolio" />
         <meta property="og:locale" content={en ? "en_US" : "ar_SA"} />
         <meta property="og:locale:alternate" content={en ? "ar_SA" : "en_US"} />
-        <meta property="og:image" content={`${SITE}/og.png`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={`${SITE}/og.png`} />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

@@ -108,6 +108,16 @@ test("homepage FAQ answers are in the raw HTML, not only after a click", async (
   }
 });
 
+test("each case study shares its own 1200x630 JPEG cover; other pages share og.png", async ({ request }) => {
+  const caseHtml = await (await request.get("/work/talia-bakery")).text();
+  expect(caseHtml.match(/property="og:image" content="([^"]+)"/g)).toHaveLength(1);
+  expect(caseHtml).toContain('property="og:image" content="https://moalagab.art/og/work/talia-bakery.jpg"');
+  const image = await request.get("/og/work/talia-bakery.jpg");
+  expect(image.status()).toBe(200);
+  expect(image.headers()["content-type"]).toContain("image/jpeg");
+  expect(await (await request.get("/")).text()).toContain('property="og:image" content="https://moalagab.art/og.png"');
+});
+
 test("unknown URLs get a real 404 on Vercel: no catch-all rewrite, and a 404.html exists", async ({ request }) => {
   const vercel = JSON.parse(readFileSync("vercel.json", "utf8"));
   const sources = vercel.rewrites.map((r: { source: string }) => r.source);

@@ -2,7 +2,7 @@
 // photo-abc123.webp -> photo-abc123-w640.avif, photo-abc123-w640.webp, ...
 // <Picture> (src/components/Picture.tsx) builds srcset from the same names, so
 // keep WIDTHS in sync with it.
-import { readdir } from "node:fs/promises";
+import { mkdir, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -47,4 +47,25 @@ export async function writeImageVariants(clientDir) {
   console.log(
     `Image variants: ${written} files for ${sources.length} sources in ${((Date.now() - started) / 1000).toFixed(1)}s`,
   );
+}
+
+/**
+ * One 1200×630 JPEG share card per case study, cropped from its cover, at
+ * /og/work/<slug>.jpg (ProjectDetailPage points og:image there). JPEG because
+ * not every link preview renders WebP. The cover is read from the prerendered
+ * page's CreativeWork image, so it follows whatever projects.ts sets.
+ */
+export async function writeCaseShareImages(clientDir, slugs) {
+  const out = path.join(clientDir, "og", "work");
+  await mkdir(out, { recursive: true });
+  for (const slug of slugs) {
+    const html = await readFile(path.join(clientDir, "work", slug, "index.html"), "utf8");
+    const cover = html.match(/"@type":"CreativeWork"[^<]*?"image":"https:\/\/moalagab\.art([^"]+)"/)?.[1];
+    if (!cover) throw new Error(`No CreativeWork image for ${slug}`);
+    await sharp(path.join(clientDir, decodeURI(cover)))
+      .resize(1200, 630, { fit: "cover", position: "attention" })
+      .flatten({ background: "#ffffff" })
+      .jpeg({ quality: 82, mozjpeg: true })
+      .toFile(path.join(out, `${slug}.jpg`));
+  }
 }
