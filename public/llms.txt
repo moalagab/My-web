@@ -19,6 +19,23 @@ Each service page answers the buyer's first questions: what it is, who it is for
 - [Start a project](https://moalagab.art/en/start): three-step brief form; replies within two business days.
 - [Arabic home](https://moalagab.art/) · [English home](https://moalagab.art/en)
 
+## Products
+
+- [LifeTent](https://www.lifetent.online/): an Arabic-first life system with eight modules for goals, tasks, finances and knowledge, Hijri and Gregorian calendars, and an AI assistant. Built by Mo.
+- [Products page](https://moalagab.art/en/products)
+
+## Selected case studies
+
+- [Talia Bakery](https://moalagab.art/en/work/talia-bakery): bakery identity and packaging.
+- [Gyptech](https://moalagab.art/en/work/gyptech-brand): industrial identity for a building-materials company.
+- [Rivers Essential Oils](https://moalagab.art/en/work/rivers-essential-oils): identity and packaging.
+- [Sabaa Construction](https://moalagab.art/en/work/sabaa-construction): construction company identity.
+- All case studies: https://moalagab.art/en/work
+
+## Arabic pages
+
+The Arabic version is the default. Each English URL has an Arabic twin without the /en prefix, for example [الأعمال](https://moalagab.art/work), [الخدمات](https://moalagab.art/services), [عن محمد العجب](https://moalagab.art/about).
+
 ## Contact
 
 - Email: mo@moalagab.art

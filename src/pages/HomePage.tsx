@@ -313,7 +313,8 @@ export default function HomePage() {
                   <AccordionTrigger className="py-6 text-start text-base hover:no-underline">
                     {f.question}
                   </AccordionTrigger>
-                  <AccordionContent className="pb-6 text-base leading-8">
+                  {/* forceMount keeps closed answers in the prerendered HTML (hidden), so crawlers and AI assistants can read them. */}
+                  <AccordionContent forceMount className="pb-6 text-base leading-8">
                     {f.answer}
                   </AccordionContent>
                 </AccordionItem>

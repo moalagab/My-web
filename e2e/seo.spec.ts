@@ -100,6 +100,14 @@ test("case-study descriptions end on a full sentence, not an ellipsis", async ({
   }
 });
 
+test("homepage FAQ answers are in the raw HTML, not only after a click", async ({ request }) => {
+  const ar = JSON.parse(readFileSync("src/i18n/ar.json", "utf8"));
+  const html = await (await request.get("/")).text();
+  for (const item of ar.home.faq.items as { answer: string }[]) {
+    expect.soft(html, item.answer).toContain(item.answer.slice(0, 30));
+  }
+});
+
 test("unknown URLs get a real 404 on Vercel: no catch-all rewrite, and a 404.html exists", async ({ request }) => {
   const vercel = JSON.parse(readFileSync("vercel.json", "utf8"));
   const sources = vercel.rewrites.map((r: { source: string }) => r.source);
