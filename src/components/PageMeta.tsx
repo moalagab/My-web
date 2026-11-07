@@ -7,6 +7,8 @@ type PageMetaProps = {
   description?: string;
   type?: "website" | "article";
   noindex?: boolean;
+  /** Share image, a 1200×630 path on this site. */
+  image?: string;
 };
 
 /**
@@ -14,7 +16,7 @@ type PageMetaProps = {
  * prerendered HTML. Indexable pages also get canonical and hreflang links,
  * so the SPA fallback and noindex pages never carry them.
  */
-export default function PageMeta({ title, description, type = "website", noindex }: PageMetaProps) {
+export default function PageMeta({ title, description, type = "website", noindex, image = "/og.png" }: PageMetaProps) {
   const { pathname } = useLocation();
   const trimmed = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
   const en = trimmed === "/en" || trimmed.startsWith("/en/");
@@ -29,6 +31,11 @@ export default function PageMeta({ title, description, type = "website", noindex
       <meta property="og:title" content={title} />
       {description && <meta property="og:description" content={description} />}
       <meta property="og:type" content={type} />
+      <meta property="og:image" content={`${SITE}${image}`} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={title} />
+      <meta name="twitter:image" content={`${SITE}${image}`} />
       <meta name="twitter:title" content={title} />
       {description && <meta name="twitter:description" content={description} />}
       {noindex ? (

@@ -133,6 +133,7 @@ const ProjectDetailPage = () => {
         title={metaTitle}
         description={description}
         type="article"
+        image={`/og/work/${project.slug}.jpg`}
       />
       <script
         type="application/ld+json"
