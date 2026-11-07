@@ -28,7 +28,7 @@ const jsonLd = [
     jobTitle: ["Brand Designer", "AI Product Builder"],
     description: "Brand Designer and AI Product Builder based in Riyadh.",
     knowsAbout: ["AI and Digital Solutions", "Events, Exhibitions and Brand Experiences", "Brand and Creative Solutions", "Business and Operations Solutions"],
-    worksFor: { "@type": "Organization", name: "Mohammed Alagab Design Studio", url: SITE },
+    worksFor: { "@id": `${SITE}/#service` },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Riyadh",
@@ -40,7 +40,6 @@ const jsonLd = [
     sameAs: [
       "https://www.behance.net/ma_alagab",
       "https://www.linkedin.com/in/moalagab",
-      "https://wa.me/966509989313",
     ],
   },
   {
@@ -69,7 +68,6 @@ const jsonLd = [
       addressRegion: "Riyadh Province",
       addressCountry: "SA",
     },
-    geo: { "@type": "GeoCoordinates", latitude: "24.7136", longitude: "46.6753" },
     areaServed: ["Saudi Arabia", "GCC", "Oman", "Sudan"],
     serviceType: ["AI & Digital Solutions", "Events, Exhibitions & Brand Experiences", "Brand & Creative Solutions", "Business & Operations Solutions"],
     founder: { "@id": `${SITE}/#person` },
