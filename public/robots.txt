@@ -24,6 +24,3 @@ Disallow: /en/styleguide
 
 # Sitemap location
 Sitemap: https://moalagab.art/sitemap.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1

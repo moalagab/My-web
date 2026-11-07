@@ -2532,6 +2532,9 @@ html[lang="ar"] .studio-cta h2 { letter-spacing: 0; line-height: 1.4; }
 .faq-rows { display: grid; gap: 10px; }
 .faq-rows > div { border: 0; border-radius: 24px; background: hsl(var(--background)); padding-inline: 32px; }
 .faq-rows button { font-size: 18px; font-weight: 700; }
+/* Answers stay in the DOM (forceMount) for crawlers. Closed ones collapse to 0
+   after the accordion-up animation, then hide from view and screen readers. */
+.faq-rows [role="region"][data-state="closed"] { height: 0; visibility: hidden; transition: visibility 0s 0.2s; }
 @media (max-width: 900px) {
   .about-gallery { grid-template-columns: 1fr 1fr; }
   .about-gallery li:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }}
