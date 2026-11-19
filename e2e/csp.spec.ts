@@ -9,12 +9,16 @@ const csp: string = vercel.headers
   .find((h: { key: string }) => h.key === "Content-Security-Policy").value
   .replace("upgrade-insecure-requests", "");
 
-for (const path of ["/", "/en/work", "/work/logofolio-2", "/services/brand", "/en/start?service=brand", "/admin"]) {
+for (const path of ["/", "/en/work", "/work/logofolio-2", "/services/brand", "/en/start?service=brand", "/admin", "/claude-guide"]) {
   test(`no CSP violations on ${path}`, async ({ page }) => {
     const violations: string[] = [];
     page.on("console", (m) => /Content Security Policy/.test(m.text()) && violations.push(m.text()));
     await page.route("**/*", async (route) => {
-      if (route.request().resourceType() !== "document") return route.continue();
+      // Vercel's header covers this site's documents only, not third-party frames like Turnstile.
+      const request = route.request();
+      if (request.resourceType() !== "document" || new URL(request.url()).hostname !== "127.0.0.1") {
+        return route.continue();
+      }
       const response = await route.fetch();
       await route.fulfill({
         response,
