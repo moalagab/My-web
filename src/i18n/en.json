@@ -739,6 +739,10 @@
         "body": "Only to respond to your request: reviewing the brief, contacting you, and preparing a written proposal. No newsletters, no marketing messages."
       },
       {
+        "title": "Claude Code guide updates",
+        "body": "If you sign up on the Claude Code guide page, I keep your email, your name and role if you add them, and where the visit came from. I use them for one thing: sending you the updated guide when it is ready. No marketing messages go to that address, and it never joins the project briefs. It is kept until you ask me to delete it, or for 12 months after the last update I sent, whichever comes first. You can opt out by replying to any message or by emailing me at the address below."
+      },
+      {
         "title": "How long I keep it",
         "body": "Briefs are kept for 12 months from the date they are sent, then deleted. If we work together, contract records are kept for as long as the law requires."
       },
@@ -764,7 +768,7 @@
       }
     ],
     "contactLabel": "To contact me about your data",
-    "updated": "Last updated: October 2026"
+    "updated": "Last updated: November 2026"
   },
   "aboutPage": {
     "metaTitle": "About Mohammed Alagab | Brand Designer in Riyadh since 2013",

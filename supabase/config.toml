@@ -2,3 +2,6 @@ project_id = "ogrsjrixowkogasgjajb"
 
 [functions.submit-lead]
 verify_jwt = false
+
+[functions.guide-signup]
+verify_jwt = false
